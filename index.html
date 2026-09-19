@@ -15,485 +15,284 @@
     body {
       margin: 0;
       background: #f5f1e8;
-      color: #263d2b;
+      color: #173d2b;
       font-family: Arial, "Noto Naskh Arabic", sans-serif;
     }
 
-    .header {
-      background: #234d32;
-      color: white;
+    header {
+      background: #173d2b;
+      color: #f4d27a;
       text-align: center;
-      padding: 15px 10px;
-      font-size: 22px;
+      padding: 14px 8px;
+      font-size: 24px;
       font-weight: bold;
     }
 
-    .sub {
-      text-align: center;
-      color: #b08a35;
-      font-size: 15px;
-      margin-top: 4px;
-    }
-
     .container {
-      max-width: 650px;
+      width: 100%;
+      max-width: 700px;
       margin: auto;
       padding: 12px;
     }
 
     textarea {
       width: 100%;
-      min-height: 180px;
+      min-height: 150px;
       resize: vertical;
-      border: 2px solid #b08a35;
+      border: 2px solid #b58b35;
       border-radius: 12px;
-      background: white;
-      padding: 15px;
-      font-size: 24px;
-      line-height: 2;
-      color: #222;
-      outline: none;
+      padding: 14px;
+      font-size: 25px;
+      line-height: 1.9;
       direction: rtl;
-      text-align: right;
-    }
-
-    textarea:focus {
-      border-color: #234d32;
-    }
-
-    .special-title {
-      text-align: center;
-      font-weight: bold;
-      margin: 14px 0 8px;
-      color: #234d32;
+      background: #fffdf7;
+      color: #173d2b;
+      outline: none;
     }
 
     .keyboard {
-      background: #e8dfcf;
-      padding: 10px;
-      border-radius: 15px;
-      border: 1px solid #c9b993;
+      margin-top: 12px;
     }
 
     .row {
       display: flex;
       flex-wrap: wrap;
       justify-content: center;
-      gap: 6px;
-      margin-bottom: 7px;
+      gap: 5px;
+      margin-bottom: 6px;
     }
 
     button {
-      border: 1px solid #b49a65;
-      background: #fffdf8;
-      color: #263d2b;
-      min-width: 42px;
+      border: 1px solid #b58b35;
+      background: #fffaf0;
+      color: #173d2b;
+      border-radius: 8px;
+      min-width: 39px;
       height: 46px;
-      border-radius: 9px;
-      font-size: 23px;
-      font-family: inherit;
+      padding: 3px 8px;
+      font-size: 22px;
       cursor: pointer;
-      box-shadow: 0 2px 3px rgba(0,0,0,0.08);
+      touch-action: manipulation;
     }
 
     button:active {
-      transform: scale(0.95);
-      background: #dfe9df;
+      background: #e8d5a3;
+      transform: scale(.96);
     }
 
-    .special button {
-      min-width: 48px;
-      font-size: 22px;
-    }
-
-    .letters button {
-      min-width: 40px;
-    }
-
-    .shift {
-      background: #234d32;
-      color: white;
-      border-color: #234d32;
-      min-width: 72px;
-      font-size: 18px;
-    }
-
-    .shift.active {
-      background: #b08a35;
-      border-color: #b08a35;
+    .special {
+      background: #ead9aa;
+      font-size: 21px;
     }
 
     .space {
-      min-width: 145px;
-      font-size: 17px;
-      direction: ltr;
+      flex: 1;
+      min-width: 150px;
+      font-size: 19px;
     }
 
     .action {
-      min-width: 75px;
-      font-size: 16px;
-      direction: ltr;
+      background: #173d2b;
+      color: #fff;
+      border-color: #173d2b;
+      font-size: 18px;
     }
 
-    .numbers {
-      display: none;
+    .clear {
+      background: #8b3a32;
+      color: white;
+      border-color: #8b3a32;
     }
 
-    .numbers button {
-      min-width: 55px;
-      font-size: 22px;
-    }
-
-    .hidden {
-      display: none;
-    }
-
-    .footer {
+    .title {
       text-align: center;
-      margin: 15px 0;
-      color: #777;
-      font-size: 13px;
+      margin: 12px 0 7px;
+      color: #8a6722;
+      font-size: 18px;
+      font-weight: bold;
+    }
+
+    .english button {
+      font-size: 19px;
+      direction: ltr;
     }
   </style>
 </head>
 
 <body>
 
-  <div class="header">
-    سنڌي شاعري ڪي بورڊ
-    <div class="sub">Sindhi Poetry Keyboard</div>
-  </div>
+<header>سنڌي شاعري ڪي بورڊ</header>
 
-  <div class="container">
+<div class="container">
 
-    <textarea
-      id="textBox"
-      placeholder="هتي سنڌي لکو..."
-      spellcheck="false"></textarea>
+  <textarea id="editor" placeholder="هتي سنڌي شاعري لکو..."></textarea>
 
-    <div class="special-title">خاص نشانيون</div>
+  <div class="keyboard">
 
-    <div class="keyboard">
+    <div class="title">خاص نشانيون</div>
 
-      <!-- NORMAL KEYBOARD -->
-      <div id="normalKeyboard">
-
-        <!-- Special characters -->
-        <div class="row special">
-          <button onclick="typeChar('ـ')">ـ</button>
-          <button onclick="typeChar('َ')">َ</button>
-          <button onclick="typeChar('ِ')">ِ</button>
-          <button onclick="typeChar('ُ')">ُ</button>
-          <button onclick="typeChar('ْ')">ْ</button>
-          <button onclick="typeChar('ّ')">ّ</button>
-          <button onclick="typeChar('ٰ')">ٰ</button>
-          <button class="shift" onclick="showShift()">Shift</button>
-        </div>
-
-        <!-- Row 1 -->
-        <div class="row letters">
-          <button onclick="typeChar('چ')">چ</button>
-          <button onclick="typeChar('ڇ')">ڇ</button>
-          <button onclick="typeChar('پ')">پ</button>
-          <button onclick="typeChar('و')">و</button>
-          <button onclick="typeChar('ڳ')">ڳ</button>
-          <button onclick="typeChar('ع')">ع</button>
-          <button onclick="typeChar('ٿ')">ٿ</button>
-          <button onclick="typeChar('ت')">ت</button>
-          <button onclick="typeChar('ر')">ر</button>
-          <button onclick="typeChar('ي')">ي</button>
-          <button onclick="typeChar('ص')">ص</button>
-          <button onclick="typeChar('ق')">ق</button>
-        </div>
-
-        <!-- Row 2 -->
-        <div class="row letters">
-          <button onclick="typeChar('ڍ')">ڍ</button>
-          <button onclick="typeChar('ڱ')">ڱ</button>
-          <button onclick="typeChar('ک')">ک</button>
-          <button onclick="typeChar('ل')">ل</button>
-          <button onclick="typeChar('ڪ')">ڪ</button>
-          <button onclick="typeChar('ج')">ج</button>
-          <button onclick="typeChar('ه')">ه</button>
-          <button onclick="typeChar('گ')">گ</button>
-          <button onclick="typeChar('ف')">ف</button>
-          <button onclick="typeChar('د')">د</button>
-          <button onclick="typeChar('س')">س</button>
-          <button onclick="typeChar('ا')">ا</button>
-        </div>
-
-        <!-- Row 3 -->
-        <div class="row letters">
-          <button class="action" onclick="deleteChar()">Delete</button>
-          <button onclick="typeChar('ئ')">ئ</button>
-          <button onclick="typeChar('م')">م</button>
-          <button onclick="typeChar('ن')">ن</button>
-          <button onclick="typeChar('ب')">ب</button>
-          <button onclick="typeChar('ڀ')">ڀ</button>
-          <button onclick="typeChar('ط')">ط</button>
-          <button onclick="typeChar('خ')">خ</button>
-          <button onclick="typeChar('ز')">ز</button>
-          <button class="shift" onclick="showShift()">Shift</button>
-          <button onclick="typeChar('\n')">←</button>
-        </div>
-
-        <!-- Bottom -->
-        <div class="row">
-          <button class="action" onclick="sendText()">Send</button>
-          <button onclick="typeChar('،')">،</button>
-          <button onclick="typeChar('.')">.</button>
-          <button class="space" onclick="typeChar(' ')">Space</button>
-          <button class="action" onclick="showNumbers()">123</button>
-          <button class="action" onclick="showKeyboard()">Keyboard</button>
-        </div>
-
-      </div>
-
-
-      <!-- SHIFT KEYBOARD -->
-      <div id="shiftKeyboard" class="hidden">
-
-        <div class="row letters">
-          <button onclick="typeChar('ڄ')">ڄ</button>
-          <button onclick="typeChar('ڃ')">ڃ</button>
-          <button onclick="typeChar('ڦ')">ڦ</button>
-          <button onclick="typeChar('ُ')">ُ</button>
-          <button onclick="typeChar('ھ')">ھ</button>
-          <button onclick="typeChar('غ')">غ</button>
-          <button onclick="typeChar('ث')">ث</button>
-          <button onclick="typeChar('ٽ')">ٽ</button>
-          <button onclick="typeChar('ڙ')">ڙ</button>
-          <button onclick="typeChar('ض')">ض</button>
-        </div>
-
-        <div class="row letters">
-          <button onclick="typeChar('ٺ')">ٺ</button>
-          <button onclick="typeChar('ڌ')">ڌ</button>
-          <button onclick="typeChar('ڏ')">ڏ</button>
-          <button onclick="typeChar('۽')">۽</button>
-          <button onclick="typeChar('ۡ')">ۡ</button>
-          <button onclick="typeChar('ح')">ح</button>
-          <button onclick="typeChar('ڦ')">ڦ</button>
-          <button onclick="typeChar('ڊ')">ڊ</button>
-          <button onclick="typeChar('ش')">ش</button>
-          <button onclick="typeChar('آ')">آ</button>
-        </div>
-
-        <div class="row letters">
-          <button class="action" onclick="deleteChar()">Delete</button>
-          <button onclick="typeChar('۾')">۾</button>
-          <button onclick="typeChar('ڻ')">ڻ</button>
-          <button onclick="typeChar('ٻ')">ٻ</button>
-          <button onclick="typeChar('ء')">ء</button>
-          <button onclick="typeChar('ظ')">ظ</button>
-          <button onclick="typeChar('ّ')">ّ</button>
-          <button onclick="typeChar('ذ')">ذ</button>
-          <button class="shift active" onclick="showNormal()">Shift</button>
-        </div>
-
-        <div class="row">
-          <button class="action" onclick="typeChar('\n')">Enter</button>
-          <button onclick="typeChar('→')">Arrow</button>
-          <button onclick="typeChar('َ')">Zabar</button>
-          <button onclick="typeChar('ِ')">Zer</button>
-          <button onclick="typeChar('ْ')">Jazam</button>
-          <button class="space" onclick="typeChar(' ')">Space</button>
-          <button class="action" onclick="showNumbers()">123</button>
-          <button class="action" onclick="showKeyboard()">Keyboard</button>
-        </div>
-
-        <!-- Special forms -->
-        <div class="row">
-          <button onclick="typeChar('ہ')">ہ</button>
-          <button onclick="typeChar('ى')">ى</button>
-          <button onclick="typeChar('ه')">ه</button>
-          <button onclick="typeChar('ھ')">ھ</button>
-          <button onclick="typeChar('نہ')">نہ</button>
-          <button onclick="typeChar('نه')">نه</button>
-        </div>
-
-        <!-- Long character -->
-        <div class="row">
-          <button onclick="typeChar('ـ')">ـ</button>
-          <button onclick="typeChar('ٰ')">ٰ</button>
-        </div>
-
-      </div>
-
-
-      <!-- NUMBERS KEYBOARD -->
-      <div id="numbersKeyboard" class="numbers">
-
-        <div class="row">
-          <button onclick="typeChar('1')">1</button>
-          <button onclick="typeChar('2')">2</button>
-          <button onclick="typeChar('3')">3</button>
-          <button onclick="typeChar('4')">4</button>
-          <button onclick="typeChar('5')">5</button>
-        </div>
-
-        <div class="row">
-          <button onclick="typeChar('6')">6</button>
-          <button onclick="typeChar('7')">7</button>
-          <button onclick="typeChar('8')">8</button>
-          <button onclick="typeChar('9')">9</button>
-          <button onclick="typeChar('0')">0</button>
-        </div>
-
-        <div class="row">
-          <button class="action" onclick="deleteChar()">Delete</button>
-          <button class="action" onclick="showKeyboard()">Keyboard</button>
-          <button class="space" onclick="typeChar(' ')">Space</button>
-        </div>
-
-      </div>
-
+    <div class="row">
+      <button class="special" onclick="insertText('ـ')">ـ</button>
+      <button class="special" onclick="insertText('َ')">َ</button>
+      <button class="special" onclick="insertText('ِ')">ِ</button>
+      <button class="special" onclick="insertText('ُ')">ُ</button>
+      <button class="special" onclick="insertText('ْ')">ْ</button>
+      <button class="special" onclick="insertText('ّ')">ّ</button>
+      <button class="special" onclick="insertText('ٰ')">ٰ</button>
     </div>
 
-    <div class="footer">
-      سنڌي شاعري لاءِ تيار ڪيل ڪي بورڊ
+    <div class="title">سنڌي اکر</div>
+
+    <div class="row">
+      <button onclick="insertText('ا')">ا</button>
+      <button onclick="insertText('ب')">ب</button>
+      <button onclick="insertText('ٻ')">ٻ</button>
+      <button onclick="insertText('پ')">پ</button>
+      <button onclick="insertText('ڀ')">ڀ</button>
+      <button onclick="insertText('ت')">ت</button>
+      <button onclick="insertText('ٺ')">ٺ</button>
+      <button onclick="insertText('ٽ')">ٽ</button>
+      <button onclick="insertText('ث')">ث</button>
+      <button onclick="insertText('ٿ')">ٿ</button>
+      <button onclick="insertText('ف')">ف</button>
+      <button onclick="insertText('ڦ')">ڦ</button>
+      <button onclick="insertText('گ')">گ</button>
+      <button onclick="insertText('ڳ')">ڳ</button>
+      <button onclick="insertText('ڱ')">ڱ</button>
+      <button onclick="insertText('ک')">ک</button>
+      <button onclick="insertText('ي')">ي</button>
+      <button onclick="insertText('ى')">ى</button>
+      <button onclick="insertText('د')">د</button>
+    </div>
+
+    <div class="row">
+      <button onclick="insertText('ج')">ج</button>
+      <button onclick="insertText('ڄ')">ڄ</button>
+      <button onclick="insertText('جهه')">جهه</button>
+      <button onclick="insertText('چ')">چ</button>
+      <button onclick="insertText('ڇ')">ڇ</button>
+      <button onclick="insertText('ح')">ح</button>
+      <button onclick="insertText('خ')">خ</button>
+      <button onclick="insertText('ر')">ر</button>
+      <button onclick="insertText('ڙ')">ڙ</button>
+      <button onclick="insertText('ز')">ز</button>
+      <button onclick="insertText('س')">س</button>
+      <button onclick="insertText('ش')">ش</button>
+      <button onclick="insertText('ص')">ص</button>
+      <button onclick="insertText('ض')">ض</button>
+    </div>
+
+    <div class="row">
+      <button onclick="insertText('ط')">ط</button>
+      <button onclick="insertText('ظ')">ظ</button>
+      <button onclick="insertText('ع')">ع</button>
+      <button onclick="insertText('غ')">غ</button>
+      <button onclick="insertText('ل')">ل</button>
+      <button onclick="insertText('م')">م</button>
+      <button onclick="insertText('ن')">ن</button>
+      <button onclick="insertText('و')">و</button>
+      <button onclick="insertText('ه')">ه</button>
+      <button onclick="insertText('ء')">ء</button>
+      <button onclick="insertText('ئ')">ئ</button>
+      <button onclick="insertText('ے')">ے</button>
+      <button onclick="insertText('ؤ')">ؤ</button>
+    </div>
+
+    <div class="row">
+      <button class="space" onclick="insertText(' ')">Space</button>
+      <button class="action" onclick="backspace()">⌫</button>
+      <button class="action" onclick="insertText('\n')">Enter</button>
+      <button class="clear" onclick="clearText()">صاف</button>
+    </div>
+
+    <div class="title">English Keyboard</div>
+
+    <div class="row english">
+      <button onclick="insertText('q')">Q</button>
+      <button onclick="insertText('w')">W</button>
+      <button onclick="insertText('e')">E</button>
+      <button onclick="insertText('r')">R</button>
+      <button onclick="insertText('t')">T</button>
+      <button onclick="insertText('y')">Y</button>
+      <button onclick="insertText('u')">U</button>
+      <button onclick="insertText('i')">I</button>
+      <button onclick="insertText('o')">O</button>
+      <button onclick="insertText('p')">P</button>
+    </div>
+
+    <div class="row english">
+      <button onclick="insertText('a')">A</button>
+      <button onclick="insertText('s')">S</button>
+      <button onclick="insertText('d')">D</button>
+      <button onclick="insertText('f')">F</button>
+      <button onclick="insertText('g')">G</button>
+      <button onclick="insertText('h')">H</button>
+      <button onclick="insertText('j')">J</button>
+      <button onclick="insertText('k')">K</button>
+      <button onclick="insertText('l')">L</button>
+    </div>
+
+    <div class="row english">
+      <button onclick="insertText('z')">Z</button>
+      <button onclick="insertText('x')">X</button>
+      <button onclick="insertText('c')">C</button>
+      <button onclick="insertText('v')">V</button>
+      <button onclick="insertText('b')">B</button>
+      <button onclick="insertText('n')">N</button>
+      <button onclick="insertText('m')">M</button>
     </div>
 
   </div>
+</div>
 
+<script>
+  const editor = document.getElementById("editor");
 
-  <script>
+  function insertText(text) {
+    const start = editor.selectionStart;
+    const end = editor.selectionEnd;
 
-    const textBox = document.getElementById("textBox");
-    const normalKeyboard = document.getElementById("normalKeyboard");
-    const shiftKeyboard = document.getElementById("shiftKeyboard");
-    const numbersKeyboard = document.getElementById("numbersKeyboard");
+    editor.value =
+      editor.value.substring(0, start) +
+      text +
+      editor.value.substring(end);
 
+    editor.focus();
 
-    function typeChar(char) {
+    const newPosition = start + text.length;
+    editor.setSelectionRange(newPosition, newPosition);
+  }
 
-      const value = textBox.value;
-      const start = textBox.selectionStart;
-      const end = textBox.selectionEnd;
+  function backspace() {
+    const start = editor.selectionStart;
+    const end = editor.selectionEnd;
 
-      textBox.value =
-        value.substring(0, start) +
-        char +
-        value.substring(end);
+    if (start !== end) {
+      editor.value =
+        editor.value.substring(0, start) +
+        editor.value.substring(end);
 
-      textBox.focus();
-
-      const newPosition = start + char.length;
-
-      textBox.setSelectionRange(
-        newPosition,
-        newPosition
-      );
+      editor.setSelectionRange(start, start);
+      editor.focus();
+      return;
     }
 
+    if (start > 0) {
+      editor.value =
+        editor.value.substring(0, start - 1) +
+        editor.value.substring(start);
 
-    function showShift() {
-
-      normalKeyboard.style.display = "none";
-      shiftKeyboard.classList.remove("hidden");
-      numbersKeyboard.style.display = "none";
-
-      textBox.focus();
+      editor.setSelectionRange(start - 1, start - 1);
     }
 
+    editor.focus();
+  }
 
-    function showNormal() {
-
-      normalKeyboard.style.display = "block";
-      shiftKeyboard.classList.add("hidden");
-      numbersKeyboard.style.display = "none";
-
-      textBox.focus();
-    }
-
-
-    function showNumbers() {
-
-      normalKeyboard.style.display = "none";
-      shiftKeyboard.classList.add("hidden");
-      numbersKeyboard.style.display = "block";
-
-      textBox.focus();
-    }
-
-
-    function showKeyboard() {
-
-      showNormal();
-
-      textBox.focus();
-    }
-
-
-    function deleteChar() {
-
-      const start = textBox.selectionStart;
-      const end = textBox.selectionEnd;
-      const value = textBox.value;
-
-      if (start !== end) {
-
-        textBox.value =
-          value.substring(0, start) +
-          value.substring(end);
-
-        textBox.setSelectionRange(start, start);
-
-      } else if (start > 0) {
-
-        const chars = Array.from(value);
-
-        chars.splice(start - 1, 1);
-
-        textBox.value = chars.join("");
-
-        const newPosition = Math.max(0, start - 1);
-
-        textBox.setSelectionRange(
-          newPosition,
-          newPosition
-        );
-      }
-
-      textBox.focus();
-    }
-
-
-    function clearText() {
-
-      textBox.value = "";
-
-      showNormal();
-
-      textBox.focus();
-    }
-
-
-    function sendText() {
-
-      if (!textBox.value.trim()) {
-
-        alert("Please write something first.");
-
-        return;
-      }
-
-      if (navigator.share) {
-
-        navigator.share({
-          text: textBox.value
-        }).catch(() => {});
-
-      } else {
-
-        navigator.clipboard.writeText(textBox.value);
-
-        alert("Text copied.");
-
-      }
-    }
-
-  </script>
+  function clearText() {
+    editor.value = "";
+    editor.focus();
+  }
+</script>
 
 </body>
 </html>
