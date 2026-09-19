@@ -262,6 +262,11 @@ input[type="color"]{
   color:white;
 }
 
+.send-btn{
+  background:#c9a646;
+  color:#173f35;
+}
+
 .clear-btn{
   background:#9b4938;
   color:white;
@@ -396,8 +401,7 @@ footer{
     <textarea
       id="writingArea"
       spellcheck="false"
-      placeholder="هتي پنهنجي شاعري لکو...">
-    </textarea>
+      placeholder="هتي پنهنجي شاعري لکو..."></textarea>
 
   </div>
 
@@ -582,6 +586,13 @@ footer{
       </button>
 
       <button
+        class="send-btn"
+        id="sendBtn"
+        type="button">
+        📤 Send
+      </button>
+
+      <button
         class="clear-btn"
         id="clearBtn"
         type="button">
@@ -628,6 +639,7 @@ function insertText(text){
   const newPosition = start + text.length;
 
   textarea.focus();
+
   textarea.setSelectionRange(
     newPosition,
     newPosition
@@ -658,10 +670,13 @@ document.querySelectorAll(
     );
 
     if(shiftMode){
+
       shiftMode=false;
+
       shiftBtn.classList.remove(
         "shift-active"
       );
+
     }
 
   });
@@ -823,6 +838,7 @@ document.getElementById(
         textarea.value.substring(end);
 
       textarea.focus();
+
       textarea.setSelectionRange(
         start,
         start
@@ -912,8 +928,7 @@ textColor.addEventListener(
     /*
       Textarea cannot color only one
       selected word directly.
-      For now the selected text is
-      remembered for the next stage.
+      Existing color logic is kept.
     */
 
     if(start !== end){
@@ -972,6 +987,7 @@ document.getElementById(
     }catch(error){
 
       textarea.select();
+
       document.execCommand("copy");
 
       this.textContent =
@@ -981,6 +997,86 @@ document.getElementById(
         this.textContent =
           "📋 ڪاپي";
       },1500);
+
+    }
+
+  }
+);
+
+
+/* -----------------------------
+   SEND / SHARE
+----------------------------- */
+
+document.getElementById(
+  "sendBtn"
+).addEventListener(
+  "click",
+  async function(){
+
+    const text =
+      textarea.value.trim();
+
+    if(!text){
+
+      alert(
+        "مهرباني ڪري پهريان شاعري لکو."
+      );
+
+      textarea.focus();
+
+      return;
+    }
+
+    if(navigator.share){
+
+      try{
+
+        await navigator.share({
+
+          title:"سنڌي شاعري",
+
+          text:text
+
+        });
+
+      }catch(error){
+
+        if(error.name !== "AbortError"){
+
+          alert(
+            "Send ڪرڻ ۾ مسئلو ٿيو."
+          );
+
+        }
+
+      }
+
+    }else{
+
+      try{
+
+        await navigator.clipboard.writeText(
+          text
+        );
+
+        this.textContent =
+          "✓ ڪاپي ٿي وئي";
+
+        setTimeout(()=>{
+
+          this.textContent =
+            "📤 Send";
+
+        },1500);
+
+      }catch(error){
+
+        alert(
+          "هن موبائيل ۾ Share سهولت موجود ناهي."
+        );
+
+      }
 
     }
 
@@ -1000,7 +1096,9 @@ document.getElementById(
 
     if(
       textarea.value === "" ||
-      confirm("ڇا سڄو لکيل متن صاف ڪجي؟")
+      confirm(
+        "ڇا سڄو لکيل متن صاف ڪجي؟"
+      )
     ){
 
       textarea.value = "";
@@ -1020,7 +1118,9 @@ document.getElementById(
 document.addEventListener(
   "gesturestart",
   function(event){
+
     event.preventDefault();
+
   }
 );
 
