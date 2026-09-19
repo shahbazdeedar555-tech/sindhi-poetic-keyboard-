@@ -8,9 +8,7 @@
 <title>سنڌي شاعري ڪي بورڊ</title>
 
 <style>
-*{
-  box-sizing:border-box;
-}
+*{box-sizing:border-box}
 
 body{
   margin:0;
@@ -36,7 +34,9 @@ header p{
   color:#fff4d0;
 }
 
-.settings{
+.settings,
+.editor,
+.keyboard-box{
   max-width:950px;
   margin:12px auto;
   padding:14px;
@@ -78,13 +78,18 @@ input[type="number"]{
   cursor:pointer;
 }
 
+.color-button{
+  background:#173f35;
+  color:white;
+  border:0;
+  border-radius:8px;
+  padding:9px 13px;
+  cursor:pointer;
+  font-size:16px;
+}
+
 .editor{
-  max-width:950px;
-  margin:12px auto;
   padding:10px;
-  background:#fffdf7;
-  border:2px solid #d3b568;
-  border-radius:14px;
 }
 
 #editor{
@@ -104,15 +109,6 @@ input[type="number"]{
 #editor:empty:before{
   content:"هتي شاعري لکو...";
   color:#999;
-}
-
-.keyboard-box{
-  max-width:950px;
-  margin:12px auto;
-  padding:12px;
-  background:#fffdf7;
-  border:2px solid #d3b568;
-  border-radius:14px;
 }
 
 .title{
@@ -161,16 +157,6 @@ input[type="number"]{
   min-width:145px !important;
 }
 
-.color-button{
-  background:#173f35;
-  color:white;
-  border:0;
-  border-radius:8px;
-  padding:9px 13px;
-  cursor:pointer;
-  font-size:16px;
-}
-
 .english{
   direction:ltr;
 }
@@ -188,10 +174,7 @@ input[type="number"]{
 }
 
 @media(max-width:600px){
-
-  header h1{
-    font-size:21px;
-  }
+  header h1{font-size:21px}
 
   .key{
     min-width:37px;
@@ -203,7 +186,6 @@ input[type="number"]{
   .space{
     min-width:120px !important;
   }
-
 }
 </style>
 </head>
@@ -220,33 +202,17 @@ input[type="number"]{
   <h2>🖋️ فانٽ ۽ ڪلر سليڪشن</h2>
 
   <div class="setting-row">
-
     <label>فانٽ:</label>
 
     <select id="fontSelect">
-
-      <option value='"Jameel Noori Nastaleeq", serif'>
-        Jameel Noori Nastaleeq
-      </option>
-
-      <option value="Arial, sans-serif">
-        Arial
-      </option>
-
-      <option value='"Noto Nastaliq Urdu", serif'>
-        Noto Nastaliq Urdu
-      </option>
-
-      <option value="serif">
-        Serif
-      </option>
-
+      <option value='"Jameel Noori Nastaleeq", serif'>Jameel Noori Nastaleeq</option>
+      <option value="Arial, sans-serif">Arial</option>
+      <option value='"Noto Nastaliq Urdu", serif'>Noto Nastaliq Urdu</option>
+      <option value="serif">Serif</option>
     </select>
-
   </div>
 
   <div class="setting-row">
-
     <label>سائيز:</label>
 
     <input
@@ -258,11 +224,9 @@ input[type="number"]{
     >
 
     <span>px</span>
-
   </div>
 
   <div class="setting-row">
-
     <label>چونڊيل لفظ جو رنگ:</label>
 
     <input
@@ -279,7 +243,6 @@ input[type="number"]{
     >
       رنگ ختم
     </button>
-
   </div>
 
 </div>
@@ -406,21 +369,13 @@ input[type="number"]{
 
   <div class="keys" style="margin-top:8px;">
 
-    <button class="key space" onclick="insertText(' ')">
-      Space
-    </button>
+    <button class="key space" onclick="insertText(' ')">Space</button>
 
-    <button class="key control" onclick="backspace()">
-      ⌫
-    </button>
+    <button class="key control" onclick="backspace()">⌫</button>
 
-    <button class="key control" onclick="insertText('\n')">
-      Enter
-    </button>
+    <button class="key control" onclick="insertText('\n')">Enter</button>
 
-    <button class="key clear" onclick="clearText()">
-      صاف
-    </button>
+    <button class="key clear" onclick="clearText()">صاف</button>
 
   </div>
 
@@ -494,36 +449,12 @@ function saveSelection(){
     editor.contains(selection.anchorNode) &&
     editor.contains(selection.focusNode)
   ){
-
     savedRange = selection.getRangeAt(0).cloneRange();
-
+    return true;
   }
 
+  return false;
 }
-
-
-/* Mouse / Keyboard */
-
-editor.addEventListener("mouseup",function(){
-
-  setTimeout(saveSelection,0);
-
-});
-
-editor.addEventListener("keyup",function(){
-
-  setTimeout(saveSelection,0);
-
-});
-
-
-/* Mobile */
-
-editor.addEventListener("touchend",function(){
-
-  setTimeout(saveSelection,100);
-
-});
 
 
 /* =========================
@@ -538,9 +469,7 @@ function restoreSelection(){
     !editor.contains(savedRange.startContainer) ||
     !editor.contains(savedRange.endContainer)
   ){
-
     return false;
-
   }
 
   const selection = window.getSelection();
@@ -549,8 +478,24 @@ function restoreSelection(){
   selection.addRange(savedRange);
 
   return true;
-
 }
+
+
+/* =========================
+   EDITOR SELECTION
+========================= */
+
+editor.addEventListener("mouseup",function(){
+  setTimeout(saveSelection,10);
+});
+
+editor.addEventListener("keyup",function(){
+  setTimeout(saveSelection,10);
+});
+
+editor.addEventListener("touchend",function(){
+  setTimeout(saveSelection,150);
+});
 
 
 /* =========================
@@ -568,15 +513,11 @@ function insertText(text){
   let range;
 
   if(selection.rangeCount){
-
     range = selection.getRangeAt(0);
-
   }else{
-
     range = document.createRange();
     range.selectNodeContents(editor);
     range.collapse(false);
-
   }
 
   range.deleteContents();
@@ -592,7 +533,6 @@ function insertText(text){
   selection.addRange(range);
 
   savedRange = range.cloneRange();
-
 }
 
 
@@ -631,11 +571,9 @@ function backspace(){
       range.deleteContents();
 
     }
-
   }
 
-  saveSelection();
-
+  savedRange = null;
 }
 
 
@@ -669,9 +607,45 @@ fontSize.addEventListener("input",function(){
 });
 
 
-/* =========================
-   COLOR
-========================= */
+/* =================================================
+   IMPORTANT COLOR FIX
+================================================= */
+
+/*
+   color input تي ڪلڪ ڪرڻ کان اڳ selection محفوظ.
+*/
+
+colorPicker.addEventListener("mousedown",function(e){
+
+  e.preventDefault();
+
+  saveSelection();
+
+  /*
+     Native color picker کولڻ لاءِ click manually.
+  */
+
+  setTimeout(function(){
+    colorPicker.click();
+  },0);
+
+});
+
+
+/*
+   موبائل لاءِ.
+*/
+
+colorPicker.addEventListener("touchstart",function(){
+
+  saveSelection();
+
+},{passive:true});
+
+
+/*
+   Color بدلجڻ کان پوءِ selection ٻيهر restore.
+*/
 
 colorPicker.addEventListener("input",function(){
 
@@ -680,46 +654,49 @@ colorPicker.addEventListener("input",function(){
 });
 
 
+colorPicker.addEventListener("change",function(){
+
+  applyColor(this.value);
+
+});
+
+
+/* =========================
+   APPLY COLOR
+========================= */
+
 function applyColor(color){
 
-  if(!restoreSelection()){
-
+  if(!savedRange){
     return;
-
   }
-
-  const selection = window.getSelection();
 
   if(
-    selection.rangeCount === 0 ||
-    selection.isCollapsed
+    !editor.contains(savedRange.startContainer) ||
+    !editor.contains(savedRange.endContainer)
   ){
-
     return;
-
   }
 
-  const range = selection.getRangeAt(0);
+  const range = savedRange.cloneRange();
 
-  if(!editor.contains(range.commonAncestorContainer)){
-
+  if(range.collapsed){
     return;
-
   }
-
 
   /*
-    سڀ کان اهم حصو:
-    extractContents استعمال ڪريون ٿا،
-    جيئن چونڊيل لفظ موجوده span اندر
-    هجي تڏهن به رنگ صحيح لڳي.
+     چونڊيل حصو ڪڍون ٿا.
+  */
+
+  const fragment = range.extractContents();
+
+  /*
+     نئون span ٺاهيون ٿا.
   */
 
   const span = document.createElement("span");
 
   span.style.color = color;
-
-  const fragment = range.extractContents();
 
   span.appendChild(fragment);
 
@@ -727,12 +704,14 @@ function applyColor(color){
 
 
   /*
-    نئين selection محفوظ ڪريون ٿا
+     ٻيهر چونڊ محفوظ.
   */
 
   const newRange = document.createRange();
 
   newRange.selectNodeContents(span);
+
+  const selection = window.getSelection();
 
   selection.removeAllRanges();
   selection.addRange(newRange);
@@ -746,53 +725,61 @@ function applyColor(color){
    REMOVE COLOR
 ========================= */
 
+removeColorBtn.addEventListener("mousedown",function(){
+
+  saveSelection();
+
+});
+
+
+removeColorBtn.addEventListener("touchstart",function(){
+
+  saveSelection();
+
+},{passive:true});
+
+
+removeColorBtn.addEventListener("click",function(){
+
+  removeSelectedColor();
+
+});
+
+
 function removeSelectedColor(){
 
-  if(!restoreSelection()){
-
+  if(!savedRange){
     return;
-
   }
 
-  const selection = window.getSelection();
+  const range = savedRange.cloneRange();
+
+  if(range.collapsed){
+    return;
+  }
 
   if(
-    selection.rangeCount === 0 ||
-    selection.isCollapsed
+    !editor.contains(range.startContainer) ||
+    !editor.contains(range.endContainer)
   ){
-
     return;
-
   }
-
-  const range = selection.getRangeAt(0);
-
-  if(!editor.contains(range.commonAncestorContainer)){
-
-    return;
-
-  }
-
-
-  /*
-    منتخب ٿيل حصو ڪڍي وري plain text/HTML طور وجھون ٿا.
-    ان سان پراڻو رنگ ختم ٿيندو.
-  */
 
   const fragment = range.extractContents();
 
-  const wrapper = document.createElement("span");
+  const span = document.createElement("span");
 
-  wrapper.appendChild(fragment);
+  span.style.color = "#173f35";
 
-  wrapper.style.color = "#173f35";
+  span.appendChild(fragment);
 
-  range.insertNode(wrapper);
-
+  range.insertNode(span);
 
   const newRange = document.createRange();
 
-  newRange.selectNodeContents(wrapper);
+  newRange.selectNodeContents(span);
+
+  const selection = window.getSelection();
 
   selection.removeAllRanges();
   selection.addRange(newRange);
@@ -819,32 +806,6 @@ function clearText(){
   }
 
 }
-
-
-/* =========================
-   IMPORTANT:
-   Keep selection when
-   color input is opened
-========================= */
-
-colorPicker.addEventListener("pointerdown",function(){
-
-  saveSelection();
-
-});
-
-colorPicker.addEventListener("focus",function(){
-
-  saveSelection();
-
-});
-
-
-removeColorBtn.addEventListener("pointerdown",function(){
-
-  saveSelection();
-
-});
 
 </script>
 
