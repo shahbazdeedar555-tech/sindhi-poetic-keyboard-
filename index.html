@@ -1,397 +1,64 @@
 
-<!DOCTYPE html>
-<html lang="sd" dir="rtl">
-<head>
-  <meta charset="UTF-8">
-  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+<div class="title">سنڌي اکر</div>
 
-  <title>سنڌي شاعري ڪي بورڊ</title>
-
-  <meta name="theme-color" content="#173d2b">
-  <meta name="application-name" content="سنڌي شاعري ڪي بورڊ">
-
-  <style>
-    * {
-      box-sizing: border-box;
-    }
-
-    body {
-      margin: 0;
-      background: #f5f1e8;
-      color: #173d2b;
-      font-family: Arial, sans-serif;
-    }
-
-    header {
-      background: #173d2b;
-      color: #f4d27a;
-      text-align: center;
-      padding: 14px 8px;
-      font-size: 24px;
-      font-weight: bold;
-    }
-
-    .container {
-      width: 100%;
-      max-width: 700px;
-      margin: auto;
-      padding: 12px;
-    }
-
-    textarea {
-      width: 100%;
-      min-height: 150px;
-      resize: vertical;
-      border: 2px solid #b58b35;
-      border-radius: 12px;
-      padding: 14px;
-      font-size: 25px;
-      line-height: 1.9;
-      direction: rtl;
-      background: #fffdf7;
-      color: #173d2b;
-      outline: none;
-    }
-
-    .keyboard {
-      margin-top: 12px;
-    }
-
-    .row {
-      display: flex;
-      flex-wrap: wrap;
-      justify-content: center;
-      gap: 5px;
-      margin-bottom: 6px;
-    }
-
-    button {
-      border: 1px solid #b58b35;
-      background: #fffaf0;
-      color: #173d2b;
-      border-radius: 8px;
-      min-width: 39px;
-      height: 46px;
-      padding: 3px 8px;
-      font-size: 22px;
-      cursor: pointer;
-      touch-action: manipulation;
-    }
-
-    button:active {
-      background: #e8d5a3;
-      transform: scale(.96);
-    }
-
-    .special {
-      background: #ead9aa;
-      font-size: 21px;
-    }
-
-    .space {
-      flex: 1;
-      min-width: 150px;
-      font-size: 19px;
-    }
-
-    .action {
-      background: #173d2b;
-      color: #fff;
-      border-color: #173d2b;
-      font-size: 18px;
-    }
-
-    .clear {
-      background: #8b3a32;
-      color: white;
-      border-color: #8b3a32;
-    }
-
-    .title {
-      text-align: center;
-      margin: 12px 0 7px;
-      color: #8a6722;
-      font-size: 18px;
-      font-weight: bold;
-    }
-
-    .english button {
-      font-size: 19px;
-      direction: ltr;
-    }
-  </style>
-</head>
-
-<body>
-
-<header>سنڌي شاعري ڪي بورڊ</header>
-
-<div class="container">
-
-  <textarea id="editor" placeholder="هتي سنڌي شاعري لکو..."></textarea>
-
-  <div class="keyboard">
-
-    <div class="title">خاص نشانيون</div>
-
-    <div class="row">
-      <button class="special" onclick="insertText('ـ')">ـ</button>
-      <button class="special" onclick="insertText('َ')">َ</button>
-      <button class="special" onclick="insertText('ِ')">ِ</button>
-      <button class="special" onclick="insertText('ُ')">ُ</button>
-      <button class="special" onclick="insertText('ْ')">ْ</button>
-      <button class="special" onclick="insertText('ّ')">ّ</button>
-      <button class="special" onclick="insertText('ٰ')">ٰ</button>
-    </div>
-
-    <div class="title">سنڌي اکر</div>
-
-    <div class="row">
-      <button onclick="insertText('ا')">ا</button>
-      <button onclick="insertText('آ')">آ</button>
-      <button onclick="insertText('ب')">ب</button>
-      <button onclick="insertText('ٻ')">ٻ</button>
-      <button onclick="insertText('پ')">پ</button>
-      <button onclick="insertText('ڀ')">ڀ</button>
-      <button onclick="insertText('ت')">ت</button>
-      <button onclick="insertText('ٺ')">ٺ</button>
-      <button onclick="insertText('ٽ')">ٽ</button>
-      <button onclick="insertText('ث')">ث</button>
-      <button onclick="insertText('ٿ')">ٿ</button>
-      <button onclick="insertText('ڃ')">ڃ</button>
-      <button onclick="insertText('ف')">ف</button>
-      <button onclick="insertText('ڦ')">ڦ</button>
-      <button onclick="insertText('گ')">گ</button>
-      <button onclick="insertText('ڳ')">ڳ</button>
-      <button onclick="insertText('ڱ')">ڱ</button>
-      <button onclick="insertText('ک')">ک</button>
-      <button onclick="insertText('ي')">ي</button>
-      <button onclick="insertText('ى')">ى</button>
-      <button onclick="insertText('د')">د</button>
-    </div>
-
-    <div class="row">
-      <button onclick="insertText('ج')">ج</button>
-      <button onclick="insertText('ڄ')">ڄ</button>
-      <button onclick="insertText('جهه')">جهه</button>
-      <button onclick="insertText('چ')">چ</button>
-      <button onclick="insertText('ڇ')">ڇ</button>
-      <button onclick="insertText('ح')">ح</button>
-      <button onclick="insertText('خ')">خ</button>
-      <button onclick="insertText('ر')">ر</button>
-      <button onclick="insertText('ڙ')">ڙ</button>
-      <button onclick="insertText('ز')">ز</button>
-      <button onclick="insertText('س')">س</button>
-      <button onclick="insertText('ش')">ش</button>
-      <button onclick="insertText('ص')">ص</button>
-      <button onclick="insertText('ض')">ض</button>
-    </div>
-
-    <div class="row">
-      <button onclick="insertText('ط')">ط</button>
-      <button onclick="insertText('ظ')">ظ</button>
-      <button onclick="insertText('ع')">ع</button>
-      <button onclick="insertText('غ')">غ</button>
-      <button onclick="insertText('ل')">ل</button>
-      <button onclick="insertText('م')">م</button>
-      <button onclick="insertText('ن')">ن</button>
-      <button onclick="insertText('و')">و</button>
-      <button onclick="insertText('ه')">ه</button>
-      <button onclick="insertText('ء')">ء</button>
-      <button onclick="insertText('ئ')">ئ</button>
-      <button onclick="insertText('ے')">ے</button>
-      <button onclick="insertText('ؤ')">ؤ</button>
-      <button onclick="insertText('۾')">۾</button>
-      <button onclick="insertText('۽')">۽</button>
-    </div>
-
-    <div class="row">
-      <button class="space" onclick="insertText(' ')">Space</button>
-      <button class="action" onclick="backspace()">⌫</button>
-      <button class="action" onclick="insertText('\n')">Enter</button>
-      <button class="clear" onclick="clearText()">صاف</button>
-    </div>
-
-    <div class="title">English Keyboard</div>
-
-    <div class="row english">
-      <button onclick="insertText('q')">Q</button>
-      <button onclick="insertText('w')">W</button>
-      <button onclick="insertText('e')">E</button>
-      <button onclick="insertText('r')">R</button>
-      <button onclick="insertText('t')">T</button>
-      <button onclick="insertText('y')">Y</button>
-      <button onclick="insertText('u')">U</button>
-      <button onclick="insertText('i')">I</button>
-      <button onclick="insertText('o')">O</button>
-      <button onclick="insertText('p')">P</button>
-    </div>
-
-    <div class="row english">
-      <button onclick="insertText('a')">A</button>
-      <button onclick="insertText('s')">S</button>
-      <button onclick="insertText('d')">D</button>
-      <button onclick="insertText('f')">F</button>
-      <button onclick="insertText('g')">G</button>
-      <button onclick="insertText('h')">H</button>
-      <button onclick="insertText('j')">J</button>
-      <button onclick="insertText('k')">K</button>
-      <button onclick="insertText('l')">L</button>
-    </div>
-
-    <div class="row english">
-      <button onclick="insertText('z')">Z</button>
-      <button onclick="insertText('x')">X</button>
-      <button onclick="insertText('c')">C</button>
-      <button onclick="insertText('v')">V</button>
-      <button onclick="insertText('b')">B</button>
-      <button onclick="insertText('n')">N</button>
-      <button onclick="insertText('m')">M</button>
-    </div>
-
-  </div>
+<div class="row">
+  <button onclick="insertText('ا')">ا</button>
+  <button onclick="insertText('آ')">آ</button>
+  <button onclick="insertText('ب')">ب</button>
+  <button onclick="insertText('ٻ')">ٻ</button>
+  <button onclick="insertText('پ')">پ</button>
+  <button onclick="insertText('ڀ')">ڀ</button>
+  <button onclick="insertText('ت')">ت</button>
+  <button onclick="insertText('ٺ')">ٺ</button>
+  <button onclick="insertText('ٽ')">ٽ</button>
+  <button onclick="insertText('ث')">ث</button>
+  <button onclick="insertText('ٿ')">ٿ</button>
+  <button onclick="insertText('ڃ')">ڃ</button>
+  <button onclick="insertText('ف')">ف</button>
+  <button onclick="insertText('ڦ')">ڦ</button>
+  <button onclick="insertText('گ')">گ</button>
+  <button onclick="insertText('ڳ')">ڳ</button>
+  <button onclick="insertText('ڱ')">ڱ</button>
+  <button onclick="insertText('ک')">ک</button>
+  <button onclick="insertText('ي')">ي</button>
+  <button onclick="insertText('ى')">ى</button>
+  <button onclick="insertText('د')">د</button>
 </div>
 
-<script>
+<div class="row">
+  <button onclick="insertText('ج')">ج</button>
+  <button onclick="insertText('ڄ')">ڄ</button>
+  <button onclick="insertText('جهه')">جهه</button>
+  <button onclick="insertText('چ')">چ</button>
+  <button onclick="insertText('ڇ')">ڇ</button>
+  <button onclick="insertText('ح')">ح</button>
+  <button onclick="insertText('خ')">خ</button>
+  <button onclick="insertText('ر')">ر</button>
+  <button onclick="insertText('ڙ')">ڙ</button>
+  <button onclick="insertText('ز')">ز</button>
+  <button onclick="insertText('س')">س</button>
+  <button onclick="insertText('ش')">ش</button>
+  <button onclick="insertText('ص')">ص</button>
+  <button onclick="insertText('ض')">ض</button>
+</div>
 
-const editor = document.getElementById("editor");
-
-function insertText(text) {
-
-  const start = editor.selectionStart;
-  const end = editor.selectionEnd;
-
-  editor.value =
-    editor.value.substring(0, start) +
-    text +
-    editor.value.substring(end);
-
-  editor.focus();
-
-  const newPosition = start + text.length;
-
-  editor.setSelectionRange(
-    newPosition,
-    newPosition
-  );
-}
-
-function backspace() {
-
-  const start = editor.selectionStart;
-  const end = editor.selectionEnd;
-
-  if (start !== end) {
-
-    editor.value =
-      editor.value.substring(0, start) +
-      editor.value.substring(end);
-
-    editor.setSelectionRange(start, start);
-
-    editor.focus();
-
-    return;
-  }
-
-  if (start > 0) {
-
-    editor.value =
-      editor.value.substring(0, start - 1) +
-      editor.value.substring(start);
-
-    editor.setSelectionRange(
-      start - 1,
-      start - 1
-    );
-  }
-
-  editor.focus();
-}
-
-function clearText() {
-
-  editor.value = "";
-
-  editor.focus();
-}
-
-
-/* Offline Service Worker */
-
-if ("serviceWorker" in navigator) {
-
-  window.addEventListener("load", function() {
-
-    navigator.serviceWorker
-      .register("./sw.js")
-      .catch(function() {});
-
-  });
-
-}
-
-</script>
-
-</body>
-</html>
-2. sw.js — هي به Replace ڪريو
-Writing
-const CACHE_NAME = "sindhi-poetry-keyboard-v2";
-
-const FILES_TO_CACHE = [
-  "./",
-  "./index.html"
-];
-
-self.addEventListener("install", event => {
-
-  event.waitUntil(
-    caches.open(CACHE_NAME).then(cache => {
-      return cache.addAll(FILES_TO_CACHE);
-    })
-  );
-
-  self.skipWaiting();
-});
-
-
-self.addEventListener("activate", event => {
-
-  event.waitUntil(
-
-    caches.keys().then(keys => {
-
-      return Promise.all(
-
-        keys
-          .filter(key => key !== CACHE_NAME)
-          .map(key => caches.delete(key))
-
-      );
-
-    })
-
-  );
-
-  self.clients.claim();
-});
-
-
-self.addEventListener("fetch", event => {
-
-  event.respondWith(
-
-    caches.match(event.request).then(response => {
-
-      return response || fetch(event.request).catch(() => {
-
-        return caches.match("./index.html");
-
-      });
-
-    })
-
-  );
-
-});
+<div class="row">
+  <button onclick="insertText('ط')">ط</button>
+  <button onclick="insertText('ظ')">ظ</button>
+  <button onclick="insertText('ع')">ع</button>
+  <button onclick="insertText('غ')">غ</button>
+  <button onclick="insertText('ل')">ل</button>
+  <button onclick="insertText('م')">م</button>
+  <button onclick="insertText('ن')">ن</button>
+  <button onclick="insertText('و')">و</button>
+  <button onclick="insertText('ه')">ه</button>
+  <button onclick="insertText('ہ')">ہ</button>
+  <button onclick="insertText('ء')">ء</button>
+  <button onclick="insertText('ئ')">ئ</button>
+  <button onclick="insertText('ے')">ے</button>
+  <button onclick="insertText('ؤ')">ؤ</button>
+  <button onclick="insertText('۾')">۾</button>
+  <button onclick="insertText('۽')">۽</button>
+  <button onclick="insertText('به')">به</button>
+  <button onclick="insertText('بہ')">بہ</button>
+</div>
