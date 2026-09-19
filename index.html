@@ -129,16 +129,23 @@
       direction: ltr;
     }
 
-    .delete {
-      min-width: 85px;
-      font-size: 17px;
+    .action {
+      min-width: 75px;
+      font-size: 16px;
       direction: ltr;
     }
 
-    .clear {
-      min-width: 75px;
-      font-size: 17px;
-      direction: ltr;
+    .numbers {
+      display: none;
+    }
+
+    .numbers button {
+      min-width: 55px;
+      font-size: 22px;
+    }
+
+    .hidden {
+      display: none;
     }
 
     .footer {
@@ -168,68 +175,171 @@
 
     <div class="keyboard">
 
-      <!-- Special characters -->
-      <div class="row special">
-        <button onclick="typeChar('ـ')">ـ</button>
-        <button onclick="typeChar('َ')">َ</button>
-        <button onclick="typeChar('ِ')">ِ</button>
-        <button onclick="typeChar('ُ')">ُ</button>
-        <button onclick="typeChar('ْ')">ْ</button>
-        <button onclick="typeChar('ّ')">ّ</button>
-        <button onclick="typeChar('ٰ')">ٰ</button>
-        <button id="shiftBtn" class="shift" onclick="toggleShift()">Shift</button>
+      <!-- NORMAL KEYBOARD -->
+      <div id="normalKeyboard">
+
+        <!-- Special characters -->
+        <div class="row special">
+          <button onclick="typeChar('ـ')">ـ</button>
+          <button onclick="typeChar('َ')">َ</button>
+          <button onclick="typeChar('ِ')">ِ</button>
+          <button onclick="typeChar('ُ')">ُ</button>
+          <button onclick="typeChar('ْ')">ْ</button>
+          <button onclick="typeChar('ّ')">ّ</button>
+          <button onclick="typeChar('ٰ')">ٰ</button>
+          <button id="shiftBtn" class="shift" onclick="toggleShift()">Shift</button>
+        </div>
+
+        <!-- Row 1 -->
+        <div class="row letters">
+          <button onclick="typeChar('چ')">چ</button>
+          <button onclick="typeChar('ڇ')">ڇ</button>
+          <button onclick="typeChar('پ')">پ</button>
+          <button onclick="typeChar('و')">و</button>
+          <button onclick="typeChar('ڳ')">ڳ</button>
+          <button onclick="typeChar('ع')">ع</button>
+          <button onclick="typeChar('ٿ')">ٿ</button>
+          <button onclick="typeChar('ت')">ت</button>
+          <button onclick="typeChar('ر')">ر</button>
+          <button onclick="typeChar('ي')">ي</button>
+          <button onclick="typeChar('ص')">ص</button>
+          <button onclick="typeChar('ق')">ق</button>
+        </div>
+
+        <!-- Row 2 -->
+        <div class="row letters">
+          <button onclick="typeChar('ڍ')">ڍ</button>
+          <button onclick="typeChar('ڱ')">ڱ</button>
+          <button onclick="typeChar('ک')">ک</button>
+          <button onclick="typeChar('ل')">ل</button>
+          <button onclick="typeChar('ڪ')">ڪ</button>
+          <button onclick="typeChar('ج')">ج</button>
+          <button onclick="typeChar('ه')">ه</button>
+          <button onclick="typeChar('گ')">گ</button>
+          <button onclick="typeChar('ف')">ف</button>
+          <button onclick="typeChar('د')">د</button>
+          <button onclick="typeChar('س')">س</button>
+          <button onclick="typeChar('ا')">ا</button>
+        </div>
+
+        <!-- Row 3 -->
+        <div class="row letters">
+          <button class="action" onclick="deleteChar()">Delete</button>
+          <button onclick="typeChar('ئ')">ئ</button>
+          <button onclick="typeChar('م')">م</button>
+          <button onclick="typeChar('ن')">ن</button>
+          <button onclick="typeChar('ب')">ب</button>
+          <button onclick="typeChar('ڀ')">ڀ</button>
+          <button onclick="typeChar('ط')">ط</button>
+          <button onclick="typeChar('خ')">خ</button>
+          <button onclick="typeChar('ز')">ز</button>
+          <button class="shift" onclick="toggleShift()">Shift</button>
+          <button onclick="typeChar('\n')">←</button>
+        </div>
+
+        <!-- Bottom -->
+        <div class="row">
+          <button class="action" onclick="sendText()">Send</button>
+          <button onclick="typeChar('،')">،</button>
+          <button onclick="typeChar('.')">.</button>
+
+          <button class="space" onclick="typeChar(' ')">Space</button>
+
+          <button class="action" onclick="showNumbers()">123</button>
+          <button class="action" onclick="showKeyboard()">Keyboard</button>
+        </div>
+
       </div>
 
-      <!-- Sindhi letters -->
-      <div class="row letters">
-        <button onclick="typeChar('ا')">ا</button>
-        <button onclick="typeChar('ب')">ب</button>
-        <button onclick="typeChar('ٻ')">ٻ</button>
-        <button onclick="typeChar('پ')">پ</button>
-        <button onclick="typeChar('ڀ')">ڀ</button>
-        <button onclick="typeChar('ت')">ت</button>
-        <button onclick="typeChar('ٺ')">ٺ</button>
-        <button onclick="typeChar('ٽ')">ٽ</button>
-        <button onclick="typeChar('ث')">ث</button>
-        <button onclick="typeChar('ٿ')">ٿ</button>
-        <button onclick="typeChar('ف')">ف</button>
-        <button onclick="typeChar('ڦ')">ڦ</button>
-        <button onclick="typeChar('گ')">گ</button>
-        <button onclick="typeChar('ڳ')">ڳ</button>
-        <button onclick="typeChar('ڱ')">ڱ</button>
-        <button onclick="typeChar('ک')">ک</button>
-        <button onclick="typeChar('ي')">ي</button>
-        <button onclick="typeChar('د')">د</button>
+
+      <!-- SHIFT KEYBOARD -->
+      <div id="shiftKeyboard" class="hidden">
+
+        <div class="row letters">
+          <button onclick="typeChar('ڄ')">ڄ</button>
+          <button onclick="typeChar('ڃ')">ڃ</button>
+          <button onclick="typeChar('ڦ')">ڦ</button>
+          <button onclick="typeChar('ُ')">ُ</button>
+          <button onclick="typeChar('ھ')">ھ</button>
+          <button onclick="typeChar('غ')">غ</button>
+          <button onclick="typeChar('ث')">ث</button>
+          <button onclick="typeChar('ٽ')">ٽ</button>
+          <button onclick="typeChar('ڙ')">ڙ</button>
+          <button onclick="typeChar('ض')">ض</button>
+        </div>
+
+        <div class="row letters">
+          <button onclick="typeChar('ٺ')">ٺ</button>
+          <button onclick="typeChar('ڌ')">ڌ</button>
+          <button onclick="typeChar('ڏ')">ڏ</button>
+          <button onclick="typeChar('۽')">۽</button>
+          <button onclick="typeChar('ۡ')">ۡ</button>
+          <button onclick="typeChar('ح')">ح</button>
+          <button onclick="typeChar('ڦ')">ڦ</button>
+          <button onclick="typeChar('ڊ')">ڊ</button>
+          <button onclick="typeChar('ش')">ش</button>
+          <button onclick="typeChar('آ')">آ</button>
+        </div>
+
+        <div class="row letters">
+          <button class="action" onclick="deleteChar()">Delete</button>
+          <button onclick="typeChar('۾')">۾</button>
+          <button onclick="typeChar('ڻ')">ڻ</button>
+          <button onclick="typeChar('ٻ')">ٻ</button>
+          <button onclick="typeChar('ء')">ء</button>
+          <button onclick="typeChar('ظ')">ظ</button>
+          <button onclick="typeChar('ّ')">ّ</button>
+          <button onclick="typeChar('ذ')">ذ</button>
+          <button class="shift active" onclick="showNormal()">Shift</button>
+        </div>
+
+        <div class="row">
+          <button class="action" onclick="typeChar('\n')">Enter</button>
+          <button onclick="typeChar('→')">Arrow</button>
+          <button onclick="typeChar('َ')">Zabar</button>
+          <button onclick="typeChar('ِ')">Zer</button>
+          <button onclick="typeChar('ْ')">Jazam</button>
+          <button class="space" onclick="typeChar(' ')">Space</button>
+          <button class="action" onclick="showNumbers()">123</button>
+          <button class="action" onclick="showKeyboard()">Keyboard</button>
+        </div>
+
+        <!-- ٻنهي نمونن لاءِ خاص ه -->
+        <div class="row">
+          <button onclick="typeChar('ہ')">ہ</button>
+          <button onclick="typeChar('ه')">ه</button>
+          <button onclick="typeChar('نہ')">نہ</button>
+          <button onclick="typeChar('نه')">نه</button>
+        </div>
+
       </div>
 
-      <div class="row letters">
-        <button onclick="typeChar('ر')">ر</button>
-        <button onclick="typeChar('ڙ')">ڙ</button>
-        <button onclick="typeChar('ز')">ز</button>
-        <button onclick="typeChar('س')">س</button>
-        <button onclick="typeChar('ش')">ش</button>
-        <button onclick="typeChar('ص')">ص</button>
-        <button onclick="typeChar('ض')">ض</button>
-        <button onclick="typeChar('ط')">ط</button>
-        <button onclick="typeChar('ظ')">ظ</button>
-        <button onclick="typeChar('ع')">ع</button>
-        <button onclick="typeChar('غ')">غ</button>
-        <button onclick="typeChar('ق')">ق</button>
-        <button onclick="typeChar('ڪ')">ڪ</button>
-        <button onclick="typeChar('ل')">ل</button>
-        <button onclick="typeChar('م')">م</button>
-        <button onclick="typeChar('ن')">ن</button>
-        <button onclick="typeChar('و')">و</button>
-        <button onclick="typeChar('ه')">ه</button>
-        <button onclick="typeChar('ء')">ء</button>
-        <button onclick="typeChar('ي')">ي</button>
-      </div>
 
-      <!-- Space, Delete, Clear -->
-      <div class="row">
-        <button class="space" onclick="typeChar(' ')">Space</button>
-        <button class="delete" onclick="deleteChar()">Delete</button>
-        <button class="clear" onclick="clearText()">Clear</button>
+      <!-- NUMBERS KEYBOARD -->
+      <div id="numbersKeyboard" class="numbers">
+
+        <div class="row">
+          <button onclick="typeChar('1')">1</button>
+          <button onclick="typeChar('2')">2</button>
+          <button onclick="typeChar('3')">3</button>
+          <button onclick="typeChar('4')">4</button>
+          <button onclick="typeChar('5')">5</button>
+        </div>
+
+        <div class="row">
+          <button onclick="typeChar('6')">6</button>
+          <button onclick="typeChar('7')">7</button>
+          <button onclick="typeChar('8')">8</button>
+          <button onclick="typeChar('9')">9</button>
+          <button onclick="typeChar('0')">0</button>
+        </div>
+
+        <div class="row">
+          <button class="action" onclick="deleteChar()">Delete</button>
+          <button class="action" onclick="showNormal()">Keyboard</button>
+          <button class="space" onclick="typeChar(' ')">Space</button>
+        </div>
+
       </div>
 
     </div>
@@ -240,34 +350,22 @@
 
   </div>
 
+
   <script>
+
     const textBox = document.getElementById("textBox");
-    const shiftBtn = document.getElementById("shiftBtn");
+    const normalKeyboard = document.getElementById("normalKeyboard");
+    const shiftKeyboard = document.getElementById("shiftKeyboard");
+    const numbersKeyboard = document.getElementById("numbersKeyboard");
 
     let shiftOn = false;
 
+
     function typeChar(char) {
+
       let value = textBox.value;
       let start = textBox.selectionStart;
       let end = textBox.selectionEnd;
-
-      /*
-        Shift ON:
-        ب = بہ
-        ت = تہ
-
-        باقي اکر عام طرح لکبا.
-      */
-      if (shiftOn) {
-        if (char === "ب") {
-          char = "بہ";
-        } else if (char === "ت") {
-          char = "تہ";
-        }
-
-        shiftOn = false;
-        shiftBtn.classList.remove("active");
-      }
 
       textBox.value =
         value.substring(0, start) +
@@ -277,56 +375,135 @@
       textBox.focus();
 
       const newPosition = start + char.length;
-      textBox.setSelectionRange(newPosition, newPosition);
+
+      textBox.setSelectionRange(
+        newPosition,
+        newPosition
+      );
     }
 
-    function toggleShift() {
-      shiftOn = !shiftOn;
 
-      if (shiftOn) {
-        shiftBtn.classList.add("active");
+    function toggleShift() {
+
+      if (
+        normalKeyboard.style.display === "none" ||
+        shiftKeyboard.classList.contains("hidden")
+      ) {
+        normalKeyboard.style.display = "none";
+        shiftKeyboard.classList.remove("hidden");
+        numbersKeyboard.style.display = "none";
+        shiftOn = true;
       } else {
-        shiftBtn.classList.remove("active");
+        showNormal();
       }
 
       textBox.focus();
     }
 
+
+    function showNormal() {
+
+      normalKeyboard.style.display = "block";
+      shiftKeyboard.classList.add("hidden");
+      numbersKeyboard.style.display = "none";
+
+      shiftOn = false;
+
+      textBox.focus();
+    }
+
+
+    function showNumbers() {
+
+      normalKeyboard.style.display = "none";
+      shiftKeyboard.classList.add("hidden");
+      numbersKeyboard.style.display = "block";
+
+      textBox.focus();
+    }
+
+
+    function showKeyboard() {
+
+      showNormal();
+
+      textBox.focus();
+    }
+
+
     function deleteChar() {
+
       let start = textBox.selectionStart;
       let end = textBox.selectionEnd;
       let value = textBox.value;
 
       if (start !== end) {
+
         textBox.value =
           value.substring(0, start) +
           value.substring(end);
 
         textBox.setSelectionRange(start, start);
-      } else if (start > 0) {
-        textBox.value =
-          value.substring(0, start - 1) +
-          value.substring(start);
 
-        textBox.setSelectionRange(start - 1, start - 1);
+      } else if (start > 0) {
+
+        /*
+          Unicode character کي صحيح نموني ختم ڪرڻ لاءِ
+        */
+
+        let chars = Array.from(value);
+
+        chars.splice(start - 1, 1);
+
+        textBox.value = chars.join("");
+
+        let newPosition = Math.max(0, start - 1);
+
+        textBox.setSelectionRange(
+          newPosition,
+          newPosition
+        );
       }
 
       textBox.focus();
     }
 
+
     function clearText() {
+
       textBox.value = "";
+
       textBox.focus();
+
       shiftOn = false;
-      shiftBtn.classList.remove("active");
+
+      showNormal();
     }
 
-    /*
-      موبائل تي Enter سان textarea ۾ نئين سٽ اڳ ئي ڪم ڪندي.
-      عام keyboard مان به سنڌي لکڻ جي اجازت آهي.
-    */
+
+    function sendText() {
+
+      if (!textBox.value.trim()) {
+        alert("Please write something first.");
+        return;
+      }
+
+      if (navigator.share) {
+
+        navigator.share({
+          text: textBox.value
+        }).catch(() => {});
+
+      } else {
+
+        navigator.clipboard.writeText(textBox.value);
+
+        alert("Text copied.");
+
+      }
+    }
+
   </script>
 
 </body>
 </html>
-استعمال:
