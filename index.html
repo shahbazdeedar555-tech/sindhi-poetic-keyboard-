@@ -148,6 +148,7 @@
 
     <div class="row">
       <button onclick="insertText('ا')">ا</button>
+      <button onclick="insertText('آ')">آ</button>
       <button onclick="insertText('ب')">ب</button>
       <button onclick="insertText('ٻ')">ٻ</button>
       <button onclick="insertText('پ')">پ</button>
@@ -157,6 +158,7 @@
       <button onclick="insertText('ٽ')">ٽ</button>
       <button onclick="insertText('ث')">ث</button>
       <button onclick="insertText('ٿ')">ٿ</button>
+      <button onclick="insertText('ڃ')">ڃ</button>
       <button onclick="insertText('ف')">ف</button>
       <button onclick="insertText('ڦ')">ڦ</button>
       <button onclick="insertText('گ')">گ</button>
@@ -199,6 +201,8 @@
       <button onclick="insertText('ئ')">ئ</button>
       <button onclick="insertText('ے')">ے</button>
       <button onclick="insertText('ؤ')">ؤ</button>
+      <button onclick="insertText('۾')">۾</button>
+      <button onclick="insertText('۽')">۽</button>
     </div>
 
     <div class="row">
@@ -249,69 +253,91 @@
 </div>
 
 <script>
-  const editor = document.getElementById("editor");
 
-  function insertText(text) {
-    const start = editor.selectionStart;
-    const end = editor.selectionEnd;
+const editor = document.getElementById("editor");
+
+function insertText(text) {
+
+  const start = editor.selectionStart;
+  const end = editor.selectionEnd;
+
+  editor.value =
+    editor.value.substring(0, start) +
+    text +
+    editor.value.substring(end);
+
+  editor.focus();
+
+  const newPosition = start + text.length;
+
+  editor.setSelectionRange(
+    newPosition,
+    newPosition
+  );
+}
+
+function backspace() {
+
+  const start = editor.selectionStart;
+  const end = editor.selectionEnd;
+
+  if (start !== end) {
 
     editor.value =
       editor.value.substring(0, start) +
-      text +
       editor.value.substring(end);
 
-    editor.focus();
-
-    const newPosition = start + text.length;
-    editor.setSelectionRange(newPosition, newPosition);
-  }
-
-  function backspace() {
-    const start = editor.selectionStart;
-    const end = editor.selectionEnd;
-
-    if (start !== end) {
-      editor.value =
-        editor.value.substring(0, start) +
-        editor.value.substring(end);
-
-      editor.setSelectionRange(start, start);
-      editor.focus();
-      return;
-    }
-
-    if (start > 0) {
-      editor.value =
-        editor.value.substring(0, start - 1) +
-        editor.value.substring(start);
-
-      editor.setSelectionRange(start - 1, start - 1);
-    }
+    editor.setSelectionRange(start, start);
 
     editor.focus();
+
+    return;
   }
 
-  function clearText() {
-    editor.value = "";
-    editor.focus();
+  if (start > 0) {
+
+    editor.value =
+      editor.value.substring(0, start - 1) +
+      editor.value.substring(start);
+
+    editor.setSelectionRange(
+      start - 1,
+      start - 1
+    );
   }
 
-  // Offline Service Worker
-  if ("serviceWorker" in navigator) {
-    window.addEventListener("load", function () {
-      navigator.serviceWorker.register("./sw.js")
-        .catch(function () {
-          // Offline mode will still work from the loaded page.
-        });
-    });
-  }
+  editor.focus();
+}
+
+function clearText() {
+
+  editor.value = "";
+
+  editor.focus();
+}
+
+
+/* Offline Service Worker */
+
+if ("serviceWorker" in navigator) {
+
+  window.addEventListener("load", function() {
+
+    navigator.serviceWorker
+      .register("./sw.js")
+      .catch(function() {});
+
+  });
+
+}
+
 </script>
 
 </body>
 </html>
-2. ساڳئي فولڊر ۾ sw.js ٺاهيو
+2. sw.js — هي به Replace ڪريو
 Writing
-const CACHE_NAME = "sindhi-poetry-keyboard-v1";
+const CACHE_NAME = "sindhi-poetry-keyboard-v2";
 
 const FILES_TO_CACHE = [
   "./",
@@ -319,6 +345,7 @@ const FILES_TO_CACHE = [
 ];
 
 self.addEventListener("install", event => {
+
   event.waitUntil(
     caches.open(CACHE_NAME).then(cache => {
       return cache.addAll(FILES_TO_CACHE);
@@ -328,26 +355,43 @@ self.addEventListener("install", event => {
   self.skipWaiting();
 });
 
+
 self.addEventListener("activate", event => {
+
   event.waitUntil(
+
     caches.keys().then(keys => {
+
       return Promise.all(
+
         keys
           .filter(key => key !== CACHE_NAME)
           .map(key => caches.delete(key))
+
       );
+
     })
+
   );
 
   self.clients.claim();
 });
 
+
 self.addEventListener("fetch", event => {
+
   event.respondWith(
+
     caches.match(event.request).then(response => {
+
       return response || fetch(event.request).catch(() => {
+
         return caches.match("./index.html");
+
       });
+
     })
+
   );
+
 });
