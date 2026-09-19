@@ -51,30 +51,6 @@
       resize: vertical;
     }
 
-    .toolbar {
-      display: flex;
-      flex-wrap: wrap;
-      gap: 8px;
-      margin: 12px 0;
-      justify-content: center;
-    }
-
-    button {
-      min-width: 48px;
-      min-height: 46px;
-      border: 1px solid #777;
-      border-radius: 8px;
-      background: white;
-      font-size: 22px;
-      cursor: pointer;
-      padding: 6px 12px;
-    }
-
-    button:active {
-      transform: scale(.96);
-      background: #e9e9e9;
-    }
-
     .section-title {
       margin-top: 18px;
       margin-bottom: 7px;
@@ -96,11 +72,52 @@
       margin-bottom: 7px;
     }
 
+    button {
+      min-height: 46px;
+      border: 1px solid #777;
+      border-radius: 8px;
+      background: white;
+      font-size: 22px;
+      cursor: pointer;
+      padding: 6px 12px;
+      font-family: inherit;
+    }
+
+    button:active {
+      transform: scale(.96);
+      background: #e9e9e9;
+    }
+
     .key {
       min-width: 45px;
-      min-height: 45px;
       font-size: 23px;
-      background: #fff;
+    }
+
+    .wide {
+      min-width: 92px;
+      font-weight: bold;
+    }
+
+    .space-key {
+      min-width: 190px;
+      font-weight: bold;
+    }
+
+    .number-key {
+      min-width: 125px;
+      font-weight: bold;
+    }
+
+    .shift-key {
+      min-width: 75px;
+      font-weight: bold;
+      background: #eee1bd;
+    }
+
+    .delete-key {
+      min-width: 75px;
+      font-weight: bold;
+      background: #f0d8d8;
     }
 
     .special {
@@ -133,8 +150,21 @@
       }
 
       .key {
-        min-width: 39px;
+        min-width: 38px;
         min-height: 42px;
+        padding: 5px 8px;
+      }
+
+      .space-key {
+        min-width: 155px;
+      }
+
+      .number-key {
+        min-width: 105px;
+      }
+
+      .wide {
+        min-width: 78px;
       }
     }
   </style>
@@ -161,10 +191,15 @@
 
   <div class="section-title">خاص نشانيون</div>
 
-  <div class="toolbar">
+  <div class="key-row">
 
-    <!-- لفظ ڊگهو ڪرڻ لاءِ -->
-    <button type="button" data-char="ـ">ـ</button>
+    <!-- لفظ ڊگهو ڪرڻ وارو بٽڻ -->
+    <button
+      type="button"
+      class="wide special"
+      data-char="ـ">
+      ڊگهو ڪريو
+    </button>
 
     <button type="button" data-char="َ">َ</button>
     <button type="button" data-char="ِ">ِ</button>
@@ -173,124 +208,207 @@
     <button type="button" data-char="ّ">ّ</button>
     <button type="button" data-char="ٰ">ٰ</button>
 
-    <button type="button" id="spaceButton">Space</button>
-    <button type="button" id="backspaceButton">⌫</button>
-    <button type="button" id="clearButton">صاف</button>
-
   </div>
 
 
   <!-- سنڌي ڪي بورڊ -->
 
-  <div class="section-title">سنڌي اکر — حصو 1</div>
+  <div class="section-title">
+    سنڌي ڪي بورڊ
+  </div>
 
-  <div class="keyboard">
+  <div class="keyboard" id="sindhiKeyboard">
 
-    <div class="key-row">
-      <button class="key" data-char="ا">ا</button>
-      <button class="key" data-char="ب">ب</button>
-      <button class="key" data-char="ٻ">ٻ</button>
-      <button class="key" data-char="پ">پ</button>
-      <button class="key" data-char="ڀ">ڀ</button>
-      <button class="key" data-char="ت">ت</button>
-      <button class="key" data-char="ٺ">ٺ</button>
-      <button class="key" data-char="ٽ">ٽ</button>
+    <!-- عام حالت -->
+
+    <div id="normalKeyboard">
+
+      <div class="key-row">
+
+        <button class="key" data-char="چ">چ</button>
+        <button class="key" data-char="ڇ">ڇ</button>
+        <button class="key" data-char="پ">پ</button>
+        <button class="key" data-char="و">و</button>
+        <button class="key" data-char="ڳ">ڳ</button>
+        <button class="key" data-char="ع">ع</button>
+        <button class="key" data-char="ٿ">ٿ</button>
+        <button class="key" data-char="ت">ت</button>
+        <button class="key" data-char="ر">ر</button>
+        <button class="key" data-char="ي">ي</button>
+        <button class="key" data-char="ص">ص</button>
+        <button class="key" data-char="ق">ق</button>
+
+      </div>
+
+
+      <div class="key-row">
+
+        <button class="key" data-char="ڍ">ڍ</button>
+        <button class="key" data-char="ڱ">ڱ</button>
+        <button class="key" data-char="ک">ک</button>
+        <button class="key" data-char="ل">ل</button>
+        <button class="key" data-char="ڪ">ڪ</button>
+        <button class="key" data-char="ج">ج</button>
+        <button class="key" data-char="ه">ه</button>
+        <button class="key" data-char="گ">گ</button>
+        <button class="key" data-char="ف">ف</button>
+        <button class="key" data-char="د">د</button>
+        <button class="key" data-char="س">س</button>
+        <button class="key" data-char="ا">ا</button>
+
+      </div>
+
+
+      <div class="key-row">
+
+        <button
+          type="button"
+          class="delete-key"
+          id="backspaceButton">
+          ڊليٽ
+        </button>
+
+        <button class="key" data-char="ئ">ئ</button>
+        <button class="key" data-char="م">م</button>
+        <button class="key" data-char="ن">ن</button>
+        <button class="key" data-char="ب">ب</button>
+        <button class="key" data-char="ڀ">ڀ</button>
+        <button class="key" data-char="ط">ط</button>
+        <button class="key" data-char="خ">خ</button>
+        <button class="key" data-char="ز">ز</button>
+
+        <button
+          type="button"
+          class="shift-key"
+          id="shiftButton">
+          شفٽ
+        </button>
+
+      </div>
+
     </div>
 
-    <div class="key-row">
-      <button class="key" data-char="ث">ث</button>
-      <button class="key" data-char="ٿ">ٿ</button>
-      <button class="key" data-char="ف">ف</button>
-      <button class="key" data-char="ڦ">ڦ</button>
-      <button class="key" data-char="گ">گ</button>
-      <button class="key" data-char="ڳ">ڳ</button>
-      <button class="key" data-char="ڱ">ڱ</button>
-      <button class="key" data-char="ک">ک</button>
+
+    <!-- Shift حالت -->
+
+    <div id="shiftKeyboard" style="display:none;">
+
+      <div class="key-row">
+
+        <button class="key" data-char="ڄ">ڄ</button>
+        <button class="key" data-char="ڃ">ڃ</button>
+        <button class="key" data-char="ڦ">ڦ</button>
+        <button class="key" data-char="ُ">ُ</button>
+        <button class="key" data-char="ھ">ھ</button>
+        <button class="key" data-char="غ">غ</button>
+        <button class="key" data-char="ث">ث</button>
+        <button class="key" data-char="ٽ">ٽ</button>
+        <button class="key" data-char="ڙ">ڙ</button>
+        <button class="key" data-char="ض">ض</button>
+
+      </div>
+
+
+      <div class="key-row">
+
+        <button class="key" data-char="ٺ">ٺ</button>
+        <button class="key" data-char="ڌ">ڌ</button>
+        <button class="key" data-char="ڏ">ڏ</button>
+        <button class="key" data-char="۽">۽</button>
+        <button class="key" data-char="ۡ">ۡ</button>
+        <button class="key" data-char="ح">ح</button>
+        <button class="key" data-char="ڦ">ڦ</button>
+        <button class="key" data-char="ڊ">ڊ</button>
+        <button class="key" data-char="ش">ش</button>
+        <button class="key" data-char="آ">آ</button>
+
+      </div>
+
+
+      <div class="key-row">
+
+        <button
+          type="button"
+          class="delete-key"
+          id="backspaceButtonShift">
+          ڊليٽ
+        </button>
+
+        <button class="key" data-char="ڻ">ڻ</button>
+        <button class="key" data-char="ٻ">ٻ</button>
+        <button class="key" data-char="ء">ء</button>
+        <button class="key" data-char="ظ">ظ</button>
+        <button class="key" data-char="ّ">ّ</button>
+        <button class="key" data-char="ذ">ذ</button>
+
+        <button
+          type="button"
+          class="shift-key"
+          id="shiftButton2">
+          شفٽ
+        </button>
+
+      </div>
+
     </div>
 
+
+    <!-- هيٺيون پٽي -->
+
     <div class="key-row">
-      <button class="key" data-char="ي">ي</button>
+
+      <button
+        type="button"
+        class="space-key"
+        id="spaceButton">
+        اسپيس
+      </button>
+
+      <button
+        type="button"
+        class="number-key"
+        id="numberButton">
+        انگ ڪي بورڊ
+      </button>
+
     </div>
 
   </div>
 
 
-  <div class="section-title">سنڌي اکر — حصو 2</div>
+  <!-- خاص لفظ -->
 
-  <div class="keyboard">
-
-    <div class="key-row">
-      <button class="key" data-char="د">د</button>
-      <button class="key" data-char="ذ">ذ</button>
-      <button class="key" data-char="ڌ">ڌ</button>
-      <button class="key" data-char="ڏ">ڏ</button>
-      <button class="key" data-char="ڊ">ڊ</button>
-      <button class="key" data-char="ڍ">ڍ</button>
-      <button class="key" data-char="ح">ح</button>
-      <button class="key" data-char="ج">ج</button>
-    </div>
-
-    <div class="key-row">
-      <button class="key" data-char="ڄ">ڄ</button>
-      <button class="key" data-char="ڃ">ڃ</button>
-      <button class="key" data-char="چ">چ</button>
-      <button class="key" data-char="ڇ">ڇ</button>
-      <button class="key" data-char="خ">خ</button>
-      <button class="key" data-char="ع">ع</button>
-      <button class="key" data-char="غ">غ</button>
-      <button class="key" data-char="ر">ر</button>
-    </div>
-
-    <div class="key-row">
-      <button class="key" data-char="ز">ز</button>
-      <button class="key" data-char="ڙ">ڙ</button>
-      <button class="key" data-char="م">م</button>
-      <button class="key" data-char="ن">ن</button>
-      <button class="key" data-char="ل">ل</button>
-      <button class="key" data-char="س">س</button>
-      <button class="key" data-char="ش">ش</button>
-    </div>
-
-    <div class="key-row">
-      <button class="key" data-char="ص">ص</button>
-      <button class="key" data-char="ض">ض</button>
-      <button class="key" data-char="ط">ط</button>
-      <button class="key" data-char="ظ">ظ</button>
-      <button class="key" data-char="ڻ">ڻ</button>
-      <button class="key" data-char="و">و</button>
-      <button class="key" data-char="ق">ق</button>
-      <button class="key" data-char="ھ">ھ</button>
-    </div>
-
-    <div class="key-row">
-      <button class="key" data-char="جھ">جھ</button>
-      <button class="key" data-char="گه">گه</button>
-      <button class="key" data-char="ڪ">ڪ</button>
-      <button class="key" data-char="ء">ء</button>
-    </div>
-
+  <div class="section-title">
+    خاص لفظ
   </div>
 
+  <div class="key-row">
 
-  <!-- تيار لفظ -->
+    <button type="button" data-char="نہ">
+      نہ
+    </button>
 
-  <div class="section-title">خاص لفظ</div>
+    <button type="button" data-char="به">
+      به
+    </button>
 
-  <div class="toolbar">
-
-    <!-- صحيح سنڌي صورت -->
-    <button type="button" data-char="نہ">نہ</button>
+    <button type="button" data-char="بہ">
+      بہ
+    </button>
 
   </div>
 
 
   <!-- English -->
 
-  <div class="section-title">English</div>
+  <div class="section-title">
+    English
+  </div>
 
   <div class="keyboard english">
 
     <div class="key-row">
+
       <button class="key" data-char="q">Q</button>
       <button class="key" data-char="w">W</button>
       <button class="key" data-char="e">E</button>
@@ -301,9 +419,11 @@
       <button class="key" data-char="i">I</button>
       <button class="key" data-char="o">O</button>
       <button class="key" data-char="p">P</button>
+
     </div>
 
     <div class="key-row">
+
       <button class="key" data-char="a">A</button>
       <button class="key" data-char="s">S</button>
       <button class="key" data-char="d">D</button>
@@ -313,9 +433,11 @@
       <button class="key" data-char="j">J</button>
       <button class="key" data-char="k">K</button>
       <button class="key" data-char="l">L</button>
+
     </div>
 
     <div class="key-row">
+
       <button class="key" data-char="z">Z</button>
       <button class="key" data-char="x">X</button>
       <button class="key" data-char="c">C</button>
@@ -323,6 +445,7 @@
       <button class="key" data-char="b">B</button>
       <button class="key" data-char="n">N</button>
       <button class="key" data-char="m">M</button>
+
     </div>
 
   </div>
@@ -338,8 +461,13 @@
 <script>
 
   const editor = document.getElementById("editor");
-  const buttons = document.querySelectorAll("[data-char]");
   const status = document.getElementById("status");
+
+  const normalKeyboard =
+    document.getElementById("normalKeyboard");
+
+  const shiftKeyboard =
+    document.getElementById("shiftKeyboard");
 
 
   function insertText(text) {
@@ -352,7 +480,8 @@
       text +
       editor.value.substring(end);
 
-    const newPosition = start + text.length;
+    const newPosition =
+      start + text.length;
 
     editor.focus();
 
@@ -361,20 +490,26 @@
       newPosition
     );
 
-    status.textContent = "داخل ڪيو ويو: " + text;
+    status.textContent =
+      "داخل ڪيو ويو: " + text;
   }
 
 
-  buttons.forEach(button => {
+  /* سڀ data-char بٽڻ */
 
-    button.addEventListener("click", function () {
+  document.querySelectorAll("[data-char]")
+    .forEach(button => {
 
-      insertText(this.dataset.char);
+      button.addEventListener("click", function () {
+
+        insertText(this.dataset.char);
+
+      });
 
     });
 
-  });
 
+  /* اسپيس */
 
   document.getElementById("spaceButton")
     .addEventListener("click", function () {
@@ -384,69 +519,111 @@
     });
 
 
-  document.getElementById("backspaceButton")
-    .addEventListener("click", function () {
+  /* ڊليٽ */
 
-      const start = editor.selectionStart;
-      const end = editor.selectionEnd;
+  function deleteText() {
 
-
-      if (start !== end) {
-
-        editor.value =
-          editor.value.substring(0, start) +
-          editor.value.substring(end);
-
-        editor.focus();
-
-        editor.setSelectionRange(
-          start,
-          start
-        );
-
-        return;
-      }
+    const start = editor.selectionStart;
+    const end = editor.selectionEnd;
 
 
-      if (start > 0) {
+    if (start !== end) {
 
-        editor.value =
-          editor.value.substring(0, start - 1) +
-          editor.value.substring(start);
-
-        editor.focus();
-
-        editor.setSelectionRange(
-          start - 1,
-          start - 1
-        );
-
-      }
-
-    });
-
-
-  document.getElementById("clearButton")
-    .addEventListener("click", function () {
-
-      if (editor.value.trim() !== "") {
-
-        const ok = confirm(
-          "ڇا توهان سڄو متن صاف ڪرڻ چاهيو ٿا؟"
-        );
-
-        if (!ok) return;
-
-      }
-
-      editor.value = "";
+      editor.value =
+        editor.value.substring(0, start) +
+        editor.value.substring(end);
 
       editor.focus();
 
+      editor.setSelectionRange(
+        start,
+        start
+      );
+
+      return;
+    }
+
+
+    if (start > 0) {
+
+      editor.value =
+        editor.value.substring(0, start - 1) +
+        editor.value.substring(start);
+
+      editor.focus();
+
+      editor.setSelectionRange(
+        start - 1,
+        start - 1
+      );
+
+    }
+
+  }
+
+
+  document.getElementById("backspaceButton")
+    .addEventListener("click", deleteText);
+
+
+  document.getElementById("backspaceButtonShift")
+    .addEventListener("click", deleteText);
+
+
+  /* Shift */
+
+  function toggleShift() {
+
+    const isShift =
+      shiftKeyboard.style.display !== "none";
+
+    if (isShift) {
+
+      shiftKeyboard.style.display = "none";
+      normalKeyboard.style.display = "block";
+
       status.textContent =
-        "متن صاف ڪيو ويو.";
+        "عام ڪي بورڊ";
+
+    } else {
+
+      normalKeyboard.style.display = "none";
+      shiftKeyboard.style.display = "block";
+
+      status.textContent =
+        "شفٽ ڪي بورڊ";
+
+    }
+
+    editor.focus();
+
+  }
+
+
+  document.getElementById("shiftButton")
+    .addEventListener("click", toggleShift);
+
+
+  document.getElementById("shiftButton2")
+    .addEventListener("click", toggleShift);
+
+
+  /* انگ ڪي بورڊ */
+
+  document.getElementById("numberButton")
+    .addEventListener("click", function () {
+
+      status.textContent =
+        "انگ ڪي بورڊ جلد شامل ڪيو ويندو.";
 
     });
+
+
+  /* موبائل تي cursor برقرار رکڻ */
+
+  editor.addEventListener("click", function () {
+    this.focus();
+  });
 
 </script>
 
