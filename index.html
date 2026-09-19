@@ -1,0 +1,378 @@
+
+<!DOCTYPE html>
+<html lang="sd" dir="rtl">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+
+  <title>سنڌي شاعري ڪي بورڊ</title>
+
+  <style>
+    * {
+      box-sizing: border-box;
+    }
+
+    body {
+      margin: 0;
+      background: #f5f1e8;
+      color: #111;
+      font-family: "Noto Naskh Arabic", "Noto Sans Arabic", Arial, sans-serif;
+    }
+
+    .app {
+      max-width: 900px;
+      margin: auto;
+      padding: 18px;
+    }
+
+    h1 {
+      text-align: center;
+      margin: 5px 0;
+      font-size: 30px;
+    }
+
+    .subtitle {
+      text-align: center;
+      color: #666;
+      margin-bottom: 18px;
+    }
+
+    .editor {
+      width: 100%;
+      min-height: 180px;
+      padding: 18px;
+      background: white;
+      border: 2px solid #333;
+      border-radius: 12px;
+      font-size: 26px;
+      line-height: 2;
+      direction: rtl;
+      outline: none;
+      resize: vertical;
+    }
+
+    .toolbar {
+      display: flex;
+      flex-wrap: wrap;
+      gap: 8px;
+      margin: 12px 0;
+      justify-content: center;
+    }
+
+    button {
+      min-width: 48px;
+      min-height: 46px;
+      border: 1px solid #777;
+      border-radius: 8px;
+      background: white;
+      font-size: 22px;
+      cursor: pointer;
+      padding: 6px 12px;
+    }
+
+    button:active {
+      transform: scale(.96);
+      background: #e9e9e9;
+    }
+
+    .section-title {
+      margin-top: 18px;
+      margin-bottom: 7px;
+      font-weight: bold;
+      font-size: 18px;
+    }
+
+    .keyboard {
+      background: #ddd7ca;
+      padding: 10px;
+      border-radius: 12px;
+    }
+
+    .key-row {
+      display: flex;
+      flex-wrap: wrap;
+      gap: 6px;
+      justify-content: center;
+      margin-bottom: 7px;
+    }
+
+    .key {
+      min-width: 45px;
+      min-height: 45px;
+      font-size: 23px;
+      background: #fff;
+    }
+
+    .special {
+      background: #eee1bd;
+    }
+
+    .english {
+      direction: ltr;
+      font-family: Arial, sans-serif;
+    }
+
+    .status {
+      text-align: center;
+      margin-top: 10px;
+      color: #555;
+      font-size: 14px;
+    }
+
+    @media (max-width: 600px) {
+      .app {
+        padding: 10px;
+      }
+
+      h1 {
+        font-size: 25px;
+      }
+
+      .editor {
+        font-size: 23px;
+      }
+
+      .key {
+        min-width: 39px;
+        min-height: 42px;
+      }
+    }
+  </style>
+</head>
+
+<body>
+
+<div class="app">
+
+  <h1>سنڌي شاعري ڪي بورڊ</h1>
+
+  <div class="subtitle">
+    Sindhi Poetry Keyboard
+  </div>
+
+  <textarea
+    id="editor"
+    class="editor"
+    placeholder="هتي پنهنجي شاعري لکو..."
+    spellcheck="false"></textarea>
+
+  <div class="section-title">خاص نشانيون</div>
+
+  <div class="toolbar">
+
+    <button type="button" data-char="ـ">ـ</button>
+    <button type="button" data-char="َ">َ</button>
+    <button type="button" data-char="ِ">ِ</button>
+    <button type="button" data-char="ُ">ُ</button>
+    <button type="button" data-char="ْ">ْ</button>
+    <button type="button" data-char="ّ">ّ</button>
+    <button type="button" data-char="ٰ">ٰ</button>
+
+    <button type="button" id="spaceButton">Space</button>
+    <button type="button" id="backspaceButton">⌫</button>
+    <button type="button" id="clearButton">صاف</button>
+
+  </div>
+
+  <div class="section-title">سنڌي اکر</div>
+
+  <div class="keyboard">
+
+    <div class="key-row">
+      <button class="key" data-char="ا">ا</button>
+      <button class="key" data-char="آ">آ</button>
+      <button class="key" data-char="ب">ب</button>
+      <button class="key" data-char="ٻ">ٻ</button>
+      <button class="key" data-char="ڀ">ڀ</button>
+      <button class="key" data-char="پ">پ</button>
+      <button class="key" data-char="ت">ت</button>
+      <button class="key" data-char="ٿ">ٿ</button>
+    </div>
+
+    <div class="key-row">
+      <button class="key" data-char="ٽ">ٽ</button>
+      <button class="key" data-char="ٺ">ٺ</button>
+      <button class="key" data-char="ث">ث</button>
+      <button class="key" data-char="ج">ج</button>
+      <button class="key" data-char="ڄ">ڄ</button>
+      <button class="key" data-char="جھ">جھ</button>
+      <button class="key" data-char="چ">چ</button>
+      <button class="key" data-char="ڇ">ڇ</button>
+    </div>
+
+    <div class="key-row">
+      <button class="key" data-char="ح">ح</button>
+      <button class="key" data-char="خ">خ</button>
+      <button class="key" data-char="د">د</button>
+      <button class="key" data-char="ڌ">ڌ</button>
+      <button class="key" data-char="ڏ">ڏ</button>
+      <button class="key" data-char="ڊ">ڊ</button>
+      <button class="key" data-char="ڍ">ڍ</button>
+      <button class="key" data-char="ذ">ذ</button>
+    </div>
+
+    <div class="key-row">
+      <button class="key" data-char="ر">ر</button>
+      <button class="key" data-char="ڙ">ڙ</button>
+      <button class="key" data-char="ز">ز</button>
+      <button class="key" data-char="س">س</button>
+      <button class="key" data-char="ش">ش</button>
+      <button class="key" data-char="ص">ص</button>
+      <button class="key" data-char="ض">ض</button>
+      <button class="key" data-char="ط">ط</button>
+    </div>
+
+    <div class="key-row">
+      <button class="key" data-char="ظ">ظ</button>
+      <button class="key" data-char="ع">ع</button>
+      <button class="key" data-char="غ">غ</button>
+      <button class="key" data-char="ف">ف</button>
+      <button class="key" data-char="ق">ق</button>
+      <button class="key" data-char="ڪ">ڪ</button>
+      <button class="key" data-char="ک">ک</button>
+      <button class="key" data-char="گ">گ</button>
+    </div>
+
+    <div class="key-row">
+      <button class="key" data-char="ڳ">ڳ</button>
+      <button class="key" data-char="ڱ">ڱ</button>
+      <button class="key" data-char="ل">ل</button>
+      <button class="key" data-char="م">م</button>
+      <button class="key" data-char="ن">ن</button>
+      <button class="key" data-char="ڻ">ڻ</button>
+      <button class="key" data-char="و">و</button>
+      <button class="key" data-char="ه">ه</button>
+    </div>
+
+    <div class="key-row">
+      <button class="key" data-char="ء">ء</button>
+      <button class="key" data-char="ي">ي</button>
+      <button class="key" data-char="ئ">ئ</button>
+      <button class="key" data-char="ے">ے</button>
+      <button class="key" data-char="ؤ">ؤ</button>
+      <button class="key" data-char="ى">ى</button>
+    </div>
+
+  </div>
+
+  <div class="section-title">English</div>
+
+  <div class="keyboard english">
+
+    <div class="key-row">
+      <button class="key" data-char="q">Q</button>
+      <button class="key" data-char="w">W</button>
+      <button class="key" data-char="e">E</button>
+      <button class="key" data-char="r">R</button>
+      <button class="key" data-char="t">T</button>
+      <button class="key" data-char="y">Y</button>
+      <button class="key" data-char="u">U</button>
+      <button class="key" data-char="i">I</button>
+      <button class="key" data-char="o">O</button>
+      <button class="key" data-char="p">P</button>
+    </div>
+
+    <div class="key-row">
+      <button class="key" data-char="a">A</button>
+      <button class="key" data-char="s">S</button>
+      <button class="key" data-char="d">D</button>
+      <button class="key" data-char="f">F</button>
+      <button class="key" data-char="g">G</button>
+      <button class="key" data-char="h">H</button>
+      <button class="key" data-char="j">J</button>
+      <button class="key" data-char="k">K</button>
+      <button class="key" data-char="l">L</button>
+    </div>
+
+    <div class="key-row">
+      <button class="key" data-char="z">Z</button>
+      <button class="key" data-char="x">X</button>
+      <button class="key" data-char="c">C</button>
+      <button class="key" data-char="v">V</button>
+      <button class="key" data-char="b">B</button>
+      <button class="key" data-char="n">N</button>
+      <button class="key" data-char="m">M</button>
+    </div>
+
+  </div>
+
+  <div class="status" id="status">
+    شاعر پنهنجي لفظن ۽ انداز جو پاڻ مالڪ آهي.
+  </div>
+
+</div>
+
+<script>
+  const editor = document.getElementById("editor");
+  const buttons = document.querySelectorAll("[data-char]");
+  const status = document.getElementById("status");
+
+  function insertText(text) {
+    const start = editor.selectionStart;
+    const end = editor.selectionEnd;
+
+    editor.value =
+      editor.value.substring(0, start) +
+      text +
+      editor.value.substring(end);
+
+    const newPosition = start + text.length;
+
+    editor.focus();
+    editor.setSelectionRange(newPosition, newPosition);
+
+    status.textContent = "داخل ڪيو ويو: " + text;
+  }
+
+  buttons.forEach(button => {
+    button.addEventListener("click", function () {
+      insertText(this.dataset.char);
+    });
+  });
+
+  document.getElementById("spaceButton").addEventListener("click", function () {
+    insertText(" ");
+  });
+
+  document.getElementById("backspaceButton").addEventListener("click", function () {
+
+    const start = editor.selectionStart;
+    const end = editor.selectionEnd;
+
+    if (start !== end) {
+      editor.value =
+        editor.value.substring(0, start) +
+        editor.value.substring(end);
+
+      editor.focus();
+      editor.setSelectionRange(start, start);
+      return;
+    }
+
+    if (start > 0) {
+      editor.value =
+        editor.value.substring(0, start - 1) +
+        editor.value.substring(start);
+
+      editor.focus();
+      editor.setSelectionRange(start - 1, start - 1);
+    }
+  });
+
+  document.getElementById("clearButton").addEventListener("click", function () {
+
+    if (editor.value.trim() !== "") {
+      const ok = confirm("ڇا توهان سڄو متن صاف ڪرڻ چاهيو ٿا؟");
+
+      if (!ok) return;
+    }
+
+    editor.value = "";
+    editor.focus();
+
+    status.textContent = "متن صاف ڪيو ويو.";
+  });
+</script>
+
+</body>
+</html>
