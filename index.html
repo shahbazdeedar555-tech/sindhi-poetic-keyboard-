@@ -36,8 +36,6 @@ header p{
   color:#fff4d0;
 }
 
-/* SETTINGS */
-
 .settings{
   max-width:950px;
   margin:12px auto;
@@ -80,8 +78,6 @@ input[type="number"]{
   cursor:pointer;
 }
 
-/* EDITOR */
-
 .editor{
   max-width:950px;
   margin:12px auto;
@@ -109,8 +105,6 @@ input[type="number"]{
   content:"هتي شاعري لکو...";
   color:#999;
 }
-
-/* KEYBOARD */
 
 .keyboard-box{
   max-width:950px;
@@ -221,9 +215,6 @@ input[type="number"]{
   <p>🖋️ فانٽ ۽ ڪلر سليڪشن</p>
 </header>
 
-
-<!-- FONT AND COLOR -->
-
 <div class="settings">
 
   <h2>🖋️ فانٽ ۽ ڪلر سليڪشن</h2>
@@ -254,7 +245,6 @@ input[type="number"]{
 
   </div>
 
-
   <div class="setting-row">
 
     <label>سائيز:</label>
@@ -271,7 +261,6 @@ input[type="number"]{
 
   </div>
 
-
   <div class="setting-row">
 
     <label>چونڊيل لفظ جو رنگ:</label>
@@ -285,7 +274,8 @@ input[type="number"]{
 
     <button
       class="color-button"
-      onclick="removeSelectedColor()"
+      id="removeColorBtn"
+      type="button"
     >
       رنگ ختم
     </button>
@@ -293,9 +283,6 @@ input[type="number"]{
   </div>
 
 </div>
-
-
-<!-- WRITING AREA -->
 
 <div class="editor">
 
@@ -306,9 +293,6 @@ input[type="number"]{
   ></div>
 
 </div>
-
-
-<!-- SPECIAL CHARACTERS -->
 
 <div class="keyboard-box">
 
@@ -328,9 +312,6 @@ input[type="number"]{
 
 </div>
 
-
-<!-- COMPLETE SINDHI KEYBOARD -->
-
 <div class="keyboard-box">
 
   <div class="title">سنڌي اکر</div>
@@ -339,7 +320,6 @@ input[type="number"]{
 
     <button class="key" onclick="insertText('ا')">ا</button>
     <button class="key" onclick="insertText('آ')">آ</button>
-
     <button class="key" onclick="insertText('ب')">ب</button>
     <button class="key" onclick="insertText('ٻ')">ٻ</button>
     <button class="key" onclick="insertText('پ')">پ</button>
@@ -359,7 +339,6 @@ input[type="number"]{
 
     <button class="key" onclick="insertText('چ')">چ</button>
     <button class="key" onclick="insertText('ڇ')">ڇ</button>
-
     <button class="key" onclick="insertText('ح')">ح</button>
     <button class="key" onclick="insertText('خ')">خ</button>
 
@@ -425,43 +404,27 @@ input[type="number"]{
 
   </div>
 
-
   <div class="keys" style="margin-top:8px;">
 
-    <button
-      class="key space"
-      onclick="insertText(' ')"
-    >
+    <button class="key space" onclick="insertText(' ')">
       Space
     </button>
 
-    <button
-      class="key control"
-      onclick="backspace()"
-    >
+    <button class="key control" onclick="backspace()">
       ⌫
     </button>
 
-    <button
-      class="key control"
-      onclick="insertText('\n')"
-    >
+    <button class="key control" onclick="insertText('\n')">
       Enter
     </button>
 
-    <button
-      class="key clear"
-      onclick="clearText()"
-    >
+    <button class="key clear" onclick="clearText()">
       صاف
     </button>
 
   </div>
 
 </div>
-
-
-<!-- ENGLISH -->
 
 <div class="keyboard-box english">
 
@@ -502,11 +465,9 @@ input[type="number"]{
 
 </div>
 
-
 <div class="note">
-  لفظ سليڪٽ ڪريو، پوءِ مٿي ڪلر تي ڪلڪ ڪريو — صرف سليڪٽ ٿيل لفظ جو رنگ تبديل ٿيندو.
+  لفظ سليڪٽ ڪريو، پوءِ مٿي ڪلر چونڊيو — صرف سليڪٽ ٿيل لفظ جو رنگ تبديل ٿيندو.
 </div>
-
 
 <script>
 
@@ -514,11 +475,14 @@ const editor = document.getElementById("editor");
 const fontSelect = document.getElementById("fontSelect");
 const fontSize = document.getElementById("fontSize");
 const colorPicker = document.getElementById("colorPicker");
+const removeColorBtn = document.getElementById("removeColorBtn");
 
 let savedRange = null;
 
 
-/* Save Selection */
+/* =========================
+   SAVE SELECTION
+========================= */
 
 function saveSelection(){
 
@@ -526,7 +490,9 @@ function saveSelection(){
 
   if(
     selection.rangeCount > 0 &&
-    editor.contains(selection.anchorNode)
+    !selection.isCollapsed &&
+    editor.contains(selection.anchorNode) &&
+    editor.contains(selection.focusNode)
   ){
 
     savedRange = selection.getRangeAt(0).cloneRange();
@@ -536,48 +502,87 @@ function saveSelection(){
 }
 
 
-/* Keep selection before clicking controls */
+/* Mouse / Keyboard */
 
-editor.addEventListener("mouseup", saveSelection);
-editor.addEventListener("keyup", saveSelection);
-editor.addEventListener("touchend", function(){
-  setTimeout(saveSelection,50);
+editor.addEventListener("mouseup",function(){
+
+  setTimeout(saveSelection,0);
+
+});
+
+editor.addEventListener("keyup",function(){
+
+  setTimeout(saveSelection,0);
+
 });
 
 
-/* Insert Keyboard Character */
+/* Mobile */
+
+editor.addEventListener("touchend",function(){
+
+  setTimeout(saveSelection,100);
+
+});
+
+
+/* =========================
+   RESTORE SELECTION
+========================= */
+
+function restoreSelection(){
+
+  if(!savedRange) return false;
+
+  if(
+    !editor.contains(savedRange.startContainer) ||
+    !editor.contains(savedRange.endContainer)
+  ){
+
+    return false;
+
+  }
+
+  const selection = window.getSelection();
+
+  selection.removeAllRanges();
+  selection.addRange(savedRange);
+
+  return true;
+
+}
+
+
+/* =========================
+   INSERT TEXT
+========================= */
 
 function insertText(text){
 
   editor.focus();
 
+  restoreSelection();
+
   const selection = window.getSelection();
 
-  if(
-    savedRange &&
-    editor.contains(savedRange.startContainer)
-  ){
+  let range;
 
-    selection.removeAllRanges();
-    selection.addRange(savedRange);
+  if(selection.rangeCount){
 
-  }
+    range = selection.getRangeAt(0);
 
-  const range =
-    selection.rangeCount
-      ? selection.getRangeAt(0)
-      : document.createRange();
+  }else{
 
-  if(!selection.rangeCount){
-
+    range = document.createRange();
     range.selectNodeContents(editor);
     range.collapse(false);
 
   }
 
+  range.deleteContents();
+
   const node = document.createTextNode(text);
 
-  range.deleteContents();
   range.insertNode(node);
 
   range.setStartAfter(node);
@@ -586,28 +591,22 @@ function insertText(text){
   selection.removeAllRanges();
   selection.addRange(range);
 
-  saveSelection();
+  savedRange = range.cloneRange();
 
 }
 
 
-/* Backspace */
+/* =========================
+   BACKSPACE
+========================= */
 
 function backspace(){
 
   editor.focus();
 
+  restoreSelection();
+
   const selection = window.getSelection();
-
-  if(
-    savedRange &&
-    editor.contains(savedRange.startContainer)
-  ){
-
-    selection.removeAllRanges();
-    selection.addRange(savedRange);
-
-  }
 
   if(!selection.rangeCount) return;
 
@@ -619,12 +618,19 @@ function backspace(){
 
   }else{
 
-    range.setStart(
-      range.startContainer,
-      Math.max(0,range.startOffset-1)
-    );
+    if(
+      range.startContainer.nodeType === Node.TEXT_NODE &&
+      range.startOffset > 0
+    ){
 
-    range.deleteContents();
+      range.setStart(
+        range.startContainer,
+        range.startOffset - 1
+      );
+
+      range.deleteContents();
+
+    }
 
   }
 
@@ -633,7 +639,9 @@ function backspace(){
 }
 
 
-/* Font */
+/* =========================
+   FONT
+========================= */
 
 fontSelect.addEventListener("change",function(){
 
@@ -642,23 +650,28 @@ fontSelect.addEventListener("change",function(){
 });
 
 
-/* Font Size */
+/* =========================
+   FONT SIZE
+========================= */
 
 fontSize.addEventListener("input",function(){
 
-  editor.style.fontSize = this.value + "px";
+  let size = parseInt(this.value,10);
+
+  if(isNaN(size)) size = 26;
+
+  size = Math.max(12,Math.min(80,size));
+
+  this.value = size;
+
+  editor.style.fontSize = size + "px";
 
 });
 
 
-/* Color Selected Word */
-
-colorPicker.addEventListener("mousedown",function(e){
-
-  e.preventDefault();
-
-});
-
+/* =========================
+   COLOR
+========================= */
 
 colorPicker.addEventListener("input",function(){
 
@@ -669,16 +682,13 @@ colorPicker.addEventListener("input",function(){
 
 function applyColor(color){
 
-  editor.focus();
+  if(!restoreSelection()){
 
-  const selection = window.getSelection();
-
-  if(savedRange){
-
-    selection.removeAllRanges();
-    selection.addRange(savedRange);
+    return;
 
   }
+
+  const selection = window.getSelection();
 
   if(
     selection.rangeCount === 0 ||
@@ -697,30 +707,34 @@ function applyColor(color){
 
   }
 
+
+  /*
+    سڀ کان اهم حصو:
+    extractContents استعمال ڪريون ٿا،
+    جيئن چونڊيل لفظ موجوده span اندر
+    هجي تڏهن به رنگ صحيح لڳي.
+  */
+
   const span = document.createElement("span");
 
   span.style.color = color;
 
-  try{
+  const fragment = range.extractContents();
 
-    range.surroundContents(span);
+  span.appendChild(fragment);
 
-  }catch(error){
+  range.insertNode(span);
 
-    const fragment = range.extractContents();
 
-    span.appendChild(fragment);
-
-    range.insertNode(span);
-
-  }
-
-  selection.removeAllRanges();
+  /*
+    نئين selection محفوظ ڪريون ٿا
+  */
 
   const newRange = document.createRange();
 
   newRange.selectNodeContents(span);
 
+  selection.removeAllRanges();
   selection.addRange(newRange);
 
   savedRange = newRange.cloneRange();
@@ -728,20 +742,19 @@ function applyColor(color){
 }
 
 
-/* Remove Selected Color */
+/* =========================
+   REMOVE COLOR
+========================= */
 
 function removeSelectedColor(){
 
-  editor.focus();
+  if(!restoreSelection()){
 
-  const selection = window.getSelection();
-
-  if(savedRange){
-
-    selection.removeAllRanges();
-    selection.addRange(savedRange);
+    return;
 
   }
+
+  const selection = window.getSelection();
 
   if(
     selection.rangeCount === 0 ||
@@ -760,14 +773,38 @@ function removeSelectedColor(){
 
   }
 
-  document.execCommand("foreColor",false,"#173f35");
 
-  saveSelection();
+  /*
+    منتخب ٿيل حصو ڪڍي وري plain text/HTML طور وجھون ٿا.
+    ان سان پراڻو رنگ ختم ٿيندو.
+  */
+
+  const fragment = range.extractContents();
+
+  const wrapper = document.createElement("span");
+
+  wrapper.appendChild(fragment);
+
+  wrapper.style.color = "#173f35";
+
+  range.insertNode(wrapper);
+
+
+  const newRange = document.createRange();
+
+  newRange.selectNodeContents(wrapper);
+
+  selection.removeAllRanges();
+  selection.addRange(newRange);
+
+  savedRange = newRange.cloneRange();
 
 }
 
 
-/* Clear */
+/* =========================
+   CLEAR
+========================= */
 
 function clearText(){
 
@@ -782,6 +819,32 @@ function clearText(){
   }
 
 }
+
+
+/* =========================
+   IMPORTANT:
+   Keep selection when
+   color input is opened
+========================= */
+
+colorPicker.addEventListener("pointerdown",function(){
+
+  saveSelection();
+
+});
+
+colorPicker.addEventListener("focus",function(){
+
+  saveSelection();
+
+});
+
+
+removeColorBtn.addEventListener("pointerdown",function(){
+
+  saveSelection();
+
+});
 
 </script>
 
