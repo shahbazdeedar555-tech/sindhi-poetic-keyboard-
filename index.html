@@ -187,7 +187,7 @@
           <button onclick="typeChar('ْ')">ْ</button>
           <button onclick="typeChar('ّ')">ّ</button>
           <button onclick="typeChar('ٰ')">ٰ</button>
-          <button id="shiftBtn" class="shift" onclick="toggleShift()">Shift</button>
+          <button class="shift" onclick="showShift()">Shift</button>
         </div>
 
         <!-- Row 1 -->
@@ -233,7 +233,7 @@
           <button onclick="typeChar('ط')">ط</button>
           <button onclick="typeChar('خ')">خ</button>
           <button onclick="typeChar('ز')">ز</button>
-          <button class="shift" onclick="toggleShift()">Shift</button>
+          <button class="shift" onclick="showShift()">Shift</button>
           <button onclick="typeChar('\n')">←</button>
         </div>
 
@@ -242,9 +242,7 @@
           <button class="action" onclick="sendText()">Send</button>
           <button onclick="typeChar('،')">،</button>
           <button onclick="typeChar('.')">.</button>
-
           <button class="space" onclick="typeChar(' ')">Space</button>
-
           <button class="action" onclick="showNumbers()">123</button>
           <button class="action" onclick="showKeyboard()">Keyboard</button>
         </div>
@@ -304,12 +302,20 @@
           <button class="action" onclick="showKeyboard()">Keyboard</button>
         </div>
 
-        <!-- ٻنهي نمونن لاءِ خاص ه -->
+        <!-- Special forms -->
         <div class="row">
           <button onclick="typeChar('ہ')">ہ</button>
+          <button onclick="typeChar('ى')">ى</button>
           <button onclick="typeChar('ه')">ه</button>
+          <button onclick="typeChar('ھ')">ھ</button>
           <button onclick="typeChar('نہ')">نہ</button>
           <button onclick="typeChar('نه')">نه</button>
+        </div>
+
+        <!-- Long character -->
+        <div class="row">
+          <button onclick="typeChar('ـ')">ـ</button>
+          <button onclick="typeChar('ٰ')">ٰ</button>
         </div>
 
       </div>
@@ -336,7 +342,7 @@
 
         <div class="row">
           <button class="action" onclick="deleteChar()">Delete</button>
-          <button class="action" onclick="showNormal()">Keyboard</button>
+          <button class="action" onclick="showKeyboard()">Keyboard</button>
           <button class="space" onclick="typeChar(' ')">Space</button>
         </div>
 
@@ -358,14 +364,12 @@
     const shiftKeyboard = document.getElementById("shiftKeyboard");
     const numbersKeyboard = document.getElementById("numbersKeyboard");
 
-    let shiftOn = false;
-
 
     function typeChar(char) {
 
-      let value = textBox.value;
-      let start = textBox.selectionStart;
-      let end = textBox.selectionEnd;
+      const value = textBox.value;
+      const start = textBox.selectionStart;
+      const end = textBox.selectionEnd;
 
       textBox.value =
         value.substring(0, start) +
@@ -383,19 +387,11 @@
     }
 
 
-    function toggleShift() {
+    function showShift() {
 
-      if (
-        normalKeyboard.style.display === "none" ||
-        shiftKeyboard.classList.contains("hidden")
-      ) {
-        normalKeyboard.style.display = "none";
-        shiftKeyboard.classList.remove("hidden");
-        numbersKeyboard.style.display = "none";
-        shiftOn = true;
-      } else {
-        showNormal();
-      }
+      normalKeyboard.style.display = "none";
+      shiftKeyboard.classList.remove("hidden");
+      numbersKeyboard.style.display = "none";
 
       textBox.focus();
     }
@@ -406,8 +402,6 @@
       normalKeyboard.style.display = "block";
       shiftKeyboard.classList.add("hidden");
       numbersKeyboard.style.display = "none";
-
-      shiftOn = false;
 
       textBox.focus();
     }
@@ -433,9 +427,9 @@
 
     function deleteChar() {
 
-      let start = textBox.selectionStart;
-      let end = textBox.selectionEnd;
-      let value = textBox.value;
+      const start = textBox.selectionStart;
+      const end = textBox.selectionEnd;
+      const value = textBox.value;
 
       if (start !== end) {
 
@@ -447,17 +441,13 @@
 
       } else if (start > 0) {
 
-        /*
-          Unicode character کي صحيح نموني ختم ڪرڻ لاءِ
-        */
-
-        let chars = Array.from(value);
+        const chars = Array.from(value);
 
         chars.splice(start - 1, 1);
 
         textBox.value = chars.join("");
 
-        let newPosition = Math.max(0, start - 1);
+        const newPosition = Math.max(0, start - 1);
 
         textBox.setSelectionRange(
           newPosition,
@@ -473,18 +463,18 @@
 
       textBox.value = "";
 
-      textBox.focus();
-
-      shiftOn = false;
-
       showNormal();
+
+      textBox.focus();
     }
 
 
     function sendText() {
 
       if (!textBox.value.trim()) {
+
         alert("Please write something first.");
+
         return;
       }
 
