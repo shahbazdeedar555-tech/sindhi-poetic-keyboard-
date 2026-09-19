@@ -449,6 +449,7 @@ function saveSelection(){
     editor.contains(selection.anchorNode) &&
     editor.contains(selection.focusNode)
   ){
+
     savedRange = selection.getRangeAt(0).cloneRange();
     return true;
   }
@@ -482,19 +483,15 @@ function restoreSelection(){
 
 
 /* =========================
-   EDITOR SELECTION
+   SELECTION TRACKING
 ========================= */
 
-editor.addEventListener("mouseup",function(){
-  setTimeout(saveSelection,10);
-});
+editor.addEventListener("mouseup", saveSelection);
 
-editor.addEventListener("keyup",function(){
-  setTimeout(saveSelection,10);
-});
+editor.addEventListener("keyup", saveSelection);
 
-editor.addEventListener("touchend",function(){
-  setTimeout(saveSelection,150);
+editor.addEventListener("touchend", function(){
+  requestAnimationFrame(saveSelection);
 });
 
 
@@ -513,11 +510,15 @@ function insertText(text){
   let range;
 
   if(selection.rangeCount){
+
     range = selection.getRangeAt(0);
+
   }else{
+
     range = document.createRange();
     range.selectNodeContents(editor);
     range.collapse(false);
+
   }
 
   range.deleteContents();
@@ -607,92 +608,93 @@ fontSize.addEventListener("input",function(){
 });
 
 
-/* =================================================
-   IMPORTANT COLOR FIX
-================================================= */
+/* ==================================================
+   FAST COLOR PICKER
+================================================== */
 
 /*
-   color input تي ڪلڪ ڪرڻ کان اڳ selection محفوظ.
+   Selection صرف هڪ ڀيرو محفوظ ٿيندي.
+   بار بار timeout يا duplicate click نه ٿيندو.
 */
 
-colorPicker.addEventListener("mousedown",function(e){
-
-  e.preventDefault();
+colorPicker.addEventListener("pointerdown",function(){
 
   saveSelection();
-
-  /*
-     Native color picker کولڻ لاءِ click manually.
-  */
-
-  setTimeout(function(){
-    colorPicker.click();
-  },0);
 
 });
 
 
-/*
-   موبائل لاءِ.
-*/
-
-colorPicker.addEventListener("touchstart",function(){
-
-  saveSelection();
-
-},{passive:true});
-
-
-/*
-   Color بدلجڻ کان پوءِ selection ٻيهر restore.
-*/
-
 colorPicker.addEventListener("input",function(){
 
-  applyColor(this.value);
+  applyColorFast(this.value);
 
 });
 
 
 colorPicker.addEventListener("change",function(){
 
-  applyColor(this.value);
+  applyColorFast(this.value);
 
 });
 
 
 /* =========================
-   APPLY COLOR
+   FAST APPLY COLOR
 ========================= */
 
-function applyColor(color){
+function applyColorFast(color){
 
-  if(!savedRange){
-    return;
-  }
+  if(!savedRange) return;
+
+  const range = savedRange.cloneRange();
+
+  if(range.collapsed) return;
 
   if(
-    !editor.contains(savedRange.startContainer) ||
-    !editor.contains(savedRange.endContainer)
+    !editor.contains(range.startContainer) ||
+    !editor.contains(range.endContainer)
   ){
     return;
   }
 
-  const range = savedRange.cloneRange();
+  /*
+     جيڪڏهن چونڊيل حصو اڳ ۾ ئي هڪ ئي span اندر آهي،
+     ته نئون span ٺاهڻ بدران موجوده span جو رنگ بدلائي ڇڏيون.
+     هي موبائيل تي تمام تيز آهي.
+  */
 
-  if(range.collapsed){
+  const startElement =
+    range.startContainer.nodeType === Node.ELEMENT_NODE
+      ? range.startContainer
+      : range.startContainer.parentElement;
+
+  const endElement =
+    range.endContainer.nodeType === Node.ELEMENT_NODE
+      ? range.endContainer
+      : range.endContainer.parentElement;
+
+  if(
+    startElement &&
+    endElement &&
+    startElement === endElement &&
+    startElement !== editor &&
+    startElement.tagName === "SPAN"
+  ){
+
+    startElement.style.color = color;
+
+    savedRange = range.cloneRange();
+
     return;
   }
 
+
   /*
-     چونڊيل حصو ڪڍون ٿا.
+     عام حالت:
+     صرف چونڊيل حصو span ۾ رکون ٿا.
   */
 
   const fragment = range.extractContents();
-
-  /*
-     نئون span ٺاهيون ٿا.
-  */
 
   const span = document.createElement("span");
 
@@ -704,7 +706,7 @@ function applyColor(color){
 
 
   /*
-     ٻيهر چونڊ محفوظ.
+     selection برقرار رکون ٿا.
   */
 
   const newRange = document.createRange();
@@ -717,7 +719,6 @@ function applyColor(color){
   selection.addRange(newRange);
 
   savedRange = newRange.cloneRange();
-
 }
 
 
@@ -725,18 +726,11 @@ function applyColor(color){
    REMOVE COLOR
 ========================= */
 
-removeColorBtn.addEventListener("mousedown",function(){
+removeColorBtn.addEventListener("pointerdown",function(){
 
   saveSelection();
 
 });
-
-
-removeColorBtn.addEventListener("touchstart",function(){
-
-  saveSelection();
-
-},{passive:true});
 
 
 removeColorBtn.addEventListener("click",function(){
@@ -748,15 +742,11 @@ removeColorBtn.addEventListener("click",function(){
 
 function removeSelectedColor(){
 
-  if(!savedRange){
-    return;
-  }
+  if(!savedRange) return;
 
   const range = savedRange.cloneRange();
 
-  if(range.collapsed){
-    return;
-  }
+  if(range.collapsed) return;
 
   if(
     !editor.contains(range.startContainer) ||
@@ -775,6 +765,7 @@ function removeSelectedColor(){
 
   range.insertNode(span);
 
+
   const newRange = document.createRange();
 
   newRange.selectNodeContents(span);
@@ -785,7 +776,6 @@ function removeSelectedColor(){
   selection.addRange(newRange);
 
   savedRange = newRange.cloneRange();
-
 }
 
 
