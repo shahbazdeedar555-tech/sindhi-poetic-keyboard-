@@ -8,9 +8,7 @@
 <title>سنڌي شاعري ڪي بورڊ</title>
 
 <style>
-*{
-  box-sizing:border-box;
-}
+*{box-sizing:border-box}
 
 body{
   margin:0;
@@ -109,6 +107,7 @@ input[type="color"]{
   padding:8px 12px;
   border-radius:8px;
   font-size:14px;
+  border:0;
 }
 
 /* WRITING AREA */
@@ -165,6 +164,7 @@ input[type="color"]{
   color:#fff;
   border-radius:8px;
   font-size:21px;
+  border:0;
 }
 
 /* KEYBOARD */
@@ -213,6 +213,7 @@ input[type="color"]{
   border-radius:8px;
   font-size:18px;
   font-weight:bold;
+  border:0;
 }
 
 .shift-active{
@@ -251,6 +252,7 @@ input[type="color"]{
   color:#fff;
   font-size:17px;
   font-weight:bold;
+  border:0;
 }
 
 .main-action.clear{
@@ -324,11 +326,9 @@ footer{
     <div class="controls">
 
       <div class="control-box">
-
         <label>فانٽ:</label>
 
         <select id="fontSelect">
-
           <option value="Jameel Noori Nastaleeq">
             Jameel Noori Nastaleeq
           </option>
@@ -340,11 +340,8 @@ footer{
           <option value="Arial">
             Arial
           </option>
-
         </select>
-
       </div>
-
 
       <div class="control-box">
 
@@ -363,9 +360,7 @@ footer{
           <span>px</span>
 
         </div>
-
       </div>
-
 
       <div class="control-box">
 
@@ -397,11 +392,9 @@ footer{
           </button>
 
         </div>
-
       </div>
 
     </div>
-
   </div>
 
 
@@ -450,7 +443,7 @@ footer{
 
         <button class="key" data-char="ا" data-shift="آ">ا</button>
 
-        <button class="key" data-char="ب" data-shift="بہ">ب</button>
+        <button class="key" data-char="ب" data-shift="ٻ">ب</button>
 
         <button class="key" data-char="ٻ" data-shift="ڀ">ٻ</button>
 
@@ -558,7 +551,8 @@ footer{
 
         <button class="key" data-char="و" data-shift="ؤ">و</button>
 
-        <button class="key" data-char="ه" data-shift="ھ">ه</button>
+        <!-- ه = به ، Shift + ه = بہ -->
+        <button class="key" data-char="به" data-shift="بہ">ه</button>
 
         <button class="key" data-char="ھ" data-shift="ح">ھ</button>
 
@@ -603,17 +597,36 @@ footer{
         </button>
 
         <button
-          class="action-key"
-          id="shiftBtn"
-          type="button"
+          class="key"
+          data-char="۾"
+          data-shift="۾"
         >
-          ⇧ شفٽ
+          ۾
         </button>
 
       </div>
 
 
-      <!-- SPECIAL SHORTCUTS -->
+      <!-- SHIFT -->
+      <div class="space-row">
+
+        <button
+          class="action-key"
+          id="shiftBtn"
+          type="button"
+          style="width:100%;"
+        >
+          ⇧ شفٽ
+        </button>
+
+        <div></div>
+
+        <div></div>
+
+      </div>
+
+
+      <!-- SPECIAL SHORTCUT -->
       <div class="space-row">
 
         <button
@@ -714,10 +727,6 @@ footer{
 
 <script>
 
-/* =========================================
-   WRITING AREA
-========================================= */
-
 const writingArea =
   document.getElementById("writingArea");
 
@@ -725,21 +734,17 @@ let savedRange = null;
 let shiftActive = false;
 
 
-/* =========================================
-   SAVE SELECTION
-========================================= */
+/* SAVE SELECTION */
 
 function saveSelection(){
 
-  const selection =
-    window.getSelection();
+  const selection = window.getSelection();
 
   if(!selection || selection.rangeCount === 0){
     return;
   }
 
-  const range =
-    selection.getRangeAt(0);
+  const range = selection.getRangeAt(0);
 
   if(writingArea.contains(range.commonAncestorContainer)){
     savedRange = range.cloneRange();
@@ -747,24 +752,18 @@ function saveSelection(){
 }
 
 
-/* =========================================
-   RESTORE SELECTION
-========================================= */
+/* RESTORE SELECTION */
 
 function restoreSelection(){
 
   if(!savedRange){
-
     writingArea.focus();
-
     return false;
   }
 
-  const selection =
-    window.getSelection();
+  const selection = window.getSelection();
 
   selection.removeAllRanges();
-
   selection.addRange(savedRange);
 
   writingArea.focus();
@@ -773,9 +772,7 @@ function restoreSelection(){
 }
 
 
-/* =========================================
-   SELECTION EVENTS
-========================================= */
+/* SELECTION EVENTS */
 
 document.addEventListener(
   "selectionchange",
@@ -794,16 +791,13 @@ document.addEventListener(
 );
 
 
-/* =========================================
-   INSERT TEXT
-========================================= */
+/* INSERT TEXT */
 
 function insertText(text){
 
   restoreSelection();
 
-  const selection =
-    window.getSelection();
+  const selection = window.getSelection();
 
   if(!selection){
     return;
@@ -811,11 +805,9 @@ function insertText(text){
 
   if(selection.rangeCount === 0){
 
-    const range =
-      document.createRange();
+    const range = document.createRange();
 
     range.selectNodeContents(writingArea);
-
     range.collapse(false);
 
     selection.addRange(range);
@@ -831,9 +823,7 @@ function insertText(text){
 }
 
 
-/* =========================================
-   KEYBOARD LETTERS
-========================================= */
+/* KEYBOARD LETTERS */
 
 document.querySelectorAll(
   ".key[data-char]"
@@ -850,8 +840,7 @@ document.querySelectorAll(
     "click",
     function(){
 
-      let char =
-        this.dataset.char;
+      let char = this.dataset.char;
 
       if(shiftActive){
 
@@ -874,9 +863,7 @@ document.querySelectorAll(
 });
 
 
-/* =========================================
-   SPECIAL SYMBOLS
-========================================= */
+/* SPECIAL SYMBOLS */
 
 document.querySelectorAll(
   "[data-special]"
@@ -903,9 +890,7 @@ document.querySelectorAll(
 });
 
 
-/* =========================================
-   SHIFT
-========================================= */
+/* SHIFT */
 
 document
   .getElementById("shiftBtn")
@@ -922,8 +907,7 @@ document
     "click",
     function(){
 
-      shiftActive =
-        !shiftActive;
+      shiftActive = !shiftActive;
 
       this.classList.toggle(
         "shift-active",
@@ -934,9 +918,7 @@ document
   );
 
 
-/* =========================================
-   SPACE
-========================================= */
+/* SPACE */
 
 document
   .getElementById("spaceBtn")
@@ -959,9 +941,7 @@ document
   );
 
 
-/* =========================================
-   ENTER
-========================================= */
+/* ENTER */
 
 document
   .getElementById("enterBtn")
@@ -992,9 +972,7 @@ document
   );
 
 
-/* =========================================
-   BACKSPACE
-========================================= */
+/* BACKSPACE */
 
 document
   .getElementById("backspaceBtn")
@@ -1025,9 +1003,7 @@ document
   );
 
 
-/* =========================================
-   FONT
-========================================= */
+/* FONT */
 
 const fontSelect =
   document.getElementById("fontSelect");
@@ -1043,9 +1019,7 @@ fontSelect.addEventListener(
 );
 
 
-/* =========================================
-   FONT SIZE
-========================================= */
+/* FONT SIZE */
 
 const fontSize =
   document.getElementById("fontSize");
@@ -1061,13 +1035,10 @@ fontSize.addEventListener(
 );
 
 
-/* =========================================
-   COLOR — SELECTED WORD ONLY
-========================================= */
+/* COLOR */
 
 const textColor =
   document.getElementById("textColor");
-
 
 function applyColor(color){
 
@@ -1082,20 +1053,15 @@ function applyColor(color){
 
   restoreSelection();
 
-  const selection =
-    window.getSelection();
+  const selection = window.getSelection();
 
   if(!selection || selection.rangeCount === 0){
 
-    alert(
-      "پهريان لفظ سليڪٽ ڪريو."
-    );
-
+    alert("پهريان لفظ سليڪٽ ڪريو.");
     return;
   }
 
-  const range =
-    selection.getRangeAt(0);
+  const range = selection.getRangeAt(0);
 
   if(range.collapsed){
 
@@ -1135,9 +1101,7 @@ textColor.addEventListener(
 );
 
 
-/* =========================================
-   RESET COLOR
-========================================= */
+/* RESET COLOR */
 
 document
   .getElementById("resetColor")
@@ -1160,9 +1124,7 @@ document
   );
 
 
-/* =========================================
-   BOLD — SELECTED WORD ONLY
-========================================= */
+/* BOLD */
 
 document
   .getElementById("boldBtn")
@@ -1195,10 +1157,7 @@ document
 
       if(!selection || selection.rangeCount === 0){
 
-        alert(
-          "پهريان لفظ سليڪٽ ڪريو."
-        );
-
+        alert("پهريان لفظ سليڪٽ ڪريو.");
         return;
       }
 
@@ -1232,9 +1191,7 @@ document
   );
 
 
-/* =========================================
-   COPY
-========================================= */
+/* COPY */
 
 document
   .getElementById("copyBtn")
@@ -1247,22 +1204,15 @@ document
 
       if(!text.trim()){
 
-        alert(
-          "پهرين شاعري لکو."
-        );
-
+        alert("پهرين شاعري لکو.");
         return;
       }
 
       try{
 
-        await navigator.clipboard.writeText(
-          text
-        );
+        await navigator.clipboard.writeText(text);
 
-        alert(
-          "شاعري ڪاپي ٿي وئي."
-        );
+        alert("شاعري ڪاپي ٿي وئي.");
 
       }catch(error){
 
@@ -1279,9 +1229,7 @@ document
 
         temp.remove();
 
-        alert(
-          "شاعري ڪاپي ٿي وئي."
-        );
+        alert("شاعري ڪاپي ٿي وئي.");
 
       }
 
@@ -1289,9 +1237,7 @@ document
   );
 
 
-/* =========================================
-   SEND
-========================================= */
+/* SEND */
 
 document
   .getElementById("sendBtn")
@@ -1304,10 +1250,7 @@ document
 
       if(!text){
 
-        alert(
-          "پهرين شاعري لکو."
-        );
-
+        alert("پهرين شاعري لکو.");
         return;
       }
 
@@ -1316,11 +1259,8 @@ document
         try{
 
           await navigator.share({
-
             title:"سنڌي شاعري",
-
             text:text
-
           });
 
         }catch(error){
@@ -1333,9 +1273,7 @@ document
 
         try{
 
-          await navigator.clipboard.writeText(
-            text
-          );
+          await navigator.clipboard.writeText(text);
 
           alert(
             "Share موجود ناهي، شاعري ڪاپي ٿي وئي."
@@ -1355,9 +1293,7 @@ document
   );
 
 
-/* =========================================
-   CLEAR
-========================================= */
+/* CLEAR */
 
 document
   .getElementById("clearBtn")
@@ -1383,9 +1319,7 @@ document
   );
 
 
-/* =========================================
-   DEFAULT FONT
-========================================= */
+/* DEFAULT FONT */
 
 writingArea.style.fontFamily =
   fontSelect.value;
@@ -1394,16 +1328,12 @@ writingArea.style.fontSize =
   fontSize.value + "px";
 
 
-/* =========================================
-   MOBILE LONG-PRESS MENU
-========================================= */
+/* MOBILE */
 
 document.addEventListener(
   "gesturestart",
   function(e){
-
     e.preventDefault();
-
   }
 );
 
