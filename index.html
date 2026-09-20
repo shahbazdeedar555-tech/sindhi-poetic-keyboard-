@@ -1,3 +1,4 @@
+
 <!DOCTYPE html>
 <html lang="sd" dir="rtl">
 <head>
@@ -90,6 +91,7 @@ input[type="number"]{
   display:flex;
   align-items:center;
   gap:8px;
+  flex-wrap:wrap;
 }
 
 input[type="color"]{
@@ -99,12 +101,6 @@ input[type="color"]{
   border:1px solid #aaa;
   border-radius:8px;
   background:white;
-}
-
-button{
-  border:none;
-  cursor:pointer;
-  font-family:inherit;
 }
 
 .reset-color{
@@ -322,28 +318,40 @@ footer{
 
   <!-- FONT & COLOR -->
   <div class="panel">
+
     <h2>🖋️ فانٽ ۽ ڪلر سليڪشن</h2>
 
     <div class="controls">
 
       <div class="control-box">
+
         <label>فانٽ:</label>
+
         <select id="fontSelect">
+
           <option value="Jameel Noori Nastaleeq">
             Jameel Noori Nastaleeq
           </option>
+
           <option value="Noto Nastaliq Urdu">
             Noto Nastaliq Urdu
           </option>
+
           <option value="Arial">
             Arial
           </option>
+
         </select>
+
       </div>
 
+
       <div class="control-box">
+
         <label>سائيز:</label>
+
         <div style="display:flex;align-items:center;gap:5px;">
+
           <input
             type="number"
             id="fontSize"
@@ -351,11 +359,16 @@ footer{
             min="12"
             max="60"
           >
+
           <span>px</span>
+
         </div>
+
       </div>
 
+
       <div class="control-box">
+
         <label>چونڊيل لفظ جو رنگ:</label>
 
         <div class="color-row">
@@ -375,11 +388,22 @@ footer{
             رنگ ختم
           </button>
 
+          <button
+            class="reset-color"
+            id="boldBtn"
+            type="button"
+          >
+            <b>B</b> بولڊ
+          </button>
+
         </div>
+
       </div>
 
     </div>
+
   </div>
+
 
   <!-- WRITING -->
   <div class="panel">
@@ -392,6 +416,7 @@ footer{
     ></div>
 
   </div>
+
 
   <!-- SPECIAL SYMBOLS -->
   <div class="panel">
@@ -414,6 +439,7 @@ footer{
 
   </div>
 
+
   <!-- KEYBOARD -->
   <div class="panel">
 
@@ -423,81 +449,131 @@ footer{
       <div class="key-row">
 
         <button class="key" data-char="ا" data-shift="آ">ا</button>
-        <button class="key" data-char="ب" data-shift="ٻ">ب</button>
+
+        <button class="key" data-char="ب" data-shift="بہ">ب</button>
+
         <button class="key" data-char="ٻ" data-shift="ڀ">ٻ</button>
+
         <button class="key" data-char="پ" data-shift="ڦ">پ</button>
+
         <button class="key" data-char="ڀ" data-shift="ٿ">ڀ</button>
-        <button class="key" data-char="ت" data-shift="ٽ">ت</button>
+
+        <button class="key" data-char="ت" data-shift="تہ">ت</button>
+
         <button class="key" data-char="ٺ" data-shift="ٿ">ٺ</button>
+
         <button class="key" data-char="ٽ" data-shift="ث">ٽ</button>
+
         <button class="key" data-char="ث" data-shift="ٿ">ث</button>
+
         <button class="key" data-char="ٿ" data-shift="ٺ">ٿ</button>
 
       </div>
+
 
       <!-- ROW 2 -->
       <div class="key-row">
 
         <button class="key" data-char="ف" data-shift="ڦ">ف</button>
+
         <button class="key" data-char="ڦ" data-shift="ف">ڦ</button>
+
         <button class="key" data-char="گ" data-shift="ڳ">گ</button>
+
         <button class="key" data-char="ڳ" data-shift="ڱ">ڳ</button>
+
         <button class="key" data-char="ڱ" data-shift="گ">ڱ</button>
+
         <button class="key" data-char="ک" data-shift="خ">ک</button>
+
         <button class="key" data-char="خ" data-shift="ک">خ</button>
+
         <button class="key" data-char="ي" data-shift="ى">ي</button>
+
         <button class="key" data-char="ى" data-shift="ي">ى</button>
+
         <button class="key" data-char="د" data-shift="ڊ">د</button>
 
       </div>
+
 
       <!-- ROW 3 -->
       <div class="key-row">
 
         <button class="key" data-char="ڊ" data-shift="ڍ">ڊ</button>
+
         <button class="key" data-char="ڍ" data-shift="ڌ">ڍ</button>
+
         <button class="key" data-char="ڌ" data-shift="ڏ">ڌ</button>
+
         <button class="key" data-char="ڏ" data-shift="ذ">ڏ</button>
+
         <button class="key" data-char="ذ" data-shift="ز">ذ</button>
+
         <button class="key" data-char="ر" data-shift="ڙ">ر</button>
+
         <button class="key" data-char="ڙ" data-shift="ز">ڙ</button>
+
         <button class="key" data-char="ز" data-shift="ژ">ز</button>
+
         <button class="key" data-char="س" data-shift="ش">س</button>
+
         <button class="key" data-char="ش" data-shift="ص">ش</button>
 
       </div>
+
 
       <!-- ROW 4 -->
       <div class="key-row">
 
         <button class="key" data-char="ص" data-shift="ض">ص</button>
+
         <button class="key" data-char="ض" data-shift="ط">ض</button>
+
         <button class="key" data-char="ط" data-shift="ظ">ط</button>
+
         <button class="key" data-char="ظ" data-shift="ع">ظ</button>
+
         <button class="key" data-char="ع" data-shift="غ">ع</button>
+
         <button class="key" data-char="غ" data-shift="ق">غ</button>
+
         <button class="key" data-char="ق" data-shift="ڪ">ق</button>
+
         <button class="key" data-char="ڪ" data-shift="ل">ڪ</button>
+
         <button class="key" data-char="ل" data-shift="م">ل</button>
+
         <button class="key" data-char="م" data-shift="ن">م</button>
 
       </div>
 
+
       <!-- ROW 5 -->
       <div class="key-row">
 
-        <button class="key" data-char="ن" data-shift="ڻ">ن</button>
+        <button class="key" data-char="ن" data-shift="نہ">ن</button>
+
         <button class="key" data-char="ڻ" data-shift="و">ڻ</button>
+
         <button class="key" data-char="و" data-shift="ؤ">و</button>
+
         <button class="key" data-char="ه" data-shift="ھ">ه</button>
+
         <button class="key" data-char="ھ" data-shift="ح">ھ</button>
+
         <button class="key" data-char="ح" data-shift="چ">ح</button>
+
         <button class="key" data-char="چ" data-shift="ج">چ</button>
+
         <button class="key" data-char="ج" data-shift="ڇ">ج</button>
+
         <button class="key" data-char="ڇ" data-shift="ڃ">ڇ</button>
+
         <button class="key" data-char="ڃ" data-shift="ڻ">ڃ</button>
 
       </div>
+
 
       <!-- ROW 6 -->
       <div class="bottom-key-row">
@@ -536,21 +612,9 @@ footer{
 
       </div>
 
+
+      <!-- SPECIAL SHORTCUTS -->
       <div class="space-row">
-
-        <button
-          class="space-key"
-          data-special="نہ"
-        >
-          نہ
-        </button>
-
-        <button
-          class="space-key"
-          data-special="بہ"
-        >
-          بہ
-        </button>
 
         <button
           class="space-key"
@@ -559,8 +623,14 @@ footer{
           ى
         </button>
 
+        <div></div>
+
+        <div></div>
+
       </div>
 
+
+      <!-- SPACE / ENTER -->
       <div class="space-row">
 
         <button
@@ -586,6 +656,8 @@ footer{
 
       </div>
 
+
+      <!-- BACKSPACE -->
       <div style="margin-top:5px;">
 
         <button
@@ -600,8 +672,8 @@ footer{
 
     </div>
 
-    <!-- MAIN ACTIONS -->
 
+    <!-- MAIN ACTIONS -->
     <div class="actions">
 
       <button
@@ -633,6 +705,7 @@ footer{
   </div>
 
 </div>
+
 
 <footer>
   سنڌي شاعري ڪي بورڊ © 2026
@@ -681,7 +754,9 @@ function saveSelection(){
 function restoreSelection(){
 
   if(!savedRange){
+
     writingArea.focus();
+
     return false;
   }
 
@@ -689,6 +764,7 @@ function restoreSelection(){
     window.getSelection();
 
   selection.removeAllRanges();
+
   selection.addRange(savedRange);
 
   writingArea.focus();
@@ -739,6 +815,7 @@ function insertText(text){
       document.createRange();
 
     range.selectNodeContents(writingArea);
+
     range.collapse(false);
 
     selection.addRange(range);
@@ -832,23 +909,29 @@ document.querySelectorAll(
 
 document
   .getElementById("shiftBtn")
-  .addEventListener("mousedown", function(e){
-    e.preventDefault();
-  });
+  .addEventListener(
+    "mousedown",
+    function(e){
+      e.preventDefault();
+    }
+  );
 
 document
   .getElementById("shiftBtn")
-  .addEventListener("click", function(){
+  .addEventListener(
+    "click",
+    function(){
 
-    shiftActive =
-      !shiftActive;
+      shiftActive =
+        !shiftActive;
 
-    this.classList.toggle(
-      "shift-active",
-      shiftActive
-    );
+      this.classList.toggle(
+        "shift-active",
+        shiftActive
+      );
 
-  });
+    }
+  );
 
 
 /* =========================================
@@ -1023,20 +1106,11 @@ function applyColor(color){
     return;
   }
 
-  /*
-    CSS style استعمال ڪرڻ لاءِ
-  */
-
   document.execCommand(
     "styleWithCSS",
     false,
     true
   );
-
-  /*
-    صرف سليڪٽ ٿيل لفظ جو رنگ
-    تبديل ٿيندو.
-  */
 
   document.execCommand(
     "foreColor",
@@ -1062,7 +1136,7 @@ textColor.addEventListener(
 
 
 /* =========================================
-   RESET SELECTED WORD COLOR
+   RESET COLOR
 ========================================= */
 
 document
@@ -1087,6 +1161,78 @@ document
 
 
 /* =========================================
+   BOLD — SELECTED WORD ONLY
+========================================= */
+
+document
+  .getElementById("boldBtn")
+  .addEventListener(
+    "mousedown",
+    function(e){
+      e.preventDefault();
+    }
+  );
+
+document
+  .getElementById("boldBtn")
+  .addEventListener(
+    "click",
+    function(){
+
+      if(!savedRange){
+
+        alert(
+          "پهريان لفظ سليڪٽ ڪريو، پوءِ بولڊ تي ڪلڪ ڪريو."
+        );
+
+        return;
+      }
+
+      restoreSelection();
+
+      const selection =
+        window.getSelection();
+
+      if(!selection || selection.rangeCount === 0){
+
+        alert(
+          "پهريان لفظ سليڪٽ ڪريو."
+        );
+
+        return;
+      }
+
+      const range =
+        selection.getRangeAt(0);
+
+      if(range.collapsed){
+
+        alert(
+          "پهريان لفظ سليڪٽ ڪريو، پوءِ بولڊ تي ڪلڪ ڪريو."
+        );
+
+        return;
+      }
+
+      document.execCommand(
+        "styleWithCSS",
+        false,
+        true
+      );
+
+      document.execCommand(
+        "bold",
+        false,
+        null
+      );
+
+      saveSelection();
+
+    }
+  );
+
+
+/* =========================================
    COPY
 ========================================= */
 
@@ -1101,7 +1247,9 @@ document
 
       if(!text.trim()){
 
-        alert("پهرين شاعري لکو.");
+        alert(
+          "پهرين شاعري لکو."
+        );
 
         return;
       }
@@ -1156,14 +1304,14 @@ document
 
       if(!text){
 
-        alert("پهرين شاعري لکو.");
+        alert(
+          "پهرين شاعري لکو."
+        );
 
         return;
       }
 
-      if(
-        navigator.share
-      ){
+      if(navigator.share){
 
         try{
 
@@ -1177,10 +1325,7 @@ document
 
         }catch(error){
 
-          /*
-            User share cancel ڪيو
-            ته ڪجهه نه ڪنداسين.
-          */
+          /* Share cancel ٿيو */
 
         }
 
