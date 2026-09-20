@@ -1,4 +1,3 @@
-
 <!DOCTYPE html>
 <html lang="sd" dir="rtl">
 <head>
@@ -194,6 +193,39 @@ input[type="color"]{
   background:#ead7a3;
 }
 
+/* NUMBERS */
+.number-row{
+  display:grid;
+  grid-template-columns:repeat(10,1fr);
+  gap:5px;
+  margin-bottom:5px;
+}
+
+/* PUNCTUATION */
+.punctuation-row{
+  display:grid;
+  grid-template-columns:repeat(12,1fr);
+  gap:5px;
+  margin-bottom:5px;
+}
+
+.punctuation-key{
+  min-height:45px;
+  background:#fffdf8;
+  color:#173f35;
+  border:1px solid #bda978;
+  border-radius:8px;
+  font-size:20px;
+  font-weight:bold;
+  box-shadow:0 2px 2px rgba(0,0,0,.12);
+  padding:3px;
+}
+
+.punctuation-key:active{
+  transform:scale(.96);
+  background:#ead7a3;
+}
+
 .bottom-key-row{
   display:grid;
   grid-template-columns:1fr 1fr 1fr 1fr;
@@ -288,6 +320,24 @@ footer{
     font-size:19px;
   }
 
+  .number-row{
+    gap:3px;
+  }
+
+  .number-row .key{
+    min-height:43px;
+    font-size:18px;
+  }
+
+  .punctuation-row{
+    gap:3px;
+  }
+
+  .punctuation-key{
+    min-height:43px;
+    font-size:17px;
+  }
+
   .bottom-key-row{
     gap:3px;
   }
@@ -312,351 +362,396 @@ footer{
 
 <div class="container">
 
-  <div class="panel">
+<div class="panel">
 
-    <h2>🖋️ فانٽ ۽ ڪلر سليڪشن</h2>
+<h2>🖋️ فانٽ ۽ ڪلر سليڪشن</h2>
 
-    <div class="controls">
+<div class="controls">
 
-      <div class="control-box">
-        <label>فانٽ:</label>
+<div class="control-box">
+<label>فانٽ:</label>
 
-        <select id="fontSelect">
-          <option value="Jameel Noori Nastaleeq">
-            Jameel Noori Nastaleeq
-          </option>
+<select id="fontSelect">
+<option value="Jameel Noori Nastaleeq">
+Jameel Noori Nastaleeq
+</option>
 
-          <option value="Noto Nastaliq Urdu">
-            Noto Nastaliq Urdu
-          </option>
+<option value="Noto Nastaliq Urdu">
+Noto Nastaliq Urdu
+</option>
 
-          <option value="Arial">
-            Arial
-          </option>
-        </select>
-      </div>
+<option value="Arial">
+Arial
+</option>
+</select>
+</div>
 
-      <div class="control-box">
+<div class="control-box">
 
-        <label>سائيز:</label>
+<label>سائيز:</label>
 
-        <div style="display:flex;align-items:center;gap:5px;">
+<div style="display:flex;align-items:center;gap:5px;">
 
-          <input
-            type="number"
-            id="fontSize"
-            value="26"
-            min="12"
-            max="60"
-          >
+<input
+type="number"
+id="fontSize"
+value="26"
+min="12"
+max="60"
+>
 
-          <span>px</span>
+<span>px</span>
 
-        </div>
-      </div>
+</div>
+</div>
 
-      <div class="control-box">
+<div class="control-box">
 
-        <label>چونڊيل لفظ جو رنگ:</label>
+<label>چونڊيل لفظ جو رنگ:</label>
 
-        <div class="color-row">
+<div class="color-row">
 
-          <input
-            type="color"
-            id="textColor"
-            value="#173f35"
-            title="چونڊيل لفظ جو رنگ تبديل ڪريو"
-          >
+<input
+type="color"
+id="textColor"
+value="#173f35"
+title="چونڊيل لفظ جو رنگ تبديل ڪريو"
+>
 
-          <button
-            class="reset-color"
-            id="resetColor"
-            type="button"
-          >
-            رنگ ختم
-          </button>
+<button
+class="reset-color"
+id="resetColor"
+type="button"
+>
+رنگ ختم
+</button>
 
-          <button
-            class="reset-color"
-            id="boldBtn"
-            type="button"
-          >
-            <b>B</b> بولڊ
-          </button>
+<button
+class="reset-color"
+id="boldBtn"
+type="button"
+>
+<b>B</b> بولڊ
+</button>
 
-        </div>
-      </div>
+</div>
+</div>
 
-    </div>
-  </div>
+</div>
+</div>
 
 
-  <div class="panel">
+<div class="panel">
 
-    <div
-      id="writingArea"
-      contenteditable="true"
-      spellcheck="false"
-      data-placeholder="هتي شاعري لکو..."
-    ></div>
+<div
+id="writingArea"
+contenteditable="true"
+spellcheck="false"
+data-placeholder="هتي شاعري لکو..."
+></div>
 
-  </div>
+</div>
 
 
-  <div class="panel">
+<div class="panel">
 
-    <div class="section-title">
-      خاص نشانيون
-    </div>
+<div class="section-title">
+خاص نشانيون
+</div>
 
-    <div class="special-row">
+<div class="special-row">
 
-      <button class="special-btn" data-special="ـ">ـ</button>
-      <button class="special-btn" data-special="َ">َ</button>
-      <button class="special-btn" data-special="ِ">ِ</button>
-      <button class="special-btn" data-special="ُ">ُ</button>
-      <button class="special-btn" data-special="ْ">ْ</button>
-      <button class="special-btn" data-special="ّ">ّ</button>
-      <button class="special-btn" data-special="ٰ">ٰ</button>
+<button class="special-btn" data-special="ـ">ـ</button>
+<button class="special-btn" data-special="َ">َ</button>
+<button class="special-btn" data-special="ِ">ِ</button>
+<button class="special-btn" data-special="ُ">ُ</button>
+<button class="special-btn" data-special="ْ">ْ</button>
+<button class="special-btn" data-special="ّ">ّ</button>
+<button class="special-btn" data-special="ٰ">ٰ</button>
 
-    </div>
+</div>
 
-  </div>
+</div>
 
 
-  <div class="panel">
+<div class="panel">
 
-    <div class="keyboard">
+<div class="keyboard">
 
-      <!-- ROW 1 -->
-      <div class="key-row">
 
-        <button class="key" data-char="ا" data-shift="آ">ا</button>
-        <button class="key" data-char="ب" data-shift="ٻ">ب</button>
-        <button class="key" data-char="ٻ" data-shift="ڀ">ٻ</button>
-        <button class="key" data-char="پ" data-shift="ڦ">پ</button>
-        <button class="key" data-char="ڀ" data-shift="ٿ">ڀ</button>
-        <button class="key" data-char="ت" data-shift="تہ">ت</button>
-        <button class="key" data-char="ٺ" data-shift="ٿ">ٺ</button>
-        <button class="key" data-char="ٽ" data-shift="ث">ٽ</button>
-        <button class="key" data-char="ث" data-shift="ٿ">ث</button>
-        <button class="key" data-char="ٿ" data-shift="ٺ">ٿ</button>
-
-      </div>
-
-
-      <!-- ROW 2 -->
-      <div class="key-row">
-
-        <button class="key" data-char="ف" data-shift="ڦ">ف</button>
-        <button class="key" data-char="ڦ" data-shift="ف">ڦ</button>
-        <button class="key" data-char="گ" data-shift="ڳ">گ</button>
-        <button class="key" data-char="ڳ" data-shift="ڱ">ڳ</button>
-        <button class="key" data-char="ڱ" data-shift="گ">ڱ</button>
-        <button class="key" data-char="ک" data-shift="خ">ک</button>
-        <button class="key" data-char="خ" data-shift="ک">خ</button>
-        <button class="key" data-char="ي" data-shift="ى">ي</button>
-        <button class="key" data-char="ى" data-shift="ي">ى</button>
-        <button class="key" data-char="د" data-shift="ڊ">د</button>
-
-      </div>
-
-
-      <!-- ROW 3 -->
-      <div class="key-row">
-
-        <button class="key" data-char="ڊ" data-shift="ڍ">ڊ</button>
-        <button class="key" data-char="ڍ" data-shift="ڌ">ڍ</button>
-        <button class="key" data-char="ڌ" data-shift="ڏ">ڌ</button>
-        <button class="key" data-char="ڏ" data-shift="ذ">ڏ</button>
-        <button class="key" data-char="ذ" data-shift="ز">ذ</button>
-        <button class="key" data-char="ر" data-shift="ڙ">ر</button>
-        <button class="key" data-char="ڙ" data-shift="ز">ڙ</button>
-        <button class="key" data-char="ز" data-shift="ژ">ز</button>
-        <button class="key" data-char="س" data-shift="ش">س</button>
-        <button class="key" data-char="ش" data-shift="ص">ش</button>
+<!-- سنڌي اکر ROW 1 -->
 
-      </div>
-
-
-      <!-- ROW 4 -->
-      <div class="key-row">
-
-        <button class="key" data-char="ص" data-shift="ض">ص</button>
-        <button class="key" data-char="ض" data-shift="ط">ض</button>
-        <button class="key" data-char="ط" data-shift="ظ">ط</button>
-        <button class="key" data-char="ظ" data-shift="ع">ظ</button>
-        <button class="key" data-char="ع" data-shift="غ">ع</button>
-        <button class="key" data-char="غ" data-shift="ق">غ</button>
-        <button class="key" data-char="ق" data-shift="ڪ">ق</button>
-        <button class="key" data-char="ڪ" data-shift="ل">ڪ</button>
-        <button class="key" data-char="ل" data-shift="م">ل</button>
-        <button class="key" data-char="م" data-shift="ن">م</button>
-
-      </div>
-
-
-      <!-- ROW 5 -->
-      <div class="key-row">
-
-        <button class="key" data-char="ن" data-shift="نہ">ن</button>
-        <button class="key" data-char="ڻ" data-shift="و">ڻ</button>
-        <button class="key" data-char="و" data-shift="ؤ">و</button>
-
-        <button class="key" data-char="به" data-shift="بہ">ه</button>
-
-        <button class="key" data-char="ھ" data-shift="ح">ھ</button>
-        <button class="key" data-char="ح" data-shift="چ">ح</button>
-        <button class="key" data-char="چ" data-shift="ج">چ</button>
-        <button class="key" data-char="ج" data-shift="ڇ">ج</button>
-        <button class="key" data-char="ڇ" data-shift="ڃ">ڇ</button>
-        <button class="key" data-char="ڃ" data-shift="ڻ">ڃ</button>
-
-      </div>
-
-
-      <!-- ROW 6 -->
-      <div class="bottom-key-row">
+<div class="key-row">
 
-        <!-- ء = ء ، Shift + ء = ۽ -->
-        <button
-          class="key"
-          data-char="ء"
-          data-shift="۽"
-        >
-          ء
-        </button>
-
-        <button
-          class="key"
-          data-char="ئ"
-          data-shift="ؤ"
-        >
-          ئ
-        </button>
-
-        <button
-          class="key"
-          data-char="ؤ"
-          data-shift="ي"
-        >
-          ؤ
-        </button>
-
-        <button
-          class="key"
-          data-char="۾"
-          data-shift="۾"
-        >
-          ۾
-        </button>
-
-      </div>
-
-
-      <!-- SHIFT -->
-      <div class="space-row">
-
-        <button
-          class="action-key"
-          id="shiftBtn"
-          type="button"
-          style="width:100%;"
-        >
-          ⇧ شفٽ
-        </button>
-
-        <div></div>
-        <div></div>
-
-      </div>
-
-
-      <!-- SPACE / ENTER -->
-      <div class="space-row">
-
-        <button
-          class="space-key"
-          data-special="ـ"
-        >
-          ـ
-        </button>
-
-        <button
-          class="space-key"
-          id="spaceBtn"
-        >
-          اسپيس
-        </button>
-
-        <button
-          class="space-key"
-          id="enterBtn"
-        >
-          ↵ نئين سٽ
-        </button>
-
-      </div>
-
-
-      <!-- BACKSPACE -->
-      <div style="margin-top:5px;">
-
-        <button
-          class="action-key"
-          id="backspaceBtn"
-          style="width:100%;"
-        >
-          ⌫ واپس
-        </button>
-
-      </div>
-
-    </div>
-
-
-    <div class="actions">
-
-      <button
-        class="main-action"
-        id="copyBtn"
-        type="button"
-      >
-        📋 ڪاپي
-      </button>
-
-      <button
-        class="main-action send"
-        id="sendBtn"
-        type="button"
-      >
-        📤 Send
-      </button>
-
-      <button
-        class="main-action clear"
-        id="clearBtn"
-        type="button"
-      >
-        🗑 صاف
-      </button>
-
-    </div>
-
-  </div>
+<button class="key" data-char="ا" data-shift="آ">ا</button>
+<button class="key" data-char="ب" data-shift="ٻ">ب</button>
+<button class="key" data-char="ٻ" data-shift="ڀ">ٻ</button>
+<button class="key" data-char="پ" data-shift="ڦ">پ</button>
+<button class="key" data-char="ڀ" data-shift="ٿ">ڀ</button>
+<button class="key" data-char="ت" data-shift="تہ">ت</button>
+<button class="key" data-char="ٺ" data-shift="ٿ">ٺ</button>
+<button class="key" data-char="ٽ" data-shift="ث">ٽ</button>
+<button class="key" data-char="ث" data-shift="ٿ">ث</button>
+<button class="key" data-char="ٿ" data-shift="ٺ">ٿ</button>
+
+</div>
+
+
+<!-- ROW 2 -->
+
+<div class="key-row">
+
+<button class="key" data-char="ف" data-shift="ڦ">ف</button>
+<button class="key" data-char="ڦ" data-shift="ف">ڦ</button>
+<button class="key" data-char="گ" data-shift="ڳ">گ</button>
+<button class="key" data-char="ڳ" data-shift="ڱ">ڳ</button>
+<button class="key" data-char="ڱ" data-shift="گ">ڱ</button>
+<button class="key" data-char="ک" data-shift="خ">ک</button>
+<button class="key" data-char="خ" data-shift="ک">خ</button>
+<button class="key" data-char="ي" data-shift="ى">ي</button>
+<button class="key" data-char="ى" data-shift="ي">ى</button>
+<button class="key" data-char="د" data-shift="ڊ">د</button>
+
+</div>
+
+
+<!-- ROW 3 -->
+
+<div class="key-row">
+
+<button class="key" data-char="ڊ" data-shift="ڍ">ڊ</button>
+<button class="key" data-char="ڍ" data-shift="ڌ">ڍ</button>
+<button class="key" data-char="ڌ" data-shift="ڏ">ڌ</button>
+<button class="key" data-char="ڏ" data-shift="ذ">ڏ</button>
+<button class="key" data-char="ذ" data-shift="ز">ذ</button>
+<button class="key" data-char="ر" data-shift="ڙ">ر</button>
+<button class="key" data-char="ڙ" data-shift="ز">ڙ</button>
+<button class="key" data-char="ز" data-shift="ژ">ز</button>
+<button class="key" data-char="س" data-shift="ش">س</button>
+<button class="key" data-char="ش" data-shift="ص">ش</button>
+
+</div>
+
+
+<!-- ROW 4 -->
+
+<div class="key-row">
+
+<button class="key" data-char="ص" data-shift="ض">ص</button>
+<button class="key" data-char="ض" data-shift="ط">ض</button>
+<button class="key" data-char="ط" data-shift="ظ">ط</button>
+<button class="key" data-char="ظ" data-shift="ع">ظ</button>
+<button class="key" data-char="ع" data-shift="غ">ع</button>
+<button class="key" data-char="غ" data-shift="ق">غ</button>
+<button class="key" data-char="ق" data-shift="ڪ">ق</button>
+<button class="key" data-char="ڪ" data-shift="ل">ڪ</button>
+<button class="key" data-char="ل" data-shift="م">ل</button>
+<button class="key" data-char="م" data-shift="ن">م</button>
+
+</div>
+
+
+<!-- ROW 5 -->
+
+<div class="key-row">
+
+<button class="key" data-char="ن" data-shift="نہ">ن</button>
+<button class="key" data-char="ڻ" data-shift="و">ڻ</button>
+<button class="key" data-char="و" data-shift="ؤ">و</button>
+<button class="key" data-char="به" data-shift="بہ">ه</button>
+<button class="key" data-char="ھ" data-shift="ح">ھ</button>
+<button class="key" data-char="ح" data-shift="چ">ح</button>
+<button class="key" data-char="چ" data-shift="ج">چ</button>
+<button class="key" data-char="ج" data-shift="ڇ">ج</button>
+<button class="key" data-char="ڇ" data-shift="ڃ">ڇ</button>
+<button class="key" data-char="ڃ" data-shift="ڻ">ڃ</button>
+
+</div>
+
+
+<!-- ROW 6 -->
+
+<div class="bottom-key-row">
+
+<button
+class="key"
+data-char="ء"
+data-shift="۽"
+>
+ء
+</button>
+
+<button
+class="key"
+data-char="ئ"
+data-shift="ؤ"
+>
+ئ
+</button>
+
+<button
+class="key"
+data-char="ؤ"
+data-shift="ي"
+>
+ؤ
+</button>
+
+<button
+class="key"
+data-char="۾"
+data-shift="۾"
+>
+۾
+</button>
+
+</div>
+
+
+<!-- 🔢 NUMBERS -->
+
+<div class="number-row">
+
+<button class="key" data-char="1">1</button>
+<button class="key" data-char="2">2</button>
+<button class="key" data-char="3">3</button>
+<button class="key" data-char="4">4</button>
+<button class="key" data-char="5">5</button>
+<button class="key" data-char="6">6</button>
+<button class="key" data-char="7">7</button>
+<button class="key" data-char="8">8</button>
+<button class="key" data-char="9">9</button>
+<button class="key" data-char="0">0</button>
+
+</div>
+
+
+<!-- ✍️ PUNCTUATION — هڪ ئي لائن -->
+
+<div class="punctuation-row">
+
+<button class="punctuation-key" data-char="،">،</button>
+<button class="punctuation-key" data-char=".">.</button>
+<button class="punctuation-key" data-char="?">?</button>
+<button class="punctuation-key" data-char="!">!</button>
+<button class="punctuation-key" data-char="/">/</button>
+<button class="punctuation-key" data-char="'">'</button>
+<button class="punctuation-key" data-char='"'>"</button>
+<button class="punctuation-key" data-char=":">:</button>
+<button class="punctuation-key" data-char=";">;</button>
+<button class="punctuation-key" data-char="-">-</button>
+<button class="punctuation-key" data-char="(">(</button>
+<button class="punctuation-key" data-char=")">)</button>
+
+</div>
+
+
+<!-- SHIFT -->
+
+<div class="space-row">
+
+<button
+class="action-key"
+id="shiftBtn"
+type="button"
+style="width:100%;"
+>
+⇧ شفٽ
+</button>
+
+<div></div>
+<div></div>
+
+</div>
+
+
+<!-- SPACE / ENTER -->
+
+<div class="space-row">
+
+<button
+class="space-key"
+data-special="ـ"
+>
+ـ
+</button>
+
+<button
+class="space-key"
+id="spaceBtn"
+>
+اسپيس
+</button>
+
+<button
+class="space-key"
+id="enterBtn"
+>
+↵ نئين سٽ
+</button>
+
+</div>
+
+
+<!-- BACKSPACE -->
+
+<div style="margin-top:5px;">
+
+<button
+class="action-key"
+id="backspaceBtn"
+style="width:100%;"
+>
+⌫ واپس
+</button>
+
+</div>
+
+</div>
+
+
+<div class="actions">
+
+<button
+class="main-action"
+id="copyBtn"
+type="button"
+>
+📋 ڪاپي
+</button>
+
+<button
+class="main-action send"
+id="sendBtn"
+type="button"
+>
+📤 Send
+</button>
+
+<button
+class="main-action clear"
+id="clearBtn"
+type="button"
+>
+🗑 صاف
+</button>
+
+</div>
+
+</div>
 
 </div>
 
 
 <footer>
-  سنڌي شاعري ڪي بورڊ © 2026
+سنڌي شاعري ڪي بورڊ © 2026
 </footer>
 
 
 <script>
 
 const writingArea =
-  document.getElementById("writingArea");
+document.getElementById("writingArea");
 
 let savedRange = null;
 let shiftActive = false;
@@ -666,17 +761,18 @@ let shiftActive = false;
 
 function saveSelection(){
 
-  const selection = window.getSelection();
+const selection = window.getSelection();
 
-  if(!selection || selection.rangeCount === 0){
-    return;
-  }
+if(!selection || selection.rangeCount === 0){
+return;
+}
 
-  const range = selection.getRangeAt(0);
+const range = selection.getRangeAt(0);
 
-  if(writingArea.contains(range.commonAncestorContainer)){
-    savedRange = range.cloneRange();
-  }
+if(writingArea.contains(range.commonAncestorContainer)){
+savedRange = range.cloneRange();
+}
+
 }
 
 
@@ -684,109 +780,111 @@ function saveSelection(){
 
 function restoreSelection(){
 
-  if(!savedRange){
-    writingArea.focus();
-    return false;
-  }
+if(!savedRange){
+writingArea.focus();
+return false;
+}
 
-  const selection = window.getSelection();
+const selection = window.getSelection();
 
-  selection.removeAllRanges();
-  selection.addRange(savedRange);
+selection.removeAllRanges();
+selection.addRange(savedRange);
 
-  writingArea.focus();
+writingArea.focus();
 
-  return true;
+return true;
+
 }
 
 
 /* SELECTION EVENTS */
 
 document.addEventListener(
-  "selectionchange",
-  saveSelection
+"selectionchange",
+saveSelection
 );
 
 ["mouseup","keyup","touchend"].forEach(
-  eventName => {
+eventName => {
 
-    writingArea.addEventListener(
-      eventName,
-      saveSelection
-    );
-
-  }
+writingArea.addEventListener(
+eventName,
+saveSelection
 );
+
+});
 
 
 /* INSERT TEXT */
 
 function insertText(text){
 
-  restoreSelection();
+restoreSelection();
 
-  const selection = window.getSelection();
+const selection = window.getSelection();
 
-  if(!selection){
-    return;
-  }
+if(!selection){
+return;
+}
 
-  if(selection.rangeCount === 0){
+if(selection.rangeCount === 0){
 
-    const range = document.createRange();
+const range = document.createRange();
 
-    range.selectNodeContents(writingArea);
-    range.collapse(false);
+range.selectNodeContents(writingArea);
+range.collapse(false);
 
-    selection.addRange(range);
-  }
+selection.addRange(range);
 
-  document.execCommand(
-    "insertText",
-    false,
-    text
-  );
+}
 
-  saveSelection();
+document.execCommand(
+"insertText",
+false,
+text
+);
+
+saveSelection();
+
 }
 
 
-/* KEYBOARD LETTERS */
+/* KEYBOARD LETTERS + NUMBERS + PUNCTUATION */
 
 document.querySelectorAll(
-  ".key[data-char]"
+".key[data-char], .punctuation-key[data-char]"
 ).forEach(button => {
 
-  button.addEventListener(
-    "mousedown",
-    function(e){
-      e.preventDefault();
-    }
-  );
+button.addEventListener(
+"mousedown",
+function(e){
+e.preventDefault();
+}
+);
 
-  button.addEventListener(
-    "click",
-    function(){
+button.addEventListener(
+"click",
+function(){
 
-      let char = this.dataset.char;
+let char = this.dataset.char;
 
-      if(shiftActive){
+if(shiftActive){
 
-        char =
-          this.dataset.shift ||
-          char;
+char =
+this.dataset.shift ||
+char;
 
-        shiftActive = false;
+shiftActive = false;
 
-        document
-          .getElementById("shiftBtn")
-          .classList.remove("shift-active");
-      }
+document
+.getElementById("shiftBtn")
+.classList.remove("shift-active");
 
-      insertText(char);
+}
 
-    }
-  );
+insertText(char);
+
+});
 
 });
 
@@ -794,26 +892,25 @@ document.querySelectorAll(
 /* SPECIAL SYMBOLS */
 
 document.querySelectorAll(
-  "[data-special]"
+"[data-special]"
 ).forEach(button => {
 
-  button.addEventListener(
-    "mousedown",
-    function(e){
-      e.preventDefault();
-    }
-  );
+button.addEventListener(
+"mousedown",
+function(e){
+e.preventDefault();
+}
+);
 
-  button.addEventListener(
-    "click",
-    function(){
+button.addEventListener(
+"click",
+function(){
 
-      insertText(
-        this.dataset.special
-      );
+insertText(
+this.dataset.special
+);
 
-    }
-  );
+});
 
 });
 
@@ -821,198 +918,195 @@ document.querySelectorAll(
 /* SHIFT */
 
 document
-  .getElementById("shiftBtn")
-  .addEventListener(
-    "mousedown",
-    function(e){
-      e.preventDefault();
-    }
-  );
+.getElementById("shiftBtn")
+.addEventListener(
+"mousedown",
+function(e){
+e.preventDefault();
+}
+);
 
 document
-  .getElementById("shiftBtn")
-  .addEventListener(
-    "click",
-    function(){
+.getElementById("shiftBtn")
+.addEventListener(
+"click",
+function(){
 
-      shiftActive = !shiftActive;
+shiftActive = !shiftActive;
 
-      this.classList.toggle(
-        "shift-active",
-        shiftActive
-      );
+this.classList.toggle(
+"shift-active",
+shiftActive
+);
 
-    }
-  );
+});
 
 
 /* SPACE */
 
 document
-  .getElementById("spaceBtn")
-  .addEventListener(
-    "mousedown",
-    function(e){
-      e.preventDefault();
-    }
-  );
+.getElementById("spaceBtn")
+.addEventListener(
+"mousedown",
+function(e){
+e.preventDefault();
+}
+);
 
 document
-  .getElementById("spaceBtn")
-  .addEventListener(
-    "click",
-    function(){
+.getElementById("spaceBtn")
+.addEventListener(
+"click",
+function(){
 
-      insertText(" ");
+insertText(" ");
 
-    }
-  );
+});
 
 
 /* ENTER */
 
 document
-  .getElementById("enterBtn")
-  .addEventListener(
-    "mousedown",
-    function(e){
-      e.preventDefault();
-    }
-  );
+.getElementById("enterBtn")
+.addEventListener(
+"mousedown",
+function(e){
+e.preventDefault();
+}
+);
 
 document
-  .getElementById("enterBtn")
-  .addEventListener(
-    "click",
-    function(){
+.getElementById("enterBtn")
+.addEventListener(
+"click",
+function(){
 
-      restoreSelection();
+restoreSelection();
 
-      document.execCommand(
-        "insertLineBreak",
-        false,
-        null
-      );
+document.execCommand(
+"insertLineBreak",
+false,
+null
+);
 
-      saveSelection();
+saveSelection();
 
-    }
-  );
+});
 
 
 /* BACKSPACE */
 
 document
-  .getElementById("backspaceBtn")
-  .addEventListener(
-    "mousedown",
-    function(e){
-      e.preventDefault();
-    }
-  );
+.getElementById("backspaceBtn")
+.addEventListener(
+"mousedown",
+function(e){
+e.preventDefault();
+}
+);
 
 document
-  .getElementById("backspaceBtn")
-  .addEventListener(
-    "click",
-    function(){
+.getElementById("backspaceBtn")
+.addEventListener(
+"click",
+function(){
 
-      restoreSelection();
+restoreSelection();
 
-      document.execCommand(
-        "delete",
-        false,
-        null
-      );
+document.execCommand(
+"delete",
+false,
+null
+);
 
-      saveSelection();
+saveSelection();
 
-    }
-  );
+});
 
 
 /* FONT */
 
 const fontSelect =
-  document.getElementById("fontSelect");
+document.getElementById("fontSelect");
 
 fontSelect.addEventListener(
-  "change",
-  function(){
+"change",
+function(){
 
-    writingArea.style.fontFamily =
-      this.value;
+writingArea.style.fontFamily =
+this.value;
 
-  }
-);
+});
 
 
 /* FONT SIZE */
 
 const fontSize =
-  document.getElementById("fontSize");
+document.getElementById("fontSize");
 
 fontSize.addEventListener(
-  "input",
-  function(){
+"input",
+function(){
 
-    writingArea.style.fontSize =
-      this.value + "px";
+writingArea.style.fontSize =
+this.value + "px";
 
-  }
-);
+});
 
 
 /* COLOR */
 
 const textColor =
-  document.getElementById("textColor");
+document.getElementById("textColor");
 
 function applyColor(color){
 
-  if(!savedRange){
+if(!savedRange){
 
-    alert(
-      "پهريان لفظ سليڪٽ ڪريو، پوءِ رنگ چونڊيو."
-    );
+alert(
+"پهريان لفظ سليڪٽ ڪريو، پوءِ رنگ چونڊيو."
+);
 
-    return;
-  }
+return;
 
-  restoreSelection();
+}
 
-  const selection = window.getSelection();
+restoreSelection();
 
-  if(!selection || selection.rangeCount === 0){
+const selection = window.getSelection();
 
-    alert("پهريان لفظ سليڪٽ ڪريو.");
-    return;
-  }
+if(!selection || selection.rangeCount === 0){
 
-  const range = selection.getRangeAt(0);
+alert("پهريان لفظ سليڪٽ ڪريو.");
+return;
 
-  if(range.collapsed){
+}
 
-    alert(
-      "پهريان لفظ سليڪٽ ڪريو، پوءِ رنگ چونڊيو."
-    );
+const range = selection.getRangeAt(0);
 
-    return;
-  }
+if(range.collapsed){
 
-  document.execCommand(
-    "styleWithCSS",
-    false,
-    true
-  );
+alert(
+"پهريان لفظ سليڪٽ ڪريو، پوءِ رنگ چونڊيو."
+);
 
-  document.execCommand(
-    "foreColor",
-    false,
-    color
-  );
+return;
 
-  saveSelection();
+}
+
+document.execCommand(
+"styleWithCSS",
+false,
+true
+);
+
+document.execCommand(
+"foreColor",
+false,
+color
+);
+
+saveSelection();
 
 }
 
@@ -1020,247 +1114,244 @@ function applyColor(color){
 /* COLOR PICKER */
 
 textColor.addEventListener(
-  "input",
-  function(){
+"input",
+function(){
 
-    applyColor(this.value);
+applyColor(this.value);
 
-  }
-);
+});
 
 
 /* RESET COLOR */
 
 document
-  .getElementById("resetColor")
-  .addEventListener(
-    "mousedown",
-    function(e){
-      e.preventDefault();
-    }
-  );
+.getElementById("resetColor")
+.addEventListener(
+"mousedown",
+function(e){
+e.preventDefault();
+}
+);
 
 document
-  .getElementById("resetColor")
-  .addEventListener(
-    "click",
-    function(){
+.getElementById("resetColor")
+.addEventListener(
+"click",
+function(){
 
-      applyColor("#173f35");
+applyColor("#173f35");
 
-    }
-  );
+});
 
 
 /* BOLD */
 
 document
-  .getElementById("boldBtn")
-  .addEventListener(
-    "mousedown",
-    function(e){
-      e.preventDefault();
-    }
-  );
+.getElementById("boldBtn")
+.addEventListener(
+"mousedown",
+function(e){
+e.preventDefault();
+}
+);
 
 document
-  .getElementById("boldBtn")
-  .addEventListener(
-    "click",
-    function(){
+.getElementById("boldBtn")
+.addEventListener(
+"click",
+function(){
 
-      if(!savedRange){
+if(!savedRange){
 
-        alert(
-          "پهريان لفظ سليڪٽ ڪريو، پوءِ بولڊ تي ڪلڪ ڪريو."
-        );
+alert(
+"پهريان لفظ سليڪٽ ڪريو، پوءِ بولڊ تي ڪلڪ ڪريو."
+);
 
-        return;
-      }
+return;
 
-      restoreSelection();
+}
 
-      const selection =
-        window.getSelection();
+restoreSelection();
 
-      if(!selection || selection.rangeCount === 0){
+const selection =
+window.getSelection();
 
-        alert("پهريان لفظ سليڪٽ ڪريو.");
-        return;
-      }
+if(!selection || selection.rangeCount === 0){
 
-      const range =
-        selection.getRangeAt(0);
+alert("پهريان لفظ سليڪٽ ڪريو.");
+return;
 
-      if(range.collapsed){
+}
 
-        alert(
-          "پهريان لفظ سليڪٽ ڪريو، پوءِ بولڊ تي ڪلڪ ڪريو."
-        );
+const range =
+selection.getRangeAt(0);
 
-        return;
-      }
+if(range.collapsed){
 
-      document.execCommand(
-        "styleWithCSS",
-        false,
-        true
-      );
+alert(
+"پهريان لفظ سليڪٽ ڪريو، پوءِ بولڊ تي ڪلڪ ڪريو."
+);
 
-      document.execCommand(
-        "bold",
-        false,
-        null
-      );
+return;
 
-      saveSelection();
+}
 
-    }
-  );
+document.execCommand(
+"styleWithCSS",
+false,
+true
+);
+
+document.execCommand(
+"bold",
+false,
+null
+);
+
+saveSelection();
+
+});
 
 
 /* COPY */
 
 document
-  .getElementById("copyBtn")
-  .addEventListener(
-    "click",
-    async function(){
+.getElementById("copyBtn")
+.addEventListener(
+"click",
+async function(){
 
-      const text =
-        writingArea.innerText;
+const text =
+writingArea.innerText;
 
-      if(!text.trim()){
+if(!text.trim()){
 
-        alert("پهرين شاعري لکو.");
-        return;
-      }
+alert("پهرين شاعري لکو.");
+return;
 
-      try{
+}
 
-        await navigator.clipboard.writeText(text);
+try{
 
-        alert("شاعري ڪاپي ٿي وئي.");
+await navigator.clipboard.writeText(text);
 
-      }catch(error){
+alert("شاعري ڪاپي ٿي وئي.");
 
-        const temp =
-          document.createElement("textarea");
+}catch(error){
 
-        temp.value = text;
+const temp =
+document.createElement("textarea");
 
-        document.body.appendChild(temp);
+temp.value = text;
 
-        temp.select();
+document.body.appendChild(temp);
 
-        document.execCommand("copy");
+temp.select();
 
-        temp.remove();
+document.execCommand("copy");
 
-        alert("شاعري ڪاپي ٿي وئي.");
+temp.remove();
 
-      }
+alert("شاعري ڪاپي ٿي وئي.");
 
-    }
-  );
+}
+
+});
 
 
 /* SEND */
 
 document
-  .getElementById("sendBtn")
-  .addEventListener(
-    "click",
-    async function(){
+.getElementById("sendBtn")
+.addEventListener(
+"click",
+async function(){
 
-      const text =
-        writingArea.innerText.trim();
+const text =
+writingArea.innerText.trim();
 
-      if(!text){
+if(!text){
 
-        alert("پهرين شاعري لکو.");
-        return;
-      }
+alert("پهرين شاعري لکو.");
+return;
 
-      if(navigator.share){
+}
 
-        try{
+if(navigator.share){
 
-          await navigator.share({
-            title:"سنڌي شاعري",
-            text:text
-          });
+try{
 
-        }catch(error){
+await navigator.share({
+title:"سنڌي شاعري",
+text:text
+});
 
-        }
+}catch(error){}
 
-      }else{
+}else{
 
-        try{
+try{
 
-          await navigator.clipboard.writeText(text);
+await navigator.clipboard.writeText(text);
 
-          alert(
-            "Share موجود ناهي، شاعري ڪاپي ٿي وئي."
-          );
+alert(
+"Share موجود ناهي، شاعري ڪاپي ٿي وئي."
+);
 
-        }catch(error){
+}catch(error){
 
-          alert(
-            "Send سهولت هن برائوزر ۾ موجود ناهي."
-          );
+alert(
+"Send سهولت هن برائوزر ۾ موجود ناهي."
+);
 
-        }
+}
 
-      }
+}
 
-    }
-  );
+});
 
 
 /* CLEAR */
 
 document
-  .getElementById("clearBtn")
-  .addEventListener(
-    "click",
-    function(){
+.getElementById("clearBtn")
+.addEventListener(
+"click",
+function(){
 
-      if(
-        confirm(
-          "ڇا توهان سڄي لکيل شاعري صاف ڪرڻ چاهيو ٿا؟"
-        )
-      ){
+if(
+confirm(
+"ڇا توهان سڄي لکيل شاعري صاف ڪرڻ چاهيو ٿا؟"
+)
+){
 
-        writingArea.innerHTML = "";
+writingArea.innerHTML = "";
 
-        savedRange = null;
+savedRange = null;
 
-        writingArea.focus();
+writingArea.focus();
 
-      }
+}
 
-    }
-  );
+});
 
 
 /* DEFAULT FONT */
 
 writingArea.style.fontFamily =
-  fontSelect.value;
+fontSelect.value;
 
 writingArea.style.fontSize =
-  fontSize.value + "px";
+fontSize.value + "px";
 
 
 /* MOBILE */
 
 document.addEventListener(
-  "gesturestart",
-  function(e){
-    e.preventDefault();
-  }
+"gesturestart",
+function(e){
+e.preventDefault();
+}
 );
 
 </script>
