@@ -1,0 +1,12 @@
+{
+  "name": "سنڌي شاعري ڪي بورڊ",
+  "short_name": "سنڌي ڪي بورڊ",
+  "description": "سنڌي شاعري لاءِ خوبصورت موبائيل ڪي بورڊ",
+  "start_url": "./index.html",
+  "display": "standalone",
+  "background_color": "#f5f1e8",
+  "theme_color": "#173f35",
+  "orientation": "portrait",
+  "lang": "sd",
+  "dir": "rtl"
+}
