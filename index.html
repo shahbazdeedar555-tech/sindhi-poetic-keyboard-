@@ -189,16 +189,10 @@ button:active{
   font-family:"Noto Nastaliq Urdu",serif;
 }
 
-.font-urdu{
-  font-family:"Noto Nastaliq Urdu",serif;
-}
-
-.font-serif{
-  font-family:Georgia,"Times New Roman",serif;
-}
-
-.font-arabic{
-  font-family:"Traditional Arabic","Scheherazade New",serif;
+/* نئون ڪليوگرافڪ فونٽ */
+.font-calligraphic{
+  font-family:"Noto Nastaliq Urdu","Amiri","Lateef",serif;
+  font-weight:500;
 }
 
 .font-calligraphy{
@@ -209,8 +203,16 @@ button:active{
   font-family:"Lateef","Noto Nastaliq Urdu",serif;
 }
 
+.font-arabic{
+  font-family:"Traditional Arabic","Scheherazade New",serif;
+}
+
 .font-kufi{
   font-family:"Noto Kufi Arabic","Noto Sans Arabic",sans-serif;
+}
+
+.font-serif{
+  font-family:Georgia,"Times New Roman",serif;
 }
 
 .font-sans{
@@ -218,6 +220,7 @@ button:active{
 }
 
 /* Calligraphy preview */
+
 .calligraphy-preview{
   font-size:30px;
   line-height:1.8;
@@ -270,6 +273,7 @@ button:active{
 <div class="container">
 
   <!-- Font Settings -->
+
   <div class="card">
 
     <h2>🖋️ فانٽ ۽ ڪلر سليڪشن</h2>
@@ -277,6 +281,7 @@ button:active{
     <div class="settings-grid">
 
       <div>
+
         <label for="fontSelect">فونٽ:</label>
 
         <select id="fontSelect">
@@ -287,6 +292,12 @@ button:active{
 
           <option value="font-noto">
             Noto Nastaliq Urdu
+          </option>
+
+          <!-- نئون فونٽ -->
+
+          <option value="font-calligraphic">
+            Calligraphic — ڪليوگرافڪ
           </option>
 
           <option value="font-calligraphy">
@@ -314,9 +325,11 @@ button:active{
           </option>
 
         </select>
+
       </div>
 
       <div>
+
         <label for="fontSize">سائيز:</label>
 
         <input
@@ -328,16 +341,21 @@ button:active{
         >
 
         <span>px</span>
+
       </div>
 
       <div>
-        <label for="textColor">چونڊيل لفظ جو رنگ:</label>
+
+        <label for="textColor">
+          چونڊيل لفظ جو رنگ:
+        </label>
 
         <input
           type="color"
           id="textColor"
           value="#173f35"
         >
+
       </div>
 
     </div>
@@ -357,6 +375,7 @@ button:active{
 
 
   <!-- Writing Area -->
+
   <div class="card">
 
     <h2>✍️ شاعري لکڻ لاءِ جاءِ</h2>
@@ -377,6 +396,7 @@ button:active{
 
 
   <!-- Special Characters -->
+
   <div class="card">
 
     <div class="special-title">
@@ -399,6 +419,7 @@ button:active{
 
 
   <!-- Keyboard -->
+
   <div class="card">
 
     <div class="keyboard-title">
@@ -408,6 +429,7 @@ button:active{
     <div id="keyboard" class="keyboard">
 
       <!-- Row 1 -->
+
       <button class="key" data-key="آ">آ</button>
       <button class="key" data-key="ا">ا</button>
       <button class="key" data-key="ب">ب</button>
@@ -417,6 +439,7 @@ button:active{
       <button class="key" data-key="ٿ">ٿ</button>
 
       <!-- Row 2 -->
+
       <button class="key" data-key="ٽ">ٽ</button>
       <button class="key" data-key="ٺ">ٺ</button>
       <button class="key" data-key="ث">ث</button>
@@ -426,6 +449,7 @@ button:active{
       <button class="key" data-key="چ">چ</button>
 
       <!-- Row 3 -->
+
       <button class="key" data-key="ڇ">ڇ</button>
       <button class="key" data-key="ح">ح</button>
       <button class="key" data-key="خ">خ</button>
@@ -435,6 +459,7 @@ button:active{
       <button class="key" data-key="ڊ">ڊ</button>
 
       <!-- Row 4 -->
+
       <button class="key" data-key="ڍ">ڍ</button>
       <button class="key" data-key="ذ">ذ</button>
       <button class="key" data-key="ر">ر</button>
@@ -444,6 +469,7 @@ button:active{
       <button class="key" data-key="ش">ش</button>
 
       <!-- Row 5 -->
+
       <button class="key" data-key="ص">ص</button>
       <button class="key" data-key="ض">ض</button>
       <button class="key" data-key="ط">ط</button>
@@ -453,6 +479,7 @@ button:active{
       <button class="key" data-key="ف">ف</button>
 
       <!-- Row 6 -->
+
       <button class="key" data-key="ڦ">ڦ</button>
       <button class="key" data-key="ق">ق</button>
       <button class="key" data-key="ڪ">ڪ</button>
@@ -462,6 +489,7 @@ button:active{
       <button class="key" data-key="گھ">گھ</button>
 
       <!-- Row 7 -->
+
       <button class="key" data-key="ل">ل</button>
       <button class="key" data-key="م">م</button>
       <button class="key" data-key="ن">ن</button>
@@ -471,6 +499,7 @@ button:active{
       <button class="key" data-key="ء">ء</button>
 
       <!-- Row 8 -->
+
       <button class="key" data-key="ي">ي</button>
       <button class="key" data-key="ئ">ئ</button>
       <button class="key" data-key="ى">ى</button>
@@ -480,6 +509,7 @@ button:active{
       <button class="key" data-key=",">،</button>
 
       <!-- Numbers -->
+
       <button class="key" data-key="1">1</button>
       <button class="key" data-key="2">2</button>
       <button class="key" data-key="3">3</button>
@@ -492,6 +522,7 @@ button:active{
       <button class="key" data-key="0">0</button>
 
       <!-- Actions -->
+
       <button
         type="button"
         class="key action-key"
@@ -549,9 +580,7 @@ const preview =
   document.getElementById("calligraphyPreview");
 
 
-/* ------------------------------
-   Insert Text
------------------------------- */
+/* Insert Text */
 
 function insertText(text){
 
@@ -587,9 +616,7 @@ function insertText(text){
 }
 
 
-/* ------------------------------
-   Keyboard Buttons
------------------------------- */
+/* Keyboard Buttons */
 
 document
   .querySelectorAll("[data-key]")
@@ -606,9 +633,7 @@ document
   });
 
 
-/* ------------------------------
-   Special Characters
------------------------------- */
+/* Special Characters */
 
 document
   .querySelectorAll("[data-char]")
@@ -625,9 +650,7 @@ document
   });
 
 
-/* ------------------------------
-   Space
------------------------------- */
+/* Space */
 
 document
   .getElementById("space")
@@ -638,9 +661,7 @@ document
   });
 
 
-/* ------------------------------
-   Enter
------------------------------- */
+/* Enter */
 
 document
   .getElementById("enter")
@@ -651,9 +672,7 @@ document
   });
 
 
-/* ------------------------------
-   Backspace
------------------------------- */
+/* Backspace */
 
 document
   .getElementById("backspace")
@@ -738,9 +757,7 @@ document
   });
 
 
-/* ------------------------------
-   Font Change
------------------------------- */
+/* Font Change */
 
 function applyFont(){
 
@@ -751,6 +768,7 @@ function applyFont(){
 
     "font-jameel",
     "font-noto",
+    "font-calligraphic",
     "font-calligraphy",
     "font-elegant",
     "font-arabic",
@@ -779,9 +797,7 @@ fontSelect.addEventListener(
 );
 
 
-/* ------------------------------
-   Font Size
------------------------------- */
+/* Font Size */
 
 fontSize.addEventListener(
   "input",
@@ -807,9 +823,7 @@ fontSize.addEventListener(
 );
 
 
-/* ------------------------------
-   Text Color
------------------------------- */
+/* Text Color */
 
 textColor.addEventListener(
   "input",
@@ -825,9 +839,7 @@ textColor.addEventListener(
 );
 
 
-/* ------------------------------
-   Reset Color
------------------------------- */
+/* Reset Color */
 
 resetColor.addEventListener(
   "click",
@@ -846,9 +858,7 @@ resetColor.addEventListener(
 );
 
 
-/* ------------------------------
-   Keyboard Physical Backspace
------------------------------- */
+/* Physical Keyboard Enter */
 
 editor.addEventListener(
   "keydown",
@@ -866,9 +876,7 @@ editor.addEventListener(
 );
 
 
-/* ------------------------------
-   Initial Settings
------------------------------- */
+/* Initial Settings */
 
 applyFont();
 
@@ -882,9 +890,7 @@ preview.style.color =
   textColor.value;
 
 
-/* ------------------------------
-   Service Worker
------------------------------- */
+/* Service Worker */
 
 if("serviceWorker" in navigator){
 
