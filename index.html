@@ -10,14 +10,10 @@
 <link rel="manifest" href="./manifest.json">
 <meta name="theme-color" content="#173f35">
 
-<!-- وڌيڪ خوبصورت عربي/سنڌي فونٽ -->
-<link rel="preconnect" href="https://fonts.googleapis.com">
-<link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
-
-<link href="https://fonts.googleapis.com/css2?family=Amiri:wght@400;700&family=Lateef:wght@400;700&family=Noto+Naskh+Arabic:wght@400;500;600;700&family=Noto+Sans+Arabic:wght@400;500;600;700&family=Noto+Kufi+Arabic:wght@400;500;600;700&family=Scheherazade+New:wght@400;700&display=swap" rel="stylesheet">
-
 <style>
-*{box-sizing:border-box}
+*{
+  box-sizing:border-box;
+}
 
 body{
   margin:0;
@@ -53,7 +49,9 @@ label{
   font-weight:bold;
 }
 
-select,input[type="number"],input[type="color"]{
+select,
+input[type="number"],
+input[type="color"]{
   margin:5px;
   padding:7px;
   border:1px solid #c8bda9;
@@ -80,6 +78,13 @@ button{
   font-size:28px;
   direction:rtl;
   text-align:right;
+
+  /* Default */
+  font-family:
+    "Noto Naskh Arabic",
+    "Noto Nastaliq Urdu",
+    "Arial",
+    sans-serif;
 }
 
 .special{
@@ -126,6 +131,105 @@ footer{
   padding:18px 5px;
   color:#6b604f;
 }
+
+
+/* =====================================================
+   10 OFFLINE FONT STYLES
+   ===================================================== */
+
+/* 1 */
+.font-jameel{
+  font-family:
+    "Jameel Noori Nastaleeq",
+    "Noto Nastaliq Urdu",
+    "Noto Naskh Arabic",
+    serif !important;
+}
+
+/* 2 */
+.font-nastaliq{
+  font-family:
+    "Noto Nastaliq Urdu",
+    "Noto Naskh Arabic",
+    serif !important;
+}
+
+/* 3 */
+.font-lateef{
+  font-family:
+    "Lateef",
+    "Noto Naskh Arabic",
+    serif !important;
+}
+
+/* 4 */
+.font-amiri{
+  font-family:
+    "Amiri",
+    "Noto Naskh Arabic",
+    serif !important;
+}
+
+/* 5 */
+.font-scheherazade{
+  font-family:
+    "Scheherazade New",
+    "Noto Naskh Arabic",
+    serif !important;
+}
+
+/* 6 */
+.font-naskh{
+  font-family:
+    "Noto Naskh Arabic",
+    "Arial",
+    sans-serif !important;
+}
+
+/* 7 */
+.font-sans{
+  font-family:
+    "Noto Sans Arabic",
+    "Arial",
+    sans-serif !important;
+}
+
+/* 8 */
+.font-kufi{
+  font-family:
+    "Noto Kufi Arabic",
+    "Noto Sans Arabic",
+    sans-serif !important;
+}
+
+/* 9 */
+.font-traditional{
+  font-family:
+    "Traditional Arabic",
+    "Noto Naskh Arabic",
+    serif !important;
+}
+
+/* 10 — Calligraphic */
+.font-calligraphy{
+  font-family:
+    "Amiri",
+    "Scheherazade New",
+    "Noto Nastaliq Urdu",
+    serif !important;
+  font-weight:700;
+}
+
+
+/* Font preview */
+.font-preview{
+  margin-top:10px;
+  padding:12px;
+  border-radius:10px;
+  background:#f0e7d5;
+  text-align:center;
+  font-size:24px;
+}
 </style>
 </head>
 
@@ -143,68 +247,85 @@ footer{
 
 <select id="fontSelect">
 
-<option value="Jameel Noori Nastaleeq">
-Jameel Noori Nastaleeq
+<option value="font-jameel">
+1 ـ Jameel Noori Nastaleeq
 </option>
 
-<option value="Noto Nastaliq Urdu">
-Noto Nastaliq Urdu
+<option value="font-nastaliq">
+2 ـ Noto Nastaliq Urdu
 </option>
 
-<option value="Lateef">
-Lateef — خوبصورت نستعليق انداز
+<option value="font-lateef">
+3 ـ Lateef
 </option>
 
-<option value="Amiri">
-Amiri — عربي ڪليوگرافي
+<option value="font-amiri">
+4 ـ Amiri
 </option>
 
-<option value="Scheherazade New">
-Scheherazade New — ادبي انداز
+<option value="font-scheherazade">
+5 ـ Scheherazade New
 </option>
 
-<option value="Noto Naskh Arabic">
-Noto Naskh Arabic
+<option value="font-naskh">
+6 ـ Noto Naskh Arabic
 </option>
 
-<option value="Noto Sans Arabic">
-Noto Sans Arabic
+<option value="font-sans">
+7 ـ Noto Sans Arabic
 </option>
 
-<option value="Noto Kufi Arabic">
-Noto Kufi Arabic — ڪوفي انداز
+<option value="font-kufi">
+8 ـ Noto Kufi Arabic
 </option>
 
-<option value="Traditional Arabic">
-Traditional Arabic
+<option value="font-traditional">
+9 ـ Traditional Arabic
 </option>
 
-<option value="Georgia">
-Georgia — Elegant Serif
-</option>
-
-<option value="Arial">
-Arial
+<option value="font-calligraphy">
+10 ـ ✒️ Calligraphic — ڪليوگرافڪ
 </option>
 
 </select>
 
+<div id="fontPreview" class="font-preview">
+سنڌي شاعري ـ احساسن جي زبان
+</div>
+
 <br>
 
 <label>سائيز:</label>
-<input type="number" id="fontSize" value="28" min="12" max="80"> px
+<input
+  type="number"
+  id="fontSize"
+  value="28"
+  min="12"
+  max="80"
+> px
 
 <br>
 
 <label>چونڊيل لفظ جو رنگ:</label>
-<input type="color" id="fontColor" value="#173f35">
-<button id="clearColor">رنگ ختم</button>
+
+<input
+  type="color"
+  id="fontColor"
+  value="#173f35"
+>
+
+<button id="clearColor">
+رنگ ختم
+</button>
 
 <br>
 
-<button id="boldBtn"><b>B</b> بولڊ</button>
+<button id="boldBtn">
+<b>B</b> بولڊ
+</button>
 
 </div>
+
 
 <div class="panel">
 
@@ -212,13 +333,20 @@ Arial
 
 <h2>✍️ شاعري لکڻ لاءِ جاءِ</h2>
 
-<p>پنهنجي شاعري هتي لکو ۽ هيٺ ڏنل ڪي بورڊ استعمال ڪريو.</p>
+<p>
+پنهنجي شاعري هتي لکو ۽ هيٺ ڏنل ڪي بورڊ استعمال ڪريو.
+</p>
 
-<textarea id="editor" spellcheck="false"></textarea>
+<textarea
+  id="editor"
+  spellcheck="false"
+></textarea>
+
 
 <h3>خاص نشانيون</h3>
 
 <div class="special">
+
 <button data-char="ـ">ـ</button>
 <button data-char="َ">َ</button>
 <button data-char="ِ">ِ</button>
@@ -226,7 +354,9 @@ Arial
 <button data-char="ْ">ْ</button>
 <button data-char="ّ">ّ</button>
 <button data-char="ٰ">ٰ</button>
+
 </div>
+
 
 <h3>سنڌي ڪي بورڊ</h3>
 
@@ -234,27 +364,39 @@ Arial
 
 </div>
 
+
 <footer>
 سنڌي شاعري ڪي بورڊ © 2026
 </footer>
 
 </div>
 
+
 <script>
 
-const editor = document.getElementById("editor");
-const keyboard = document.getElementById("keyboard");
+const editor =
+  document.getElementById("editor");
+
+const keyboard =
+  document.getElementById("keyboard");
+
+const fontSelect =
+  document.getElementById("fontSelect");
+
+const fontPreview =
+  document.getElementById("fontPreview");
 
 let shiftActive = false;
 
+
 /*
-  اهم:
-  صرف گهربل اکرن ۾ تبديلي:
-  پ کي عام اکر طور شامل ڪيو ويو آهي.
-  ه کي عام اکر طور رکيو ويو آهي ته:
+  سنڌي ڪي بورڊ
+
   ب + ه = بہ
   ت + ه = تہ
   ن + ه = نہ
+
+  اهي موجوده Mapping برقرار رکيا ويا آهن.
 */
 
 const normalKeys = [
@@ -267,7 +409,9 @@ const normalKeys = [
 "ۿ","،","."
 ];
 
+
 const shiftMap = {
+
 "ا":"آ",
 "ت":"ٿ",
 "ٽ":"ٺ",
@@ -280,11 +424,17 @@ const shiftMap = {
 "گ":"ڳ",
 "ن":"ڻ",
 "ي":"ئ"
+
 };
 
+
 function insertText(text){
-  const start = editor.selectionStart;
-  const end = editor.selectionEnd;
+
+  const start =
+    editor.selectionStart;
+
+  const end =
+    editor.selectionEnd;
 
   editor.value =
     editor.value.substring(0,start) +
@@ -293,10 +443,13 @@ function insertText(text){
 
   editor.focus();
 
-  const pos = start + text.length;
+  const pos =
+    start + text.length;
+
   editor.selectionStart = pos;
   editor.selectionEnd = pos;
 }
+
 
 function createKeyboard(){
 
@@ -304,147 +457,317 @@ function createKeyboard(){
 
   normalKeys.forEach(letter=>{
 
-    const btn=document.createElement("button");
+    const btn =
+      document.createElement("button");
+
     btn.className="key";
 
     let shownLetter=letter;
 
-    if(shiftActive && shiftMap[letter]){
-      shownLetter=shiftMap[letter];
+    if(
+      shiftActive &&
+      shiftMap[letter]
+    ){
+      shownLetter =
+        shiftMap[letter];
     }
 
-    btn.textContent=shownLetter;
+    btn.textContent =
+      shownLetter;
+
 
     btn.onclick=()=>{
 
       let output=letter;
 
-      if(shiftActive && shiftMap[letter]){
-        output=shiftMap[letter];
+      if(
+        shiftActive &&
+        shiftMap[letter]
+      ){
+        output =
+          shiftMap[letter];
       }
 
       insertText(output);
 
       shiftActive=false;
+
       createKeyboard();
+
     };
 
     keyboard.appendChild(btn);
+
   });
 
-  // Shift
-  const shift=document.createElement("button");
-  shift.className="key special-key";
+
+  /* Shift */
+
+  const shift =
+    document.createElement("button");
+
+  shift.className =
+    "key special-key";
 
   if(shiftActive){
-    shift.classList.add("shift-active");
+
+    shift.classList.add(
+      "shift-active"
+    );
+
   }
 
   shift.textContent="⇧";
 
   shift.onclick=()=>{
-    shiftActive=!shiftActive;
+
+    shiftActive =
+      !shiftActive;
+
     createKeyboard();
+
   };
 
   keyboard.appendChild(shift);
 
-  // Space
-  const space=document.createElement("button");
-  space.className="key special-key";
+
+  /* Space */
+
+  const space =
+    document.createElement("button");
+
+  space.className =
+    "key special-key";
+
   space.textContent="اسپيس";
-  space.onclick=()=>insertText(" ");
+
+  space.onclick=()=>{
+    insertText(" ");
+  };
+
   keyboard.appendChild(space);
 
-  // Backspace
-  const back=document.createElement("button");
-  back.className="key special-key";
+
+  /* Backspace */
+
+  const back =
+    document.createElement("button");
+
+  back.className =
+    "key special-key";
+
   back.textContent="⌫";
 
   back.onclick=()=>{
 
-    const start=editor.selectionStart;
-    const end=editor.selectionEnd;
+    const start =
+      editor.selectionStart;
+
+    const end =
+      editor.selectionEnd;
+
 
     if(start!==end){
-      editor.value=
+
+      editor.value =
         editor.value.substring(0,start)+
         editor.value.substring(end);
 
       editor.selectionStart=start;
       editor.selectionEnd=start;
+
     }
+
     else if(start>0){
-      editor.value=
+
+      editor.value =
         editor.value.substring(0,start-1)+
         editor.value.substring(end);
 
-      editor.selectionStart=start-1;
-      editor.selectionEnd=start-1;
+      editor.selectionStart =
+        start-1;
+
+      editor.selectionEnd =
+        start-1;
+
     }
 
     editor.focus();
+
   };
 
   keyboard.appendChild(back);
 
-  // Enter
-  const enter=document.createElement("button");
-  enter.className="key special-key";
+
+  /* Enter */
+
+  const enter =
+    document.createElement("button");
+
+  enter.className =
+    "key special-key";
+
   enter.textContent="↵";
-  enter.onclick=()=>insertText("\n");
+
+  enter.onclick=()=>{
+    insertText("\n");
+  };
+
   keyboard.appendChild(enter);
 
-  // Numbers
-  const numbers=document.createElement("button");
-  numbers.className="key special-key";
+
+  /* Numbers */
+
+  const numbers =
+    document.createElement("button");
+
+  numbers.className =
+    "key special-key";
+
   numbers.textContent="123";
+
   numbers.onclick=()=>{
-    insertText("1234567890");
+
+    insertText(
+      "1234567890"
+    );
+
   };
 
   keyboard.appendChild(numbers);
+
 }
+
 
 createKeyboard();
 
+
 /* Special signs */
 
-document.querySelectorAll(".special button").forEach(btn=>{
-  btn.onclick=()=>{
-    insertText(btn.dataset.char);
-  };
-});
+document
+  .querySelectorAll(".special button")
+  .forEach(btn=>{
 
-/* Font */
+    btn.onclick=()=>{
 
-document.getElementById("fontSelect").addEventListener("change",e=>{
-  editor.style.fontFamily=e.target.value;
-});
+      insertText(
+        btn.dataset.char
+      );
+
+    };
+
+  });
+
+
+/* =====================================================
+   FONT APPLY
+   ===================================================== */
+
+fontSelect.addEventListener(
+  "change",
+  function(){
+
+    const selected =
+      this.value;
+
+    /*
+      اڳيون فونٽ class ختم
+    */
+
+    editor.classList.remove(
+      "font-jameel",
+      "font-nastaliq",
+      "font-lateef",
+      "font-amiri",
+      "font-scheherazade",
+      "font-naskh",
+      "font-sans",
+      "font-kufi",
+      "font-traditional",
+      "font-calligraphy"
+    );
+
+
+    /*
+      نئون فونٽ Apply
+    */
+
+    editor.classList.add(
+      selected
+    );
+
+
+    /*
+      Preview تي به Apply
+    */
+
+    fontPreview.className =
+      "font-preview " +
+      selected;
+
+  }
+);
+
 
 /* Font size */
 
-document.getElementById("fontSize").addEventListener("input",e=>{
-  editor.style.fontSize=e.target.value+"px";
-});
+document
+  .getElementById("fontSize")
+  .addEventListener(
+    "input",
+    function(){
+
+      editor.style.fontSize =
+        this.value + "px";
+
+    }
+  );
+
 
 /* Color */
 
-document.getElementById("fontColor").addEventListener("input",e=>{
-  editor.style.color=e.target.value;
-});
+document
+  .getElementById("fontColor")
+  .addEventListener(
+    "input",
+    function(){
 
-document.getElementById("clearColor").onclick=()=>{
-  editor.style.color="#173f35";
-  document.getElementById("fontColor").value="#173f35";
-};
+      editor.style.color =
+        this.value;
+
+    }
+  );
+
+
+/* Clear color */
+
+document
+  .getElementById("clearColor")
+  .onclick=()=>{
+
+    editor.style.color =
+      "#173f35";
+
+    document
+      .getElementById("fontColor")
+      .value =
+      "#173f35";
+
+  };
+
 
 /* Bold */
 
-document.getElementById("boldBtn").onclick=()=>{
-  editor.style.fontWeight =
-    editor.style.fontWeight==="bold" ? "normal" : "bold";
-};
+document
+  .getElementById("boldBtn")
+  .onclick=()=>{
+
+    editor.style.fontWeight =
+      editor.style.fontWeight === "bold"
+      ? "normal"
+      : "bold";
+
+  };
 
 </script>
 
