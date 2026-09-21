@@ -1,0 +1,23 @@
+
+/* سنڌي شاعري ڪي بورڊ — Offline Fonts */
+@font-face { font-family: "Jameel Noori Nastaleeq"; src: local("Jameel Noori Nastaleeq"); }
+@font-face { font-family: "Noto Nastaliq Urdu"; src: local("Noto Nastaliq Urdu"); }
+@font-face { font-family: "Lateef"; src: local("Lateef"); }
+@font-face { font-family: "Amiri"; src: local("Amiri"); }
+@font-face { font-family: "Scheherazade New"; src: local("Scheherazade New"); }
+@font-face { font-family: "Noto Naskh Arabic"; src: local("Noto Naskh Arabic"); }
+@font-face { font-family: "Noto Sans Arabic"; src: local("Noto Sans Arabic"); }
+@font-face { font-family: "Noto Kufi Arabic"; src: local("Noto Kufi Arabic"); }
+@font-face { font-family: "Traditional Arabic"; src: local("Traditional Arabic"); }
+/* خاص ڪليوگرافڪ انداز */ @font-face { font-family: "Sindhi Calligraphy"; src: local("Amiri"); font-weight: 700; }
+/* Font Classes */
+.font-1 { font-family: "Jameel Noori Nastaleeq", serif !important; }
+.font-2 { font-family: "Noto Nastaliq Urdu", serif !important; }
+.font-3 { font-family: "Lateef", serif !important; }
+.font-4 { font-family: "Amiri", serif !important; }
+.font-5 { font-family: "Scheherazade New", serif !important; }
+.font-6 { font-family: "Noto Naskh Arabic", sans-serif !important; }
+.font-7 { font-family: "Noto Sans Arabic", sans-serif !important; }
+.font-8 { font-family: "Noto Kufi Arabic", sans-serif !important; }
+.font-9 { font-family: "Traditional Arabic", serif !important; }
+.font-10 { font-family: "Sindhi Calligraphy", "Amiri", "Scheherazade New", serif !important; font-weight:700; }
