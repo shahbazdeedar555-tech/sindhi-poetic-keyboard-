@@ -10,6 +10,12 @@
 <link rel="manifest" href="./manifest.json">
 <meta name="theme-color" content="#173f35">
 
+<!-- وڌيڪ خوبصورت عربي/سنڌي فونٽ -->
+<link rel="preconnect" href="https://fonts.googleapis.com">
+<link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+
+<link href="https://fonts.googleapis.com/css2?family=Amiri:wght@400;700&family=Lateef:wght@400;700&family=Noto+Naskh+Arabic:wght@400;500;600;700&family=Noto+Sans+Arabic:wght@400;500;600;700&family=Noto+Kufi+Arabic:wght@400;500;600;700&family=Scheherazade+New:wght@400;700&display=swap" rel="stylesheet">
+
 <style>
 *{box-sizing:border-box}
 
@@ -136,15 +142,51 @@ footer{
 <label>فونٽ:</label>
 
 <select id="fontSelect">
-<option value="Jameel Noori Nastaleeq">Jameel Noori Nastaleeq</option>
-<option value="Noto Nastaliq Urdu">Noto Nastaliq Urdu</option>
-<option value="Calligraphic">Calligraphic — ڪليوگرافڪ</option>
-<option value="Amiri">Amiri — Calligraphy</option>
-<option value="Lateef">Lateef — Calligraphy</option>
-<option value="Traditional Arabic">Traditional Arabic</option>
-<option value="Noto Kufi Arabic">Noto Kufi Arabic</option>
-<option value="Georgia">Elegant Serif</option>
-<option value="Arial">Noto / Arial</option>
+
+<option value="Jameel Noori Nastaleeq">
+Jameel Noori Nastaleeq
+</option>
+
+<option value="Noto Nastaliq Urdu">
+Noto Nastaliq Urdu
+</option>
+
+<option value="Lateef">
+Lateef — خوبصورت نستعليق انداز
+</option>
+
+<option value="Amiri">
+Amiri — عربي ڪليوگرافي
+</option>
+
+<option value="Scheherazade New">
+Scheherazade New — ادبي انداز
+</option>
+
+<option value="Noto Naskh Arabic">
+Noto Naskh Arabic
+</option>
+
+<option value="Noto Sans Arabic">
+Noto Sans Arabic
+</option>
+
+<option value="Noto Kufi Arabic">
+Noto Kufi Arabic — ڪوفي انداز
+</option>
+
+<option value="Traditional Arabic">
+Traditional Arabic
+</option>
+
+<option value="Georgia">
+Georgia — Elegant Serif
+</option>
+
+<option value="Arial">
+Arial
+</option>
+
 </select>
 
 <br>
@@ -379,6 +421,8 @@ document.querySelectorAll(".special button").forEach(btn=>{
 document.getElementById("fontSelect").addEventListener("change",e=>{
   editor.style.fontFamily=e.target.value;
 });
+
+/* Font size */
 
 document.getElementById("fontSize").addEventListener("input",e=>{
   editor.style.fontSize=e.target.value+"px";
