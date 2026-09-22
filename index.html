@@ -1,1 +1,855 @@
 
+<!DOCTYPE html>
+<html lang="sd" dir="rtl">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+
+<title>سنڌي شاعري ڪي بورڊ</title>
+
+<link rel="manifest" href="./manifest.json">
+<meta name="theme-color" content="#173f35">
+
+<style>
+*{
+  box-sizing:border-box;
+}
+
+@font-face{
+  font-family:"Font1";
+  src:url("./fonts/font1.ttf") format("truetype");
+}
+@font-face{
+  font-family:"Font2";
+  src:url("./fonts/font2.ttf") format("truetype");
+}
+@font-face{
+  font-family:"Font3";
+  src:url("./fonts/font3.ttf") format("truetype");
+}
+@font-face{
+  font-family:"Font4";
+  src:url("./fonts/font4.ttf") format("truetype");
+}
+@font-face{
+  font-family:"Font5";
+  src:url("./fonts/font5.ttf") format("truetype");
+}
+@font-face{
+  font-family:"Font6";
+  src:url("./fonts/font6.ttf") format("truetype");
+}
+@font-face{
+  font-family:"Font7";
+  src:url("./fonts/font7.ttf") format("truetype");
+}
+@font-face{
+  font-family:"Font8";
+  src:url("./fonts/font8.ttf") format("truetype");
+}
+@font-face{
+  font-family:"Font9";
+  src:url("./fonts/font9.ttf") format("truetype");
+}
+@font-face{
+  font-family:"Calligraphic";
+  src:url("./fonts/calligraphic.ttf") format("truetype");
+}
+
+body{
+  margin:0;
+  background:#f5ecd9;
+  color:#173f35;
+  font-family:Arial,sans-serif;
+}
+
+.header{
+  background:#173f35;
+  color:#f4d58d;
+  text-align:center;
+  padding:18px 10px;
+  box-shadow:0 3px 10px #0003;
+}
+
+.header h1{
+  margin:0;
+  font-size:25px;
+}
+
+.header p{
+  margin:6px 0 0;
+  color:#fff3d0;
+  font-size:14px;
+}
+
+.container{
+  max-width:700px;
+  margin:auto;
+  padding:15px;
+}
+
+.card{
+  background:#fffaf0;
+  border:1px solid #d7b86a;
+  border-radius:16px;
+  padding:15px;
+  margin-bottom:15px;
+  box-shadow:0 3px 12px #0002;
+}
+
+.card h2{
+  margin:0 0 12px;
+  font-size:19px;
+  color:#173f35;
+}
+
+.controls{
+  display:grid;
+  grid-template-columns:1fr 1fr;
+  gap:10px;
+}
+
+.control{
+  background:#f1e4c7;
+  padding:10px;
+  border-radius:10px;
+}
+
+.control label{
+  display:block;
+  font-weight:bold;
+  margin-bottom:5px;
+}
+
+select,
+input[type="number"],
+input[type="color"]{
+  width:100%;
+  min-height:42px;
+  border:1px solid #b79b59;
+  border-radius:8px;
+  background:white;
+  padding:5px;
+  font-size:16px;
+}
+
+input[type="color"]{
+  padding:3px;
+}
+
+.buttons{
+  display:flex;
+  gap:8px;
+  flex-wrap:wrap;
+  margin-top:10px;
+}
+
+button{
+  border:0;
+  border-radius:9px;
+  padding:10px 16px;
+  font-size:16px;
+  cursor:pointer;
+  background:#173f35;
+  color:white;
+}
+
+button.active{
+  background:#b58b28;
+}
+
+#poetryText{
+  width:100%;
+  min-height:220px;
+  resize:vertical;
+  padding:18px;
+  border:2px solid #c9a957;
+  border-radius:14px;
+  background:#fffdf7;
+  color:#173f35;
+  outline:none;
+  line-height:2.1;
+  font-family:"Font1",serif;
+  font-size:28px;
+}
+
+.font-preview{
+  margin-top:10px;
+  padding:10px;
+  background:#fff;
+  border-radius:10px;
+  border:1px dashed #c9a957;
+  font-size:25px;
+}
+
+.keyboard{
+  display:grid;
+  grid-template-columns:repeat(6,1fr);
+  gap:5px;
+  margin-top:10px;
+}
+
+.key{
+  min-height:48px;
+  background:#173f35;
+  color:#fff;
+  border-radius:8px;
+  border:1px solid #c9a957;
+  font-size:21px;
+  padding:4px;
+  transition:.12s;
+}
+
+.key:active{
+  transform:scale(.95);
+  background:#b58b28;
+}
+
+.special{
+  background:#8c6b27;
+}
+
+.shift{
+  background:#315e51;
+}
+
+.shift.active{
+  background:#b58b28;
+  box-shadow:0 0 0 2px #f4d58d inset;
+}
+
+.info{
+  font-size:13px;
+  line-height:1.8;
+  color:#555;
+}
+
+.footer{
+  text-align:center;
+  padding:18px;
+  font-size:13px;
+  color:#735b26;
+}
+
+@media(max-width:500px){
+
+  .controls{
+    grid-template-columns:1fr;
+  }
+
+  #poetryText{
+    font-size:25px;
+  }
+
+  .keyboard{
+    grid-template-columns:repeat(5,1fr);
+  }
+
+  .key{
+    min-height:48px;
+    font-size:20px;
+    padding:3px;
+  }
+}
+</style>
+</head>
+
+<body>
+
+<div class="header">
+  <h1>سنڌي شاعري ڪي بورڊ</h1>
+  <p>سنڌي شاعري لاءِ خوبصورت موبائيل ڪي بورڊ</p>
+</div>
+
+<div class="container">
+
+<div class="card">
+
+<h2>🖋️ فانٽ ۽ ڪلر سليڪشن</h2>
+
+<div class="controls">
+
+<div class="control">
+<label>فونٽ</label>
+
+<select id="fontSelect" onchange="changeFont()">
+<option value="Font1">فونٽ 1</option>
+<option value="Font2">فونٽ 2</option>
+<option value="Font3">فونٽ 3</option>
+<option value="Font4">فونٽ 4</option>
+<option value="Font5">فونٽ 5</option>
+<option value="Font6">فونٽ 6</option>
+<option value="Font7">فونٽ 7</option>
+<option value="Font8">فونٽ 8</option>
+<option value="Font9">فونٽ 9</option>
+<option value="Calligraphic">✒️ Calligraphic — خطاطي</option>
+</select>
+
+</div>
+
+<div class="control">
+<label>سائيز</label>
+
+<input
+type="number"
+id="fontSize"
+value="28"
+min="12"
+max="80"
+oninput="changeSize()">
+
+</div>
+
+<div class="control">
+<label>چونڊيل لفظ جو رنگ</label>
+
+<input
+type="color"
+id="fontColor"
+value="#173f35"
+oninput="changeColor()">
+
+</div>
+
+<div class="control">
+<label>خاص فارميٽ</label>
+
+<div class="buttons">
+
+<button id="boldBtn" onclick="toggleBold()">
+B — بولڊ
+</button>
+
+<button onclick="removeColor()">
+رنگ ختم
+</button>
+
+</div>
+
+</div>
+
+</div>
+
+<div class="font-preview" id="fontPreview">
+سنڌي شاعري — ڪَويتا — احساس
+</div>
+
+</div>
+
+
+<div class="card">
+
+<h2>📝 شاعري لکڻ</h2>
+
+<textarea
+id="poetryText"
+placeholder="هتي پنهنجي شاعري لکو..."></textarea>
+
+</div>
+
+
+<div class="card">
+
+<h2>⌨️ سنڌي ڪي بورڊ</h2>
+
+<div class="keyboard" id="keyboard">
+
+<!-- EXACT ALPHABET ORDER -->
+
+<button class="key" data-normal="ا" data-shift="آ" onclick="keyboardKey(this)">ا</button>
+<button class="key" data-normal="ب" data-shift="بہ" onclick="keyboardKey(this)">ب</button>
+<button class="key" data-normal="ٻ" onclick="keyboardKey(this)">ٻ</button>
+<button class="key" data-normal="پ" onclick="keyboardKey(this)">پ</button>
+<button class="key" data-normal="ڀ" onclick="keyboardKey(this)">ڀ</button>
+<button class="key" data-normal="ت" data-shift="تہ" onclick="keyboardKey(this)">ت</button>
+
+<button class="key" data-normal="ٺ" onclick="keyboardKey(this)">ٺ</button>
+<button class="key" data-normal="ٽ" onclick="keyboardKey(this)">ٽ</button>
+<button class="key" data-normal="ث" onclick="keyboardKey(this)">ث</button>
+<button class="key" data-normal="ٿ" onclick="keyboardKey(this)">ٿ</button>
+<button class="key" data-normal="ف" onclick="keyboardKey(this)">ف</button>
+<button class="key" data-normal="ڦ" onclick="keyboardKey(this)">ڦ</button>
+
+<button class="key" data-normal="گ" onclick="keyboardKey(this)">گ</button>
+<button class="key" data-normal="ڳ" onclick="keyboardKey(this)">ڳ</button>
+<button class="key" data-normal="ڱ" onclick="keyboardKey(this)">ڱ</button>
+<button class="key" data-normal="ک" onclick="keyboardKey(this)">ک</button>
+<button class="key" data-normal="ي" onclick="keyboardKey(this)">ي</button>
+
+<button class="key" data-normal="د" onclick="keyboardKey(this)">د</button>
+<button class="key" data-normal="ذ" onclick="keyboardKey(this)">ذ</button>
+<button class="key" data-normal="ڌ" onclick="keyboardKey(this)">ڌ</button>
+<button class="key" data-normal="ڏ" onclick="keyboardKey(this)">ڏ</button>
+<button class="key" data-normal="ڊ" onclick="keyboardKey(this)">ڊ</button>
+<button class="key" data-normal="ڍ" onclick="keyboardKey(this)">ڍ</button>
+
+<button class="key" data-normal="ح" onclick="keyboardKey(this)">ح</button>
+<button class="key" data-normal="ج" onclick="keyboardKey(this)">ج</button>
+<button class="key" data-normal="ڄ" onclick="keyboardKey(this)">ڄ</button>
+<button class="key" data-normal="ڃ" onclick="keyboardKey(this)">ڃ</button>
+<button class="key" data-normal="چ" onclick="keyboardKey(this)">چ</button>
+<button class="key" data-normal="ڇ" onclick="keyboardKey(this)">ڇ</button>
+
+<button class="key" data-normal="خ" onclick="keyboardKey(this)">خ</button>
+<button class="key" data-normal="ع" onclick="keyboardKey(this)">ع</button>
+<button class="key" data-normal="غ" onclick="keyboardKey(this)">غ</button>
+<button class="key" data-normal="ر" onclick="keyboardKey(this)">ر</button>
+<button class="key" data-normal="ز" onclick="keyboardKey(this)">ز</button>
+<button class="key" data-normal="ڙ" onclick="keyboardKey(this)">ڙ</button>
+
+<button class="key" data-normal="م" data-shift="۾" onclick="keyboardKey(this)">م</button>
+<button class="key" data-normal="ن" data-shift="نہ" onclick="keyboardKey(this)">ن</button>
+<button class="key" data-normal="ل" onclick="keyboardKey(this)">ل</button>
+
+<button class="key" data-normal="س" onclick="keyboardKey(this)">س</button>
+<button class="key" data-normal="ش" onclick="keyboardKey(this)">ش</button>
+<button class="key" data-normal="ص" onclick="keyboardKey(this)">ص</button>
+
+<button class="key" data-normal="ض" onclick="keyboardKey(this)">ض</button>
+<button class="key" data-normal="ط" onclick="keyboardKey(this)">ط</button>
+<button class="key" data-normal="ظ" onclick="keyboardKey(this)">ظ</button>
+<button class="key" data-normal="ڻ" onclick="keyboardKey(this)">ڻ</button>
+<button class="key" data-normal="و" onclick="keyboardKey(this)">و</button>
+<button class="key" data-normal="ق" onclick="keyboardKey(this)">ق</button>
+
+<button class="key" data-normal="ھ" onclick="keyboardKey(this)">ھ</button>
+<button class="key" data-normal="جھ" onclick="keyboardKey(this)">جھ</button>
+<button class="key" data-normal="ڪ" onclick="keyboardKey(this)">ڪ</button>
+<button class="key" data-normal="گھ" onclick="keyboardKey(this)">گھ</button>
+<button class="key" data-normal="ء" data-shift="۽" onclick="keyboardKey(this)">ء</button>
+
+
+<!-- اضافي اکر جيڪي اصل alphabet ۾ نه آهن -->
+
+<button class="key" data-normal="ه" onclick="keyboardKey(this)">ه</button>
+<button class="key" data-normal="آ" onclick="keyboardKey(this)">آ</button>
+<button class="key" data-normal="ى" onclick="keyboardKey(this)">ى</button>
+<button class="key" data-normal="ئ" onclick="keyboardKey(this)">ئ</button>
+<button class="key" data-normal="ؤ" onclick="keyboardKey(this)">ؤ</button>
+
+
+<!-- SPACE -->
+
+<button class="key special" data-normal=" " onclick="keyboardKey(this)">
+Space
+</button>
+
+
+<!-- SPECIAL MARKS -->
+
+<button class="key special" data-normal="َ" onclick="keyboardKey(this)">َ</button>
+<button class="key special" data-normal="ِ" onclick="keyboardKey(this)">ِ</button>
+<button class="key special" data-normal="ُ" onclick="keyboardKey(this)">ُ</button>
+<button class="key special" data-normal="ّ" onclick="keyboardKey(this)">ّ</button>
+<button class="key special" data-normal="ْ" onclick="keyboardKey(this)">ْ</button>
+<button class="key special" data-normal="ـ" onclick="keyboardKey(this)">ـ</button>
+
+
+<!-- PUNCTUATION -->
+
+<button class="key special" data-normal="،" onclick="keyboardKey(this)">،</button>
+<button class="key special" data-normal="۔" onclick="keyboardKey(this)">۔</button>
+<button class="key special" data-normal="؟" onclick="keyboardKey(this)">؟</button>
+<button class="key special" data-normal="!" onclick="keyboardKey(this)">!</button>
+<button class="key special" data-normal="…" onclick="keyboardKey(this)">…</button>
+<button class="key special" data-normal="\n" onclick="keyboardKey(this)">↵</button>
+
+
+<!-- DELETE / SHIFT -->
+
+<button class="key special" onclick="backspace()">
+⌫ Delete
+</button>
+
+<button id="shiftButton" class="key shift" onclick="shiftKey()">
+⇧ Shift
+</button>
+
+</div>
+
+</div>
+
+
+<div class="card">
+
+<h2>🔢 انگ</h2>
+
+<div class="keyboard">
+
+<button class="key" onclick="writeChar('1')">1</button>
+<button class="key" onclick="writeChar('2')">2</button>
+<button class="key" onclick="writeChar('3')">3</button>
+<button class="key" onclick="writeChar('4')">4</button>
+<button class="key" onclick="writeChar('5')">5</button>
+
+<button class="key" onclick="writeChar('6')">6</button>
+<button class="key" onclick="writeChar('7')">7</button>
+<button class="key" onclick="writeChar('8')">8</button>
+<button class="key" onclick="writeChar('9')">9</button>
+<button class="key" onclick="writeChar('0')">0</button>
+
+</div>
+
+</div>
+
+
+<div class="card info">
+
+<b>آف لائن فونٽ:</b><br>
+
+فونٽ فائلون هن فولڊر ۾ رکڻيون آهن:
+
+<br><br>
+
+<code>fonts/</code>
+
+<br><br>
+
+نالا:
+
+<br>
+
+<code>
+font1.ttf<br>
+font2.ttf<br>
+font3.ttf<br>
+font4.ttf<br>
+font5.ttf<br>
+font6.ttf<br>
+font7.ttf<br>
+font8.ttf<br>
+font9.ttf<br>
+calligraphic.ttf
+</code>
+
+<br><br>
+
+فونٽ چونڊڻ کان پوءِ لکيل شاعري ۽ ڪي بورڊ جو متن چونڊيل فونٽ ۾ ظاهر ٿيندو.
+
+<br><br>
+
+<b>⇧ Shift:</b><br>
+
+ا → آ &nbsp; | &nbsp;
+ب → بہ &nbsp; | &nbsp;
+ت → تہ &nbsp; | &nbsp;
+ن → نہ &nbsp; | &nbsp;
+ء → ۽ &nbsp; | &nbsp;
+م → ۾
+
+</div>
+
+</div>
+
+
+<div class="footer">
+سنڌي شاعري ڪي بورڊ © 2026
+</div>
+
+
+<script>
+
+const textBox =
+document.getElementById("poetryText");
+
+const fontSelect =
+document.getElementById("fontSelect");
+
+const fontSize =
+document.getElementById("fontSize");
+
+const fontColor =
+document.getElementById("fontColor");
+
+const fontPreview =
+document.getElementById("fontPreview");
+
+const shiftButton =
+document.getElementById("shiftButton");
+
+let bold = false;
+let shifted = false;
+
+
+/* FONT */
+
+function changeFont(){
+
+  const font = fontSelect.value;
+
+  textBox.style.fontFamily =
+    '"' + font + '", serif';
+
+  fontPreview.style.fontFamily =
+    '"' + font + '", serif';
+
+  localStorage.setItem(
+    "keyboardFont",
+    font
+  );
+}
+
+
+/* SIZE */
+
+function changeSize(){
+
+  const size =
+    fontSize.value + "px";
+
+  textBox.style.fontSize =
+    size;
+
+  fontPreview.style.fontSize =
+    size;
+
+  localStorage.setItem(
+    "keyboardFontSize",
+    fontSize.value
+  );
+}
+
+
+/* COLOR */
+
+function changeColor(){
+
+  textBox.style.color =
+    fontColor.value;
+
+  fontPreview.style.color =
+    fontColor.value;
+
+  localStorage.setItem(
+    "keyboardColor",
+    fontColor.value
+  );
+}
+
+
+function removeColor(){
+
+  fontColor.value =
+    "#173f35";
+
+  changeColor();
+}
+
+
+/* BOLD */
+
+function toggleBold(){
+
+  bold = !bold;
+
+  textBox.style.fontWeight =
+    bold ? "bold" : "normal";
+
+  fontPreview.style.fontWeight =
+    bold ? "bold" : "normal";
+
+  document
+    .getElementById("boldBtn")
+    .classList
+    .toggle("active",bold);
+}
+
+
+/* WRITE */
+
+function writeChar(char){
+
+  const start =
+    textBox.selectionStart;
+
+  const end =
+    textBox.selectionEnd;
+
+  textBox.value =
+    textBox.value.substring(0,start) +
+    char +
+    textBox.value.substring(end);
+
+  const newPosition =
+    start + char.length;
+
+  textBox.selectionStart =
+    textBox.selectionEnd =
+    newPosition;
+
+  textBox.focus();
+}
+
+
+/* KEYBOARD KEY */
+
+function keyboardKey(button){
+
+  const normal =
+    button.dataset.normal;
+
+  const shift =
+    button.dataset.shift;
+
+  let character =
+    normal;
+
+  if(shifted && shift){
+    character = shift;
+  }
+
+  writeChar(character);
+
+  if(shifted){
+
+    shifted = false;
+
+    shiftButton
+      .classList
+      .remove("active");
+
+    resetKeyboardLabels();
+  }
+}
+
+
+/* DELETE */
+
+function backspace(){
+
+  const start =
+    textBox.selectionStart;
+
+  const end =
+    textBox.selectionEnd;
+
+  if(start !== end){
+
+    textBox.value =
+      textBox.value.substring(0,start) +
+      textBox.value.substring(end);
+
+    textBox.selectionStart =
+      textBox.selectionEnd =
+      start;
+
+  }else if(start > 0){
+
+    const before =
+      textBox.value.substring(0,start);
+
+    const after =
+      textBox.value.substring(end);
+
+    const chars =
+      Array.from(before);
+
+    chars.pop();
+
+    textBox.value =
+      chars.join("") + after;
+
+    const newPosition =
+      Array.from(chars.join("")).length;
+
+    textBox.selectionStart =
+      textBox.selectionEnd =
+      newPosition;
+  }
+
+  textBox.focus();
+}
+
+
+/* SHIFT */
+
+function shiftKey(){
+
+  shifted = !shifted;
+
+  shiftButton
+    .classList
+    .toggle("active",shifted);
+
+  document
+    .querySelectorAll(".key[data-shift]")
+    .forEach(button=>{
+
+      button.textContent =
+        shifted
+        ? button.dataset.shift
+        : button.dataset.normal;
+
+    });
+}
+
+
+/* RESTORE NORMAL LABELS */
+
+function resetKeyboardLabels(){
+
+  document
+    .querySelectorAll(".key[data-normal]")
+    .forEach(button=>{
+
+      button.textContent =
+        button.dataset.normal === "\n"
+        ? "↵"
+        : button.dataset.normal;
+
+    });
+
+}
+
+
+/* SAVED SETTINGS */
+
+window.addEventListener(
+  "DOMContentLoaded",
+  ()=>{
+
+    const savedFont =
+      localStorage.getItem(
+        "keyboardFont"
+      );
+
+    const savedSize =
+      localStorage.getItem(
+        "keyboardFontSize"
+      );
+
+    const savedColor =
+      localStorage.getItem(
+        "keyboardColor"
+      );
+
+    if(savedFont){
+      fontSelect.value =
+        savedFont;
+    }
+
+    if(savedSize){
+      fontSize.value =
+        savedSize;
+    }
+
+    if(savedColor){
+      fontColor.value =
+        savedColor;
+    }
+
+    shifted = false;
+
+    resetKeyboardLabels();
+
+    changeFont();
+    changeSize();
+    changeColor();
+
+  }
+);
+
+</script>
+
+</body>
+</html>
