@@ -1,4 +1,11 @@
-
+ها، هاڻي اصل مسئلو صاف نظر اچي رهيو آهي. توهان جي موڪليل فائل ۾ ڦ ۽ ڃ موجود ئي نه آهن ۽ اکرن جو ترتيب به توهان جي آخري ڏنل ترتيب مطابق ناهي.
+مان ساڳيو ڊزائن ۽ باقي سڀ features برقرار رکي، صرف keyboard جي اکرن کي توهان جي exact آرڊر مطابق درست ڪندس:
+ا ب ٻ پ ڀ ت ٺ ٽ ث ٿ ف ڦ گ ڳ ڱ ک ي
+د ذ ڌ ڏ ڊ ڍ ح ج ڄ ڃ چ ڇ خ ع غ ر ز ڙ م ن ل
+س ش ص ض ط ظ ڻ و ق ھ جھ ڪ گھ ء
+ان سان گڏ ڦ ۽ ڃ واقعي button طور موجود هوندا، ۽ آخري ء به هوندو.
+هيٺ توهان جي index.html جو مڪمل درست ٿيل ورزن آهي. سڄي پراڻي فائل replace ڪري هي save ڪريو.
+Writing
 <!DOCTYPE html>
 <html lang="sd" dir="rtl">
 <head>
@@ -278,8 +285,6 @@ button.active{
 
 <div class="container">
 
-<!-- FONT CARD -->
-
 <div class="card">
 
 <h2>🖋️ فانٽ ۽ ڪلر سليڪشن</h2>
@@ -354,8 +359,6 @@ B — بولڊ
 </div>
 
 
-<!-- POETRY -->
-
 <div class="card">
 
 <h2>📝 شاعري لکڻ</h2>
@@ -367,143 +370,91 @@ placeholder="هتي پنهنجي شاعري لکو..."></textarea>
 </div>
 
 
-<!-- SINDHI KEYBOARD -->
-
 <div class="card">
 
 <h2>⌨️ سنڌي ڪي بورڊ</h2>
 
 <div class="keyboard" id="keyboard">
 
-<!-- ROW 1 -->
+<!-- EXACT SINDHI ALPHABET ORDER -->
 
-<button class="key" data-normal="ا" data-shift="آ"
-onclick="keyboardKey(this)">
-ا
-</button>
+<button class="key" data-normal="ا" data-shift="آ" onclick="keyboardKey(this)">ا</button>
+<button class="key" data-normal="ب" data-shift="بہ" onclick="keyboardKey(this)">ب</button>
+<button class="key" data-normal="ٻ" onclick="keyboardKey(this)">ٻ</button>
+<button class="key" data-normal="پ" onclick="keyboardKey(this)">پ</button>
+<button class="key" data-normal="ڀ" onclick="keyboardKey(this)">ڀ</button>
+<button class="key" data-normal="ت" data-shift="تہ" onclick="keyboardKey(this)">ت</button>
 
-<button class="key" data-normal="ب" data-shift="بہ"
-onclick="keyboardKey(this)">
-ب
-</button>
-
-<button class="key" data-normal="ٻ"
-onclick="keyboardKey(this)">
-ٻ
-</button>
-
-<button class="key" data-normal="ڀ"
-onclick="keyboardKey(this)">
-ڀ
-</button>
-
-<button class="key" data-normal="پ"
-onclick="keyboardKey(this)">
-پ
-</button>
-
-<button class="key" data-normal="ت" data-shift="تہ"
-onclick="keyboardKey(this)">
-ت
-</button>
-
-
-<!-- ROW 2 -->
-
-<button class="key" data-normal="ٿ" onclick="keyboardKey(this)">ٿ</button>
-<button class="key" data-normal="ٽ" onclick="keyboardKey(this)">ٽ</button>
 <button class="key" data-normal="ٺ" onclick="keyboardKey(this)">ٺ</button>
+<button class="key" data-normal="ٽ" onclick="keyboardKey(this)">ٽ</button>
 <button class="key" data-normal="ث" onclick="keyboardKey(this)">ث</button>
-<button class="key" data-normal="ج" onclick="keyboardKey(this)">ج</button>
-<button class="key" data-normal="ڄ" onclick="keyboardKey(this)">ڄ</button>
+<button class="key" data-normal="ٿ" onclick="keyboardKey(this)">ٿ</button>
+<button class="key" data-normal="ف" onclick="keyboardKey(this)">ف</button>
+<button class="key" data-normal="ڦ" onclick="keyboardKey(this)">ڦ</button>
 
+<button class="key" data-normal="گ" onclick="keyboardKey(this)">گ</button>
+<button class="key" data-normal="ڳ" onclick="keyboardKey(this)">ڳ</button>
+<button class="key" data-normal="ڱ" onclick="keyboardKey(this)">ڱ</button>
+<button class="key" data-normal="ک" onclick="keyboardKey(this)">ک</button>
+<button class="key" data-normal="ي" onclick="keyboardKey(this)">ي</button>
 
-<!-- ROW 3 -->
-
-<button class="key" data-normal="جھ" onclick="keyboardKey(this)">جھ</button>
-<button class="key" data-normal="چ" onclick="keyboardKey(this)">چ</button>
-<button class="key" data-normal="ڇ" onclick="keyboardKey(this)">ڇ</button>
-<button class="key" data-normal="ح" onclick="keyboardKey(this)">ح</button>
-<button class="key" data-normal="خ" onclick="keyboardKey(this)">خ</button>
 <button class="key" data-normal="د" onclick="keyboardKey(this)">د</button>
-
-
-<!-- ROW 4 -->
-
+<button class="key" data-normal="ذ" onclick="keyboardKey(this)">ذ</button>
 <button class="key" data-normal="ڌ" onclick="keyboardKey(this)">ڌ</button>
 <button class="key" data-normal="ڏ" onclick="keyboardKey(this)">ڏ</button>
 <button class="key" data-normal="ڊ" onclick="keyboardKey(this)">ڊ</button>
 <button class="key" data-normal="ڍ" onclick="keyboardKey(this)">ڍ</button>
-<button class="key" data-normal="ذ" onclick="keyboardKey(this)">ذ</button>
+
+<button class="key" data-normal="ح" onclick="keyboardKey(this)">ح</button>
+<button class="key" data-normal="ج" onclick="keyboardKey(this)">ج</button>
+<button class="key" data-normal="ڄ" onclick="keyboardKey(this)">ڄ</button>
+<button class="key" data-normal="ڃ" onclick="keyboardKey(this)">ڃ</button>
+<button class="key" data-normal="چ" onclick="keyboardKey(this)">چ</button>
+<button class="key" data-normal="ڇ" onclick="keyboardKey(this)">ڇ</button>
+
+<button class="key" data-normal="خ" onclick="keyboardKey(this)">خ</button>
+<button class="key" data-normal="ع" onclick="keyboardKey(this)">ع</button>
+<button class="key" data-normal="غ" onclick="keyboardKey(this)">غ</button>
 <button class="key" data-normal="ر" onclick="keyboardKey(this)">ر</button>
-
-
-<!-- ROW 5 -->
-
-<button class="key" data-normal="ڙ" onclick="keyboardKey(this)">ڙ</button>
 <button class="key" data-normal="ز" onclick="keyboardKey(this)">ز</button>
+<button class="key" data-normal="ڙ" onclick="keyboardKey(this)">ڙ</button>
+
+<button class="key" data-normal="م" data-shift="۾" onclick="keyboardKey(this)">م</button>
+<button class="key" data-normal="ن" data-shift="نہ" onclick="keyboardKey(this)">ن</button>
+<button class="key" data-normal="ل" onclick="keyboardKey(this)">ل</button>
 <button class="key" data-normal="س" onclick="keyboardKey(this)">س</button>
 <button class="key" data-normal="ش" onclick="keyboardKey(this)">ش</button>
 <button class="key" data-normal="ص" onclick="keyboardKey(this)">ص</button>
+
 <button class="key" data-normal="ض" onclick="keyboardKey(this)">ض</button>
-
-
-<!-- ROW 6 -->
-
 <button class="key" data-normal="ط" onclick="keyboardKey(this)">ط</button>
 <button class="key" data-normal="ظ" onclick="keyboardKey(this)">ظ</button>
-<button class="key" data-normal="ع" onclick="keyboardKey(this)">ع</button>
-<button class="key" data-normal="غ" onclick="keyboardKey(this)">غ</button>
-<button class="key" data-normal="ف" onclick="keyboardKey(this)">ف</button>
-<button class="key" data-normal="ق" onclick="keyboardKey(this)">ق</button>
-
-
-<!-- ROW 7 -->
-
-<button class="key" data-normal="ڪ" onclick="keyboardKey(this)">ڪ</button>
-<button class="key" data-normal="ک" onclick="keyboardKey(this)">ک</button>
-<button class="key" data-normal="گ" onclick="keyboardKey(this)">گ</button>
-<button class="key" data-normal="ڳ" onclick="keyboardKey(this)">ڳ</button>
-<button class="key" data-normal="ڱ" onclick="keyboardKey(this)">ڱ</button>
-<button class="key" data-normal="ل" onclick="keyboardKey(this)">ل</button>
-
-
-<!-- ROW 8 -->
-
-<button class="key" data-normal="م" data-shift="۾"
-onclick="keyboardKey(this)">
-م
-</button>
-
-<button class="key" data-normal="ن" data-shift="نہ"
-onclick="keyboardKey(this)">
-ن
-</button>
-
 <button class="key" data-normal="ڻ" onclick="keyboardKey(this)">ڻ</button>
 <button class="key" data-normal="و" onclick="keyboardKey(this)">و</button>
+<button class="key" data-normal="ق" onclick="keyboardKey(this)">ق</button>
+
+<button class="key" data-normal="ھ" onclick="keyboardKey(this)">ھ</button>
+<button class="key" data-normal="جھ" onclick="keyboardKey(this)">جھ</button>
+<button class="key" data-normal="ڪ" onclick="keyboardKey(this)">ڪ</button>
+<button class="key" data-normal="گھ" onclick="keyboardKey(this)">گھ</button>
+<button class="key" data-normal="ء" data-shift="۽" onclick="keyboardKey(this)">ء</button>
 <button class="key" data-normal="ه" onclick="keyboardKey(this)">ه</button>
 
-<button class="key" data-normal="ء" data-shift="۽"
-onclick="keyboardKey(this)">
-ء
-</button>
+<!-- اضافي سنڌي اکر/علامتون -->
 
-
-<!-- ROW 9 -->
-
-<button class="key" data-normal="ي" onclick="keyboardKey(this)">ي</button>
+<button class="key" data-normal="آ" onclick="keyboardKey(this)">آ</button>
 <button class="key" data-normal="ى" onclick="keyboardKey(this)">ى</button>
 <button class="key" data-normal="ئ" onclick="keyboardKey(this)">ئ</button>
 <button class="key" data-normal="ؤ" onclick="keyboardKey(this)">ؤ</button>
-<button class="key" data-normal="آ" onclick="keyboardKey(this)">آ</button>
 
-<button class="key" data-normal=" " onclick="keyboardKey(this)">
+<!-- SPACE -->
+
+<button class="key special" data-normal=" " onclick="keyboardKey(this)">
 Space
 </button>
 
 
-<!-- SPECIAL -->
+<!-- SPECIAL MARKS -->
 
 <button class="key special" data-normal="َ" onclick="keyboardKey(this)">َ</button>
 <button class="key special" data-normal="ِ" onclick="keyboardKey(this)">ِ</button>
@@ -525,16 +476,11 @@ Space
 
 <!-- DELETE / SHIFT -->
 
-<button
-class="key special"
-onclick="backspace()">
+<button class="key special" onclick="backspace()">
 ⌫ Delete
 </button>
 
-<button
-id="shiftButton"
-class="key shift"
-onclick="shiftKey()">
+<button id="shiftButton" class="key shift" onclick="shiftKey()">
 ⇧ Shift
 </button>
 
@@ -542,8 +488,6 @@ onclick="shiftKey()">
 
 </div>
 
-
-<!-- NUMBERS -->
 
 <div class="card">
 
@@ -567,8 +511,6 @@ onclick="shiftKey()">
 
 </div>
 
-
-<!-- INFO -->
 
 <div class="card info">
 
@@ -772,19 +714,10 @@ function keyboardKey(button){
     normal;
 
   if(shifted && shift){
-
-    character =
-      shift;
+    character = shift;
   }
 
   writeChar(character);
-
-  /*
-    Shift صرف هڪ key لاءِ ڪم ڪندو.
-    مثال:
-    Shift ON → ا → آ
-    پوءِ Shift پاڻ OFF.
-  */
 
   if(shifted){
 
@@ -793,6 +726,8 @@ function keyboardKey(button){
     shiftButton
       .classList
       .remove("active");
+
+    resetKeyboardLabels();
   }
 }
 
@@ -818,11 +753,6 @@ function backspace(){
       start;
 
   }else if(start > 0){
-
-    /*
-      سنڌي text ۾ هڪ Unicode
-      character delete ڪرڻ.
-    */
 
     const before =
       textBox.value.substring(0,start);
@@ -860,25 +790,14 @@ function shiftKey(){
     .classList
     .toggle("active",shifted);
 
-  /*
-    Shift ON ٿيڻ وقت ضروري keys
-    تي Shift وارو text ڏيکاريو.
-  */
-
   document
     .querySelectorAll(".key[data-shift]")
     .forEach(button=>{
 
-      if(shifted){
-
-        button.textContent =
-          button.dataset.shift;
-
-      }else{
-
-        button.textContent =
-          button.dataset.normal;
-      }
+      button.textContent =
+        shifted
+        ? button.dataset.shift
+        : button.dataset.normal;
 
     });
 }
@@ -924,19 +843,16 @@ window.addEventListener(
       );
 
     if(savedFont){
-
       fontSelect.value =
         savedFont;
     }
 
     if(savedSize){
-
       fontSize.value =
         savedSize;
     }
 
     if(savedColor){
-
       fontColor.value =
         savedColor;
     }
