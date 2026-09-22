@@ -204,6 +204,7 @@ button.active{
   border:1px solid #c9a957;
   font-size:21px;
   padding:4px;
+  transition:.12s;
 }
 
 .key:active{
@@ -223,6 +224,11 @@ button.active{
   background:#315e51;
 }
 
+.shift.active{
+  background:#b58b28;
+  box-shadow:0 0 0 2px #f4d58d inset;
+}
+
 .info{
   font-size:13px;
   line-height:1.8;
@@ -237,6 +243,7 @@ button.active{
 }
 
 @media(max-width:500px){
+
   .controls{
     grid-template-columns:1fr;
   }
@@ -252,6 +259,12 @@ button.active{
   .full{
     grid-column:span 5;
   }
+
+  .key{
+    min-height:48px;
+    font-size:20px;
+    padding:3px;
+  }
 }
 </style>
 </head>
@@ -264,6 +277,8 @@ button.active{
 </div>
 
 <div class="container">
+
+<!-- FONT CARD -->
 
 <div class="card">
 
@@ -318,9 +333,13 @@ oninput="changeColor()">
 
 <div class="buttons">
 
-<button id="boldBtn" onclick="toggleBold()">B — بولڊ</button>
+<button id="boldBtn" onclick="toggleBold()">
+B — بولڊ
+</button>
 
-<button onclick="removeColor()">رنگ ختم</button>
+<button onclick="removeColor()">
+رنگ ختم
+</button>
 
 </div>
 
@@ -335,6 +354,8 @@ oninput="changeColor()">
 </div>
 
 
+<!-- POETRY -->
+
 <div class="card">
 
 <h2>📝 شاعري لکڻ</h2>
@@ -346,100 +367,183 @@ placeholder="هتي پنهنجي شاعري لکو..."></textarea>
 </div>
 
 
+<!-- SINDHI KEYBOARD -->
+
 <div class="card">
 
 <h2>⌨️ سنڌي ڪي بورڊ</h2>
 
 <div class="keyboard" id="keyboard">
 
-<!-- بنيادي اکر -->
+<!-- ROW 1 -->
 
-<button class="key" onclick="writeChar('ا')">ا</button>
-<button class="key" onclick="writeChar('ب')">ب</button>
-<button class="key" onclick="writeChar('ٻ')">ٻ</button>
-<button class="key" onclick="writeChar('ڀ')">ڀ</button>
-<button class="key" onclick="writeChar('پ')">پ</button>
-<button class="key" onclick="writeChar('ت')">ت</button>
+<button class="key" data-normal="ا" data-shift="آ"
+onclick="keyboardKey(this)">
+ا
+</button>
 
-<button class="key" onclick="writeChar('ٿ')">ٿ</button>
-<button class="key" onclick="writeChar('ٽ')">ٽ</button>
-<button class="key" onclick="writeChar('ٺ')">ٺ</button>
-<button class="key" onclick="writeChar('ث')">ث</button>
-<button class="key" onclick="writeChar('ج')">ج</button>
-<button class="key" onclick="writeChar('ڄ')">ڄ</button>
+<button class="key" data-normal="ب" data-shift="بہ"
+onclick="keyboardKey(this)">
+ب
+</button>
 
-<button class="key" onclick="writeChar('جھ')">جھ</button>
-<button class="key" onclick="writeChar('چ')">چ</button>
-<button class="key" onclick="writeChar('ڇ')">ڇ</button>
-<button class="key" onclick="writeChar('ح')">ح</button>
-<button class="key" onclick="writeChar('خ')">خ</button>
-<button class="key" onclick="writeChar('د')">د</button>
+<button class="key" data-normal="ٻ"
+onclick="keyboardKey(this)">
+ٻ
+</button>
 
-<button class="key" onclick="writeChar('ڌ')">ڌ</button>
-<button class="key" onclick="writeChar('ڏ')">ڏ</button>
-<button class="key" onclick="writeChar('ڊ')">ڊ</button>
-<button class="key" onclick="writeChar('ڍ')">ڍ</button>
-<button class="key" onclick="writeChar('ذ')">ذ</button>
-<button class="key" onclick="writeChar('ر')">ر</button>
+<button class="key" data-normal="ڀ"
+onclick="keyboardKey(this)">
+ڀ
+</button>
 
-<button class="key" onclick="writeChar('ڙ')">ڙ</button>
-<button class="key" onclick="writeChar('ز')">ز</button>
-<button class="key" onclick="writeChar('س')">س</button>
-<button class="key" onclick="writeChar('ش')">ش</button>
-<button class="key" onclick="writeChar('ص')">ص</button>
-<button class="key" onclick="writeChar('ض')">ض</button>
+<button class="key" data-normal="پ"
+onclick="keyboardKey(this)">
+پ
+</button>
 
-<button class="key" onclick="writeChar('ط')">ط</button>
-<button class="key" onclick="writeChar('ظ')">ظ</button>
-<button class="key" onclick="writeChar('ع')">ع</button>
-<button class="key" onclick="writeChar('غ')">غ</button>
-<button class="key" onclick="writeChar('ف')">ف</button>
-<button class="key" onclick="writeChar('ق')">ق</button>
+<button class="key" data-normal="ت" data-shift="تہ"
+onclick="keyboardKey(this)">
+ت
+</button>
 
-<button class="key" onclick="writeChar('ڪ')">ڪ</button>
-<button class="key" onclick="writeChar('ک')">ک</button>
-<button class="key" onclick="writeChar('گ')">گ</button>
-<button class="key" onclick="writeChar('ڳ')">ڳ</button>
-<button class="key" onclick="writeChar('ڱ')">ڱ</button>
-<button class="key" onclick="writeChar('ل')">ل</button>
 
-<button class="key" onclick="writeChar('م')">م</button>
-<button class="key" onclick="writeChar('ن')">ن</button>
-<button class="key" onclick="writeChar('ڻ')">ڻ</button>
-<button class="key" onclick="writeChar('و')">و</button>
-<button class="key" onclick="writeChar('ه')">ه</button>
-<button class="key" onclick="writeChar('ء')">ء</button>
+<!-- ROW 2 -->
 
-<button class="key" onclick="writeChar('ي')">ي</button>
-<button class="key" onclick="writeChar('ى')">ى</button>
-<button class="key" onclick="writeChar('ئ')">ئ</button>
-<button class="key" onclick="writeChar('ؤ')">ؤ</button>
-<button class="key" onclick="writeChar('آ')">آ</button>
-<button class="key" onclick="writeChar(' ')" >Space</button>
+<button class="key" data-normal="ٿ" onclick="keyboardKey(this)">ٿ</button>
+<button class="key" data-normal="ٽ" onclick="keyboardKey(this)">ٽ</button>
+<button class="key" data-normal="ٺ" onclick="keyboardKey(this)">ٺ</button>
+<button class="key" data-normal="ث" onclick="keyboardKey(this)">ث</button>
+<button class="key" data-normal="ج" onclick="keyboardKey(this)">ج</button>
+<button class="key" data-normal="ڄ" onclick="keyboardKey(this)">ڄ</button>
 
-<!-- خاص نشانيون -->
 
-<button class="key special" onclick="writeChar('َ')">َ</button>
-<button class="key special" onclick="writeChar('ِ')">ِ</button>
-<button class="key special" onclick="writeChar('ُ')">ُ</button>
-<button class="key special" onclick="writeChar('ّ')">ّ</button>
-<button class="key special" onclick="writeChar('ْ')">ْ</button>
-<button class="key special" onclick="writeChar('ـ')">ـ</button>
+<!-- ROW 3 -->
 
-<button class="key special" onclick="writeChar('،')">،</button>
-<button class="key special" onclick="writeChar('۔')">۔</button>
-<button class="key special" onclick="writeChar('؟')">؟</button>
-<button class="key special" onclick="writeChar('!')">!</button>
-<button class="key special" onclick="writeChar('…')">…</button>
-<button class="key special" onclick="writeChar('\n')">↵</button>
+<button class="key" data-normal="جھ" onclick="keyboardKey(this)">جھ</button>
+<button class="key" data-normal="چ" onclick="keyboardKey(this)">چ</button>
+<button class="key" data-normal="ڇ" onclick="keyboardKey(this)">ڇ</button>
+<button class="key" data-normal="ح" onclick="keyboardKey(this)">ح</button>
+<button class="key" data-normal="خ" onclick="keyboardKey(this)">خ</button>
+<button class="key" data-normal="د" onclick="keyboardKey(this)">د</button>
 
-<button class="key special" onclick="backspace()">⌫ Delete</button>
-<button class="key shift" onclick="shiftKey()">⇧ Shift</button>
+
+<!-- ROW 4 -->
+
+<button class="key" data-normal="ڌ" onclick="keyboardKey(this)">ڌ</button>
+<button class="key" data-normal="ڏ" onclick="keyboardKey(this)">ڏ</button>
+<button class="key" data-normal="ڊ" onclick="keyboardKey(this)">ڊ</button>
+<button class="key" data-normal="ڍ" onclick="keyboardKey(this)">ڍ</button>
+<button class="key" data-normal="ذ" onclick="keyboardKey(this)">ذ</button>
+<button class="key" data-normal="ر" onclick="keyboardKey(this)">ر</button>
+
+
+<!-- ROW 5 -->
+
+<button class="key" data-normal="ڙ" onclick="keyboardKey(this)">ڙ</button>
+<button class="key" data-normal="ز" onclick="keyboardKey(this)">ز</button>
+<button class="key" data-normal="س" onclick="keyboardKey(this)">س</button>
+<button class="key" data-normal="ش" onclick="keyboardKey(this)">ش</button>
+<button class="key" data-normal="ص" onclick="keyboardKey(this)">ص</button>
+<button class="key" data-normal="ض" onclick="keyboardKey(this)">ض</button>
+
+
+<!-- ROW 6 -->
+
+<button class="key" data-normal="ط" onclick="keyboardKey(this)">ط</button>
+<button class="key" data-normal="ظ" onclick="keyboardKey(this)">ظ</button>
+<button class="key" data-normal="ع" onclick="keyboardKey(this)">ع</button>
+<button class="key" data-normal="غ" onclick="keyboardKey(this)">غ</button>
+<button class="key" data-normal="ف" onclick="keyboardKey(this)">ف</button>
+<button class="key" data-normal="ق" onclick="keyboardKey(this)">ق</button>
+
+
+<!-- ROW 7 -->
+
+<button class="key" data-normal="ڪ" onclick="keyboardKey(this)">ڪ</button>
+<button class="key" data-normal="ک" onclick="keyboardKey(this)">ک</button>
+<button class="key" data-normal="گ" onclick="keyboardKey(this)">گ</button>
+<button class="key" data-normal="ڳ" onclick="keyboardKey(this)">ڳ</button>
+<button class="key" data-normal="ڱ" onclick="keyboardKey(this)">ڱ</button>
+<button class="key" data-normal="ل" onclick="keyboardKey(this)">ل</button>
+
+
+<!-- ROW 8 -->
+
+<button class="key" data-normal="م" data-shift="۾"
+onclick="keyboardKey(this)">
+م
+</button>
+
+<button class="key" data-normal="ن" data-shift="نہ"
+onclick="keyboardKey(this)">
+ن
+</button>
+
+<button class="key" data-normal="ڻ" onclick="keyboardKey(this)">ڻ</button>
+<button class="key" data-normal="و" onclick="keyboardKey(this)">و</button>
+<button class="key" data-normal="ه" onclick="keyboardKey(this)">ه</button>
+
+<button class="key" data-normal="ء" data-shift="۽"
+onclick="keyboardKey(this)">
+ء
+</button>
+
+
+<!-- ROW 9 -->
+
+<button class="key" data-normal="ي" onclick="keyboardKey(this)">ي</button>
+<button class="key" data-normal="ى" onclick="keyboardKey(this)">ى</button>
+<button class="key" data-normal="ئ" onclick="keyboardKey(this)">ئ</button>
+<button class="key" data-normal="ؤ" onclick="keyboardKey(this)">ؤ</button>
+<button class="key" data-normal="آ" onclick="keyboardKey(this)">آ</button>
+
+<button class="key" data-normal=" " onclick="keyboardKey(this)">
+Space
+</button>
+
+
+<!-- SPECIAL -->
+
+<button class="key special" data-normal="َ" onclick="keyboardKey(this)">َ</button>
+<button class="key special" data-normal="ِ" onclick="keyboardKey(this)">ِ</button>
+<button class="key special" data-normal="ُ" onclick="keyboardKey(this)">ُ</button>
+<button class="key special" data-normal="ّ" onclick="keyboardKey(this)">ّ</button>
+<button class="key special" data-normal="ْ" onclick="keyboardKey(this)">ْ</button>
+<button class="key special" data-normal="ـ" onclick="keyboardKey(this)">ـ</button>
+
+
+<!-- PUNCTUATION -->
+
+<button class="key special" data-normal="،" onclick="keyboardKey(this)">،</button>
+<button class="key special" data-normal="۔" onclick="keyboardKey(this)">۔</button>
+<button class="key special" data-normal="؟" onclick="keyboardKey(this)">؟</button>
+<button class="key special" data-normal="!" onclick="keyboardKey(this)">!</button>
+<button class="key special" data-normal="…" onclick="keyboardKey(this)">…</button>
+<button class="key special" data-normal="\n" onclick="keyboardKey(this)">↵</button>
+
+
+<!-- DELETE / SHIFT -->
+
+<button
+class="key special"
+onclick="backspace()">
+⌫ Delete
+</button>
+
+<button
+id="shiftButton"
+class="key shift"
+onclick="shiftKey()">
+⇧ Shift
+</button>
 
 </div>
 
 </div>
 
+
+<!-- NUMBERS -->
 
 <div class="card">
 
@@ -464,9 +568,12 @@ placeholder="هتي پنهنجي شاعري لکو..."></textarea>
 </div>
 
 
+<!-- INFO -->
+
 <div class="card info">
 
 <b>آف لائن فونٽ:</b><br>
+
 فونٽ فائلون هن فولڊر ۾ رکڻيون آهن:
 
 <br><br>
@@ -475,7 +582,7 @@ placeholder="هتي پنهنجي شاعري لکو..."></textarea>
 
 <br><br>
 
-۽ نالا هي رکجن:
+نالا:
 
 <br>
 
@@ -495,6 +602,18 @@ calligraphic.ttf
 <br><br>
 
 فونٽ چونڊڻ کان پوءِ لکيل شاعري ۽ ڪي بورڊ جو متن چونڊيل فونٽ ۾ ظاهر ٿيندو.
+
+<br><br>
+
+<b>⇧ Shift:</b><br>
+
+ا → آ &nbsp; | &nbsp;
+ب → بہ &nbsp; | &nbsp;
+ت → تہ &nbsp; | &nbsp;
+ن → نہ &nbsp; | &nbsp;
+ء → ۽ &nbsp; | &nbsp;
+م → ۾
+
 </div>
 
 </div>
@@ -507,82 +626,186 @@ calligraphic.ttf
 
 <script>
 
-const textBox = document.getElementById("poetryText");
-const fontSelect = document.getElementById("fontSelect");
-const fontSize = document.getElementById("fontSize");
-const fontColor = document.getElementById("fontColor");
-const fontPreview = document.getElementById("fontPreview");
+const textBox =
+document.getElementById("poetryText");
+
+const fontSelect =
+document.getElementById("fontSelect");
+
+const fontSize =
+document.getElementById("fontSize");
+
+const fontColor =
+document.getElementById("fontColor");
+
+const fontPreview =
+document.getElementById("fontPreview");
+
+const shiftButton =
+document.getElementById("shiftButton");
 
 let bold = false;
 let shifted = false;
+
+
+/* FONT */
 
 function changeFont(){
 
   const font = fontSelect.value;
 
-  textBox.style.fontFamily = '"' + font + '", serif';
-  fontPreview.style.fontFamily = '"' + font + '", serif';
+  textBox.style.fontFamily =
+    '"' + font + '", serif';
 
-  localStorage.setItem("keyboardFont",font);
+  fontPreview.style.fontFamily =
+    '"' + font + '", serif';
+
+  localStorage.setItem(
+    "keyboardFont",
+    font
+  );
 }
+
+
+/* SIZE */
 
 function changeSize(){
 
-  const size = fontSize.value + "px";
+  const size =
+    fontSize.value + "px";
 
-  textBox.style.fontSize = size;
-  fontPreview.style.fontSize = size;
+  textBox.style.fontSize =
+    size;
 
-  localStorage.setItem("keyboardFontSize",fontSize.value);
+  fontPreview.style.fontSize =
+    size;
+
+  localStorage.setItem(
+    "keyboardFontSize",
+    fontSize.value
+  );
 }
+
+
+/* COLOR */
 
 function changeColor(){
 
-  textBox.style.color = fontColor.value;
-  fontPreview.style.color = fontColor.value;
+  textBox.style.color =
+    fontColor.value;
 
-  localStorage.setItem("keyboardColor",fontColor.value);
+  fontPreview.style.color =
+    fontColor.value;
+
+  localStorage.setItem(
+    "keyboardColor",
+    fontColor.value
+  );
 }
+
 
 function removeColor(){
 
-  fontColor.value = "#173f35";
+  fontColor.value =
+    "#173f35";
 
   changeColor();
 }
+
+
+/* BOLD */
 
 function toggleBold(){
 
   bold = !bold;
 
-  textBox.style.fontWeight = bold ? "bold" : "normal";
-  fontPreview.style.fontWeight = bold ? "bold" : "normal";
+  textBox.style.fontWeight =
+    bold ? "bold" : "normal";
 
-  document.getElementById("boldBtn")
-  .classList.toggle("active",bold);
+  fontPreview.style.fontWeight =
+    bold ? "bold" : "normal";
+
+  document
+    .getElementById("boldBtn")
+    .classList
+    .toggle("active",bold);
 }
+
+
+/* WRITE */
 
 function writeChar(char){
 
-  const start = textBox.selectionStart;
-  const end = textBox.selectionEnd;
+  const start =
+    textBox.selectionStart;
+
+  const end =
+    textBox.selectionEnd;
 
   textBox.value =
     textBox.value.substring(0,start) +
     char +
     textBox.value.substring(end);
 
+  const newPosition =
+    start + char.length;
+
   textBox.selectionStart =
-  textBox.selectionEnd =
-  start + char.length;
+    textBox.selectionEnd =
+    newPosition;
 
   textBox.focus();
 }
 
+
+/* KEYBOARD KEY */
+
+function keyboardKey(button){
+
+  const normal =
+    button.dataset.normal;
+
+  const shift =
+    button.dataset.shift;
+
+  let character =
+    normal;
+
+  if(shifted && shift){
+
+    character =
+      shift;
+  }
+
+  writeChar(character);
+
+  /*
+    Shift صرف هڪ key لاءِ ڪم ڪندو.
+    مثال:
+    Shift ON → ا → آ
+    پوءِ Shift پاڻ OFF.
+  */
+
+  if(shifted){
+
+    shifted = false;
+
+    shiftButton
+      .classList
+      .remove("active");
+  }
+}
+
+
+/* DELETE */
+
 function backspace(){
 
-  const start = textBox.selectionStart;
-  const end = textBox.selectionEnd;
+  const start =
+    textBox.selectionStart;
+
+  const end =
+    textBox.selectionEnd;
 
   if(start !== end){
 
@@ -591,63 +814,143 @@ function backspace(){
       textBox.value.substring(end);
 
     textBox.selectionStart =
-    textBox.selectionEnd = start;
+      textBox.selectionEnd =
+      start;
 
   }else if(start > 0){
 
-    textBox.value =
-      textBox.value.substring(0,start-1) +
+    /*
+      سنڌي text ۾ هڪ Unicode
+      character delete ڪرڻ.
+    */
+
+    const before =
+      textBox.value.substring(0,start);
+
+    const after =
       textBox.value.substring(end);
 
+    const chars =
+      Array.from(before);
+
+    chars.pop();
+
+    textBox.value =
+      chars.join("") + after;
+
+    const newPosition =
+      Array.from(chars.join("")).length;
+
     textBox.selectionStart =
-    textBox.selectionEnd = start-1;
+      textBox.selectionEnd =
+      newPosition;
   }
 
   textBox.focus();
 }
 
+
+/* SHIFT */
+
 function shiftKey(){
 
   shifted = !shifted;
 
+  shiftButton
+    .classList
+    .toggle("active",shifted);
+
+  /*
+    Shift ON ٿيڻ وقت ضروري keys
+    تي Shift وارو text ڏيکاريو.
+  */
+
   document
-  .querySelectorAll(".shift")
-  .forEach(btn=>{
-    btn.classList.toggle("active",shifted);
-  });
+    .querySelectorAll(".key[data-shift]")
+    .forEach(button=>{
+
+      if(shifted){
+
+        button.textContent =
+          button.dataset.shift;
+
+      }else{
+
+        button.textContent =
+          button.dataset.normal;
+      }
+
+    });
+}
+
+
+/* RESTORE NORMAL LABELS */
+
+function resetKeyboardLabels(){
+
+  document
+    .querySelectorAll(".key[data-normal]")
+    .forEach(button=>{
+
+      button.textContent =
+        button.dataset.normal === "\n"
+        ? "↵"
+        : button.dataset.normal;
+
+    });
 
 }
 
-/* محفوظ سيٽنگون */
 
-window.addEventListener("DOMContentLoaded",()=>{
+/* SAVED SETTINGS */
 
-  const savedFont =
-    localStorage.getItem("keyboardFont");
+window.addEventListener(
+  "DOMContentLoaded",
+  ()=>{
 
-  const savedSize =
-    localStorage.getItem("keyboardFontSize");
+    const savedFont =
+      localStorage.getItem(
+        "keyboardFont"
+      );
 
-  const savedColor =
-    localStorage.getItem("keyboardColor");
+    const savedSize =
+      localStorage.getItem(
+        "keyboardFontSize"
+      );
 
-  if(savedFont){
-    fontSelect.value = savedFont;
+    const savedColor =
+      localStorage.getItem(
+        "keyboardColor"
+      );
+
+    if(savedFont){
+
+      fontSelect.value =
+        savedFont;
+    }
+
+    if(savedSize){
+
+      fontSize.value =
+        savedSize;
+    }
+
+    if(savedColor){
+
+      fontColor.value =
+        savedColor;
+    }
+
+    shifted = false;
+
+    resetKeyboardLabels();
+
+    changeFont();
+    changeSize();
+    changeColor();
+
   }
-
-  if(savedSize){
-    fontSize.value = savedSize;
-  }
-
-  if(savedColor){
-    fontColor.value = savedColor;
-  }
-
-  changeFont();
-  changeSize();
-  changeColor();
-
-});
+);
 
 </script>
 
