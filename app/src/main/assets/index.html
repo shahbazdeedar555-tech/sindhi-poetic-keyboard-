@@ -726,6 +726,13 @@ function toggleBold(){
 
 function writeChar(char){
 
+  /* Android native keyboard */
+  if (window.AndroidKeyboard) {
+    AndroidKeyboard.typeText(char);
+    return;
+  }
+
+  /* Web version */
   const start =
     textBox.selectionStart;
 
