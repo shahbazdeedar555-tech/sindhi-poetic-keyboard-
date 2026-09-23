@@ -15,46 +15,74 @@
   box-sizing:border-box;
 }
 
+/* =========================
+   OFFLINE FONTS
+========================= */
+
 @font-face{
   font-family:"Font1";
   src:url("./fonts/font1.ttf") format("truetype");
+  font-display:swap;
 }
+
 @font-face{
   font-family:"Font2";
   src:url("./fonts/font2.ttf") format("truetype");
+  font-display:swap;
 }
+
 @font-face{
   font-family:"Font3";
   src:url("./fonts/font3.ttf") format("truetype");
+  font-display:swap;
 }
+
 @font-face{
   font-family:"Font4";
   src:url("./fonts/font4.ttf") format("truetype");
+  font-display:swap;
 }
+
 @font-face{
   font-family:"Font5";
   src:url("./fonts/font5.ttf") format("truetype");
+  font-display:swap;
 }
+
 @font-face{
   font-family:"Font6";
   src:url("./fonts/font6.ttf") format("truetype");
+  font-display:swap;
 }
+
 @font-face{
   font-family:"Font7";
   src:url("./fonts/font7.ttf") format("truetype");
+  font-display:swap;
 }
+
 @font-face{
   font-family:"Font8";
   src:url("./fonts/font8.ttf") format("truetype");
+  font-display:swap;
 }
+
 @font-face{
   font-family:"Font9";
   src:url("./fonts/font9.ttf") format("truetype");
+  font-display:swap;
 }
+
 @font-face{
   font-family:"Calligraphic";
   src:url("./fonts/calligraphic.ttf") format("truetype");
+  font-display:swap;
 }
+
+
+/* =========================
+   BODY
+========================= */
 
 body{
   margin:0;
@@ -62,6 +90,11 @@ body{
   color:#173f35;
   font-family:Arial,sans-serif;
 }
+
+
+/* =========================
+   HEADER
+========================= */
 
 .header{
   background:#173f35;
@@ -82,11 +115,21 @@ body{
   font-size:14px;
 }
 
+
+/* =========================
+   CONTAINER
+========================= */
+
 .container{
   max-width:700px;
   margin:auto;
   padding:15px;
 }
+
+
+/* =========================
+   CARD
+========================= */
 
 .card{
   background:#fffaf0;
@@ -102,6 +145,11 @@ body{
   font-size:19px;
   color:#173f35;
 }
+
+
+/* =========================
+   CONTROLS
+========================= */
 
 .controls{
   display:grid;
@@ -137,6 +185,11 @@ input[type="color"]{
   padding:3px;
 }
 
+
+/* =========================
+   BUTTONS
+========================= */
+
 .buttons{
   display:flex;
   gap:8px;
@@ -158,6 +211,11 @@ button.active{
   background:#b58b28;
 }
 
+
+/* =========================
+   POETRY TEXT
+========================= */
+
 #poetryText{
   width:100%;
   min-height:220px;
@@ -173,6 +231,11 @@ button.active{
   font-size:28px;
 }
 
+
+/* =========================
+   FONT PREVIEW
+========================= */
+
 .font-preview{
   margin-top:10px;
   padding:10px;
@@ -181,6 +244,11 @@ button.active{
   border:1px dashed #c9a957;
   font-size:25px;
 }
+
+
+/* =========================
+   KEYBOARD
+========================= */
 
 .keyboard{
   display:grid;
@@ -218,11 +286,21 @@ button.active{
   box-shadow:0 0 0 2px #f4d58d inset;
 }
 
+
+/* =========================
+   INFO
+========================= */
+
 .info{
   font-size:13px;
   line-height:1.8;
   color:#555;
 }
+
+
+/* =========================
+   FOOTER
+========================= */
 
 .footer{
   text-align:center;
@@ -230,6 +308,11 @@ button.active{
   font-size:13px;
   color:#735b26;
 }
+
+
+/* =========================
+   MOBILE
+========================= */
 
 @media(max-width:500px){
 
@@ -273,6 +356,7 @@ button.active{
 <label>فونٽ</label>
 
 <select id="fontSelect" onchange="changeFont()">
+
 <option value="Font1">فونٽ 1</option>
 <option value="Font2">فونٽ 2</option>
 <option value="Font3">فونٽ 3</option>
@@ -283,11 +367,14 @@ button.active{
 <option value="Font8">فونٽ 8</option>
 <option value="Font9">فونٽ 9</option>
 <option value="Calligraphic">✒️ Calligraphic — خطاطي</option>
+
 </select>
 
 </div>
 
+
 <div class="control">
+
 <label>سائيز</label>
 
 <input
@@ -300,7 +387,9 @@ oninput="changeSize()">
 
 </div>
 
+
 <div class="control">
+
 <label>چونڊيل لفظ جو رنگ</label>
 
 <input
@@ -311,7 +400,9 @@ oninput="changeColor()">
 
 </div>
 
+
 <div class="control">
+
 <label>خاص فارميٽ</label>
 
 <div class="buttons">
@@ -329,6 +420,7 @@ B — بولڊ
 </div>
 
 </div>
+
 
 <div class="font-preview" id="fontPreview">
 سنڌي شاعري — ڪَويتا — احساس
@@ -418,8 +510,7 @@ placeholder="هتي پنهنجي شاعري لکو..."></textarea>
 <button class="key" data-normal="گھ" onclick="keyboardKey(this)">گھ</button>
 <button class="key" data-normal="ء" data-shift="۽" onclick="keyboardKey(this)">ء</button>
 
-
-<!-- اضافي اکر جيڪي اصل alphabet ۾ نه آهن -->
+<!-- اضافي اکر -->
 
 <button class="key" data-normal="ه" onclick="keyboardKey(this)">ه</button>
 <button class="key" data-normal="آ" onclick="keyboardKey(this)">آ</button>
@@ -427,13 +518,11 @@ placeholder="هتي پنهنجي شاعري لکو..."></textarea>
 <button class="key" data-normal="ئ" onclick="keyboardKey(this)">ئ</button>
 <button class="key" data-normal="ؤ" onclick="keyboardKey(this)">ؤ</button>
 
-
 <!-- SPACE -->
 
 <button class="key special" data-normal=" " onclick="keyboardKey(this)">
 Space
 </button>
-
 
 <!-- SPECIAL MARKS -->
 
@@ -453,7 +542,6 @@ Space
 <button class="key special" data-normal="!" onclick="keyboardKey(this)">!</button>
 <button class="key special" data-normal="…" onclick="keyboardKey(this)">…</button>
 <button class="key special" data-normal="\n" onclick="keyboardKey(this)">↵</button>
-
 
 <!-- DELETE / SHIFT -->
 
@@ -549,6 +637,10 @@ calligraphic.ttf
 
 <script>
 
+/* =========================
+   ELEMENTS
+========================= */
+
 const textBox =
 document.getElementById("poetryText");
 
@@ -571,18 +663,37 @@ let bold = false;
 let shifted = false;
 
 
-/* FONT */
+/* =========================
+   FONT
+========================= */
 
 function changeFont(){
 
-  const font = fontSelect.value;
+  const font =
+    fontSelect.value;
 
+  const fontFamily =
+    `"${font}", serif`;
+
+  /* شاعري وارو Text Box */
   textBox.style.fontFamily =
-    '"' + font + '", serif';
+    fontFamily;
 
+  /* Font Preview */
   fontPreview.style.fontFamily =
-    '"' + font + '", serif';
+    fontFamily;
 
+  /* مڪمل Keyboard */
+  document
+    .querySelectorAll(".key")
+    .forEach(key => {
+
+      key.style.fontFamily =
+        fontFamily;
+
+    });
+
+  /* محفوظ ڪريو */
   localStorage.setItem(
     "keyboardFont",
     font
@@ -590,7 +701,9 @@ function changeFont(){
 }
 
 
-/* SIZE */
+/* =========================
+   SIZE
+========================= */
 
 function changeSize(){
 
@@ -610,7 +723,9 @@ function changeSize(){
 }
 
 
-/* COLOR */
+/* =========================
+   COLOR
+========================= */
 
 function changeColor(){
 
@@ -636,7 +751,9 @@ function removeColor(){
 }
 
 
-/* BOLD */
+/* =========================
+   BOLD
+========================= */
 
 function toggleBold(){
 
@@ -651,11 +768,16 @@ function toggleBold(){
   document
     .getElementById("boldBtn")
     .classList
-    .toggle("active",bold);
+    .toggle(
+      "active",
+      bold
+    );
 }
 
 
-/* WRITE */
+/* =========================
+   WRITE
+========================= */
 
 function writeChar(char){
 
@@ -681,7 +803,9 @@ function writeChar(char){
 }
 
 
-/* KEYBOARD KEY */
+/* =========================
+   KEYBOARD KEY
+========================= */
 
 function keyboardKey(button){
 
@@ -695,7 +819,10 @@ function keyboardKey(button){
     normal;
 
   if(shifted && shift){
-    character = shift;
+
+    character =
+      shift;
+
   }
 
   writeChar(character);
@@ -709,11 +836,14 @@ function keyboardKey(button){
       .remove("active");
 
     resetKeyboardLabels();
+
   }
 }
 
 
-/* DELETE */
+/* =========================
+   DELETE
+========================= */
 
 function backspace(){
 
@@ -733,13 +863,20 @@ function backspace(){
       textBox.selectionEnd =
       start;
 
-  }else if(start > 0){
+  }
+
+  else if(start > 0){
 
     const before =
-      textBox.value.substring(0,start);
+      textBox.value.substring(
+        0,
+        start
+      );
 
     const after =
-      textBox.value.substring(end);
+      textBox.value.substring(
+        end
+      );
 
     const chars =
       Array.from(before);
@@ -747,10 +884,13 @@ function backspace(){
     chars.pop();
 
     textBox.value =
-      chars.join("") + after;
+      chars.join("") +
+      after;
 
     const newPosition =
-      Array.from(chars.join("")).length;
+      Array.from(
+        chars.join("")
+      ).length;
 
     textBox.selectionStart =
       textBox.selectionEnd =
@@ -761,7 +901,9 @@ function backspace(){
 }
 
 
-/* SHIFT */
+/* =========================
+   SHIFT
+========================= */
 
 function shiftKey(){
 
@@ -769,11 +911,16 @@ function shiftKey(){
 
   shiftButton
     .classList
-    .toggle("active",shifted);
+    .toggle(
+      "active",
+      shifted
+    );
 
   document
-    .querySelectorAll(".key[data-shift]")
-    .forEach(button=>{
+    .querySelectorAll(
+      ".key[data-shift]"
+    )
+    .forEach(button => {
 
       button.textContent =
         shifted
@@ -784,13 +931,17 @@ function shiftKey(){
 }
 
 
-/* RESTORE NORMAL LABELS */
+/* =========================
+   RESET NORMAL LABELS
+========================= */
 
 function resetKeyboardLabels(){
 
   document
-    .querySelectorAll(".key[data-normal]")
-    .forEach(button=>{
+    .querySelectorAll(
+      ".key[data-normal]"
+    )
+    .forEach(button => {
 
       button.textContent =
         button.dataset.normal === "\n"
@@ -798,15 +949,16 @@ function resetKeyboardLabels(){
         : button.dataset.normal;
 
     });
-
 }
 
 
-/* SAVED SETTINGS */
+/* =========================
+   RESTORE SAVED SETTINGS
+========================= */
 
 window.addEventListener(
   "DOMContentLoaded",
-  ()=>{
+  async () => {
 
     const savedFont =
       localStorage.getItem(
@@ -823,25 +975,68 @@ window.addEventListener(
         "keyboardColor"
       );
 
+
+    /* Font */
     if(savedFont){
-      fontSelect.value =
-        savedFont;
+
+      const option =
+        fontSelect.querySelector(
+          `option[value="${savedFont}"]`
+        );
+
+      if(option){
+
+        fontSelect.value =
+          savedFont;
+
+      }
+
     }
 
+
+    /* Size */
     if(savedSize){
+
       fontSize.value =
         savedSize;
+
     }
 
+
+    /* Color */
     if(savedColor){
+
       fontColor.value =
         savedColor;
+
     }
+
 
     shifted = false;
 
     resetKeyboardLabels();
 
+
+    /* Browser کي فونٽ load ڪرڻ جو موقعو */
+    if(document.fonts){
+
+      try{
+
+        await document.fonts.ready;
+
+      }catch(error){
+
+        console.log(
+          "Font loading check:",
+          error
+        );
+
+      }
+
+    }
+
+
+    /* Settings Apply */
     changeFont();
     changeSize();
     changeColor();
