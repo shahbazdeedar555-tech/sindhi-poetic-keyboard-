@@ -801,6 +801,13 @@ function keyboardKey(button){
 
 function backspace(){
 
+  /* Android native keyboard */
+  if (window.AndroidKeyboard) {
+    AndroidKeyboard.deleteText();
+    return;
+  }
+
+  /* Web version */
   const start =
     textBox.selectionStart;
 
