@@ -1,3 +1,4 @@
+
 package com.shahbazdeedar555.sindhipoetickeyboard
 
 import android.inputmethodservice.InputMethodService
@@ -9,19 +10,19 @@ class SindhiKeyboardService : InputMethodService() {
     private var keyboardView: View? = null
 
     override fun onCreateInputView(): View {
-        keyboardView = layoutInflater.inflate(
+        val view = layoutInflater.inflate(
             R.layout.keyboard_view,
             null
         )
 
-        setupKeys()
+        keyboardView = view
 
-        return keyboardView!!
+        setupKeys(view)
+
+        return view
     }
 
-    private fun setupKeys() {
-
-        val view = keyboardView ?: return
+    private fun setupKeys(view: View) {
 
         val keys = mapOf(
             R.id.key_alif to "ا",
@@ -64,21 +65,18 @@ class SindhiKeyboardService : InputMethodService() {
             val button = view.findViewById<Button>(id)
 
             button?.setOnClickListener {
-                currentInputConnection?.commitText(character, 1)
+                currentInputConnection?.commitText(
+                    character,
+                    1
+                )
             }
         }
 
-        val spaceButton =
-            view.findViewById<Button>(R.id.key_space)
-
-        spaceButton?.setOnClickListener {
+        view.findViewById<Button>(R.id.key_space)?.setOnClickListener {
             currentInputConnection?.commitText(" ", 1)
         }
 
-        val deleteButton =
-            view.findViewById<Button>(R.id.key_delete)
-
-        deleteButton?.setOnClickListener {
+        view.findViewById<Button>(R.id.key_delete)?.setOnClickListener {
             currentInputConnection?.deleteSurroundingText(1, 0)
         }
     }
