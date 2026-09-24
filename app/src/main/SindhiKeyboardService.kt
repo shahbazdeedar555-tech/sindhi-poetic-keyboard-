@@ -1,50 +1,28 @@
+
 package com.shahbazdeedar555.sindhipoetickeyboard
 
-import android.graphics.Color
 import android.inputmethodservice.InputMethodService
 import android.view.View
-import android.webkit.JavascriptInterface
-import android.webkit.WebView
-import android.webkit.WebViewClient
+import android.widget.Button
 
 class SindhiKeyboardService : InputMethodService() {
 
-    private lateinit var webView: WebView
-
     override fun onCreateInputView(): View {
 
-        webView = WebView(this)
-
-        webView.settings.javaScriptEnabled = true
-        webView.settings.domStorageEnabled = true
-        webView.setBackgroundColor(Color.WHITE)
-
-        webView.webViewClient = WebViewClient()
-
-        webView.addJavascriptInterface(
-            KeyboardBridge(),
-            "AndroidKeyboard"
+        val keyboardView = layoutInflater.inflate(
+            R.layout.keyboard_view,
+            null
         )
 
-        webView.loadUrl("file:///android_asset/index.html")
+        val spaceButton = keyboardView.findViewById<Button>(R.id.spaceButton)
+        val enterButton = keyboardView.findViewById<Button>(R.id.enterButton)
+        val backspaceButton = keyboardView.findViewById<Button>(R.id.backspaceButton)
 
-        return webView
-    }
-
-    inner class KeyboardBridge {
-
-        @JavascriptInterface
-        fun typeText(text: String) {
-            currentInputConnection?.commitText(text, 1)
+        spaceButton?.setOnClickListener {
+            currentInputConnection?.commitText(" ", 1)
         }
 
-        @JavascriptInterface
-        fun deleteText() {
-            currentInputConnection?.deleteSurroundingText(1, 0)
-        }
-
-        @JavascriptInterface
-        fun sendEnter() {
+        enterButton?.setOnClickListener {
             currentInputConnection?.sendKeyEvent(
                 android.view.KeyEvent(
                     android.view.KeyEvent.ACTION_DOWN,
@@ -59,5 +37,11 @@ class SindhiKeyboardService : InputMethodService() {
                 )
             )
         }
+
+        backspaceButton?.setOnClickListener {
+            currentInputConnection?.deleteSurroundingText(1, 0)
+        }
+
+        return keyboardView
     }
 }
