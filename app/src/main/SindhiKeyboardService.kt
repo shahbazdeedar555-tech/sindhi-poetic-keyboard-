@@ -6,12 +6,22 @@ import android.widget.Button
 
 class SindhiKeyboardService : InputMethodService() {
 
-    override fun onCreateInputView(): View {
+    private var keyboardView: View? = null
 
-        val keyboardView = layoutInflater.inflate(
+    override fun onCreateInputView(): View {
+        keyboardView = layoutInflater.inflate(
             R.layout.keyboard_view,
             null
         )
+
+        setupKeys()
+
+        return keyboardView!!
+    }
+
+    private fun setupKeys() {
+
+        val view = keyboardView ?: return
 
         val keys = mapOf(
             R.id.key_alif to "ا",
@@ -51,39 +61,30 @@ class SindhiKeyboardService : InputMethodService() {
         )
 
         for ((id, character) in keys) {
+            val button = view.findViewById<Button>(id)
 
-            val button = keyboardView.findViewById<Button>(id)
-
-            button.setOnClickListener {
-                currentInputConnection?.commitText(
-                    character,
-                    1
-                )
+            button?.setOnClickListener {
+                currentInputConnection?.commitText(character, 1)
             }
         }
 
-        val spaceButton = keyboardView.findViewById<Button>(
-            R.id.key_space
-        )
+        val spaceButton =
+            view.findViewById<Button>(R.id.key_space)
 
-        spaceButton.setOnClickListener {
-            currentInputConnection?.commitText(
-                " ",
-                1
-            )
+        spaceButton?.setOnClickListener {
+            currentInputConnection?.commitText(" ", 1)
         }
 
-        val deleteButton = keyboardView.findViewById<Button>(
-            R.id.key_delete
-        )
+        val deleteButton =
+            view.findViewById<Button>(R.id.key_delete)
 
-        deleteButton.setOnClickListener {
-            currentInputConnection?.deleteSurroundingText(
-                1,
-                0
-            )
+        deleteButton?.setOnClickListener {
+            currentInputConnection?.deleteSurroundingText(1, 0)
         }
+    }
 
-        return keyboardView
+    override fun onDestroy() {
+        keyboardView = null
+        super.onDestroy()
     }
 }
