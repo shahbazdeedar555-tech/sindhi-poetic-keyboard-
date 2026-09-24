@@ -1,4 +1,3 @@
-
 package com.shahbazdeedar555.sindhipoetickeyboard
 
 import android.inputmethodservice.InputMethodService
@@ -64,21 +63,23 @@ class SindhiKeyboardService : InputMethodService() {
         for ((id, character) in keys) {
             val button = view.findViewById<Button>(id)
 
-            button?.setOnClickListener {
-                currentInputConnection?.commitText(
-                    character,
-                    1
-                )
+            button.setOnClickListener {
+                currentInputConnection?.commitText(character, 1)
             }
         }
 
-        view.findViewById<Button>(R.id.key_space)?.setOnClickListener {
+        view.findViewById<Button>(R.id.key_space).setOnClickListener {
             currentInputConnection?.commitText(" ", 1)
         }
 
-        view.findViewById<Button>(R.id.key_delete)?.setOnClickListener {
+        view.findViewById<Button>(R.id.key_delete).setOnClickListener {
             currentInputConnection?.deleteSurroundingText(1, 0)
         }
+    }
+
+    override fun onDestroyInputView() {
+        keyboardView = null
+        super.onDestroyInputView()
     }
 
     override fun onDestroy() {
