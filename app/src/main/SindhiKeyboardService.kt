@@ -12,7 +12,8 @@ class SindhiKeyboardService : InputMethodService() {
     override fun onCreateInputView(): View {
         val view = layoutInflater.inflate(
             R.layout.keyboard_view,
-            null
+            null,
+            false
         )
 
         keyboardView = view
@@ -59,19 +60,19 @@ class SindhiKeyboardService : InputMethodService() {
         setKey(view, R.id.key_yay, "ي")
         setKey(view, R.id.key_ye, "ے")
 
-        view.findViewById<Button>(R.id.key_space).setOnClickListener {
+        findButton(view, R.id.key_space)?.setOnClickListener {
             commitText(" ")
         }
 
-        view.findViewById<Button>(R.id.key_delete).setOnClickListener {
+        findButton(view, R.id.key_delete)?.setOnClickListener {
             currentInputConnection?.deleteSurroundingText(1, 0)
         }
 
-        view.findViewById<Button>(R.id.key_shift).setOnClickListener {
+        findButton(view, R.id.key_shift)?.setOnClickListener {
             commitText("آ")
         }
 
-        view.findViewById<Button>(R.id.key_numbers).setOnClickListener {
+        findButton(view, R.id.key_numbers)?.setOnClickListener {
             commitText("123")
         }
     }
@@ -81,13 +82,20 @@ class SindhiKeyboardService : InputMethodService() {
         id: Int,
         character: String
     ) {
-        val button = view.findViewById<Button>(id)
+        val button = findButton(view, id) ?: return
 
         button.setTextColor(Color.BLACK)
 
         button.setOnClickListener {
             commitText(character)
         }
+    }
+
+    private fun findButton(
+        view: View,
+        id: Int
+    ): Button? {
+        return view.findViewById(id)
     }
 
     private fun commitText(text: String) {
