@@ -1,9 +1,11 @@
+
 <?xml version="1.0" encoding="utf-8"?>
 
 <LinearLayout xmlns:android="http://schemas.android.com/apk/res/android"
     android:layout_width="match_parent"
-    android:layout_height="match_parent"
+    android:layout_height="wrap_content"
     android:orientation="vertical"
+    android:background="#E0E0E0"
     android:padding="4dp">
 
     <LinearLayout
@@ -16,35 +18,40 @@
             android:layout_width="0dp"
             android:layout_height="55dp"
             android:layout_weight="1"
-            android:text="ا" />
+            android:text="ا"
+            android:textColor="#000000" />
 
         <Button
             android:id="@+id/key_bay"
             android:layout_width="0dp"
             android:layout_height="55dp"
             android:layout_weight="1"
-            android:text="ب" />
+            android:text="ب"
+            android:textColor="#000000" />
 
         <Button
             android:id="@+id/key_pay"
             android:layout_width="0dp"
             android:layout_height="55dp"
             android:layout_weight="1"
-            android:text="پ" />
+            android:text="پ"
+            android:textColor="#000000" />
 
         <Button
             android:id="@+id/key_tay"
             android:layout_width="0dp"
             android:layout_height="55dp"
             android:layout_weight="1"
-            android:text="ت" />
+            android:text="ت"
+            android:textColor="#000000" />
 
         <Button
             android:id="@+id/key_ttay"
             android:layout_width="0dp"
             android:layout_height="55dp"
             android:layout_weight="1"
-            android:text="ٽ" />
+            android:text="ٽ"
+            android:textColor="#000000" />
 
     </LinearLayout>
 
@@ -58,35 +65,40 @@
             android:layout_width="0dp"
             android:layout_height="55dp"
             android:layout_weight="1"
-            android:text="ج" />
+            android:text="ج"
+            android:textColor="#000000" />
 
         <Button
             android:id="@+id/key_chay"
             android:layout_width="0dp"
             android:layout_height="55dp"
             android:layout_weight="1"
-            android:text="چ" />
+            android:text="چ"
+            android:textColor="#000000" />
 
         <Button
             android:id="@+id/key_hay"
             android:layout_width="0dp"
             android:layout_height="55dp"
             android:layout_weight="1"
-            android:text="ح" />
+            android:text="ح"
+            android:textColor="#000000" />
 
         <Button
             android:id="@+id/key_khay"
             android:layout_width="0dp"
             android:layout_height="55dp"
             android:layout_weight="1"
-            android:text="خ" />
+            android:text="خ"
+            android:textColor="#000000" />
 
         <Button
             android:id="@+id/key_dal"
             android:layout_width="0dp"
             android:layout_height="55dp"
             android:layout_weight="1"
-            android:text="د" />
+            android:text="د"
+            android:textColor="#000000" />
 
     </LinearLayout>
 
@@ -100,35 +112,40 @@
             android:layout_width="0dp"
             android:layout_height="55dp"
             android:layout_weight="1"
-            android:text="ر" />
+            android:text="ر"
+            android:textColor="#000000" />
 
         <Button
             android:id="@+id/key_rray2"
             android:layout_width="0dp"
             android:layout_height="55dp"
             android:layout_weight="1"
-            android:text="ڙ" />
+            android:text="ڙ"
+            android:textColor="#000000" />
 
         <Button
             android:id="@+id/key_sin"
             android:layout_width="0dp"
             android:layout_height="55dp"
             android:layout_weight="1"
-            android:text="س" />
+            android:text="س"
+            android:textColor="#000000" />
 
         <Button
             android:id="@+id/key_shin"
             android:layout_width="0dp"
             android:layout_height="55dp"
             android:layout_weight="1"
-            android:text="ش" />
+            android:text="ش"
+            android:textColor="#000000" />
 
         <Button
             android:id="@+id/key_swad"
             android:layout_width="0dp"
             android:layout_height="55dp"
             android:layout_weight="1"
-            android:text="ص" />
+            android:text="ص"
+            android:textColor="#000000" />
 
     </LinearLayout>
 
@@ -142,35 +159,40 @@
             android:layout_width="0dp"
             android:layout_height="55dp"
             android:layout_weight="1"
-            android:text="ط" />
+            android:text="ط"
+            android:textColor="#000000" />
 
         <Button
             android:id="@+id/key_ain"
             android:layout_width="0dp"
             android:layout_height="55dp"
             android:layout_weight="1"
-            android:text="ع" />
+            android:text="ع"
+            android:textColor="#000000" />
 
         <Button
             android:id="@+id/key_ghain"
             android:layout_width="0dp"
             android:layout_height="55dp"
             android:layout_weight="1"
-            android:text="غ" />
+            android:text="غ"
+            android:textColor="#000000" />
 
         <Button
             android:id="@+id/key_fay"
             android:layout_width="0dp"
             android:layout_height="55dp"
             android:layout_weight="1"
-            android:text="ف" />
+            android:text="ف"
+            android:textColor="#000000" />
 
         <Button
             android:id="@+id/key_qaf"
             android:layout_width="0dp"
             android:layout_height="55dp"
             android:layout_weight="1"
-            android:text="ق" />
+            android:text="ق"
+            android:textColor="#000000" />
 
     </LinearLayout>
 
@@ -184,35 +206,40 @@
             android:layout_width="0dp"
             android:layout_height="55dp"
             android:layout_weight="1"
-            android:text="ڪ" />
+            android:text="ڪ"
+            android:textColor="#000000" />
 
         <Button
             android:id="@+id/key_gaf"
             android:layout_width="0dp"
             android:layout_height="55dp"
             android:layout_weight="1"
-            android:text="گ" />
+            android:text="گ"
+            android:textColor="#000000" />
 
         <Button
             android:id="@+id/key_lam"
             android:layout_width="0dp"
             android:layout_height="55dp"
             android:layout_weight="1"
-            android:text="ل" />
+            android:text="ل"
+            android:textColor="#000000" />
 
         <Button
             android:id="@+id/key_meem"
             android:layout_width="0dp"
             android:layout_height="55dp"
             android:layout_weight="1"
-            android:text="م" />
+            android:text="م"
+            android:textColor="#000000" />
 
         <Button
             android:id="@+id/key_noon"
             android:layout_width="0dp"
             android:layout_height="55dp"
             android:layout_weight="1"
-            android:text="ن" />
+            android:text="ن"
+            android:textColor="#000000" />
 
     </LinearLayout>
 
@@ -226,35 +253,40 @@
             android:layout_width="0dp"
             android:layout_height="55dp"
             android:layout_weight="1"
-            android:text="و" />
+            android:text="و"
+            android:textColor="#000000" />
 
         <Button
             android:id="@+id/key_hay2"
             android:layout_width="0dp"
             android:layout_height="55dp"
             android:layout_weight="1"
-            android:text="ه" />
+            android:text="ه"
+            android:textColor="#000000" />
 
         <Button
             android:id="@+id/key_yay"
             android:layout_width="0dp"
             android:layout_height="55dp"
             android:layout_weight="1"
-            android:text="ي" />
+            android:text="ي"
+            android:textColor="#000000" />
 
         <Button
             android:id="@+id/key_ye"
             android:layout_width="0dp"
             android:layout_height="55dp"
             android:layout_weight="1"
-            android:text="ے" />
+            android:text="ے"
+            android:textColor="#000000" />
 
         <Button
             android:id="@+id/key_space"
             android:layout_width="0dp"
             android:layout_height="55dp"
             android:layout_weight="2"
-            android:text="Space" />
+            android:text="Space"
+            android:textColor="#000000" />
 
     </LinearLayout>
 
@@ -268,21 +300,24 @@
             android:layout_width="0dp"
             android:layout_height="55dp"
             android:layout_weight="1"
-            android:text="⇧" />
+            android:text="⇧"
+            android:textColor="#000000" />
 
         <Button
             android:id="@+id/key_delete"
             android:layout_width="0dp"
             android:layout_height="55dp"
             android:layout_weight="1"
-            android:text="⌫" />
+            android:text="⌫"
+            android:textColor="#000000" />
 
         <Button
             android:id="@+id/key_numbers"
             android:layout_width="0dp"
             android:layout_height="55dp"
             android:layout_weight="1"
-            android:text="123" />
+            android:text="123"
+            android:textColor="#000000" />
 
     </LinearLayout>
 
