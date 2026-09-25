@@ -1,7 +1,7 @@
 package com.shahbazdeedar555.sindhipoetickeyboard
 
-import android.inputmethodservice.InputMethodService
 import android.graphics.Color
+import android.inputmethodservice.InputMethodService
 import android.view.View
 import android.widget.Button
 
@@ -12,8 +12,7 @@ class SindhiKeyboardService : InputMethodService() {
     override fun onCreateInputView(): View {
         val view = layoutInflater.inflate(
             R.layout.keyboard_view,
-            null,
-            false
+            null
         )
 
         keyboardView = view
@@ -25,7 +24,6 @@ class SindhiKeyboardService : InputMethodService() {
 
     private fun setupKeys(view: View) {
 
-        // Sindhi letters
         setKey(view, R.id.key_alif, "ا")
         setKey(view, R.id.key_bay, "ب")
         setKey(view, R.id.key_pay, "پ")
@@ -61,22 +59,18 @@ class SindhiKeyboardService : InputMethodService() {
         setKey(view, R.id.key_yay, "ي")
         setKey(view, R.id.key_ye, "ے")
 
-        // Space
         findButton(view, R.id.key_space)?.setOnClickListener {
             commitText(" ")
         }
 
-        // Delete
         findButton(view, R.id.key_delete)?.setOnClickListener {
             deleteText()
         }
 
-        // Shift
         findButton(view, R.id.key_shift)?.setOnClickListener {
             commitText("آ")
         }
 
-        // Numbers
         findButton(view, R.id.key_numbers)?.setOnClickListener {
             commitText("1234567890")
         }
@@ -89,9 +83,8 @@ class SindhiKeyboardService : InputMethodService() {
     ) {
         val button = findButton(view, id) ?: return
 
-        // Make key text clearly visible
-        button.setTextColor(Color.BLACK)
         button.text = character
+        button.setTextColor(Color.BLACK)
 
         button.setOnClickListener {
             commitText(character)
@@ -106,19 +99,11 @@ class SindhiKeyboardService : InputMethodService() {
     }
 
     private fun commitText(text: String) {
-        val connection = currentInputConnection
-
-        if (connection != null) {
-            connection.commitText(text, 1)
-        }
+        currentInputConnection?.commitText(text, 1)
     }
 
     private fun deleteText() {
-        val connection = currentInputConnection
-
-        if (connection != null) {
-            connection.deleteSurroundingText(1, 0)
-        }
+        currentInputConnection?.deleteSurroundingText(1, 0)
     }
 
     override fun onDestroyInputView() {
