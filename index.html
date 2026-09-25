@@ -16,22 +16,12 @@
   box-sizing:border-box;
 }
 
-
-/* =========================
-   BODY
-========================= */
-
 body{
   margin:0;
   background:#f5ecd9;
   color:#173f35;
   font-family:Arial,sans-serif;
 }
-
-
-/* =========================
-   HEADER
-========================= */
 
 .header{
   background:#173f35;
@@ -52,21 +42,11 @@ body{
   font-size:14px;
 }
 
-
-/* =========================
-   CONTAINER
-========================= */
-
 .container{
   max-width:700px;
   margin:auto;
   padding:15px;
 }
-
-
-/* =========================
-   CARD
-========================= */
 
 .card{
   background:#fffaf0;
@@ -82,11 +62,6 @@ body{
   font-size:19px;
   color:#173f35;
 }
-
-
-/* =========================
-   CONTROLS
-========================= */
 
 .controls{
   display:grid;
@@ -122,11 +97,6 @@ input[type="color"]{
   padding:3px;
 }
 
-
-/* =========================
-   BUTTONS
-========================= */
-
 .buttons{
   display:flex;
   gap:8px;
@@ -148,11 +118,6 @@ button.active{
   background:#b58b28;
 }
 
-
-/* =========================
-   POETRY TEXT
-========================= */
-
 #poetryText{
   width:100%;
   min-height:220px;
@@ -167,11 +132,6 @@ button.active{
   font-family:Arial,sans-serif;
   font-size:28px;
 }
-
-
-/* =========================
-   KEYBOARD
-========================= */
 
 .keyboard{
   display:grid;
@@ -209,21 +169,11 @@ button.active{
   box-shadow:0 0 0 2px #f4d58d inset;
 }
 
-
-/* =========================
-   INFO
-========================= */
-
 .info{
   font-size:13px;
   line-height:1.8;
   color:#555;
 }
-
-
-/* =========================
-   FOOTER
-========================= */
 
 .footer{
   text-align:center;
@@ -231,11 +181,6 @@ button.active{
   font-size:13px;
   color:#735b26;
 }
-
-
-/* =========================
-   MOBILE
-========================= */
 
 @media(max-width:500px){
 
@@ -264,7 +209,6 @@ button.active{
 
 <body>
 
-
 <div class="header">
 
   <h1>سنڌي شاعري ڪي بورڊ</h1>
@@ -275,9 +219,7 @@ button.active{
 
 </div>
 
-
 <div class="container">
-
 
 <!-- =========================
      SIZE / COLOR
@@ -286,7 +228,6 @@ button.active{
 <div class="card">
 
   <h2>🎨 سائيز ۽ ڪلر</h2>
-
 
   <div class="control">
 
@@ -302,7 +243,6 @@ button.active{
 
   </div>
 
-
   <div class="control">
 
     <label>چونڊيل لفظ جو رنگ</label>
@@ -314,7 +254,6 @@ button.active{
       oninput="changeColor()">
 
   </div>
-
 
   <div class="control">
 
@@ -366,7 +305,9 @@ button.active{
   <div class="keyboard" id="keyboard">
 
 
-<!-- EXACT ALPHABET ORDER -->
+<!-- =========================
+     SINDHI LETTERS
+========================= -->
 
 <button class="key" data-normal="ا" data-shift="آ" onclick="keyboardKey(this)">ا</button>
 
@@ -450,7 +391,6 @@ button.active{
 
 <button class="key" data-normal="ل" onclick="keyboardKey(this)">ل</button>
 
-
 <button class="key" data-normal="س" onclick="keyboardKey(this)">س</button>
 
 <button class="key" data-normal="ش" onclick="keyboardKey(this)">ش</button>
@@ -482,11 +422,11 @@ button.active{
 <button class="key" data-normal="ء" data-shift="۽" onclick="keyboardKey(this)">ء</button>
 
 
-<!-- اضافي اکر -->
+<!-- =========================
+     EXTRA LETTERS
+========================= -->
 
 <button class="key" data-normal="ه" onclick="keyboardKey(this)">ه</button>
-
-<button class="key" data-normal="آ" onclick="keyboardKey(this)">آ</button>
 
 <button class="key" data-normal="ى" onclick="keyboardKey(this)">ى</button>
 
@@ -494,8 +434,14 @@ button.active{
 
 <button class="key" data-normal="ؤ" onclick="keyboardKey(this)">ؤ</button>
 
+<button class="key" data-normal="ژ" onclick="keyboardKey(this)">ژ</button>
 
-<!-- SPACE -->
+<button class="key" data-normal="ے" onclick="keyboardKey(this)">ے</button>
+
+
+<!-- =========================
+     SPACE
+========================= -->
 
 <button
   class="key special"
@@ -505,7 +451,9 @@ button.active{
 </button>
 
 
-<!-- SPECIAL MARKS -->
+<!-- =========================
+     SPECIAL MARKS
+========================= -->
 
 <button class="key special" data-normal="َ" onclick="keyboardKey(this)">َ</button>
 
@@ -522,7 +470,9 @@ button.active{
 <button class="key special" data-normal="ٰ" onclick="keyboardKey(this)">ٰ</button>
 
 
-<!-- PUNCTUATION -->
+<!-- =========================
+     PUNCTUATION
+========================= -->
 
 <button class="key special" data-normal="،" onclick="keyboardKey(this)">،</button>
 
@@ -537,7 +487,9 @@ button.active{
 <button class="key special" data-normal="\n" onclick="keyboardKey(this)">↵</button>
 
 
-<!-- DELETE / SHIFT -->
+<!-- =========================
+     DELETE / SHIFT
+========================= -->
 
 <button
   class="key special"
@@ -551,7 +503,6 @@ button.active{
   onclick="shiftKey()">
   ⇧ Shift
 </button>
-
 
   </div>
 
@@ -577,7 +528,6 @@ button.active{
     <button class="key" onclick="writeChar('4')">4</button>
 
     <button class="key" onclick="writeChar('5')">5</button>
-
 
     <button class="key" onclick="writeChar('6')">6</button>
 
@@ -611,7 +561,6 @@ button.active{
 
 </div>
 
-
 </div>
 
 
@@ -627,7 +576,6 @@ button.active{
 
 
 <script>
-
 
 /* =========================
    ELEMENTS
@@ -921,8 +869,6 @@ window.addEventListener(
       );
 
 
-    /* Size */
-
     if(savedSize){
 
       fontSize.value =
@@ -930,8 +876,6 @@ window.addEventListener(
 
     }
 
-
-    /* Color */
 
     if(savedColor){
 
@@ -951,7 +895,6 @@ window.addEventListener(
 
   }
 );
-
 
 </script>
 
