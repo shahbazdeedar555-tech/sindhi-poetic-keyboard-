@@ -58,16 +58,13 @@ class SindhiKeyboardService : InputMethodService() {
         setKey(view, R.id.key_yay, "ي")
         setKey(view, R.id.key_ye, "ے")
 
-        view.findViewById<Button>(R.id.key_space)?.setOnClickListener {
+        view.findViewById<Button>(R.id.key_space).setOnClickListener {
             commitText(" ")
         }
 
-        view.findViewById<Button>(R.id.key_delete)?.setOnClickListener {
+        view.findViewById<Button>(R.id.key_delete).setOnClickListener {
             currentInputConnection?.deleteSurroundingText(1, 0)
         }
-
-        // Shift ۽ 123 هن مرحلي ۾ صرف visual buttons آهن.
-        // انهن کي پوءِ variants ۽ numbers سان connect ڪنداسين.
     }
 
     private fun setKey(
@@ -75,7 +72,7 @@ class SindhiKeyboardService : InputMethodService() {
         id: Int,
         character: String
     ) {
-        view.findViewById<Button>(id)?.setOnClickListener {
+        view.findViewById<Button>(id).setOnClickListener {
             commitText(character)
         }
     }
@@ -87,10 +84,5 @@ class SindhiKeyboardService : InputMethodService() {
     override fun onDestroyInputView() {
         keyboardView = null
         super.onDestroyInputView()
-    }
-
-    override fun onDestroy() {
-        keyboardView = null
-        super.onDestroy()
     }
 }
