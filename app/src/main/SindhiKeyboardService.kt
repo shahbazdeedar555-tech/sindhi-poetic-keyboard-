@@ -1,3 +1,4 @@
+
 package com.shahbazdeedar555.sindhipoetickeyboard
 
 import android.inputmethodservice.InputMethodService
@@ -78,6 +79,31 @@ class SindhiKeyboardService : InputMethodService() {
         findButton(view, R.id.key_numbers)?.setOnClickListener {
             commitText("1234567890")
         }
+
+        // Enter
+        findButton(view, R.id.key_enter)?.setOnClickListener {
+            sendEnter()
+        }
+
+        // Comma
+        findButton(view, R.id.key_comma)?.setOnClickListener {
+            commitText("،")
+        }
+
+        // Full stop
+        findButton(view, R.id.key_dot)?.setOnClickListener {
+            commitText(".")
+        }
+
+        // Question mark
+        findButton(view, R.id.key_question)?.setOnClickListener {
+            commitText("?")
+        }
+
+        // Exclamation mark
+        findButton(view, R.id.key_exclamation)?.setOnClickListener {
+            commitText("!")
+        }
     }
 
     private fun setKey(
@@ -107,6 +133,22 @@ class SindhiKeyboardService : InputMethodService() {
 
     private fun deleteText() {
         currentInputConnection?.deleteSurroundingText(1, 0)
+    }
+
+    private fun sendEnter() {
+        currentInputConnection?.sendKeyEvent(
+            android.view.KeyEvent(
+                android.view.KeyEvent.ACTION_DOWN,
+                android.view.KeyEvent.KEYCODE_ENTER
+            )
+        )
+
+        currentInputConnection?.sendKeyEvent(
+            android.view.KeyEvent(
+                android.view.KeyEvent.ACTION_UP,
+                android.view.KeyEvent.KEYCODE_ENTER
+            )
+        )
     }
 
     override fun onDestroyInputView() {
