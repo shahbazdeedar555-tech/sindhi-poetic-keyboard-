@@ -1,9 +1,7 @@
 package com.shahbazdeedar555.sindhipoetickeyboard
 
-import android.graphics.Color
 import android.inputmethodservice.InputMethodService
 import android.view.View
-import android.view.ViewGroup
 import android.widget.Button
 
 class SindhiKeyboardService : InputMethodService() {
@@ -25,7 +23,7 @@ class SindhiKeyboardService : InputMethodService() {
 
     private fun setupKeyboard(view: View) {
 
-        // Main Sindhi letters
+        // Sindhi letters
         setKey(view, R.id.key_alif, "ا")
         setKey(view, R.id.key_bay, "ب")
         setKey(view, R.id.key_pay, "پ")
@@ -66,7 +64,7 @@ class SindhiKeyboardService : InputMethodService() {
             commitText(" ")
         }
 
-        // Delete / Backspace
+        // Backspace
         findButton(view, R.id.key_delete)?.setOnClickListener {
             deleteText()
         }
@@ -80,9 +78,6 @@ class SindhiKeyboardService : InputMethodService() {
         findButton(view, R.id.key_numbers)?.setOnClickListener {
             commitText("1234567890")
         }
-
-        // Make any other buttons already present in the XML functional
-        setupRemainingButtons(view)
     }
 
     private fun setKey(
@@ -93,40 +88,9 @@ class SindhiKeyboardService : InputMethodService() {
         val button = findButton(view, id) ?: return
 
         button.text = character
-        button.setTextColor(Color.BLACK)
 
         button.setOnClickListener {
             commitText(character)
-        }
-    }
-
-    private fun setupRemainingButtons(view: View) {
-
-        if (view !is ViewGroup) return
-
-        for (i in 0 until view.childCount) {
-
-            val child = view.getChildAt(i)
-
-            if (child is Button) {
-
-                // Do not replace the buttons already configured above.
-                if (child.hasOnClickListeners()) {
-                    continue
-                }
-
-                val text = child.text?.toString() ?: ""
-
-                if (text.isNotEmpty()) {
-                    child.setOnClickListener {
-                        commitText(text)
-                    }
-                }
-            }
-
-            if (child is ViewGroup) {
-                setupRemainingButtons(child)
-            }
         }
     }
 
