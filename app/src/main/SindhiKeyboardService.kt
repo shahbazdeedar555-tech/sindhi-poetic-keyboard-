@@ -1,6 +1,7 @@
 package com.shahbazdeedar555.sindhipoetickeyboard
 
 import android.inputmethodservice.InputMethodService
+import android.graphics.Color
 import android.view.View
 import android.widget.Button
 
@@ -65,6 +66,14 @@ class SindhiKeyboardService : InputMethodService() {
         view.findViewById<Button>(R.id.key_delete).setOnClickListener {
             currentInputConnection?.deleteSurroundingText(1, 0)
         }
+
+        view.findViewById<Button>(R.id.key_shift).setOnClickListener {
+            commitText("آ")
+        }
+
+        view.findViewById<Button>(R.id.key_numbers).setOnClickListener {
+            commitText("123")
+        }
     }
 
     private fun setKey(
@@ -72,7 +81,11 @@ class SindhiKeyboardService : InputMethodService() {
         id: Int,
         character: String
     ) {
-        view.findViewById<Button>(id).setOnClickListener {
+        val button = view.findViewById<Button>(id)
+
+        button.setTextColor(Color.BLACK)
+
+        button.setOnClickListener {
             commitText(character)
         }
     }
