@@ -1,10 +1,11 @@
+
 <?xml version="1.0" encoding="utf-8"?>
 <LinearLayout xmlns:android="http://schemas.android.com/apk/res/android"
     android:layout_width="match_parent"
     android:layout_height="wrap_content"
     android:minHeight="400dp"
     android:orientation="vertical"
-    android:background="#E0E0E0"
+    android:background="#FF0000"
     android:padding="4dp">
 
     <!-- Row 1 -->
@@ -108,7 +109,7 @@
         android:orientation="horizontal">
 
         <Button android:id="@+id/key_backspace" android:layout_width="0dp" android:layout_height="50dp" android:layout_weight="1.5" android:text="⌫" android:tag="BACKSPACE" />
-        <Button android:id="@+id/key_space"     android:layout_width="0dp" android:layout_height="50dp" android:layout_weight="3"   android:text="Space" android:tag="SPACE" />
+        <Button android:id="@+id/key_space"     android:layout_width="0dp" android:layout_height="50dp" android:layout_weight="3" android:text="Space" android:tag="SPACE" />
         <Button android:id="@+id/key_enter"     android:layout_width="0dp" android:layout_height="50dp" android:layout_weight="1.5" android:text="Enter" android:tag="ENTER" />
     </LinearLayout>
 
