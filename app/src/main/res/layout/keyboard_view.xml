@@ -1,3 +1,4 @@
+
 <?xml version="1.0" encoding="utf-8"?>
 
 <LinearLayout xmlns:android="http://schemas.android.com/apk/res/android"
@@ -192,7 +193,7 @@
             android:text="ف" />
 
         <Button
-            android:id="@+id/key_qaf"
+            android:id="@+id/key_qaf2"
             android:layout_width="0dp"
             android:layout_height="50dp"
             android:layout_weight="1"
@@ -293,7 +294,7 @@
 
     </LinearLayout>
 
-    <!-- Row 7: punctuation -->
+    <!-- Row 7 -->
     <LinearLayout
         android:layout_width="match_parent"
         android:layout_height="wrap_content"
@@ -329,7 +330,7 @@
 
     </LinearLayout>
 
-    <!-- Row 8: controls -->
+    <!-- Row 8 -->
     <LinearLayout
         android:layout_width="match_parent"
         android:layout_height="wrap_content"
