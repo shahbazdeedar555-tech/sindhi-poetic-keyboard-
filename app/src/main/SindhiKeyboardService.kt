@@ -1,73 +1,78 @@
 package com.shahbazdeedar555.sindhipoetickeyboard
 
 import android.inputmethodservice.InputMethodService
-import android.graphics.Color
-import android.graphics.Typeface
-import android.view.Gravity
 import android.view.View
 import android.widget.Button
-import android.widget.LinearLayout
+import android.widget.Toast
 
 class SindhiKeyboardService : InputMethodService() {
 
+    private var keyboardView: View? = null
+
     override fun onCreateInputView(): View {
+        keyboardView = layoutInflater.inflate(
+            R.layout.keyboard_view,
+            null
+        )
 
-        val keyboard = LinearLayout(this)
-        keyboard.orientation = LinearLayout.VERTICAL
-        keyboard.setPadding(8, 8, 8, 8)
-        keyboard.setBackgroundColor(Color.LTGRAY)
+        setupKeys(keyboardView!!)
 
-        val row = LinearLayout(this)
-        row.orientation = LinearLayout.HORIZONTAL
-        row.gravity = Gravity.CENTER
+        return keyboardView!!
+    }
 
-        val testButton = Button(this)
-        testButton.text = "سنڌي"
-        testButton.textSize = 22f
-        testButton.setTypeface(null, Typeface.BOLD)
+    private fun setupKeys(view: View) {
 
-        testButton.setOnClickListener {
-            currentInputConnection?.commitText("سنڌي", 1)
+        val buttons = findButtons(view)
+
+        for (button in buttons) {
+
+            button.setOnClickListener {
+
+                val text = button.text.toString()
+
+                when (text) {
+
+                    "⌫", "Backspace" -> {
+                        currentInputConnection?.deleteSurroundingText(1, 0)
+                    }
+
+                    "Space" -> {
+                        currentInputConnection?.commitText(" ", 1)
+                    }
+
+                    "Enter", "↵" -> {
+                        currentInputConnection?.sendKeyEvent(
+                            android.view.KeyEvent(
+                                android.view.KeyEvent.ACTION_DOWN,
+                                android.view.KeyEvent.KEYCODE_ENTER
+                            )
+                        )
+                    }
+
+                    else -> {
+                        currentInputConnection?.commitText(text, 1)
+                    }
+                }
+            }
+        }
+    }
+
+    private fun findButtons(view: View): List<Button> {
+
+        val result = mutableListOf<Button>()
+
+        if (view is Button) {
+            result.add(view)
         }
 
-        val testButton2 = Button(this)
-        testButton2.text = "اَ"
-        testButton2.textSize = 22f
+        if (view is android.view.ViewGroup) {
 
-        testButton2.setOnClickListener {
-            currentInputConnection?.commitText("اَحساس", 1)
+            for (i in 0 until view.childCount) {
+                result.addAll(findButtons(view.getChildAt(i)))
+            }
         }
 
-        val spaceButton = Button(this)
-        spaceButton.text = "Space"
-        spaceButton.setOnClickListener {
-            currentInputConnection?.commitText(" ", 1)
-        }
-
-        row.addView(
-            testButton,
-            LinearLayout.LayoutParams(0, 100, 1f)
-        )
-
-        row.addView(
-            testButton2,
-            LinearLayout.LayoutParams(0, 100, 1f)
-        )
-
-        row.addView(
-            spaceButton,
-            LinearLayout.LayoutParams(0, 100, 1f)
-        )
-
-        keyboard.addView(
-            row,
-            LinearLayout.LayoutParams(
-                LinearLayout.LayoutParams.MATCH_PARENT,
-                LinearLayout.LayoutParams.WRAP_CONTENT
-            )
-        )
-
-        return keyboard
+        return result
     }
 
     override fun onStartInputView(
@@ -75,5 +80,11 @@ class SindhiKeyboardService : InputMethodService() {
         restarting: Boolean
     ) {
         super.onStartInputView(info, restarting)
+
+        Toast.makeText(
+            this,
+            "Sindhi Keyboard Loaded",
+            Toast.LENGTH_SHORT
+        ).show()
     }
 }
