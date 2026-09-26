@@ -1,37 +1,73 @@
 package com.shahbazdeedar555.sindhipoetickeyboard
 
-import android.graphics.Color
 import android.inputmethodservice.InputMethodService
-import android.view.Gravity
 import android.view.View
 import android.widget.Button
-import android.widget.LinearLayout
+import android.widget.Toast
 
 class SindhiKeyboardService : InputMethodService() {
 
     override fun onCreateInputView(): View {
 
-        val layout = LinearLayout(this)
-        layout.orientation = LinearLayout.VERTICAL
-        layout.gravity = Gravity.CENTER
-        layout.setBackgroundColor(Color.LTGRAY)
-
-        val testButton = Button(this)
-        testButton.text = "TEST سنڌي"
-        testButton.textSize = 24f
-
-        testButton.setOnClickListener {
-            currentInputConnection?.commitText("سنڌي", 1)
-        }
-
-        layout.addView(
-            testButton,
-            LinearLayout.LayoutParams(
-                LinearLayout.LayoutParams.MATCH_PARENT,
-                120
-            )
+        val keyboardView = layoutInflater.inflate(
+            R.layout.keyboard_view,
+            null
         )
 
-        return layout
+        val buttons = findButtons(keyboardView)
+
+        for (button in buttons) {
+            button.setOnClickListener {
+                val text = button.text.toString()
+
+                when (button.tag?.toString()) {
+                    "backspace" -> {
+                        currentInputConnection?.deleteSurroundingText(1, 0)
+                    }
+
+                    "enter" -> {
+                        currentInputConnection?.commitText("\n", 1)
+                    }
+
+                    "space" -> {
+                        currentInputConnection?.commitText(" ", 1)
+                    }
+
+                    "clear" -> {
+                        currentInputConnection?.deleteSurroundingText(1000, 0)
+                    }
+
+                    else -> {
+                        if (text.isNotEmpty()) {
+                            currentInputConnection?.commitText(text, 1)
+                        }
+                    }
+                }
+            }
+        }
+
+        Toast.makeText(
+            this,
+            "سنڌي ڪي بورڊ تيار آهي",
+            Toast.LENGTH_SHORT
+        ).show()
+
+        return keyboardView
+    }
+
+    private fun findButtons(view: View): List<Button> {
+        val result = mutableListOf<Button>()
+
+        if (view is Button) {
+            result.add(view)
+        }
+
+        if (view is android.view.ViewGroup) {
+            for (i in 0 until view.childCount) {
+                result.addAll(findButtons(view.getChildAt(i)))
+            }
+        }
+
+        return result
     }
 }
