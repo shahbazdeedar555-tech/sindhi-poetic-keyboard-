@@ -10,7 +10,7 @@ override fun onCreateInputView(): View {
 
     // Make sure the keyboard itself is visible
     view.visibility = View.VISIBLE
-    view.setBackgroundColor(Color.WHITE)
+   
 
     setupKeyboard(view)
 
