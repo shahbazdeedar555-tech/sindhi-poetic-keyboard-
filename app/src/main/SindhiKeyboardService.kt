@@ -17,23 +17,43 @@ class SindhiKeyboardService : InputMethodService() {
         val buttons = findButtons(keyboardView)
 
         for (button in buttons) {
-            button.setOnClickListener {
-                val text = button.text.toString()
 
-                when (button.tag?.toString()) {
-                    "backspace" -> {
+            button.setOnClickListener {
+
+                val text = button.text.toString()
+                val tag = button.tag?.toString()?.uppercase()
+
+                when (tag) {
+
+                    "BACKSPACE" -> {
                         currentInputConnection?.deleteSurroundingText(1, 0)
                     }
 
-                    "enter" -> {
+                    "ENTER" -> {
                         currentInputConnection?.commitText("\n", 1)
                     }
 
-                    "space" -> {
+                    "SPACE" -> {
                         currentInputConnection?.commitText(" ", 1)
                     }
 
-                    "clear" -> {
+                    "SHIFT" -> {
+                        Toast.makeText(
+                            this,
+                            "Shift",
+                            Toast.LENGTH_SHORT
+                        ).show()
+                    }
+
+                    "NUMBERS" -> {
+                        Toast.makeText(
+                            this,
+                            "123",
+                            Toast.LENGTH_SHORT
+                        ).show()
+                    }
+
+                    "CLEAR" -> {
                         currentInputConnection?.deleteSurroundingText(1000, 0)
                     }
 
@@ -56,6 +76,7 @@ class SindhiKeyboardService : InputMethodService() {
     }
 
     private fun findButtons(view: View): List<Button> {
+
         val result = mutableListOf<Button>()
 
         if (view is Button) {
@@ -64,7 +85,9 @@ class SindhiKeyboardService : InputMethodService() {
 
         if (view is android.view.ViewGroup) {
             for (i in 0 until view.childCount) {
-                result.addAll(findButtons(view.getChildAt(i)))
+                result.addAll(
+                    findButtons(view.getChildAt(i))
+                )
             }
         }
 
