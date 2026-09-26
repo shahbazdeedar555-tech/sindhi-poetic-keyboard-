@@ -66,7 +66,7 @@ class SindhiKeyboardService : InputMethodService() {
         }
 
         // Backspace
-        findButton(view, R.id.key_delete)?.setOnClickListener {
+        findButton(view, R.id.key_backspace)?.setOnClickListener {
             deleteText()
         }
 
