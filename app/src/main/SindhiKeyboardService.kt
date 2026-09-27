@@ -12,6 +12,7 @@ class SindhiKeyboardService : InputMethodService() {
     private var keyboardView: View? = null
 
     override fun onCreateInputView(): View {
+
         keyboardView = layoutInflater.inflate(
             R.layout.keyboard_view,
             null
@@ -21,6 +22,12 @@ class SindhiKeyboardService : InputMethodService() {
         keyboardView?.alpha = 1.0f
 
         setupKeys()
+
+        Toast.makeText(
+            this,
+            "Keyboard View Loaded",
+            Toast.LENGTH_SHORT
+        ).show()
 
         return keyboardView!!
     }
@@ -66,7 +73,7 @@ class SindhiKeyboardService : InputMethodService() {
         setKey(view, R.id.key_space, " ")
 
         view.findViewById<Button>(R.id.key_backspace)?.setOnClickListener {
-            deleteText()
+            currentInputConnection?.deleteSurroundingText(1, 0)
         }
 
         view.findViewById<Button>(R.id.key_enter)?.setOnClickListener {
@@ -100,15 +107,7 @@ class SindhiKeyboardService : InputMethodService() {
         text: String
     ) {
         view.findViewById<Button>(id)?.setOnClickListener {
-            typeText(text)
+            currentInputConnection?.commitText(text, 1)
         }
-    }
-
-    private fun typeText(text: String) {
-        currentInputConnection?.commitText(text, 1)
-    }
-
-    private fun deleteText() {
-        currentInputConnection?.deleteSurroundingText(1, 0)
     }
 }
