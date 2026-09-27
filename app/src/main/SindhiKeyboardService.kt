@@ -12,6 +12,11 @@ class SindhiKeyboardService : InputMethodService() {
 override fun onCreate() {
     super.onCreate()
 
+    android.util.Log.d(
+        "SindhiKeyboard",
+        "SERVICE CREATED"
+    )
+
     Toast.makeText(
         this,
         "SERVICE CREATED",
