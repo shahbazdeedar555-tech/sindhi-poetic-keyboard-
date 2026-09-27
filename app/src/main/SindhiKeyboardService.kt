@@ -9,7 +9,15 @@ import android.widget.Toast
 class SindhiKeyboardService : InputMethodService() {
 
     private var keyboardView: View? = null
+override fun onCreate() {
+    super.onCreate()
 
+    Toast.makeText(
+        this,
+        "SERVICE CREATED",
+        Toast.LENGTH_LONG
+    ).show()
+}
     override fun onCreateInputView(): View {
 
         val view = layoutInflater.inflate(
