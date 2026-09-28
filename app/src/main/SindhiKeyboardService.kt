@@ -1,20 +1,23 @@
 package com.shahbazdeedar555.sindhipoetickeyboard
 
+import android.graphics.Color
 import android.inputmethodservice.InputMethodService
-import android.view.View
+import android.view.Gravity
 import android.widget.TextView
 
 class SindhiKeyboardService : InputMethodService() {
 
-    override fun onCreateInputView(): View {
-        val textView = TextView(this)
+    override fun onCreateInputView(): android.view.View {
 
-        textView.text = "SINDHI KEYBOARD IS WORKING"
-        textView.textSize = 30f
-        textView.setBackgroundColor(0xFFFF0000.toInt())
-        textView.setTextColor(0xFFFFFFFF.toInt())
-        textView.gravity = android.view.Gravity.CENTER
+        val testView = TextView(this)
 
-        return textView
+        testView.text = "SINDHI KEYBOARD\nSERVICE IS WORKING"
+        testView.textSize = 28f
+        testView.setTextColor(Color.WHITE)
+        testView.setBackgroundColor(Color.RED)
+        testView.gravity = Gravity.CENTER
+        testView.setPadding(20, 20, 20, 20)
+
+        return testView
     }
 }
