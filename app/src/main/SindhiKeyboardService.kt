@@ -7,17 +7,17 @@ import android.widget.TextView
 
 class SindhiKeyboardService : InputMethodService() {
 
-    override fun onCreateInputView(): android.view.View {
+    override fun onCreateInputView(): TextView {
 
-        val textView = TextView(this)
+        val text = TextView(this)
 
-        textView.text = "SINDHI KEYBOARD IS RUNNING"
-        textView.textSize = 24f
-        textView.setTextColor(Color.WHITE)
-        textView.setBackgroundColor(Color.RED)
-        textView.gravity = Gravity.CENTER
-        textView.setPadding(20, 20, 20, 20)
+        text.text = "SINDHI KEYBOARD TEST"
+        text.textSize = 28f
+        text.setTextColor(Color.RED)
+        text.setBackgroundColor(Color.YELLOW)
+        text.gravity = Gravity.CENTER
+        text.minimumHeight = 300
 
-        return textView
+        return text
     }
 }
