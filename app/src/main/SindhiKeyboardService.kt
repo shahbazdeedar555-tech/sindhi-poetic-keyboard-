@@ -1,23 +1,24 @@
 package com.shahbazdeedar555.sindhipoetickeyboard
 
-import android.inputmethodservice.InputMethodService
 import android.graphics.Color
+import android.inputmethodservice.InputMethodService
 import android.view.Gravity
+import android.view.ViewGroup
 import android.widget.TextView
 
 class SindhiKeyboardService : InputMethodService() {
 
-    override fun onCreateInputView(): TextView {
+    override fun onCreateInputView(): ViewGroup {
 
-        val text = TextView(this)
+        val box = TextView(this)
 
-        text.text = "SINDHI KEYBOARD TEST"
-        text.textSize = 28f
-        text.setTextColor(Color.RED)
-        text.setBackgroundColor(Color.YELLOW)
-        text.gravity = Gravity.CENTER
-        text.minimumHeight = 300
+        box.text = "SINDHI KEYBOARD\nSERVICE IS RUNNING"
+        box.textSize = 24f
+        box.setTextColor(Color.WHITE)
+        box.setBackgroundColor(Color.RED)
+        box.gravity = Gravity.CENTER
+        box.setPadding(20, 20, 20, 20)
 
-        return text
+        return box
     }
 }
