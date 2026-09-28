@@ -1,7 +1,7 @@
 package com.shahbazdeedar555.sindhipoetickeyboard
 
-import android.graphics.Color
 import android.inputmethodservice.InputMethodService
+import android.graphics.Color
 import android.view.Gravity
 import android.widget.TextView
 
@@ -9,15 +9,15 @@ class SindhiKeyboardService : InputMethodService() {
 
     override fun onCreateInputView(): android.view.View {
 
-        val testView = TextView(this)
+        val test = TextView(this)
 
-        testView.text = "SINDHI KEYBOARD\nSERVICE IS WORKING"
-        testView.textSize = 28f
-        testView.setTextColor(Color.WHITE)
-        testView.setBackgroundColor(Color.RED)
-        testView.gravity = Gravity.CENTER
-        testView.setPadding(20, 20, 20, 20)
+        test.text = "SINDHI KEYBOARD\n\nSERVICE IS WORKING"
+        test.textSize = 28f
+        test.setTextColor(Color.WHITE)
+        test.setBackgroundColor(Color.RED)
+        test.gravity = Gravity.CENTER
+        test.setPadding(20, 20, 20, 20)
 
-        return testView
+        return test
     }
 }
