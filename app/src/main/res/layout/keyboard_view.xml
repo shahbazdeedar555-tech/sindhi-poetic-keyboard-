@@ -4,54 +4,58 @@
     android:layout_width="match_parent"
     android:layout_height="match_parent"
     android:orientation="vertical"
-    android:background="#000000"
+    android:background="#202020"
     android:padding="4dp">
 
     <TextView
         android:layout_width="match_parent"
-        android:layout_height="70dp"
+        android:layout_height="60dp"
         android:background="#FFFFFF"
         android:gravity="center"
         android:text="سنڌي شاعري ڪي بورڊ"
         android:textColor="#000000"
-        android:textSize="24sp"
+        android:textSize="22sp"
         android:textStyle="bold"
-        android:includeFontPadding="true" />
+        android:includeFontPadding="true"
+        android:padding="2dp" />
 
     <TextView
         android:layout_width="match_parent"
-        android:layout_height="90dp"
+        android:layout_height="85dp"
         android:layout_marginTop="4dp"
         android:background="#FFFFFF"
         android:gravity="center"
         android:text="ا"
         android:textColor="#000000"
-        android:textSize="42sp"
+        android:textSize="48sp"
         android:textStyle="bold"
-        android:includeFontPadding="true" />
+        android:includeFontPadding="true"
+        android:padding="2dp" />
 
     <TextView
         android:layout_width="match_parent"
-        android:layout_height="90dp"
+        android:layout_height="85dp"
         android:layout_marginTop="4dp"
         android:background="#FFFFFF"
         android:gravity="center"
         android:text="ب"
         android:textColor="#000000"
-        android:textSize="42sp"
+        android:textSize="48sp"
         android:textStyle="bold"
-        android:includeFontPadding="true" />
+        android:includeFontPadding="true"
+        android:padding="2dp" />
 
     <TextView
         android:layout_width="match_parent"
-        android:layout_height="90dp"
+        android:layout_height="85dp"
         android:layout_marginTop="4dp"
         android:background="#FFFFFF"
         android:gravity="center"
         android:text="ڦ"
         android:textColor="#000000"
-        android:textSize="42sp"
+        android:textSize="48sp"
         android:textStyle="bold"
-        android:includeFontPadding="true" />
+        android:includeFontPadding="true"
+        android:padding="2dp" />
 
 </LinearLayout>
