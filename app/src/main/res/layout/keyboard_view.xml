@@ -15,36 +15,43 @@
         android:text="سنڌي شاعري ڪي بورڊ"
         android:textColor="#000000"
         android:textSize="24sp"
-        android:textStyle="bold" />
+        android:textStyle="bold"
+        android:includeFontPadding="true" />
 
-    <Button
+    <TextView
         android:layout_width="match_parent"
         android:layout_height="90dp"
         android:layout_marginTop="4dp"
         android:background="#FFFFFF"
+        android:gravity="center"
         android:text="ا"
         android:textColor="#000000"
-        android:textSize="40sp"
-        android:textStyle="bold" />
+        android:textSize="42sp"
+        android:textStyle="bold"
+        android:includeFontPadding="true" />
 
-    <Button
+    <TextView
         android:layout_width="match_parent"
         android:layout_height="90dp"
         android:layout_marginTop="4dp"
         android:background="#FFFFFF"
+        android:gravity="center"
         android:text="ب"
         android:textColor="#000000"
-        android:textSize="40sp"
-        android:textStyle="bold" />
+        android:textSize="42sp"
+        android:textStyle="bold"
+        android:includeFontPadding="true" />
 
-    <Button
+    <TextView
         android:layout_width="match_parent"
         android:layout_height="90dp"
         android:layout_marginTop="4dp"
         android:background="#FFFFFF"
+        android:gravity="center"
         android:text="ڦ"
         android:textColor="#000000"
-        android:textSize="40sp"
-        android:textStyle="bold" />
+        android:textSize="42sp"
+        android:textStyle="bold"
+        android:includeFontPadding="true" />
 
 </LinearLayout>
