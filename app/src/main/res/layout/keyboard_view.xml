@@ -1,24 +1,26 @@
-
+<?xml version="1.0" encoding="utf-8"?>
 
 <LinearLayout xmlns:android="http://schemas.android.com/apk/res/android"
     android:layout_width="match_parent"
     android:layout_height="wrap_content"
     android:orientation="vertical"
     android:background="#173F35"
-    android:padding="6dp">
+    android:padding="4dp">
 
+    <!-- TEST LINE -->
     <TextView
         android:layout_width="match_parent"
-        android:layout_height="45dp"
+        android:layout_height="50dp"
         android:gravity="center"
-        android:text="سنڌي شاعري ڪي بورڊ"
+        android:text="سنڌي ڪي بورڊ TEST"
         android:textColor="#FFFFFF"
         android:textSize="20sp"
-        android:background="#173F35" />
+        android:background="#FF0000" />
 
+    <!-- FIRST KEY ROW -->
     <LinearLayout
         android:layout_width="match_parent"
-        android:layout_height="55dp"
+        android:layout_height="70dp"
         android:orientation="horizontal"
         android:weightSum="3">
 
@@ -28,7 +30,7 @@
             android:layout_height="match_parent"
             android:layout_weight="1"
             android:text="ا"
-            android:textSize="22sp" />
+            android:textSize="26sp" />
 
         <Button
             android:id="@+id/key_bay"
@@ -36,7 +38,7 @@
             android:layout_height="match_parent"
             android:layout_weight="1"
             android:text="ب"
-            android:textSize="22sp" />
+            android:textSize="26sp" />
 
         <Button
             android:id="@+id/key_pay"
@@ -44,13 +46,14 @@
             android:layout_height="match_parent"
             android:layout_weight="1"
             android:text="پ"
-            android:textSize="22sp" />
+            android:textSize="26sp" />
 
     </LinearLayout>
 
+    <!-- SECOND KEY ROW -->
     <LinearLayout
         android:layout_width="match_parent"
-        android:layout_height="55dp"
+        android:layout_height="70dp"
         android:orientation="horizontal"
         android:weightSum="3">
 
@@ -59,21 +62,21 @@
             android:layout_height="match_parent"
             android:layout_weight="1"
             android:text="ت"
-            android:textSize="22sp" />
+            android:textSize="26sp" />
 
         <Button
             android:layout_width="0dp"
             android:layout_height="match_parent"
             android:layout_weight="1"
             android:text="ٽ"
-            android:textSize="22sp" />
+            android:textSize="26sp" />
 
         <Button
             android:layout_width="0dp"
             android:layout_height="match_parent"
             android:layout_weight="1"
             android:text="ث"
-            android:textSize="22sp" />
+            android:textSize="26sp" />
 
     </LinearLayout>
 
