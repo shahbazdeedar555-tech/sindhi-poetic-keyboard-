@@ -1,6 +1,4 @@
-ها جاني ❤️ هي keyboard_view.xml جو نئون صاف ورزن ٻيهر موڪليان ٿو. هي اوورليپ گهٽ ڪرڻ لاءِ هر key کي برابر جاءِ ڏيندو.
-app/src/main/res/layout/keyboard_view.xml ۾ مڪمل پراڻو ڪوڊ delete ڪري هي سڄو ڪوڊ paste ڪريو:
-Writing
+
 <?xml version="1.0" encoding="utf-8"?>
 
 <LinearLayout xmlns:android="http://schemas.android.com/apk/res/android"
@@ -541,5 +539,4 @@ Writing
     </LinearLayout>
 
 </LinearLayout>
-هن ٽيسٽ ۾ AndroidManifest.xml، method.xml يا SindhiKeyboardService.java کي هٿ نه لاهڻو آهي. صرف keyboard_view.xml replace → Save → Build APK → Install → test.
-پوئين مسئلي ۾ خاص طور layout_weight="1" + minWidth="0dp" رکيو آهي، جيئن keys هڪ ٻئي مٿان نه چڙهن.
+
