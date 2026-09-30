@@ -2,91 +2,91 @@
 
 <LinearLayout xmlns:android="http://schemas.android.com/apk/res/android"
     android:layout_width="match_parent"
-    android:layout_height="match_parent"
+    android:layout_height="wrap_content"
     android:orientation="vertical"
     android:background="#173F35"
-    android:padding="8dp">
+    android:padding="4dp">
 
     <TextView
         android:layout_width="match_parent"
-        android:layout_height="55dp"
+        android:layout_height="45dp"
         android:gravity="center"
         android:background="#245C4D"
         android:text="سنڌي شاعري ڪي بورڊ"
         android:textColor="#FFFFFF"
-        android:textSize="20sp" />
+        android:textSize="18sp" />
 
     <LinearLayout
         android:layout_width="match_parent"
-        android:layout_height="75dp"
-        android:orientation="horizontal"
-        android:layout_marginTop="8dp">
+        android:layout_height="65dp"
+        android:layout_marginTop="4dp"
+        android:orientation="horizontal">
 
         <TextView
             android:layout_width="0dp"
             android:layout_height="match_parent"
             android:layout_weight="1"
-            android:layout_margin="3dp"
+            android:layout_margin="2dp"
             android:gravity="center"
             android:background="#FFFFFF"
             android:text="ا"
             android:textColor="#000000"
-            android:textSize="30sp" />
+            android:textSize="26sp" />
 
         <TextView
             android:layout_width="0dp"
             android:layout_height="match_parent"
             android:layout_weight="1"
-            android:layout_margin="3dp"
+            android:layout_margin="2dp"
             android:gravity="center"
             android:background="#FFFFFF"
             android:text="ب"
             android:textColor="#000000"
-            android:textSize="30sp" />
+            android:textSize="26sp" />
 
         <TextView
             android:layout_width="0dp"
             android:layout_height="match_parent"
             android:layout_weight="1"
-            android:layout_margin="3dp"
+            android:layout_margin="2dp"
             android:gravity="center"
             android:background="#FFFFFF"
             android:text="پ"
             android:textColor="#000000"
-            android:textSize="30sp" />
+            android:textSize="26sp" />
 
         <TextView
             android:layout_width="0dp"
             android:layout_height="match_parent"
             android:layout_weight="1"
-            android:layout_margin="3dp"
+            android:layout_margin="2dp"
             android:gravity="center"
             android:background="#FFFFFF"
             android:text="ت"
             android:textColor="#000000"
-            android:textSize="30sp" />
+            android:textSize="26sp" />
 
         <TextView
             android:layout_width="0dp"
             android:layout_height="match_parent"
             android:layout_weight="1"
-            android:layout_margin="3dp"
+            android:layout_margin="2dp"
             android:gravity="center"
             android:background="#FFFFFF"
             android:text="ٽ"
             android:textColor="#000000"
-            android:textSize="30sp" />
+            android:textSize="26sp" />
 
     </LinearLayout>
 
     <TextView
         android:layout_width="match_parent"
-        android:layout_height="60dp"
-        android:layout_marginTop="8dp"
+        android:layout_height="50dp"
+        android:layout_marginTop="4dp"
         android:gravity="center"
         android:background="#FFFFFF"
         android:text="هي TEST KEYBOARD آهي"
         android:textColor="#000000"
-        android:textSize="20sp" />
+        android:textSize="18sp" />
 
 </LinearLayout>
