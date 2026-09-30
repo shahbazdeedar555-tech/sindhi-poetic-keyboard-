@@ -1,11 +1,14 @@
-
+ها جاني ❤️ هي keyboard_view.xml جو نئون صاف ورزن ٻيهر موڪليان ٿو. هي اوورليپ گهٽ ڪرڻ لاءِ هر key کي برابر جاءِ ڏيندو.
+app/src/main/res/layout/keyboard_view.xml ۾ مڪمل پراڻو ڪوڊ delete ڪري هي سڄو ڪوڊ paste ڪريو:
+Writing
+<?xml version="1.0" encoding="utf-8"?>
 
 <LinearLayout xmlns:android="http://schemas.android.com/apk/res/android"
     android:layout_width="match_parent"
     android:layout_height="wrap_content"
     android:orientation="vertical"
     android:background="#173F35"
-    android:padding="6dp">
+    android:padding="4dp">
 
     <!-- HEADER -->
     <TextView
@@ -15,7 +18,7 @@
         android:text="سنڌي شاعري ڪي بورڊ"
         android:textColor="#FFFFFF"
         android:textSize="18sp"
-        android:includeFontPadding="false" />
+        android:textStyle="bold" />
 
     <!-- ROW 1 -->
     <LinearLayout
@@ -28,10 +31,9 @@
             android:layout_width="0dp"
             android:layout_height="match_parent"
             android:layout_weight="1"
-            android:layout_margin="2dp"
             android:text="ا"
-            android:textSize="18sp"
-            android:includeFontPadding="false"
+            android:textSize="22sp"
+            android:minWidth="0dp"
             android:padding="0dp" />
 
         <Button
@@ -39,10 +41,9 @@
             android:layout_width="0dp"
             android:layout_height="match_parent"
             android:layout_weight="1"
-            android:layout_margin="2dp"
             android:text="ب"
-            android:textSize="18sp"
-            android:includeFontPadding="false"
+            android:textSize="22sp"
+            android:minWidth="0dp"
             android:padding="0dp" />
 
         <Button
@@ -50,10 +51,19 @@
             android:layout_width="0dp"
             android:layout_height="match_parent"
             android:layout_weight="1"
-            android:layout_margin="2dp"
             android:text="پ"
-            android:textSize="18sp"
-            android:includeFontPadding="false"
+            android:textSize="22sp"
+            android:minWidth="0dp"
+            android:padding="0dp" />
+
+        <Button
+            android:id="@+id/key_bhay"
+            android:layout_width="0dp"
+            android:layout_height="match_parent"
+            android:layout_weight="1"
+            android:text="ڀ"
+            android:textSize="22sp"
+            android:minWidth="0dp"
             android:padding="0dp" />
 
         <Button
@@ -61,21 +71,9 @@
             android:layout_width="0dp"
             android:layout_height="match_parent"
             android:layout_weight="1"
-            android:layout_margin="2dp"
             android:text="ت"
-            android:textSize="18sp"
-            android:includeFontPadding="false"
-            android:padding="0dp" />
-
-        <Button
-            android:id="@+id/key_tt"
-            android:layout_width="0dp"
-            android:layout_height="match_parent"
-            android:layout_weight="1"
-            android:layout_margin="2dp"
-            android:text="ٽ"
-            android:textSize="18sp"
-            android:includeFontPadding="false"
+            android:textSize="22sp"
+            android:minWidth="0dp"
             android:padding="0dp" />
 
     </LinearLayout>
@@ -87,58 +85,48 @@
         android:orientation="horizontal">
 
         <Button
-            android:id="@+id/key_jay"
             android:layout_width="0dp"
             android:layout_height="match_parent"
             android:layout_weight="1"
-            android:layout_margin="2dp"
+            android:text="ٺ"
+            android:textSize="22sp"
+            android:minWidth="0dp"
+            android:padding="0dp" />
+
+        <Button
+            android:layout_width="0dp"
+            android:layout_height="match_parent"
+            android:layout_weight="1"
+            android:text="ٽ"
+            android:textSize="22sp"
+            android:minWidth="0dp"
+            android:padding="0dp" />
+
+        <Button
+            android:layout_width="0dp"
+            android:layout_height="match_parent"
+            android:layout_weight="1"
+            android:text="ث"
+            android:textSize="22sp"
+            android:minWidth="0dp"
+            android:padding="0dp" />
+
+        <Button
+            android:layout_width="0dp"
+            android:layout_height="match_parent"
+            android:layout_weight="1"
+            android:text="ٿ"
+            android:textSize="22sp"
+            android:minWidth="0dp"
+            android:padding="0dp" />
+
+        <Button
+            android:layout_width="0dp"
+            android:layout_height="match_parent"
+            android:layout_weight="1"
             android:text="ج"
-            android:textSize="18sp"
-            android:includeFontPadding="false"
-            android:padding="0dp" />
-
-        <Button
-            android:id="@+id/key_chay"
-            android:layout_width="0dp"
-            android:layout_height="match_parent"
-            android:layout_weight="1"
-            android:layout_margin="2dp"
-            android:text="ڃ"
-            android:textSize="18sp"
-            android:includeFontPadding="false"
-            android:padding="0dp" />
-
-        <Button
-            android:id="@+id/key_hay"
-            android:layout_width="0dp"
-            android:layout_height="match_parent"
-            android:layout_weight="1"
-            android:layout_margin="2dp"
-            android:text="ح"
-            android:textSize="18sp"
-            android:includeFontPadding="false"
-            android:padding="0dp" />
-
-        <Button
-            android:id="@+id/key_khay"
-            android:layout_width="0dp"
-            android:layout_height="match_parent"
-            android:layout_weight="1"
-            android:layout_margin="2dp"
-            android:text="خ"
-            android:textSize="18sp"
-            android:includeFontPadding="false"
-            android:padding="0dp" />
-
-        <Button
-            android:id="@+id/key_dal"
-            android:layout_width="0dp"
-            android:layout_height="match_parent"
-            android:layout_weight="1"
-            android:layout_margin="2dp"
-            android:text="د"
-            android:textSize="18sp"
-            android:includeFontPadding="false"
+            android:textSize="22sp"
+            android:minWidth="0dp"
             android:padding="0dp" />
 
     </LinearLayout>
@@ -150,58 +138,48 @@
         android:orientation="horizontal">
 
         <Button
-            android:id="@+id/key_r"
             android:layout_width="0dp"
             android:layout_height="match_parent"
             android:layout_weight="1"
-            android:layout_margin="2dp"
-            android:text="ر"
-            android:textSize="18sp"
-            android:includeFontPadding="false"
+            android:text="ڄ"
+            android:textSize="22sp"
+            android:minWidth="0dp"
             android:padding="0dp" />
 
         <Button
-            android:id="@+id/key_s"
             android:layout_width="0dp"
             android:layout_height="match_parent"
             android:layout_weight="1"
-            android:layout_margin="2dp"
-            android:text="س"
-            android:textSize="18sp"
-            android:includeFontPadding="false"
+            android:text="چ"
+            android:textSize="22sp"
+            android:minWidth="0dp"
             android:padding="0dp" />
 
         <Button
-            android:id="@+id/key_sh"
             android:layout_width="0dp"
             android:layout_height="match_parent"
             android:layout_weight="1"
-            android:layout_margin="2dp"
-            android:text="ش"
-            android:textSize="18sp"
-            android:includeFontPadding="false"
+            android:text="ڇ"
+            android:textSize="22sp"
+            android:minWidth="0dp"
             android:padding="0dp" />
 
         <Button
-            android:id="@+id/key_sad"
             android:layout_width="0dp"
             android:layout_height="match_parent"
             android:layout_weight="1"
-            android:layout_margin="2dp"
-            android:text="ص"
-            android:textSize="18sp"
-            android:includeFontPadding="false"
+            android:text="د"
+            android:textSize="22sp"
+            android:minWidth="0dp"
             android:padding="0dp" />
 
         <Button
-            android:id="@+id/key_dad"
             android:layout_width="0dp"
             android:layout_height="match_parent"
             android:layout_weight="1"
-            android:layout_margin="2dp"
-            android:text="ض"
-            android:textSize="18sp"
-            android:includeFontPadding="false"
+            android:text="ڌ"
+            android:textSize="22sp"
+            android:minWidth="0dp"
             android:padding="0dp" />
 
     </LinearLayout>
@@ -213,58 +191,48 @@
         android:orientation="horizontal">
 
         <Button
-            android:id="@+id/key_tah"
             android:layout_width="0dp"
             android:layout_height="match_parent"
             android:layout_weight="1"
-            android:layout_margin="2dp"
-            android:text="ط"
-            android:textSize="18sp"
-            android:includeFontPadding="false"
+            android:text="ر"
+            android:textSize="22sp"
+            android:minWidth="0dp"
             android:padding="0dp" />
 
         <Button
-            android:id="@+id/key_zah"
             android:layout_width="0dp"
             android:layout_height="match_parent"
             android:layout_weight="1"
-            android:layout_margin="2dp"
-            android:text="ظ"
-            android:textSize="18sp"
-            android:includeFontPadding="false"
+            android:text="ڙ"
+            android:textSize="22sp"
+            android:minWidth="0dp"
             android:padding="0dp" />
 
         <Button
-            android:id="@+id/key_ain"
             android:layout_width="0dp"
             android:layout_height="match_parent"
             android:layout_weight="1"
-            android:layout_margin="2dp"
-            android:text="ع"
-            android:textSize="18sp"
-            android:includeFontPadding="false"
+            android:text="س"
+            android:textSize="22sp"
+            android:minWidth="0dp"
             android:padding="0dp" />
 
         <Button
-            android:id="@+id/key_ghain"
             android:layout_width="0dp"
             android:layout_height="match_parent"
             android:layout_weight="1"
-            android:layout_margin="2dp"
-            android:text="غ"
-            android:textSize="18sp"
-            android:includeFontPadding="false"
+            android:text="ش"
+            android:textSize="22sp"
+            android:minWidth="0dp"
             android:padding="0dp" />
 
         <Button
-            android:id="@+id/key_fay"
             android:layout_width="0dp"
             android:layout_height="match_parent"
             android:layout_weight="1"
-            android:layout_margin="2dp"
-            android:text="ف"
-            android:textSize="18sp"
-            android:includeFontPadding="false"
+            android:text="ص"
+            android:textSize="22sp"
+            android:minWidth="0dp"
             android:padding="0dp" />
 
     </LinearLayout>
@@ -276,58 +244,48 @@
         android:orientation="horizontal">
 
         <Button
-            android:id="@+id/key_qaf"
             android:layout_width="0dp"
             android:layout_height="match_parent"
             android:layout_weight="1"
-            android:layout_margin="2dp"
-            android:text="ق"
-            android:textSize="18sp"
-            android:includeFontPadding="false"
+            android:text="ض"
+            android:textSize="22sp"
+            android:minWidth="0dp"
             android:padding="0dp" />
 
         <Button
-            android:id="@+id/key_kaf"
             android:layout_width="0dp"
             android:layout_height="match_parent"
             android:layout_weight="1"
-            android:layout_margin="2dp"
-            android:text="ڪ"
-            android:textSize="18sp"
-            android:includeFontPadding="false"
+            android:text="ط"
+            android:textSize="22sp"
+            android:minWidth="0dp"
             android:padding="0dp" />
 
         <Button
-            android:id="@+id/key_gaf"
             android:layout_width="0dp"
             android:layout_height="match_parent"
             android:layout_weight="1"
-            android:layout_margin="2dp"
-            android:text="گ"
-            android:textSize="18sp"
-            android:includeFontPadding="false"
+            android:text="ظ"
+            android:textSize="22sp"
+            android:minWidth="0dp"
             android:padding="0dp" />
 
         <Button
-            android:id="@+id/key_lam"
             android:layout_width="0dp"
             android:layout_height="match_parent"
             android:layout_weight="1"
-            android:layout_margin="2dp"
-            android:text="ل"
-            android:textSize="18sp"
-            android:includeFontPadding="false"
+            android:text="ع"
+            android:textSize="22sp"
+            android:minWidth="0dp"
             android:padding="0dp" />
 
         <Button
-            android:id="@+id/key_meem"
             android:layout_width="0dp"
             android:layout_height="match_parent"
             android:layout_weight="1"
-            android:layout_margin="2dp"
-            android:text="م"
-            android:textSize="18sp"
-            android:includeFontPadding="false"
+            android:text="غ"
+            android:textSize="22sp"
+            android:minWidth="0dp"
             android:padding="0dp" />
 
     </LinearLayout>
@@ -339,66 +297,215 @@
         android:orientation="horizontal">
 
         <Button
-            android:id="@+id/key_noon"
             android:layout_width="0dp"
             android:layout_height="match_parent"
             android:layout_weight="1"
-            android:layout_margin="2dp"
-            android:text="ن"
-            android:textSize="18sp"
-            android:includeFontPadding="false"
+            android:text="ف"
+            android:textSize="22sp"
+            android:minWidth="0dp"
             android:padding="0dp" />
 
         <Button
-            android:id="@+id/key_waw"
             android:layout_width="0dp"
             android:layout_height="match_parent"
             android:layout_weight="1"
-            android:layout_margin="2dp"
-            android:text="و"
-            android:textSize="18sp"
-            android:includeFontPadding="false"
+            android:text="ڦ"
+            android:textSize="22sp"
+            android:minWidth="0dp"
             android:padding="0dp" />
 
         <Button
-            android:id="@+id/key_hay2"
             android:layout_width="0dp"
             android:layout_height="match_parent"
             android:layout_weight="1"
-            android:layout_margin="2dp"
-            android:text="ه"
-            android:textSize="18sp"
-            android:includeFontPadding="false"
+            android:text="ڪ"
+            android:textSize="22sp"
+            android:minWidth="0dp"
             android:padding="0dp" />
 
         <Button
-            android:id="@+id/key_yay"
             android:layout_width="0dp"
             android:layout_height="match_parent"
             android:layout_weight="1"
-            android:layout_margin="2dp"
-            android:text="ي"
-            android:textSize="18sp"
-            android:includeFontPadding="false"
+            android:text="ک"
+            android:textSize="22sp"
+            android:minWidth="0dp"
             android:padding="0dp" />
 
         <Button
-            android:id="@+id/key_ain2"
             android:layout_width="0dp"
             android:layout_height="match_parent"
             android:layout_weight="1"
-            android:layout_margin="2dp"
-            android:text="ء"
-            android:textSize="18sp"
-            android:includeFontPadding="false"
+            android:text="گ"
+            android:textSize="22sp"
+            android:minWidth="0dp"
             android:padding="0dp" />
 
     </LinearLayout>
 
-    <!-- SPECIAL ROW -->
+    <!-- ROW 7 -->
     <LinearLayout
         android:layout_width="match_parent"
         android:layout_height="52dp"
+        android:orientation="horizontal">
+
+        <Button
+            android:layout_width="0dp"
+            android:layout_height="match_parent"
+            android:layout_weight="1"
+            android:text="ڳ"
+            android:textSize="22sp"
+            android:minWidth="0dp"
+            android:padding="0dp" />
+
+        <Button
+            android:layout_width="0dp"
+            android:layout_height="match_parent"
+            android:layout_weight="1"
+            android:text="ڱ"
+            android:textSize="22sp"
+            android:minWidth="0dp"
+            android:padding="0dp" />
+
+        <Button
+            android:layout_width="0dp"
+            android:layout_height="match_parent"
+            android:layout_weight="1"
+            android:text="ل"
+            android:textSize="22sp"
+            android:minWidth="0dp"
+            android:padding="0dp" />
+
+        <Button
+            android:layout_width="0dp"
+            android:layout_height="match_parent"
+            android:layout_weight="1"
+            android:text="م"
+            android:textSize="22sp"
+            android:minWidth="0dp"
+            android:padding="0dp" />
+
+        <Button
+            android:layout_width="0dp"
+            android:layout_height="match_parent"
+            android:layout_weight="1"
+            android:text="ن"
+            android:textSize="22sp"
+            android:minWidth="0dp"
+            android:padding="0dp" />
+
+    </LinearLayout>
+
+    <!-- ROW 8 -->
+    <LinearLayout
+        android:layout_width="match_parent"
+        android:layout_height="52dp"
+        android:orientation="horizontal">
+
+        <Button
+            android:layout_width="0dp"
+            android:layout_height="match_parent"
+            android:layout_weight="1"
+            android:text="ڻ"
+            android:textSize="22sp"
+            android:minWidth="0dp"
+            android:padding="0dp" />
+
+        <Button
+            android:layout_width="0dp"
+            android:layout_height="match_parent"
+            android:layout_weight="1"
+            android:text="و"
+            android:textSize="22sp"
+            android:minWidth="0dp"
+            android:padding="0dp" />
+
+        <Button
+            android:layout_width="0dp"
+            android:layout_height="match_parent"
+            android:layout_weight="1"
+            android:text="ه"
+            android:textSize="22sp"
+            android:minWidth="0dp"
+            android:padding="0dp" />
+
+        <Button
+            android:layout_width="0dp"
+            android:layout_height="match_parent"
+            android:layout_weight="1"
+            android:text="ء"
+            android:textSize="22sp"
+            android:minWidth="0dp"
+            android:padding="0dp" />
+
+        <Button
+            android:layout_width="0dp"
+            android:layout_height="match_parent"
+            android:layout_weight="1"
+            android:text="ي"
+            android:textSize="22sp"
+            android:minWidth="0dp"
+            android:padding="0dp" />
+
+    </LinearLayout>
+
+    <!-- SPECIAL MARKS -->
+    <LinearLayout
+        android:layout_width="match_parent"
+        android:layout_height="52dp"
+        android:orientation="horizontal">
+
+        <Button
+            android:layout_width="0dp"
+            android:layout_height="match_parent"
+            android:layout_weight="1"
+            android:text="ـ"
+            android:textSize="22sp"
+            android:minWidth="0dp"
+            android:padding="0dp" />
+
+        <Button
+            android:layout_width="0dp"
+            android:layout_height="match_parent"
+            android:layout_weight="1"
+            android:text="َ"
+            android:textSize="22sp"
+            android:minWidth="0dp"
+            android:padding="0dp" />
+
+        <Button
+            android:layout_width="0dp"
+            android:layout_height="match_parent"
+            android:layout_weight="1"
+            android:text="ِ"
+            android:textSize="22sp"
+            android:minWidth="0dp"
+            android:padding="0dp" />
+
+        <Button
+            android:layout_width="0dp"
+            android:layout_height="match_parent"
+            android:layout_weight="1"
+            android:text="ُ"
+            android:textSize="22sp"
+            android:minWidth="0dp"
+            android:padding="0dp" />
+
+        <Button
+            android:layout_width="0dp"
+            android:layout_height="match_parent"
+            android:layout_weight="1"
+            android:text="ّ"
+            android:textSize="22sp"
+            android:minWidth="0dp"
+            android:padding="0dp" />
+
+    </LinearLayout>
+
+    <!-- SPACE / DELETE -->
+    <LinearLayout
+        android:layout_width="match_parent"
+        android:layout_height="55dp"
         android:orientation="horizontal">
 
         <Button
@@ -406,9 +513,9 @@
             android:layout_width="0dp"
             android:layout_height="match_parent"
             android:layout_weight="1"
-            android:layout_margin="2dp"
             android:text="⇧"
-            android:textSize="20sp"
+            android:textSize="22sp"
+            android:minWidth="0dp"
             android:padding="0dp" />
 
         <Button
@@ -416,9 +523,9 @@
             android:layout_width="0dp"
             android:layout_height="match_parent"
             android:layout_weight="3"
-            android:layout_margin="2dp"
-            android:text="خلا"
-            android:textSize="16sp"
+            android:text="خالي جاء"
+            android:textSize="18sp"
+            android:minWidth="0dp"
             android:padding="0dp" />
 
         <Button
@@ -426,11 +533,13 @@
             android:layout_width="0dp"
             android:layout_height="match_parent"
             android:layout_weight="1"
-            android:layout_margin="2dp"
             android:text="⌫"
-            android:textSize="20sp"
+            android:textSize="22sp"
+            android:minWidth="0dp"
             android:padding="0dp" />
 
     </LinearLayout>
 
 </LinearLayout>
+هن ٽيسٽ ۾ AndroidManifest.xml، method.xml يا SindhiKeyboardService.java کي هٿ نه لاهڻو آهي. صرف keyboard_view.xml replace → Save → Build APK → Install → test.
+پوئين مسئلي ۾ خاص طور layout_weight="1" + minWidth="0dp" رکيو آهي، جيئن keys هڪ ٻئي مٿان نه چڙهن.
