@@ -14,6 +14,7 @@ public class SindhiKeyboardService extends InputMethodService {
                 null
         );
 
+        // سنڌي اکر
         setKey(keyboard, R.id.key_alif, "ا");
         setKey(keyboard, R.id.key_bay, "ب");
         setKey(keyboard, R.id.key_pay, "پ");
@@ -26,10 +27,14 @@ public class SindhiKeyboardService extends InputMethodService {
         Button button = keyboard.findViewById(id);
 
         if (button != null) {
-            button.setText(text);
 
-            button.setOnClickListener(v -> {
-                getCurrentInputConnection().commitText(text, 1);
+            button.setOnClickListener(new View.OnClickListener() {
+                @Override
+                public void onClick(View v) {
+
+                    getCurrentInputConnection()
+                            .commitText(text, 1);
+                }
             });
         }
     }
