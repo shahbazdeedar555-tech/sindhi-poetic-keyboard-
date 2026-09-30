@@ -5,78 +5,96 @@
     android:layout_height="wrap_content"
     android:orientation="vertical"
     android:background="#173F35"
-    android:padding="4dp">
+    android:padding="6dp">
 
-    <!-- TEST LINE -->
     <TextView
         android:layout_width="match_parent"
-        android:layout_height="50dp"
+        android:layout_height="45dp"
         android:gravity="center"
         android:text="سنڌي ڪي بورڊ TEST"
         android:textColor="#FFFFFF"
-        android:textSize="20sp"
-        android:background="#FF0000" />
+        android:textSize="18sp"
+        android:background="#FF0000"
+        android:includeFontPadding="false" />
 
-    <!-- FIRST KEY ROW -->
     <LinearLayout
         android:layout_width="match_parent"
-        android:layout_height="70dp"
+        android:layout_height="65dp"
         android:orientation="horizontal"
+        android:gravity="center"
         android:weightSum="3">
 
         <Button
             android:id="@+id/key_alif"
             android:layout_width="0dp"
-            android:layout_height="match_parent"
+            android:layout_height="60dp"
             android:layout_weight="1"
             android:text="ا"
-            android:textSize="26sp" />
+            android:textSize="24sp"
+            android:padding="0dp"
+            android:minWidth="0dp"
+            android:minHeight="0dp" />
 
         <Button
             android:id="@+id/key_bay"
             android:layout_width="0dp"
-            android:layout_height="match_parent"
+            android:layout_height="60dp"
             android:layout_weight="1"
             android:text="ب"
-            android:textSize="26sp" />
+            android:textSize="24sp"
+            android:padding="0dp"
+            android:minWidth="0dp"
+            android:minHeight="0dp" />
 
         <Button
             android:id="@+id/key_pay"
             android:layout_width="0dp"
-            android:layout_height="match_parent"
+            android:layout_height="60dp"
             android:layout_weight="1"
             android:text="پ"
-            android:textSize="26sp" />
+            android:textSize="24sp"
+            android:padding="0dp"
+            android:minWidth="0dp"
+            android:minHeight="0dp" />
 
     </LinearLayout>
 
-    <!-- SECOND KEY ROW -->
     <LinearLayout
         android:layout_width="match_parent"
-        android:layout_height="70dp"
+        android:layout_height="65dp"
         android:orientation="horizontal"
+        android:gravity="center"
         android:weightSum="3">
 
         <Button
             android:layout_width="0dp"
-            android:layout_height="match_parent"
+            android:layout_height="60dp"
             android:layout_weight="1"
             android:text="ت"
-            android:textSize="26sp" />
+            android:textSize="24sp"
+            android:padding="0dp"
+            android:minWidth="0dp"
+            android:minHeight="0dp" />
 
         <Button
             android:layout_width="0dp"
-            android:layout_height="match_parent"
+            android:layout_height="60dp"
             android:layout_weight="1"
             android:text="ٽ"
-            android:textSize="26sp" />
+            android:textSize="24sp"
+            android:padding="0dp"
+            android:minWidth="0dp"
+            android:minHeight="0dp" />
 
         <Button
             android:layout_width="0dp"
-            android:layout_height="match_parent"
+            android:layout_height="60dp"
             android:layout_weight="1"
             android:text="ث"
-            android:textSize="26sp" />
+            android:textSize="24sp"
+            android:padding="0dp"
+            android:minWidth="0dp"
+            android:minHeight="0dp" />
 
     </LinearLayout>
 
