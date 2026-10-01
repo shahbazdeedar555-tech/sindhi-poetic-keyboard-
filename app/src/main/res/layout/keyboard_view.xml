@@ -1,25 +1,30 @@
+<?xml version="1.0" encoding="utf-8"?>
 
 <LinearLayout xmlns:android="http://schemas.android.com/apk/res/android"
-    android:id="@+id/djxqe0"
+    android:id="@+id/keyboard_root"
     android:layout_width="match_parent"
     android:layout_height="wrap_content"
+    android:minHeight="300dp"
     android:orientation="vertical"
     android:background="#173F35"
     android:padding="2dp">
 
-    <!-- پهريون حصو: 32 مکيه اکر -->
+    <!-- ========================= -->
+    <!-- PAGE 1 — 32 MAIN LETTERS -->
+    <!-- ========================= -->
 
     <LinearLayout
         android:id="@+id/keyboard_page1"
         android:layout_width="match_parent"
         android:layout_height="wrap_content"
-        android:orientation="vertical">
+        android:orientation="vertical"
+        android:visibility="visible">
 
-        <!-- Row 1 -->
+        <!-- ROW 1 -->
 
         <LinearLayout
             android:layout_width="match_parent"
-            android:layout_height="60dp"
+            android:layout_height="55dp"
             android:orientation="horizontal">
 
             <Button
@@ -80,11 +85,11 @@
 
         </LinearLayout>
 
-        <!-- Row 2 -->
+        <!-- ROW 2 -->
 
         <LinearLayout
             android:layout_width="match_parent"
-            android:layout_height="60dp"
+            android:layout_height="55dp"
             android:orientation="horizontal">
 
             <Button
@@ -145,11 +150,11 @@
 
         </LinearLayout>
 
-        <!-- Row 3 -->
+        <!-- ROW 3 -->
 
         <LinearLayout
             android:layout_width="match_parent"
-            android:layout_height="60dp"
+            android:layout_height="55dp"
             android:orientation="horizontal">
 
             <Button
@@ -210,11 +215,11 @@
 
         </LinearLayout>
 
-        <!-- Row 4 -->
+        <!-- ROW 4 -->
 
         <LinearLayout
             android:layout_width="match_parent"
-            android:layout_height="60dp"
+            android:layout_height="55dp"
             android:orientation="horizontal">
 
             <Button
@@ -275,87 +280,100 @@
 
         </LinearLayout>
 
-        <!-- زبر، زير ۽ خاص نشانين جي پٽي -->
+        <!-- SPECIAL MARKS -->
 
         <LinearLayout
             android:id="@+id/marks_strip"
             android:layout_width="match_parent"
             android:layout_height="48dp"
             android:orientation="horizontal"
-            android:gravity="right"
-            android:layoutDirection="rtl">
+            android:gravity="center">
 
             <Button
                 android:id="@+id/key_mark_1"
-                android:layout_width="wrap_content"
+                android:layout_width="0dp"
                 android:layout_height="match_parent"
+                android:layout_weight="1"
                 android:text="ـ" />
 
             <Button
                 android:id="@+id/key_mark_2"
-                android:layout_width="wrap_content"
+                android:layout_width="0dp"
                 android:layout_height="match_parent"
+                android:layout_weight="1"
                 android:text="َ" />
 
             <Button
                 android:id="@+id/key_mark_3"
-                android:layout_width="wrap_content"
+                android:layout_width="0dp"
                 android:layout_height="match_parent"
+                android:layout_weight="1"
                 android:text="ِ" />
 
             <Button
                 android:id="@+id/key_mark_4"
-                android:layout_width="wrap_content"
+                android:layout_width="0dp"
                 android:layout_height="match_parent"
+                android:layout_weight="1"
                 android:text="ُ" />
 
             <Button
                 android:id="@+id/key_mark_5"
-                android:layout_width="wrap_content"
+                android:layout_width="0dp"
                 android:layout_height="match_parent"
+                android:layout_weight="1"
                 android:text="ْ" />
 
             <Button
                 android:id="@+id/key_mark_6"
-                android:layout_width="wrap_content"
+                android:layout_width="0dp"
                 android:layout_height="match_parent"
+                android:layout_weight="1"
                 android:text="ّ" />
 
             <Button
                 android:id="@+id/key_mark_7"
-                android:layout_width="wrap_content"
+                android:layout_width="0dp"
                 android:layout_height="match_parent"
+                android:layout_weight="1"
                 android:text="ٰ" />
 
             <Button
                 android:id="@+id/key_mark_8"
-                android:layout_width="wrap_content"
+                android:layout_width="0dp"
                 android:layout_height="match_parent"
+                android:layout_weight="1"
                 android:text="آ" />
 
             <Button
                 android:id="@+id/key_mark_9"
-                android:layout_width="wrap_content"
+                android:layout_width="0dp"
                 android:layout_height="match_parent"
+                android:layout_weight="1"
                 android:text="ي" />
 
             <Button
                 android:id="@+id/key_mark_10"
-                android:layout_width="wrap_content"
+                android:layout_width="0dp"
                 android:layout_height="match_parent"
+                android:layout_weight="1"
                 android:text="ئ" />
 
             <Button
                 android:id="@+id/key_mark_11"
-                android:layout_width="wrap_content"
+                android:layout_width="0dp"
                 android:layout_height="match_parent"
+                android:layout_weight="1"
                 android:text="ى" />
 
         </LinearLayout>
 
     </LinearLayout>
 
-    <!-- ٻيو حصو: Shift -->
+
+    <!-- ========================= -->
+    <!-- PAGE 2 — SHIFT -->
+    <!-- ========================= -->
 
     <LinearLayout
         android:id="@+id/keyboard_page2"
@@ -364,11 +382,11 @@
         android:orientation="vertical"
         android:visibility="gone">
 
-        <!-- Shift Row 1 -->
+        <!-- ROW 1 -->
 
         <LinearLayout
             android:layout_width="match_parent"
-            android:layout_height="60dp"
+            android:layout_height="55dp"
             android:orientation="horizontal">
 
             <Button
@@ -429,11 +447,11 @@
 
         </LinearLayout>
 
-        <!-- Shift Row 2 -->
+        <!-- ROW 2 -->
 
         <LinearLayout
             android:layout_width="match_parent"
-            android:layout_height="60dp"
+            android:layout_height="55dp"
             android:orientation="horizontal">
 
             <Button
@@ -483,7 +501,7 @@
                 android:layout_width="0dp"
                 android:layout_height="match_parent"
                 android:layout_weight="1"
-                android:text="ڦ" />
+                android:text="ہ" />
 
             <Button
                 android:id="@+id/key_ghay"
@@ -494,11 +512,11 @@
 
         </LinearLayout>
 
-        <!-- Shift Row 3 -->
+        <!-- ROW 3 -->
 
         <LinearLayout
             android:layout_width="match_parent"
-            android:layout_height="60dp"
+            android:layout_height="55dp"
             android:orientation="horizontal">
 
             <Button
@@ -561,11 +579,14 @@
 
     </LinearLayout>
 
-    <!-- هيٺيان ڪنٽرول -->
+
+    <!-- ========================= -->
+    <!-- BOTTOM CONTROLS -->
+    <!-- ========================= -->
 
     <LinearLayout
         android:layout_width="match_parent"
-        android:layout_height="60dp"
+        android:layout_height="55dp"
         android:orientation="horizontal">
 
         <Button
