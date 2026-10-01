@@ -75,7 +75,7 @@ public class SindhiKeyboardService extends InputMethodService {
         setKey(keyboard, R.id.key_waw, "ڏ");
         setKey(keyboard, R.id.key_hay2, "۽");
         setKey(keyboard, R.id.key_jhay, "ح");
-        setKey(keyboard, R.id.key_kay, "ڦ");
+        setKey(keyboard, R.id.key_kay, "ہ");
         setKey(keyboard, R.id.key_ghay, "ڊ");
 
         setKey(keyboard, R.id.key_hamza, "ش");
