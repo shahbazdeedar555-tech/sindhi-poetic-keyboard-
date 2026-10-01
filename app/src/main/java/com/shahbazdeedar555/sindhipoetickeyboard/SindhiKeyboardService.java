@@ -1,6 +1,7 @@
 package com.shahbazdeedar555.sindhipoetickeyboard;
 
 import android.inputmethodservice.InputMethodService;
+import android.graphics.Color;
 import android.view.KeyEvent;
 import android.view.View;
 import android.widget.Button;
@@ -16,6 +17,14 @@ public class SindhiKeyboardService extends InputMethodService {
                 R.layout.keyboard_view,
                 null
         );
+
+        // =========================
+        // MAKE ALL BUTTONS BLACK
+        // TEXT WHITE
+        // =========================
+
+        setAllButtonsStyle(keyboard);
+
 
         // =========================
         // PAGE 1 — 32 LETTERS
@@ -76,6 +85,19 @@ public class SindhiKeyboardService extends InputMethodService {
 
 
         // =========================
+        // PUNCTUATION
+        // =========================
+
+        setKey(R.id.key_period, ".");
+        setKey(R.id.key_comma, "،");
+        setKey(R.id.key_question, "؟");
+        setKey(R.id.key_quote_open, "“");
+        setKey(R.id.key_quote_close, "”");
+        setKey(R.id.key_colon, ":");
+        setKey(R.id.key_exclamation, "!");
+
+
+        // =========================
         // SHIFT PAGE
         // =========================
 
@@ -114,9 +136,11 @@ public class SindhiKeyboardService extends InputMethodService {
         Button delete = keyboard.findViewById(R.id.key_delete);
 
         if (delete != null) {
+
             delete.setOnClickListener(v -> {
 
                 if (getCurrentInputConnection() != null) {
+
                     getCurrentInputConnection()
                             .deleteSurroundingText(1, 0);
                 }
@@ -131,9 +155,11 @@ public class SindhiKeyboardService extends InputMethodService {
         Button space = keyboard.findViewById(R.id.key_space);
 
         if (space != null) {
+
             space.setOnClickListener(v -> {
 
                 if (getCurrentInputConnection() != null) {
+
                     getCurrentInputConnection()
                             .commitText(" ", 1);
                 }
@@ -148,6 +174,7 @@ public class SindhiKeyboardService extends InputMethodService {
         Button enter = keyboard.findViewById(R.id.key_enter);
 
         if (enter != null) {
+
             enter.setOnClickListener(v -> {
 
                 if (getCurrentInputConnection() != null) {
@@ -224,6 +251,35 @@ public class SindhiKeyboardService extends InputMethodService {
                             .commitText(text, 1);
                 }
             });
+        }
+    }
+
+
+    // =========================
+    // BLACK BUTTONS
+    // WHITE TEXT
+    // =========================
+
+    private void setAllButtonsStyle(View view) {
+
+        if (view instanceof Button) {
+
+            Button button = (Button) view;
+
+            button.setBackgroundColor(Color.BLACK);
+            button.setTextColor(Color.WHITE);
+
+        } else if (view instanceof android.view.ViewGroup) {
+
+            android.view.ViewGroup group =
+                    (android.view.ViewGroup) view;
+
+            for (int i = 0; i < group.getChildCount(); i++) {
+
+                setAllButtonsStyle(
+                        group.getChildAt(i)
+                );
+            }
         }
     }
 }
