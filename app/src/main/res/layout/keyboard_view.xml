@@ -328,21 +328,25 @@
                 android:text="ٰ" />
 
             <Button
+                android:id="@+id/key_mark_8"
                 android:layout_width="wrap_content"
                 android:layout_height="match_parent"
                 android:text="آ" />
 
             <Button
+                android:id="@+id/key_mark_9"
                 android:layout_width="wrap_content"
                 android:layout_height="match_parent"
                 android:text="ي" />
 
             <Button
+                android:id="@+id/key_mark_10"
                 android:layout_width="wrap_content"
                 android:layout_height="match_parent"
                 android:text="ئ" />
 
             <Button
+                android:id="@+id/key_mark_11"
                 android:layout_width="wrap_content"
                 android:layout_height="match_parent"
                 android:text="ى" />
