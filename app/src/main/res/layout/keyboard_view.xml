@@ -275,7 +275,7 @@
 
         </LinearLayout>
 
-        <!-- زبر، زير ۽ خاص نشانين جي پٽي ـ ساڄي پاسي -->
+        <!-- زبر، زير ۽ خاص نشانين جي پٽي -->
 
         <LinearLayout
             android:id="@+id/marks_strip"
@@ -286,36 +286,43 @@
             android:layoutDirection="rtl">
 
             <Button
+                android:id="@+id/key_mark_1"
                 android:layout_width="wrap_content"
                 android:layout_height="match_parent"
                 android:text="ـ" />
 
             <Button
+                android:id="@+id/key_mark_2"
                 android:layout_width="wrap_content"
                 android:layout_height="match_parent"
                 android:text="َ" />
 
             <Button
+                android:id="@+id/key_mark_3"
                 android:layout_width="wrap_content"
                 android:layout_height="match_parent"
                 android:text="ِ" />
 
             <Button
+                android:id="@+id/key_mark_4"
                 android:layout_width="wrap_content"
                 android:layout_height="match_parent"
                 android:text="ُ" />
 
             <Button
+                android:id="@+id/key_mark_5"
                 android:layout_width="wrap_content"
                 android:layout_height="match_parent"
                 android:text="ْ" />
 
             <Button
+                android:id="@+id/key_mark_6"
                 android:layout_width="wrap_content"
                 android:layout_height="match_parent"
                 android:text="ّ" />
 
             <Button
+                android:id="@+id/key_mark_7"
                 android:layout_width="wrap_content"
                 android:layout_height="match_parent"
                 android:text="ٰ" />
@@ -343,7 +350,6 @@
         </LinearLayout>
 
     </LinearLayout>
-
 
     <!-- ٻيو حصو: Shift -->
 
@@ -550,7 +556,6 @@
         </LinearLayout>
 
     </LinearLayout>
-
 
     <!-- هيٺيان ڪنٽرول -->
 
