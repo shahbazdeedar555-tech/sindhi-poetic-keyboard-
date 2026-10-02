@@ -255,47 +255,38 @@ public class SindhiKeyboardService extends InputMethodService {
         }
 
 
-        // ========================================
-        // SEND / ENTER
-        // ========================================
+    // ========================================
+// ENTER — NEW LINE
+// ========================================
 
-        Button send =
-                keyboard.findViewById(R.id.key_enter);
+Button send =
+        keyboard.findViewById(R.id.key_enter);
 
-        if (send != null) {
+if (send != null) {
 
-            send.setOnClickListener(v -> {
+    send.setOnClickListener(v -> {
 
-                if (getCurrentInputConnection() == null) {
-                    return;
-                }
-
-                boolean sent =
-                        getCurrentInputConnection()
-                                .performEditorAction(
-                                        EditorInfo.IME_ACTION_SEND
-                                );
-
-                if (!sent) {
-
-                    getCurrentInputConnection()
-                            .sendKeyEvent(
-                                    new KeyEvent(
-                                            KeyEvent.ACTION_DOWN,
-                                            KeyEvent.KEYCODE_ENTER
-                                    )
-                            );
-
-                    getCurrentInputConnection()
-                            .sendKeyEvent(
-                                    new KeyEvent(
-                                            KeyEvent.ACTION_UP,
-                                            KeyEvent.KEYCODE_ENTER
-                                    )
-                            );
-                }
-            });
+        if (getCurrentInputConnection() == null) {
+            return;
         }
+
+        getCurrentInputConnection()
+                .sendKeyEvent(
+                        new KeyEvent(
+                                KeyEvent.ACTION_DOWN,
+                                KeyEvent.KEYCODE_ENTER
+                        )
+                );
+
+        getCurrentInputConnection()
+                .sendKeyEvent(
+                        new KeyEvent(
+                                KeyEvent.ACTION_UP,
+                                KeyEvent.KEYCODE_ENTER
+                        )
+                );
+    });
+}
 
 
         // ========================================
