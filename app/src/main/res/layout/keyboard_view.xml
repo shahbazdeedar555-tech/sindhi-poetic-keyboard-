@@ -77,6 +77,19 @@
             <Button android:id="@+id/key_za" android:layout_width="0dp" android:layout_height="match_parent" android:layout_weight="1" android:text="ز" android:textSize="19sp" android:textColor="#FFFFFF" android:background="#000000"/>
         </LinearLayout>
 
+        <!-- Page 1 Harakat -->
+        <LinearLayout
+            android:layout_width="match_parent"
+            android:layout_height="58dp"
+            android:orientation="horizontal">
+
+            <Button android:id="@+id/key_zabar1" android:layout_width="0dp" android:layout_height="match_parent" android:layout_weight="1" android:text="َ" android:textSize="28sp" android:textColor="#FFFFFF" android:background="#000000"/>
+            <Button android:id="@+id/key_zer1" android:layout_width="0dp" android:layout_height="match_parent" android:layout_weight="1" android:text="ِ" android:textSize="28sp" android:textColor="#FFFFFF" android:background="#000000"/>
+            <Button android:id="@+id/key_pesh1" android:layout_width="0dp" android:layout_height="match_parent" android:layout_weight="1" android:text="ُ" android:textSize="28sp" android:textColor="#FFFFFF" android:background="#000000"/>
+            <Button android:id="@+id/key_jazm1" android:layout_width="0dp" android:layout_height="match_parent" android:layout_weight="1" android:text="ۡ" android:textSize="28sp" android:textColor="#FFFFFF" android:background="#000000"/>
+            <Button android:id="@+id/key_shadd1" android:layout_width="0dp" android:layout_height="match_parent" android:layout_weight="1" android:text="ّ" android:textSize="28sp" android:textColor="#FFFFFF" android:background="#000000"/>
+        </LinearLayout>
+
         <!-- Special Characters -->
         <LinearLayout
             android:layout_width="match_parent"
@@ -236,9 +249,9 @@
             <Button android:id="@+id/s11" android:layout_width="0dp" android:layout_height="match_parent" android:layout_weight="1" android:text="ڌ" android:textSize="20sp" android:textColor="#FFFFFF" android:background="#000000"/>
             <Button android:id="@+id/s12" android:layout_width="0dp" android:layout_height="match_parent" android:layout_weight="1" android:text="ڏ" android:textSize="20sp" android:textColor="#FFFFFF" android:background="#000000"/>
             <Button android:id="@+id/s13" android:layout_width="0dp" android:layout_height="match_parent" android:layout_weight="1" android:text="ح" android:textSize="20sp" android:textColor="#FFFFFF" android:background="#000000"/>
-            <Button android:id="@+id/s14" android:layout_width="0dp" android:layout_height="match_parent" android:layout_weight="1" android:text="ڦ" android:textSize="20sp" android:textColor="#FFFFFF" android:background="#000000"/>
-            <Button android:id="@+id/s15" android:layout_width="0dp" android:layout_height="match_parent" android:layout_weight="1" android:text="ڊ" android:textSize="20sp" android:textColor="#FFFFFF" android:background="#000000"/>
-            <Button android:id="@+id/s16" android:layout_width="0dp" android:layout_height="match_parent" android:layout_weight="1" android:text="ش" android:textSize="20sp" android:textColor="#FFFFFF" android:background="#000000"/>
+            <Button android:id="@+id/s14" android:layout_width="0dp" android:layout_height="match_parent" android:layout_weight="1" android:text="ڊ" android:textSize="20sp" android:textColor="#FFFFFF" android:background="#000000"/>
+            <Button android:id="@+id/s15" android:layout_width="0dp" android:layout_height="match_parent" android:layout_weight="1" android:text="ش" android:textSize="20sp" android:textColor="#FFFFFF" android:background="#000000"/>
+            <Button android:id="@+id/s16" android:layout_width="0dp" android:layout_height="match_parent" android:layout_weight="1" android:text="ڦ" android:textSize="20sp" android:textColor="#FFFFFF" android:background="#000000"/>
             <Button android:id="@+id/s17" android:layout_width="0dp" android:layout_height="match_parent" android:layout_weight="1" android:text="آ" android:textSize="20sp" android:textColor="#FFFFFF" android:background="#000000"/>
         </LinearLayout>
 
