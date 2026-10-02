@@ -34,14 +34,20 @@ public class SindhiKeyboardService extends InputMethodService {
     }
 
     // =========================================================
+    // FIND VIEW
+    // =========================================================
+
+    private View find(int id) {
+        return keyboard.findViewById(id);
+    }
+
+    // =========================================================
     // PAGE 1
     // =========================================================
 
     private void setupPage1() {
 
-        // -----------------------------------------------------
         // Main Sindhi letters
-        // -----------------------------------------------------
 
         setKey(R.id.key_ch, "چ");
         setKey(R.id.key_chh, "ڇ");
@@ -78,9 +84,7 @@ public class SindhiKeyboardService extends InputMethodService {
         setKey(R.id.key_kha, "خ");
         setKey(R.id.key_za, "ز");
 
-        // -----------------------------------------------------
         // Special letters
-        // -----------------------------------------------------
 
         setKey(R.id.key_and, "۽");
         setKey(R.id.key_ma, "۾");
@@ -90,15 +94,11 @@ public class SindhiKeyboardService extends InputMethodService {
         setKey(R.id.key_alif_maqsura, "ى");
         setKey(R.id.key_alif_khanjari, "ٰ");
 
-        // -----------------------------------------------------
         // Long line
-        // -----------------------------------------------------
 
         setKey(R.id.key_tatweel, "ـ");
 
-        // -----------------------------------------------------
         // Punctuation
-        // -----------------------------------------------------
 
         setKey(R.id.key_underscore, "_");
         setKey(R.id.key_comma, "،");
@@ -108,9 +108,7 @@ public class SindhiKeyboardService extends InputMethodService {
         setKey(R.id.key_semicolon, "؛");
         setKey(R.id.key_exclamation, "!");
 
-        // -----------------------------------------------------
         // Numbers
-        // -----------------------------------------------------
 
         setKey(R.id.key_num0, "٠");
         setKey(R.id.key_num9, "٩");
@@ -123,17 +121,23 @@ public class SindhiKeyboardService extends InputMethodService {
         setKey(R.id.key_num2, "٢");
         setKey(R.id.key_num1, "١");
 
-        // -----------------------------------------------------
         // Controls
-        // -----------------------------------------------------
 
-        find(R.id.key_shift).setOnClickListener(v -> togglePage());
+        find(R.id.key_shift).setOnClickListener(
+                v -> togglePage()
+        );
 
-        find(R.id.key_delete).setOnClickListener(v -> deleteOne());
+        find(R.id.key_delete).setOnClickListener(
+                v -> deleteOne()
+        );
 
-        find(R.id.key_enter).setOnClickListener(v -> pressEnter());
+        find(R.id.key_enter).setOnClickListener(
+                v -> pressEnter()
+        );
 
-        find(R.id.key_space).setOnClickListener(v -> commit(" "));
+        find(R.id.key_space).setOnClickListener(
+                v -> commit(" ")
+        );
     }
 
     // =========================================================
@@ -142,9 +146,8 @@ public class SindhiKeyboardService extends InputMethodService {
 
     private void setupPage2() {
 
-        // -----------------------------------------------------
         // Page 2 letters
-        // -----------------------------------------------------
+        // ڦ صرف هڪ ڀيرو آهي.
 
         setKey(R.id.s1, "ڄ");
         setKey(R.id.s2, "ڃ");
@@ -171,9 +174,7 @@ public class SindhiKeyboardService extends InputMethodService {
         setKey(R.id.s22, "ظ");
         setKey(R.id.s23, "ذ");
 
-        // -----------------------------------------------------
         // Harakat
-        // -----------------------------------------------------
 
         setKey(R.id.key_zabar, "َ");
         setKey(R.id.key_zer, "ِ");
@@ -181,17 +182,23 @@ public class SindhiKeyboardService extends InputMethodService {
         setKey(R.id.key_jazm, "ۡ");
         setKey(R.id.key_shadd, "ّ");
 
-        // -----------------------------------------------------
         // Controls
-        // -----------------------------------------------------
 
-        find(R.id.key_shift2).setOnClickListener(v -> togglePage());
+        find(R.id.key_shift2).setOnClickListener(
+                v -> togglePage()
+        );
 
-        find(R.id.key_delete2).setOnClickListener(v -> deleteOne());
+        find(R.id.key_delete2).setOnClickListener(
+                v -> deleteOne()
+        );
 
-        find(R.id.key_enter2).setOnClickListener(v -> pressEnter());
+        find(R.id.key_enter2).setOnClickListener(
+                v -> pressEnter()
+        );
 
-        find(R.id.key_space2).setOnClickListener(v -> commit(" "));
+        find(R.id.key_space2).setOnClickListener(
+                v -> commit(" ")
+        );
     }
 
     // =========================================================
@@ -200,13 +207,15 @@ public class SindhiKeyboardService extends InputMethodService {
 
     private void setKey(int id, String text) {
 
-        View view = keyboard.findViewById(id);
+        View view = find(id);
 
         if (view instanceof Button) {
 
             Button button = (Button) view;
 
-            button.setOnClickListener(v -> commit(text));
+            button.setOnClickListener(
+                    v -> commit(text)
+            );
         }
     }
 
@@ -232,7 +241,6 @@ public class SindhiKeyboardService extends InputMethodService {
         InputConnection ic = getCurrentInputConnection();
 
         if (ic != null) {
-
             ic.deleteSurroundingText(1, 0);
         }
     }
@@ -288,11 +296,8 @@ public class SindhiKeyboardService extends InputMethodService {
     private void togglePage() {
 
         if (page2) {
-
             showPage1();
-
         } else {
-
             showPage2();
         }
     }
@@ -305,13 +310,8 @@ public class SindhiKeyboardService extends InputMethodService {
 
         page2 = false;
 
-        View p1 = keyboard.findViewById(
-                R.id.keyboard_page1
-        );
-
-        View p2 = keyboard.findViewById(
-                R.id.keyboard_page2
-        );
+        View p1 = find(R.id.keyboard_page1);
+        View p2 = find(R.id.keyboard_page2);
 
         p1.setVisibility(View.VISIBLE);
         p2.setVisibility(View.GONE);
@@ -325,20 +325,15 @@ public class SindhiKeyboardService extends InputMethodService {
 
         page2 = true;
 
-        View p1 = keyboard.findViewById(
-                R.id.keyboard_page1
-        );
-
-        View p2 = keyboard.findViewById(
-                R.id.keyboard_page2
-        );
+        View p1 = find(R.id.keyboard_page1);
+        View p2 = find(R.id.keyboard_page2);
 
         p1.setVisibility(View.GONE);
         p2.setVisibility(View.VISIBLE);
     }
 
     // =========================================================
-    // INPUT VIEW
+    // NEW INPUT
     // =========================================================
 
     @Override
