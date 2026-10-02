@@ -1,237 +1,227 @@
-<?xml version="1.0" encoding="utf-8"?>
+
+<!-- ================================================= -->
+<!-- PAGE 1 -->
+<!-- ================================================= -->
 
 <LinearLayout
-    xmlns:android="http://schemas.android.com/apk/res/android"
-    android:id="@+id/keyboard_root"
+    android:id="@+id/keyboard_page1"
     android:layout_width="match_parent"
     android:layout_height="wrap_content"
-    android:minHeight="300dp"
-    android:orientation="vertical"
-    android:background="#173F35"
-    android:padding="2dp">
+    android:orientation="vertical">
 
-    <!-- ================================================= -->
-    <!-- PAGE 1 -->
-    <!-- ================================================= -->
+    <!-- ROW 1 -->
+    <!-- چ ڇ پ و ڳ ع ٿ ت ر ي ص ق -->
 
     <LinearLayout
-        android:id="@+id/keyboard_page1"
         android:layout_width="match_parent"
-        android:layout_height="wrap_content"
-        android:orientation="vertical">
+        android:layout_height="48dp"
+        android:orientation="horizontal">
 
-        <!-- ROW 1 : ت ٿ ع ڳ و پ ڇ چ ج ڪ -->
-
-        <LinearLayout
-            android:layout_width="match_parent"
-            android:layout_height="48dp"
-            android:orientation="horizontal">
-
-            <Button android:id="@+id/key_ta1" android:layout_width="0dp" android:layout_height="match_parent" android:layout_weight="1" android:text="ت" android:textColor="#FFFFFF" android:textSize="20sp" android:background="#000000"/>
-            <Button android:id="@+id/key_th" android:layout_width="0dp" android:layout_height="match_parent" android:layout_weight="1" android:text="ٿ" android:textColor="#FFFFFF" android:textSize="20sp" android:background="#000000"/>
-            <Button android:id="@+id/key_ain" android:layout_width="0dp" android:layout_height="match_parent" android:layout_weight="1" android:text="ع" android:textColor="#FFFFFF" android:textSize="20sp" android:background="#000000"/>
-            <Button android:id="@+id/key_ghain" android:layout_width="0dp" android:layout_height="match_parent" android:layout_weight="1" android:text="ڳ" android:textColor="#FFFFFF" android:textSize="20sp" android:background="#000000"/>
-            <Button android:id="@+id/key_waw" android:layout_width="0dp" android:layout_height="match_parent" android:layout_weight="1" android:text="و" android:textColor="#FFFFFF" android:textSize="20sp" android:background="#000000"/>
-            <Button android:id="@+id/key_pay" android:layout_width="0dp" android:layout_height="match_parent" android:layout_weight="1" android:text="پ" android:textColor="#FFFFFF" android:textSize="20sp" android:background="#000000"/>
-            <Button android:id="@+id/key_chh" android:layout_width="0dp" android:layout_height="match_parent" android:layout_weight="1" android:text="ڇ" android:textColor="#FFFFFF" android:textSize="20sp" android:background="#000000"/>
-            <Button android:id="@+id/key_ch" android:layout_width="0dp" android:layout_height="match_parent" android:layout_weight="1" android:text="چ" android:textColor="#FFFFFF" android:textSize="20sp" android:background="#000000"/>
-            <Button android:id="@+id/key_jeem" android:layout_width="0dp" android:layout_height="match_parent" android:layout_weight="1" android:text="ج" android:textColor="#FFFFFF" android:textSize="20sp" android:background="#000000"/>
-            <Button android:id="@+id/key_kaf" android:layout_width="0dp" android:layout_height="match_parent" android:layout_weight="1" android:text="ڪ" android:textColor="#FFFFFF" android:textSize="20sp" android:background="#000000"/>
-
-        </LinearLayout>
-
-        <!-- ROW 2 : ل ک ڱ ڍ ق ص ي ر ا س -->
-
-        <LinearLayout
-            android:layout_width="match_parent"
-            android:layout_height="48dp"
-            android:orientation="horizontal">
-
-            <Button android:id="@+id/key_lam" android:layout_width="0dp" android:layout_height="match_parent" android:layout_weight="1" android:text="ل" android:textColor="#FFFFFF" android:textSize="20sp" android:background="#000000"/>
-            <Button android:id="@+id/key_khay" android:layout_width="0dp" android:layout_height="match_parent" android:layout_weight="1" android:text="ک" android:textColor="#FFFFFF" android:textSize="20sp" android:background="#000000"/>
-            <Button android:id="@+id/key_ng" android:layout_width="0dp" android:layout_height="match_parent" android:layout_weight="1" android:text="ڱ" android:textColor="#FFFFFF" android:textSize="20sp" android:background="#000000"/>
-            <Button android:id="@+id/key_ddal" android:layout_width="0dp" android:layout_height="match_parent" android:layout_weight="1" android:text="ڍ" android:textColor="#FFFFFF" android:textSize="20sp" android:background="#000000"/>
-            <Button android:id="@+id/key_qaf" android:layout_width="0dp" android:layout_height="match_parent" android:layout_weight="1" android:text="ق" android:textColor="#FFFFFF" android:textSize="20sp" android:background="#000000"/>
-            <Button android:id="@+id/key_sad" android:layout_width="0dp" android:layout_height="match_parent" android:layout_weight="1" android:text="ص" android:textColor="#FFFFFF" android:textSize="20sp" android:background="#000000"/>
-            <Button android:id="@+id/key_yay" android:layout_width="0dp" android:layout_height="match_parent" android:layout_weight="1" android:text="ي" android:textColor="#FFFFFF" android:textSize="20sp" android:background="#000000"/>
-            <Button android:id="@+id/key_ray" android:layout_width="0dp" android:layout_height="match_parent" android:layout_weight="1" android:text="ر" android:textColor="#FFFFFF" android:textSize="20sp" android:background="#000000"/>
-            <Button android:id="@+id/key_alif" android:layout_width="0dp" android:layout_height="match_parent" android:layout_weight="1" android:text="ا" android:textColor="#FFFFFF" android:textSize="20sp" android:background="#000000"/>
-            <Button android:id="@+id/key_seen" android:layout_width="0dp" android:layout_height="match_parent" android:layout_weight="1" android:text="س" android:textColor="#FFFFFF" android:textSize="20sp" android:background="#000000"/>
-
-        </LinearLayout>
-
-        <!-- ROW 3 : د ف گ ه ز خ ط ڀ ب ن -->
-
-        <LinearLayout
-            android:layout_width="match_parent"
-            android:layout_height="48dp"
-            android:orientation="horizontal">
-
-            <Button android:id="@+id/key_dal" android:layout_width="0dp" android:layout_height="match_parent" android:layout_weight="1" android:text="د" android:textColor="#FFFFFF" android:textSize="20sp" android:background="#000000"/>
-            <Button android:id="@+id/key_fay" android:layout_width="0dp" android:layout_height="match_parent" android:layout_weight="1" android:text="ف" android:textColor="#FFFFFF" android:textSize="20sp" android:background="#000000"/>
-            <Button android:id="@+id/key_gaf" android:layout_width="0dp" android:layout_height="match_parent" android:layout_weight="1" android:text="گ" android:textColor="#FFFFFF" android:textSize="20sp" android:background="#000000"/>
-            <Button android:id="@+id/key_hay" android:layout_width="0dp" android:layout_height="match_parent" android:layout_weight="1" android:text="ه" android:textColor="#FFFFFF" android:textSize="20sp" android:background="#000000"/>
-            <Button android:id="@+id/key_za" android:layout_width="0dp" android:layout_height="match_parent" android:layout_weight="1" android:text="ز" android:textColor="#FFFFFF" android:textSize="20sp" android:background="#000000"/>
-            <Button android:id="@+id/key_kha" android:layout_width="0dp" android:layout_height="match_parent" android:layout_weight="1" android:text="خ" android:textColor="#FFFFFF" android:textSize="20sp" android:background="#000000"/>
-            <Button android:id="@+id/key_ta2" android:layout_width="0dp" android:layout_height="match_parent" android:layout_weight="1" android:text="ط" android:textColor="#FFFFFF" android:textSize="20sp" android:background="#000000"/>
-            <Button android:id="@+id/key_bh" android:layout_width="0dp" android:layout_height="match_parent" android:layout_weight="1" android:text="ڀ" android:textColor="#FFFFFF" android:textSize="20sp" android:background="#000000"/>
-            <Button android:id="@+id/key_bay" android:layout_width="0dp" android:layout_height="match_parent" android:layout_weight="1" android:text="ب" android:textColor="#FFFFFF" android:textSize="20sp" android:background="#000000"/>
-            <Button android:id="@+id/key_noon" android:layout_width="0dp" android:layout_height="match_parent" android:layout_weight="1" android:text="ن" android:textColor="#FFFFFF" android:textSize="20sp" android:background="#000000"/>
-
-        </LinearLayout>
-
-        <!-- ROW 4 : م ئ + SHIFT DELETE -->
-
-        <LinearLayout
-            android:layout_width="match_parent"
-            android:layout_height="48dp"
-            android:orientation="horizontal">
-
-            <Button android:id="@+id/key_meem" android:layout_width="0dp" android:layout_height="match_parent" android:layout_weight="1" android:text="م" android:textColor="#FFFFFF" android:textSize="20sp" android:background="#000000"/>
-            <Button android:id="@+id/key_hamza_y" android:layout_width="0dp" android:layout_height="match_parent" android:layout_weight="1" android:text="ئ" android:textColor="#FFFFFF" android:textSize="20sp" android:background="#000000"/>
-
-            <Button android:id="@+id/key_shift" android:layout_width="0dp" android:layout_height="match_parent" android:layout_weight="2" android:text="SHIFT" android:textColor="#FFFFFF" android:textSize="15sp" android:background="#000000"/>
-
-            <Button android:id="@+id/key_delete" android:layout_width="0dp" android:layout_height="match_parent" android:layout_weight="2" android:text="DELETE" android:textColor="#FFFFFF" android:textSize="15sp" android:background="#000000"/>
-
-        </LinearLayout>
-
-        <!-- SYMBOLS -->
-
-        <LinearLayout
-            android:layout_width="match_parent"
-            android:layout_height="44dp"
-            android:orientation="horizontal">
-
-            <Button android:id="@+id/key_colon" android:layout_width="0dp" android:layout_height="match_parent" android:layout_weight="1" android:text=":" android:textColor="#FFFFFF" android:textSize="20sp" android:background="#000000"/>
-            <Button android:id="@+id/key_semicolon" android:layout_width="0dp" android:layout_height="match_parent" android:layout_weight="1" android:text="؛" android:textColor="#FFFFFF" android:textSize="20sp" android:background="#000000"/>
-            <Button android:id="@+id/key_question" android:layout_width="0dp" android:layout_height="match_parent" android:layout_weight="1" android:text="؟" android:textColor="#FFFFFF" android:textSize="20sp" android:background="#000000"/>
-            <Button android:id="@+id/key_quote1" android:layout_width="0dp" android:layout_height="match_parent" android:layout_weight="1" android:text="“" android:textColor="#FFFFFF" android:textSize="20sp" android:background="#000000"/>
-            <Button android:id="@+id/key_quote2" android:layout_width="0dp" android:layout_height="match_parent" android:layout_weight="1" android:text="”" android:textColor="#FFFFFF" android:textSize="20sp" android:background="#000000"/>
-            <Button android:id="@+id/key_underscore" android:layout_width="0dp" android:layout_height="match_parent" android:layout_weight="1" android:text="_" android:textColor="#FFFFFF" android:textSize="20sp" android:background="#000000"/>
-            <Button android:id="@+id/key_exclamation" android:layout_width="0dp" android:layout_height="match_parent" android:layout_weight="1" android:text="!" android:textColor="#FFFFFF" android:textSize="20sp" android:background="#000000"/>
-            <Button android:id="@+id/key_ellipsis" android:layout_width="0dp" android:layout_height="match_parent" android:layout_weight="1" android:text="…" android:textColor="#FFFFFF" android:textSize="20sp" android:background="#000000"/>
-
-        </LinearLayout>
-
-        <!-- BOTTOM -->
-
-        <LinearLayout
-            android:layout_width="match_parent"
-            android:layout_height="48dp"
-            android:orientation="horizontal">
-
-            <Button android:id="@+id/key_enter" android:layout_width="0dp" android:layout_height="match_parent" android:layout_weight="1.5" android:text="ENTER" android:textColor="#FFFFFF" android:textSize="15sp" android:background="#000000"/>
-
-            <Button android:id="@+id/key_space" android:layout_width="0dp" android:layout_height="match_parent" android:layout_weight="3" android:text="SPACE" android:textColor="#FFFFFF" android:textSize="15sp" android:background="#000000"/>
-
-        </LinearLayout>
+        <Button android:id="@+id/key_ch" android:layout_width="0dp" android:layout_height="match_parent" android:layout_weight="1" android:text="چ" android:textColor="#FFFFFF" android:textSize="20sp" android:background="#000000"/>
+        <Button android:id="@+id/key_chh" android:layout_width="0dp" android:layout_height="match_parent" android:layout_weight="1" android:text="ڇ" android:textColor="#FFFFFF" android:textSize="20sp" android:background="#000000"/>
+        <Button android:id="@+id/key_pay" android:layout_width="0dp" android:layout_height="match_parent" android:layout_weight="1" android:text="پ" android:textColor="#FFFFFF" android:textSize="20sp" android:background="#000000"/>
+        <Button android:id="@+id/key_waw" android:layout_width="0dp" android:layout_height="match_parent" android:layout_weight="1" android:text="و" android:textColor="#FFFFFF" android:textSize="20sp" android:background="#000000"/>
+        <Button android:id="@+id/key_ghain" android:layout_width="0dp" android:layout_height="match_parent" android:layout_weight="1" android:text="ڳ" android:textColor="#FFFFFF" android:textSize="20sp" android:background="#000000"/>
+        <Button android:id="@+id/key_ain" android:layout_width="0dp" android:layout_height="match_parent" android:layout_weight="1" android:text="ع" android:textColor="#FFFFFF" android:textSize="20sp" android:background="#000000"/>
+        <Button android:id="@+id/key_th" android:layout_width="0dp" android:layout_height="match_parent" android:layout_weight="1" android:text="ٿ" android:textColor="#FFFFFF" android:textSize="20sp" android:background="#000000"/>
+        <Button android:id="@+id/key_ta1" android:layout_width="0dp" android:layout_height="match_parent" android:layout_weight="1" android:text="ت" android:textColor="#FFFFFF" android:textSize="20sp" android:background="#000000"/>
+        <Button android:id="@+id/key_ray" android:layout_width="0dp" android:layout_height="match_parent" android:layout_weight="1" android:text="ر" android:textColor="#FFFFFF" android:textSize="20sp" android:background="#000000"/>
+        <Button android:id="@+id/key_yay" android:layout_width="0dp" android:layout_height="match_parent" android:layout_weight="1" android:text="ي" android:textColor="#FFFFFF" android:textSize="20sp" android:background="#000000"/>
+        <Button android:id="@+id/key_sad" android:layout_width="0dp" android:layout_height="match_parent" android:layout_weight="1" android:text="ص" android:textColor="#FFFFFF" android:textSize="20sp" android:background="#000000"/>
+        <Button android:id="@+id/key_qaf" android:layout_width="0dp" android:layout_height="match_parent" android:layout_weight="1" android:text="ق" android:textColor="#FFFFFF" android:textSize="20sp" android:background="#000000"/>
 
     </LinearLayout>
 
-
-    <!-- ================================================= -->
-    <!-- PAGE 2 : SHIFT -->
-    <!-- ================================================= -->
+    <!-- ROW 2 -->
+    <!-- ڍ ڱ ک ل ل ج ه گ ف د س ا -->
 
     <LinearLayout
-        android:id="@+id/keyboard_page2"
         android:layout_width="match_parent"
-        android:layout_height="wrap_content"
-        android:orientation="vertical"
-        android:visibility="gone">
+        android:layout_height="48dp"
+        android:orientation="horizontal">
 
-        <!-- ROW 1 -->
+        <Button android:id="@+id/key_ddal" android:layout_width="0dp" android:layout_height="match_parent" android:layout_weight="1" android:text="ڍ" android:textColor="#FFFFFF" android:textSize="20sp" android:background="#000000"/>
+        <Button android:id="@+id/key_ng" android:layout_width="0dp" android:layout_height="match_parent" android:layout_weight="1" android:text="ڱ" android:textColor="#FFFFFF" android:textSize="20sp" android:background="#000000"/>
+        <Button android:id="@+id/key_khay" android:layout_width="0dp" android:layout_height="match_parent" android:layout_weight="1" android:text="ک" android:textColor="#FFFFFF" android:textSize="20sp" android:background="#000000"/>
+        <Button android:id="@+id/key_lam" android:layout_width="0dp" android:layout_height="match_parent" android:layout_weight="1" android:text="ل" android:textColor="#FFFFFF" android:textSize="20sp" android:background="#000000"/>
+        <Button android:id="@+id/key_lam2" android:layout_width="0dp" android:layout_height="match_parent" android:layout_weight="1" android:text="ل" android:textColor="#FFFFFF" android:textSize="20sp" android:background="#000000"/>
+        <Button android:id="@+id/key_jeem" android:layout_width="0dp" android:layout_height="match_parent" android:layout_weight="1" android:text="ج" android:textColor="#FFFFFF" android:textSize="20sp" android:background="#000000"/>
+        <Button android:id="@+id/key_hay" android:layout_width="0dp" android:layout_height="match_parent" android:layout_weight="1" android:text="ه" android:textColor="#FFFFFF" android:textSize="20sp" android:background="#000000"/>
+        <Button android:id="@+id/key_gaf" android:layout_width="0dp" android:layout_height="match_parent" android:layout_weight="1" android:text="گ" android:textColor="#FFFFFF" android:textSize="20sp" android:background="#000000"/>
+        <Button android:id="@+id/key_fay" android:layout_width="0dp" android:layout_height="match_parent" android:layout_weight="1" android:text="ف" android:textColor="#FFFFFF" android:textSize="20sp" android:background="#000000"/>
+        <Button android:id="@+id/key_dal" android:layout_width="0dp" android:layout_height="match_parent" android:layout_weight="1" android:text="د" android:textColor="#FFFFFF" android:textSize="20sp" android:background="#000000"/>
+        <Button android:id="@+id/key_seen" android:layout_width="0dp" android:layout_height="match_parent" android:layout_weight="1" android:text="س" android:textColor="#FFFFFF" android:textSize="20sp" android:background="#000000"/>
+        <Button android:id="@+id/key_alif" android:layout_width="0dp" android:layout_height="match_parent" android:layout_weight="1" android:text="ا" android:textColor="#FFFFFF" android:textSize="20sp" android:background="#000000"/>
 
-        <LinearLayout
-            android:layout_width="match_parent"
-            android:layout_height="48dp"
-            android:orientation="horizontal">
+    </LinearLayout>
 
-            <Button android:id="@+id/s1" android:layout_width="0dp" android:layout_height="match_parent" android:layout_weight="1" android:text="ڄ" android:textColor="#FFFFFF" android:textSize="20sp" android:background="#000000"/>
-            <Button android:id="@+id/s2" android:layout_width="0dp" android:layout_height="match_parent" android:layout_weight="1" android:text="ڃ" android:textColor="#FFFFFF" android:textSize="20sp" android:background="#000000"/>
-            <Button android:id="@+id/s3" android:layout_width="0dp" android:layout_height="match_parent" android:layout_weight="1" android:text="ڦ" android:textColor="#FFFFFF" android:textSize="20sp" android:background="#000000"/>
-            <Button android:id="@+id/s4" android:layout_width="0dp" android:layout_height="match_parent" android:layout_weight="1" android:text="ھ" android:textColor="#FFFFFF" android:textSize="20sp" android:background="#000000"/>
-            <Button android:id="@+id/s5" android:layout_width="0dp" android:layout_height="match_parent" android:layout_weight="1" android:text="غ" android:textColor="#FFFFFF" android:textSize="20sp" android:background="#000000"/>
-            <Button android:id="@+id/s6" android:layout_width="0dp" android:layout_height="match_parent" android:layout_weight="1" android:text="ث" android:textColor="#FFFFFF" android:textSize="20sp" android:background="#000000"/>
-            <Button android:id="@+id/s7" android:layout_width="0dp" android:layout_height="match_parent" android:layout_weight="1" android:text="ٽ" android:textColor="#FFFFFF" android:textSize="20sp" android:background="#000000"/>
-            <Button android:id="@+id/s8" android:layout_width="0dp" android:layout_height="match_parent" android:layout_weight="1" android:text="ڙ" android:textColor="#FFFFFF" android:textSize="20sp" android:background="#000000"/>
+    <!-- ROW 3 -->
+    <!-- ئ م ن ب ڀ ط خ ز -->
 
-        </LinearLayout>
+    <LinearLayout
+        android:layout_width="match_parent"
+        android:layout_height="48dp"
+        android:orientation="horizontal">
 
-        <!-- ROW 2 -->
+        <Button android:id="@+id/key_hamza_y" android:layout_width="0dp" android:layout_height="match_parent" android:layout_weight="1" android:text="ئ" android:textColor="#FFFFFF" android:textSize="20sp" android:background="#000000"/>
+        <Button android:id="@+id/key_meem" android:layout_width="0dp" android:layout_height="match_parent" android:layout_weight="1" android:text="م" android:textColor="#FFFFFF" android:textSize="20sp" android:background="#000000"/>
+        <Button android:id="@+id/key_noon" android:layout_width="0dp" android:layout_height="match_parent" android:layout_weight="1" android:text="ن" android:textColor="#FFFFFF" android:textSize="20sp" android:background="#000000"/>
+        <Button android:id="@+id/key_bay" android:layout_width="0dp" android:layout_height="match_parent" android:layout_weight="1" android:text="ب" android:textColor="#FFFFFF" android:textSize="20sp" android:background="#000000"/>
+        <Button android:id="@+id/key_bh" android:layout_width="0dp" android:layout_height="match_parent" android:layout_weight="1" android:text="ڀ" android:textColor="#FFFFFF" android:textSize="20sp" android:background="#000000"/>
+        <Button android:id="@+id/key_ta2" android:layout_width="0dp" android:layout_height="match_parent" android:layout_weight="1" android:text="ط" android:textColor="#FFFFFF" android:textSize="20sp" android:background="#000000"/>
+        <Button android:id="@+id/key_kha" android:layout_width="0dp" android:layout_height="match_parent" android:layout_weight="1" android:text="خ" android:textColor="#FFFFFF" android:textSize="20sp" android:background="#000000"/>
+        <Button android:id="@+id/key_za" android:layout_width="0dp" android:layout_height="match_parent" android:layout_weight="1" android:text="ز" android:textColor="#FFFFFF" android:textSize="20sp" android:background="#000000"/>
 
-        <LinearLayout
-            android:layout_width="match_parent"
-            android:layout_height="48dp"
-            android:orientation="horizontal">
+    </LinearLayout>
 
-            <Button android:id="@+id/s9" android:layout_width="0dp" android:layout_height="match_parent" android:layout_weight="1" android:text="ض" android:textColor="#FFFFFF" android:textSize="20sp" android:background="#000000"/>
-            <Button android:id="@+id/s10" android:layout_width="0dp" android:layout_height="match_parent" android:layout_weight="1" android:text="ٺ" android:textColor="#FFFFFF" android:textSize="20sp" android:background="#000000"/>
-            <Button android:id="@+id/s11" android:layout_width="0dp" android:layout_height="match_parent" android:layout_weight="1" android:text="ڌ" android:textColor="#FFFFFF" android:textSize="20sp" android:background="#000000"/>
-            <Button android:id="@+id/s12" android:layout_width="0dp" android:layout_height="match_parent" android:layout_weight="1" android:text="ڏ" android:textColor="#FFFFFF" android:textSize="20sp" android:background="#000000"/>
-            <Button android:id="@+id/s13" android:layout_width="0dp" android:layout_height="match_parent" android:layout_weight="1" android:text="۽" android:textColor="#FFFFFF" android:textSize="20sp" android:background="#000000"/>
-            <Button android:id="@+id/s14" android:layout_width="0dp" android:layout_height="match_parent" android:layout_weight="1" android:text="ح" android:textColor="#FFFFFF" android:textSize="20sp" android:background="#000000"/>
-            <Button android:id="@+id/s15" android:layout_width="0dp" android:layout_height="match_parent" android:layout_weight="1" android:text="ڊ" android:textColor="#FFFFFF" android:textSize="20sp" android:background="#000000"/>
-            <Button android:id="@+id/s16" android:layout_width="0dp" android:layout_height="match_parent" android:layout_weight="1" android:text="ش" android:textColor="#FFFFFF" android:textSize="20sp" android:background="#000000"/>
+    <!-- ROW 4 : SHIFT DELETE -->
 
-        </LinearLayout>
+    <LinearLayout
+        android:layout_width="match_parent"
+        android:layout_height="48dp"
+        android:orientation="horizontal">
 
-        <!-- ROW 3 -->
+        <Button android:id="@+id/key_shift" android:layout_width="0dp" android:layout_height="match_parent" android:layout_weight="2" android:text="SHIFT" android:textColor="#FFFFFF" android:textSize="15sp" android:background="#000000"/>
 
-        <LinearLayout
-            android:layout_width="match_parent"
-            android:layout_height="48dp"
-            android:orientation="horizontal">
+        <Button android:id="@+id/key_delete" android:layout_width="0dp" android:layout_height="match_parent" android:layout_weight="2" android:text="DELETE" android:textColor="#FFFFFF" android:textSize="15sp" android:background="#000000"/>
 
-            <Button android:id="@+id/s17" android:layout_width="0dp" android:layout_height="match_parent" android:layout_weight="1" android:text="آ" android:textColor="#FFFFFF" android:textSize="20sp" android:background="#000000"/>
-            <Button android:id="@+id/s18" android:layout_width="0dp" android:layout_height="match_parent" android:layout_weight="1" android:text="۾" android:textColor="#FFFFFF" android:textSize="20sp" android:background="#000000"/>
-            <Button android:id="@+id/s19" android:layout_width="0dp" android:layout_height="match_parent" android:layout_weight="1" android:text="ڻ" android:textColor="#FFFFFF" android:textSize="20sp" android:background="#000000"/>
-            <Button android:id="@+id/s20" android:layout_width="0dp" android:layout_height="match_parent" android:layout_weight="1" android:text="ٻ" android:textColor="#FFFFFF" android:textSize="20sp" android:background="#000000"/>
-            <Button android:id="@+id/s21" android:layout_width="0dp" android:layout_height="match_parent" android:layout_weight="1" android:text="ء" android:textColor="#FFFFFF" android:textSize="20sp" android:background="#000000"/>
-            <Button android:id="@+id/s22" android:layout_width="0dp" android:layout_height="match_parent" android:layout_weight="1" android:text="ظ" android:textColor="#FFFFFF" android:textSize="20sp" android:background="#000000"/>
-            <Button android:id="@+id/s23" android:layout_width="0dp" android:layout_height="match_parent" android:layout_weight="1" android:text="ذ" android:textColor="#FFFFFF" android:textSize="20sp" android:background="#000000"/>
+    </LinearLayout>
 
-        </LinearLayout>
+    <!-- SYMBOLS -->
 
-        <!-- SHIFT CONTROLS -->
+    <LinearLayout
+        android:layout_width="match_parent"
+        android:layout_height="44dp"
+        android:orientation="horizontal">
 
-        <LinearLayout
-            android:layout_width="match_parent"
-            android:layout_height="48dp"
-            android:orientation="horizontal">
+        <Button android:id="@+id/key_colon" android:layout_width="0dp" android:layout_height="match_parent" android:layout_weight="1" android:text=":" android:textColor="#FFFFFF" android:textSize="20sp" android:background="#000000"/>
+        <Button android:id="@+id/key_semicolon" android:layout_width="0dp" android:layout_height="match_parent" android:layout_weight="1" android:text="؛" android:textColor="#FFFFFF" android:textSize="20sp" android:background="#000000"/>
+        <Button android:id="@+id/key_question" android:layout_width="0dp" android:layout_height="match_parent" android:layout_weight="1" android:text="؟" android:textColor="#FFFFFF" android:textSize="20sp" android:background="#000000"/>
+        <Button android:id="@+id/key_quote1" android:layout_width="0dp" android:layout_height="match_parent" android:layout_weight="1" android:text="“" android:textColor="#FFFFFF" android:textSize="20sp" android:background="#000000"/>
+        <Button android:id="@+id/key_quote2" android:layout_width="0dp" android:layout_height="match_parent" android:layout_weight="1" android:text="”" android:textColor="#FFFFFF" android:textSize="20sp" android:background="#000000"/>
+        <Button android:id="@+id/key_underscore" android:layout_width="0dp" android:layout_height="match_parent" android:layout_weight="1" android:text="_" android:textColor="#FFFFFF" android:textSize="20sp" android:background="#000000"/>
+        <Button android:id="@+id/key_exclamation" android:layout_width="0dp" android:layout_height="match_parent" android:layout_weight="1" android:text="!" android:textColor="#FFFFFF" android:textSize="20sp" android:background="#000000"/>
+        <Button android:id="@+id/key_ellipsis" android:layout_width="0dp" android:layout_height="match_parent" android:layout_weight="1" android:text="…" android:textColor="#FFFFFF" android:textSize="20sp" android:background="#000000"/>
 
-            <Button android:id="@+id/key_shift2" android:layout_width="0dp" android:layout_height="match_parent" android:layout_weight="2" android:text="SHIFT" android:textColor="#FFFFFF" android:textSize="15sp" android:background="#000000"/>
+    </LinearLayout>
 
-            <Button android:id="@+id/key_delete2" android:layout_width="0dp" android:layout_height="match_parent" android:layout_weight="2" android:text="DELETE" android:textColor="#FFFFFF" android:textSize="15sp" android:background="#000000"/>
+    <!-- BOTTOM -->
 
-        </LinearLayout>
+    <LinearLayout
+        android:layout_width="match_parent"
+        android:layout_height="48dp"
+        android:orientation="horizontal">
 
-        <!-- SYMBOLS ON PAGE 2 -->
+        <Button android:id="@+id/key_enter" android:layout_width="0dp" android:layout_height="match_parent" android:layout_weight="1.5" android:text="ENTER" android:textColor="#FFFFFF" android:textSize="15sp" android:background="#000000"/>
 
-        <LinearLayout
-            android:layout_width="match_parent"
-            android:layout_height="44dp"
-            android:orientation="horizontal">
-
-            <Button android:id="@+id/key_colon2" android:layout_width="0dp" android:layout_height="match_parent" android:layout_weight="1" android:text=":" android:textColor="#FFFFFF" android:textSize="20sp" android:background="#000000"/>
-            <Button android:id="@+id/key_semicolon2" android:layout_width="0dp" android:layout_height="match_parent" android:layout_weight="1" android:text="؛" android:textColor="#FFFFFF" android:textSize="20sp" android:background="#000000"/>
-            <Button android:id="@+id/key_question2" android:layout_width="0dp" android:layout_height="match_parent" android:layout_weight="1" android:text="؟" android:textColor="#FFFFFF" android:textSize="20sp" android:background="#000000"/>
-            <Button android:id="@+id/key_exclamation2" android:layout_width="0dp" android:layout_height="match_parent" android:layout_weight="1" android:text="!" android:textColor="#FFFFFF" android:textSize="20sp" android:background="#000000"/>
-
-        </LinearLayout>
-
-        <LinearLayout
-            android:layout_width="match_parent"
-            android:layout_height="48dp"
-            android:orientation="horizontal">
-
-            <Button android:id="@+id/key_enter2" android:layout_width="0dp" android:layout_height="match_parent" android:layout_weight="1.5" android:text="ENTER" android:textColor="#FFFFFF" android:textSize="15sp" android:background="#000000"/>
-
-            <Button android:id="@+id/key_space2" android:layout_width="0dp" android:layout_height="match_parent" android:layout_weight="3" android:text="SPACE" android:textColor="#FFFFFF" android:textSize="15sp" android:background="#000000"/>
-
-        </LinearLayout>
+        <Button android:id="@+id/key_space" android:layout_width="0dp" android:layout_height="match_parent" android:layout_weight="3" android:text="SPACE" android:textColor="#FFFFFF" android:textSize="15sp" android:background="#000000"/>
 
     </LinearLayout>
 
 </LinearLayout>
+
+
+<!-- ================================================= -->
+<!-- PAGE 2 : SHIFT -->
+<!-- ================================================= -->
+
+<LinearLayout
+    android:id="@+id/keyboard_page2"
+    android:layout_width="match_parent"
+    android:layout_height="wrap_content"
+    android:orientation="vertical"
+    android:visibility="gone">
+
+    <!-- ROW 1 -->
+
+    <LinearLayout
+        android:layout_width="match_parent"
+        android:layout_height="48dp"
+        android:orientation="horizontal">
+
+        <Button android:id="@+id/s1" android:layout_width="0dp" android:layout_height="match_parent" android:layout_weight="1" android:text="ڄ" android:textColor="#FFFFFF" android:textSize="20sp" android:background="#000000"/>
+        <Button android:id="@+id/s2" android:layout_width="0dp" android:layout_height="match_parent" android:layout_weight="1" android:text="ڃ" android:textColor="#FFFFFF" android:textSize="20sp" android:background="#000000"/>
+        <Button android:id="@+id/s3" android:layout_width="0dp" android:layout_height="match_parent" android:layout_weight="1" android:text="ڦ" android:textColor="#FFFFFF" android:textSize="20sp" android:background="#000000"/>
+        <Button android:id="@+id/s4" android:layout_width="0dp" android:layout_height="match_parent" android:layout_weight="1" android:text="ھ" android:textColor="#FFFFFF" android:textSize="20sp" android:background="#000000"/>
+        <Button android:id="@+id/s5" android:layout_width="0dp" android:layout_height="match_parent" android:layout_weight="1" android:text="غ" android:textColor="#FFFFFF" android:textSize="20sp" android:background="#000000"/>
+        <Button android:id="@+id/s6" android:layout_width="0dp" android:layout_height="match_parent" android:layout_weight="1" android:text="ث" android:textColor="#FFFFFF" android:textSize="20sp" android:background="#000000"/>
+        <Button android:id="@+id/s7" android:layout_width="0dp" android:layout_height="match_parent" android:layout_weight="1" android:text="ٽ" android:textColor="#FFFFFF" android:textSize="20sp" android:background="#000000"/>
+        <Button android:id="@+id/s8" android:layout_width="0dp" android:layout_height="match_parent" android:layout_weight="1" android:text="ڙ" android:textColor="#FFFFFF" android:textSize="20sp" android:background="#000000"/>
+
+    </LinearLayout>
+
+    <!-- ROW 2 -->
+
+    <LinearLayout
+        android:layout_width="match_parent"
+        android:layout_height="48dp"
+        android:orientation="horizontal">
+
+        <Button android:id="@+id/s9" android:layout_width="0dp" android:layout_height="match_parent" android:layout_weight="1" android:text="ض" android:textColor="#FFFFFF" android:textSize="20sp" android:background="#000000"/>
+        <Button android:id="@+id/s10" android:layout_width="0dp" android:layout_height="match_parent" android:layout_weight="1" android:text="ٺ" android:textColor="#FFFFFF" android:textSize="20sp" android:background="#000000"/>
+        <Button android:id="@+id/s11" android:layout_width="0dp" android:layout_height="match_parent" android:layout_weight="1" android:text="ڌ" android:textColor="#FFFFFF" android:textSize="20sp" android:background="#000000"/>
+        <Button android:id="@+id/s12" android:layout_width="0dp" android:layout_height="match_parent" android:layout_weight="1" android:text="ڏ" android:textColor="#FFFFFF" android:textSize="20sp" android:background="#000000"/>
+        <Button android:id="@+id/s13" android:layout_width="0dp" android:layout_height="match_parent" android:layout_weight="1" android:text="۽" android:textColor="#FFFFFF" android:textSize="20sp" android:background="#000000"/>
+        <Button android:id="@+id/s14" android:layout_width="0dp" android:layout_height="match_parent" android:layout_weight="1" android:text="ح" android:textColor="#FFFFFF" android:textSize="20sp" android:background="#000000"/>
+        <Button android:id="@+id/s15" android:layout_width="0dp" android:layout_height="match_parent" android:layout_weight="1" android:text="ڊ" android:textColor="#FFFFFF" android:textSize="20sp" android:background="#000000"/>
+        <Button android:id="@+id/s16" android:layout_width="0dp" android:layout_height="match_parent" android:layout_weight="1" android:text="ش" android:textColor="#FFFFFF" android:textSize="20sp" android:background="#000000"/>
+
+    </LinearLayout>
+
+    <!-- ROW 3 -->
+
+    <LinearLayout
+        android:layout_width="match_parent"
+        android:layout_height="48dp"
+        android:orientation="horizontal">
+
+        <Button android:id="@+id/s17" android:layout_width="0dp" android:layout_height="match_parent" android:layout_weight="1" android:text="آ" android:textColor="#FFFFFF" android:textSize="20sp" android:background="#000000"/>
+        <Button android:id="@+id/s18" android:layout_width="0dp" android:layout_height="match_parent" android:layout_weight="1" android:text="۾" android:textColor="#FFFFFF" android:textSize="20sp" android:background="#000000"/>
+        <Button android:id="@+id/s19" android:layout_width="0dp" android:layout_height="match_parent" android:layout_weight="1" android:text="ڻ" android:textColor="#FFFFFF" android:textSize="20sp" android:background="#000000"/>
+        <Button android:id="@+id/s20" android:layout_width="0dp" android:layout_height="match_parent" android:layout_weight="1" android:text="ٻ" android:textColor="#FFFFFF" android:textSize="20sp" android:background="#000000"/>
+        <Button android:id="@+id/s21" android:layout_width="0dp" android:layout_height="match_parent" android:layout_weight="1" android:text="ء" android:textColor="#FFFFFF" android:textSize="20sp" android:background="#000000"/>
+        <Button android:id="@+id/s22" android:layout_width="0dp" android:layout_height="match_parent" android:layout_weight="1" android:text="ظ" android:textColor="#FFFFFF" android:textSize="20sp" android:background="#000000"/>
+        <Button android:id="@+id/s23" android:layout_width="0dp" android:layout_height="match_parent" android:layout_weight="1" android:text="ذ" android:textColor="#FFFFFF" android:textSize="20sp" android:background="#000000"/>
+
+    </LinearLayout>
+
+    <!-- SHIFT CONTROLS -->
+
+    <LinearLayout
+        android:layout_width="match_parent"
+        android:layout_height="48dp"
+        android:orientation="horizontal">
+
+        <Button android:id="@+id/key_shift2" android:layout_width="0dp" android:layout_height="match_parent" android:layout_weight="2" android:text="SHIFT" android:textColor="#FFFFFF" android:textSize="15sp" android:background="#000000"/>
+
+        <Button android:id="@+id/key_delete2" android:layout_width="0dp" android:layout_height="match_parent" android:layout_weight="2" android:text="DELETE" android:textColor="#FFFFFF" android:textSize="15sp" android:background="#000000"/>
+
+    </LinearLayout>
+
+    <!-- SYMBOLS ON PAGE 2 -->
+
+    <LinearLayout
+        android:layout_width="match_parent"
+        android:layout_height="44dp"
+        android:orientation="horizontal">
+
+        <Button android:id="@+id/key_colon2" android:layout_width="0dp" android:layout_height="match_parent" android:layout_weight="1" android:text=":" android:textColor="#FFFFFF" android:textSize="20sp" android:background="#000000"/>
+        <Button android:id="@+id/key_semicolon2" android:layout_width="0dp" android:layout_height="match_parent" android:layout_weight="1" android:text="؛" android:textColor="#FFFFFF" android:textSize="20sp" android:background="#000000"/>
+        <Button android:id="@+id/key_question2" android:layout_width="0dp" android:layout_height="match_parent" android:layout_weight="1" android:text="؟" android:textColor="#FFFFFF" android:textSize="20sp" android:background="#000000"/>
+        <Button android:id="@+id/key_exclamation2" android:layout_width="0dp" android:layout_height="match_parent" android:layout_weight="1" android:text="!" android:textColor="#FFFFFF" android:textSize="20sp" android:background="#000000"/>
+
+    </LinearLayout>
+
+    <LinearLayout
+        android:layout_width="match_parent"
+        android:layout_height="48dp"
+        android:orientation="horizontal">
+
+        <Button android:id="@+id/key_enter2" android:layout_width="0dp" android:layout_height="match_parent" android:layout_weight="1.5" android:text="ENTER" android:textColor="#FFFFFF" android:textSize="15sp" android:background="#000000"/>
+
+        <Button android:id="@+id/key_space2" android:layout_width="0dp" android:layout_height="match_parent" android:layout_weight="3" android:text="SPACE" android:textColor="#FFFFFF" android:textSize="15sp" android:background="#000000"/>
+
+    </LinearLayout>
+
+</LinearLayout>
+
