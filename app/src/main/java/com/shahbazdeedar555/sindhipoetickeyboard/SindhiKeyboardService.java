@@ -1,7 +1,10 @@
 package com.shahbazdeedar555.sindhipoetickeyboard;
 
 import android.inputmethodservice.InputMethodService;
+import android.os.Handler;
+import android.os.Looper;
 import android.view.KeyEvent;
+import android.view.MotionEvent;
 import android.view.View;
 import android.view.inputmethod.EditorInfo;
 import android.view.inputmethod.InputConnection;
@@ -12,6 +15,27 @@ public class SindhiKeyboardService extends InputMethodService {
     private View keyboard;
 
     private boolean page2 = false;
+
+    // Fast Delete
+    private final Handler deleteHandler =
+            new Handler(Looper.getMainLooper());
+
+    private boolean fastDeleting = false;
+
+    private final Runnable deleteRunnable = new Runnable() {
+        @Override
+        public void run() {
+
+            if (fastDeleting) {
+                deleteOne();
+
+                deleteHandler.postDelayed(
+                        this,
+                        70
+                );
+            }
+        }
+    };
 
     // =========================================================
     // KEYBOARD START
@@ -47,7 +71,9 @@ public class SindhiKeyboardService extends InputMethodService {
 
     private void setupPage1() {
 
+        // =====================================================
         // Main Sindhi letters
+        // =====================================================
 
         setKey(R.id.key_ch, "چ");
         setKey(R.id.key_chh, "ڇ");
@@ -84,7 +110,9 @@ public class SindhiKeyboardService extends InputMethodService {
         setKey(R.id.key_kha, "خ");
         setKey(R.id.key_za, "ز");
 
+        // =====================================================
         // Special letters
+        // =====================================================
 
         setKey(R.id.key_and, "۽");
         setKey(R.id.key_ma, "۾");
@@ -95,10 +123,11 @@ public class SindhiKeyboardService extends InputMethodService {
         setKey(R.id.key_alif_khanjari, "ٰ");
 
         // Long line
-
         setKey(R.id.key_tatweel, "ـ");
 
+        // =====================================================
         // Punctuation
+        // =====================================================
 
         setKey(R.id.key_underscore, "_");
         setKey(R.id.key_comma, "،");
@@ -108,7 +137,9 @@ public class SindhiKeyboardService extends InputMethodService {
         setKey(R.id.key_semicolon, "؛");
         setKey(R.id.key_exclamation, "!");
 
+        // =====================================================
         // Numbers
+        // =====================================================
 
         setKey(R.id.key_num0, "٠");
         setKey(R.id.key_num9, "٩");
@@ -121,15 +152,25 @@ public class SindhiKeyboardService extends InputMethodService {
         setKey(R.id.key_num2, "٢");
         setKey(R.id.key_num1, "١");
 
+        // =====================================================
+        // PAGE 1 HARAKAT
+        // =====================================================
+
+        setKey(R.id.key_zabar1, "َ");
+        setKey(R.id.key_zer1, "ِ");
+        setKey(R.id.key_pesh1, "ُ");
+        setKey(R.id.key_jazm1, "ۡ");
+        setKey(R.id.key_shadd1, "ّ");
+
+        // =====================================================
         // Controls
+        // =====================================================
 
         find(R.id.key_shift).setOnClickListener(
                 v -> togglePage()
         );
 
-        find(R.id.key_delete).setOnClickListener(
-                v -> deleteOne()
-        );
+        setupFastDelete(R.id.key_delete);
 
         find(R.id.key_enter).setOnClickListener(
                 v -> pressEnter()
@@ -146,8 +187,9 @@ public class SindhiKeyboardService extends InputMethodService {
 
     private void setupPage2() {
 
+        // =====================================================
         // Page 2 letters
-        // ڦ صرف هڪ ڀيرو آهي.
+        // =====================================================
 
         setKey(R.id.s1, "ڄ");
         setKey(R.id.s2, "ڃ");
@@ -163,9 +205,12 @@ public class SindhiKeyboardService extends InputMethodService {
         setKey(R.id.s11, "ڌ");
         setKey(R.id.s12, "ڏ");
         setKey(R.id.s13, "ح");
+
+        // FIXED MAPPING
         setKey(R.id.s14, "ڊ");
         setKey(R.id.s15, "ش");
-        setKey(R.id.s16, "آ");
+        setKey(R.id.s16, "ڦ");
+        setKey(R.id.s17, "آ");
 
         setKey(R.id.s18, "۾");
         setKey(R.id.s19, "ڻ");
@@ -174,7 +219,9 @@ public class SindhiKeyboardService extends InputMethodService {
         setKey(R.id.s22, "ظ");
         setKey(R.id.s23, "ذ");
 
+        // =====================================================
         // Harakat
+        // =====================================================
 
         setKey(R.id.key_zabar, "َ");
         setKey(R.id.key_zer, "ِ");
@@ -182,15 +229,15 @@ public class SindhiKeyboardService extends InputMethodService {
         setKey(R.id.key_jazm, "ۡ");
         setKey(R.id.key_shadd, "ّ");
 
+        // =====================================================
         // Controls
+        // =====================================================
 
         find(R.id.key_shift2).setOnClickListener(
                 v -> togglePage()
         );
 
-        find(R.id.key_delete2).setOnClickListener(
-                v -> deleteOne()
-        );
+        setupFastDelete(R.id.key_delete2);
 
         find(R.id.key_enter2).setOnClickListener(
                 v -> pressEnter()
@@ -220,28 +267,89 @@ public class SindhiKeyboardService extends InputMethodService {
     }
 
     // =========================================================
+    // FAST DELETE
+    // =========================================================
+
+    private void setupFastDelete(int id) {
+
+        View view = find(id);
+
+        if (view == null) {
+            return;
+        }
+
+        view.setOnTouchListener(
+                (v, event) -> {
+
+                    switch (event.getAction()) {
+
+                        case MotionEvent.ACTION_DOWN:
+
+                            // پهريون اکر فوراً ڊاهي
+                            deleteOne();
+
+                            fastDeleting = true;
+
+                            // تيز delete شروع
+                            deleteHandler.postDelayed(
+                                    deleteRunnable,
+                                    350
+                            );
+
+                            return true;
+
+                        case MotionEvent.ACTION_UP:
+                        case MotionEvent.ACTION_CANCEL:
+
+                            fastDeleting = false;
+
+                            deleteHandler.removeCallbacks(
+                                    deleteRunnable
+                            );
+
+                            v.performClick();
+
+                            return true;
+                    }
+
+                    return true;
+                }
+        );
+    }
+
+    // =========================================================
+    // DELETE ONE
+    // =========================================================
+
+    private void deleteOne() {
+
+        InputConnection ic =
+                getCurrentInputConnection();
+
+        if (ic != null) {
+
+            ic.deleteSurroundingText(
+                    1,
+                    0
+            );
+        }
+    }
+
+    // =========================================================
     // COMMIT TEXT
     // =========================================================
 
     private void commit(String text) {
 
-        InputConnection ic = getCurrentInputConnection();
+        InputConnection ic =
+                getCurrentInputConnection();
 
         if (ic != null) {
-            ic.commitText(text, 1);
-        }
-    }
 
-    // =========================================================
-    // DELETE
-    // =========================================================
-
-    private void deleteOne() {
-
-        InputConnection ic = getCurrentInputConnection();
-
-        if (ic != null) {
-            ic.deleteSurroundingText(1, 0);
+            ic.commitText(
+                    text,
+                    1
+            );
         }
     }
 
@@ -251,13 +359,15 @@ public class SindhiKeyboardService extends InputMethodService {
 
     private void pressEnter() {
 
-        InputConnection ic = getCurrentInputConnection();
+        InputConnection ic =
+                getCurrentInputConnection();
 
         if (ic == null) {
             return;
         }
 
-        EditorInfo info = getCurrentInputEditorInfo();
+        EditorInfo info =
+                getCurrentInputEditorInfo();
 
         if (info != null) {
 
@@ -296,8 +406,11 @@ public class SindhiKeyboardService extends InputMethodService {
     private void togglePage() {
 
         if (page2) {
+
             showPage1();
+
         } else {
+
             showPage2();
         }
     }
@@ -310,8 +423,11 @@ public class SindhiKeyboardService extends InputMethodService {
 
         page2 = false;
 
-        View p1 = find(R.id.keyboard_page1);
-        View p2 = find(R.id.keyboard_page2);
+        View p1 =
+                find(R.id.keyboard_page1);
+
+        View p2 =
+                find(R.id.keyboard_page2);
 
         p1.setVisibility(View.VISIBLE);
         p2.setVisibility(View.GONE);
@@ -325,8 +441,11 @@ public class SindhiKeyboardService extends InputMethodService {
 
         page2 = true;
 
-        View p1 = find(R.id.keyboard_page1);
-        View p2 = find(R.id.keyboard_page2);
+        View p1 =
+                find(R.id.keyboard_page1);
+
+        View p2 =
+                find(R.id.keyboard_page2);
 
         p1.setVisibility(View.GONE);
         p2.setVisibility(View.VISIBLE);
@@ -341,8 +460,33 @@ public class SindhiKeyboardService extends InputMethodService {
             EditorInfo attribute,
             boolean restarting) {
 
-        super.onStartInput(attribute, restarting);
+        super.onStartInput(
+                attribute,
+                restarting
+        );
 
         page2 = false;
+
+        fastDeleting = false;
+
+        deleteHandler.removeCallbacks(
+                deleteRunnable
+        );
+    }
+
+    // =========================================================
+    // SERVICE DESTROY
+    // =========================================================
+
+    @Override
+    public void onDestroy() {
+
+        fastDeleting = false;
+
+        deleteHandler.removeCallbacks(
+                deleteRunnable
+        );
+
+        super.onDestroy();
     }
 }
