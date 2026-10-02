@@ -1,3 +1,19 @@
+<?xml version="1.0" encoding="utf-8"?>
+
+<LinearLayout
+    xmlns:android="http://schemas.android.com/apk/res/android"
+    android:id="@+id/keyboard_root"
+    android:layout_width="match_parent"
+    android:layout_height="wrap_content"
+    android:minHeight="300dp"
+    android:orientation="vertical"
+    android:background="#173F35"
+    android:padding="2dp">
+
+<!-- ========================= -->
+<!-- PAGE 1 -->
+<!-- ========================= -->
+
 <!-- ========================= -->
 <!-- PAGE 1 -->
 <!-- ========================= -->
