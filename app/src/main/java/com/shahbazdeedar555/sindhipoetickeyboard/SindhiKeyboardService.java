@@ -71,7 +71,7 @@ public class SindhiKeyboardService extends InputMethodService {
         // SPECIAL MARKS
         // =========================
 
-        setKey(R.id.key_mark_1, "ـ");
+        setKey(R.id.key_mark_1, "ة");
         setKey(R.id.key_mark_2, "َ");
         setKey(R.id.key_mark_3, "ِ");
         setKey(R.id.key_mark_4, "ُ");
@@ -80,7 +80,7 @@ public class SindhiKeyboardService extends InputMethodService {
         setKey(R.id.key_mark_7, "ٰ");
         setKey(R.id.key_mark_8, "آ");
         setKey(R.id.key_mark_9, "ي");
-        setKey(R.id.key_mark_10, "ئ");
+        setKey(R.id.key_mark_10, "ؤ");
         setKey(R.id.key_mark_11, "ى");
 
 
