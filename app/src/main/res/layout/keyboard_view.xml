@@ -210,16 +210,10 @@
             <Button android:id="@+id/s10" android:text="ٺ" style="@style/KeyboardButton"/>
             <Button android:id="@+id/s11" android:text="ڌ" style="@style/KeyboardButton"/>
             <Button android:id="@+id/s12" android:text="ڏ" style="@style/KeyboardButton"/>
-            <Button android:id="@+id/key_and" android:text="۽" style="@style/KeyboardButton"/>
             <Button android:id="@+id/s13" android:text="ح" style="@style/KeyboardButton"/>
-            <Button android:id="@+id/s16" android:text="ڦ" style="@style/KeyboardButton"/>
             <Button android:id="@+id/s14" android:text="ڊ" style="@style/KeyboardButton"/>
             <Button android:id="@+id/s15" android:text="ش" style="@style/KeyboardButton"/>
             <Button android:id="@+id/s17" android:text="آ" style="@style/KeyboardButton"/>
-            <Button android:id="@+id/key_ta_marbuta" android:text="ة" style="@style/KeyboardButton"/>
-            <Button android:id="@+id/key_waw_hamza" android:text="ؤ" style="@style/KeyboardButton"/>
-            <Button android:id="@+id/key_heh" android:text="ہ" style="@style/KeyboardButton"/>
-            <Button android:id="@+id/key_alif_maqsura" android:text="ى" style="@style/KeyboardButton"/>
 
         </LinearLayout>
 
@@ -229,15 +223,13 @@
             android:layout_height="42dp"
             android:orientation="horizontal">
 
-            <Button android:id="@+id/key_delete2" android:text="DELETE" style="@style/KeyboardButton"/>
             <Button android:id="@+id/s18" android:text="۾" style="@style/KeyboardButton"/>
             <Button android:id="@+id/s19" android:text="ڻ" style="@style/KeyboardButton"/>
+            <Button android:id="@+id/s20" android:text="ٻ" style="@style/KeyboardButton"/>
             <Button android:id="@+id/s21" android:text="ء" style="@style/KeyboardButton"/>
             <Button android:id="@+id/s22" android:text="ظ" style="@style/KeyboardButton"/>
             <Button android:id="@+id/s23" android:text="ذ" style="@style/KeyboardButton"/>
             <Button android:id="@+id/s3" android:text="جھ" style="@style/KeyboardButton"/>
-            <Button android:id="@+id/key_gaf" android:text="گھ" style="@style/KeyboardButton"/>
-            <Button android:id="@+id/key_hamza_y" android:text="ئ" style="@style/KeyboardButton"/>
 
         </LinearLayout>
 
@@ -261,6 +253,7 @@
             android:layout_height="42dp"
             android:orientation="horizontal">
 
+            <Button android:id="@+id/key_delete2" android:text="DELETE" style="@style/KeyboardButton"/>
             <Button android:id="@+id/key_shift2" android:text="SHIFT" style="@style/KeyboardButton"/>
             <Button android:id="@+id/key_enter2" android:text="ENTER" style="@style/KeyboardButton"/>
             <Button android:id="@+id/key_settings2" android:text="⚙" style="@style/KeyboardButton"/>
