@@ -131,23 +131,62 @@ android:padding="3dp">
 
     <!-- Numbers -->
 
-    <LinearLayout
-        android:layout_width="match_parent"
-        android:layout_height="42dp"
-        android:orientation="horizontal">
+<LinearLayout
+    android:layout_width="match_parent"
+    android:layout_height="42dp"
+    android:orientation="horizontal">
 
-        <Button android:id="@+id/key_num0" android:text="0" style="@style/KeyboardButtonSmall"/>
-        <Button android:id="@+id/key_num1" android:text="9" style="@style/KeyboardButtonSmall"/>
-        <Button android:id="@+id/key_num2" android:text="8" style="@style/KeyboardButtonSmall"/>
-        <Button android:id="@+id/key_num3" android:text="7" style="@style/KeyboardButtonSmall"/>
-        <Button android:id="@+id/key_num4" android:text="6" style="@style/KeyboardButtonSmall"/>
-        <Button android:id="@+id/key_num5" android:text="5" style="@style/KeyboardButtonSmall"/>
-        <Button android:id="@+id/key_num6" android:text="4" style="@style/KeyboardButtonSmall"/>
-        <Button android:id="@+id/key_num7" android:text="3" style="@style/KeyboardButtonSmall"/>
-        <Button android:id="@+id/key_num8" android:text="2" style="@style/KeyboardButtonSmall"/>
-        <Button android:id="@+id/key_num9" android:text="1" style="@style/KeyboardButtonSmall"/>
+    <Button
+        android:id="@+id/key_num0"
+        android:text="0"
+        style="@style/KeyboardButtonSmall"/>
 
-    </LinearLayout>
+    <Button
+        android:id="@+id/key_num1"
+        android:text="1"
+        style="@style/KeyboardButtonSmall"/>
+
+    <Button
+        android:id="@+id/key_num2"
+        android:text="2"
+        style="@style/KeyboardButtonSmall"/>
+
+    <Button
+        android:id="@+id/key_num3"
+        android:text="3"
+        style="@style/KeyboardButtonSmall"/>
+
+    <Button
+        android:id="@+id/key_num4"
+        android:text="4"
+        style="@style/KeyboardButtonSmall"/>
+
+    <Button
+        android:id="@+id/key_num5"
+        android:text="5"
+        style="@style/KeyboardButtonSmall"/>
+
+    <Button
+        android:id="@+id/key_num6"
+        android:text="6"
+        style="@style/KeyboardButtonSmall"/>
+
+    <Button
+        android:id="@+id/key_num7"
+        android:text="7"
+        style="@style/KeyboardButtonSmall"/>
+
+    <Button
+        android:id="@+id/key_num8"
+        android:text="8"
+        style="@style/KeyboardButtonSmall"/>
+
+    <Button
+        android:id="@+id/key_num9"
+        android:text="9"
+        style="@style/KeyboardButtonSmall"/>
+
+</LinearLayout>
 
     <!-- Controls -->
 
