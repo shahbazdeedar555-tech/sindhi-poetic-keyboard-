@@ -1,4 +1,6 @@
 
+<?xml version="1.0" encoding="utf-8"?>
+
 <LinearLayout
     xmlns:android="http://schemas.android.com/apk/res/android"
     android:id="@+id/keyboard_root"
@@ -20,7 +22,7 @@
         android:orientation="vertical"
         android:visibility="visible">
 
-        <!-- Row 1
+        <!-- ROW 1
              چ ڇ پ و ڳ ع ٿ ت ر ي ص ق
         -->
         <LinearLayout
@@ -28,22 +30,58 @@
             android:layout_height="42dp"
             android:orientation="horizontal">
 
-            <Button android:id="@+id/key_ch" android:text="چ" style="@style/KeyboardButton"/>
-            <Button android:id="@+id/key_chh" android:text="ڇ" style="@style/KeyboardButton"/>
-            <Button android:id="@+id/key_pay" android:text="پ" style="@style/KeyboardButton"/>
-            <Button android:id="@+id/key_waw" android:text="و" style="@style/KeyboardButton"/>
-            <Button android:id="@+id/key_ghain" android:text="ڳ" style="@style/KeyboardButton"/>
-            <Button android:id="@+id/key_ain" android:text="ع" style="@style/KeyboardButton"/>
-            <Button android:id="@+id/key_th" android:text="ٿ" style="@style/KeyboardButton"/>
-            <Button android:id="@+id/key_ta1" android:text="ت" style="@style/KeyboardButton"/>
-            <Button android:id="@+id/key_ray" android:text="ر" style="@style/KeyboardButton"/>
-            <Button android:id="@+id/key_yay" android:text="ي" style="@style/KeyboardButton"/>
-            <Button android:id="@+id/key_sad" android:text="ص" style="@style/KeyboardButton"/>
-            <Button android:id="@+id/key_qaf" android:text="ق" style="@style/KeyboardButton"/>
+            <Button android:id="@+id/key_ch" android:text="چ"
+                android:layout_width="0dp" android:layout_weight="1"
+                android:minWidth="0dp" style="@style/KeyboardButton"/>
+
+            <Button android:id="@+id/key_chh" android:text="ڇ"
+                android:layout_width="0dp" android:layout_weight="1"
+                android:minWidth="0dp" style="@style/KeyboardButton"/>
+
+            <Button android:id="@+id/key_pay" android:text="پ"
+                android:layout_width="0dp" android:layout_weight="1"
+                android:minWidth="0dp" style="@style/KeyboardButton"/>
+
+            <Button android:id="@+id/key_waw" android:text="و"
+                android:layout_width="0dp" android:layout_weight="1"
+                android:minWidth="0dp" style="@style/KeyboardButton"/>
+
+            <Button android:id="@+id/key_ghain" android:text="ڳ"
+                android:layout_width="0dp" android:layout_weight="1"
+                android:minWidth="0dp" style="@style/KeyboardButton"/>
+
+            <Button android:id="@+id/key_ain" android:text="ع"
+                android:layout_width="0dp" android:layout_weight="1"
+                android:minWidth="0dp" style="@style/KeyboardButton"/>
+
+            <Button android:id="@+id/key_th" android:text="ٿ"
+                android:layout_width="0dp" android:layout_weight="1"
+                android:minWidth="0dp" style="@style/KeyboardButton"/>
+
+            <Button android:id="@+id/key_ta1" android:text="ت"
+                android:layout_width="0dp" android:layout_weight="1"
+                android:minWidth="0dp" style="@style/KeyboardButton"/>
+
+            <Button android:id="@+id/key_ray" android:text="ر"
+                android:layout_width="0dp" android:layout_weight="1"
+                android:minWidth="0dp" style="@style/KeyboardButton"/>
+
+            <Button android:id="@+id/key_yay" android:text="ي"
+                android:layout_width="0dp" android:layout_weight="1"
+                android:minWidth="0dp" style="@style/KeyboardButton"/>
+
+            <Button android:id="@+id/key_sad" android:text="ص"
+                android:layout_width="0dp" android:layout_weight="1"
+                android:minWidth="0dp" style="@style/KeyboardButton"/>
+
+            <Button android:id="@+id/key_qaf" android:text="ق"
+                android:layout_width="0dp" android:layout_weight="1"
+                android:minWidth="0dp" style="@style/KeyboardButton"/>
 
         </LinearLayout>
 
-        <!-- Row 2
+
+        <!-- ROW 2
              ڍ ڱ ک ل ڪ ج ه گ ف د س ا
         -->
         <LinearLayout
@@ -51,23 +89,59 @@
             android:layout_height="42dp"
             android:orientation="horizontal">
 
-            <Button android:id="@+id/key_ddal" android:text="ڍ" style="@style/KeyboardButton"/>
-            <Button android:id="@+id/key_ng" android:text="ڱ" style="@style/KeyboardButton"/>
-            <Button android:id="@+id/key_khay" android:text="ک" style="@style/KeyboardButton"/>
-            <Button android:id="@+id/key_lam" android:text="ل" style="@style/KeyboardButton"/>
-            <Button android:id="@+id/key_kaf" android:text="ڪ" style="@style/KeyboardButton"/>
-            <Button android:id="@+id/key_jeem" android:text="ج" style="@style/KeyboardButton"/>
-            <Button android:id="@+id/key_hay" android:text="ه" style="@style/KeyboardButton"/>
-            <Button android:id="@+id/key_gaf" android:text="گ" style="@style/KeyboardButton"/>
-            <Button android:id="@+id/key_fay" android:text="ف" style="@style/KeyboardButton"/>
-            <Button android:id="@+id/key_dal" android:text="د" style="@style/KeyboardButton"/>
-            <Button android:id="@+id/key_seen" android:text="س" style="@style/KeyboardButton"/>
-            <Button android:id="@+id/key_alif" android:text="ا" style="@style/KeyboardButton"/>
+            <Button android:id="@+id/key_ddal" android:text="ڍ"
+                android:layout_width="0dp" android:layout_weight="1"
+                android:minWidth="0dp" style="@style/KeyboardButton"/>
+
+            <Button android:id="@+id/key_ng" android:text="ڱ"
+                android:layout_width="0dp" android:layout_weight="1"
+                android:minWidth="0dp" style="@style/KeyboardButton"/>
+
+            <Button android:id="@+id/key_khay" android:text="ک"
+                android:layout_width="0dp" android:layout_weight="1"
+                android:minWidth="0dp" style="@style/KeyboardButton"/>
+
+            <Button android:id="@+id/key_lam" android:text="ل"
+                android:layout_width="0dp" android:layout_weight="1"
+                android:minWidth="0dp" style="@style/KeyboardButton"/>
+
+            <Button android:id="@+id/key_kaf" android:text="ڪ"
+                android:layout_width="0dp" android:layout_weight="1"
+                android:minWidth="0dp" style="@style/KeyboardButton"/>
+
+            <Button android:id="@+id/key_jeem" android:text="ج"
+                android:layout_width="0dp" android:layout_weight="1"
+                android:minWidth="0dp" style="@style/KeyboardButton"/>
+
+            <Button android:id="@+id/key_hay" android:text="ه"
+                android:layout_width="0dp" android:layout_weight="1"
+                android:minWidth="0dp" style="@style/KeyboardButton"/>
+
+            <Button android:id="@+id/key_gaf" android:text="گ"
+                android:layout_width="0dp" android:layout_weight="1"
+                android:minWidth="0dp" style="@style/KeyboardButton"/>
+
+            <Button android:id="@+id/key_fay" android:text="ف"
+                android:layout_width="0dp" android:layout_weight="1"
+                android:minWidth="0dp" style="@style/KeyboardButton"/>
+
+            <Button android:id="@+id/key_dal" android:text="د"
+                android:layout_width="0dp" android:layout_weight="1"
+                android:minWidth="0dp" style="@style/KeyboardButton"/>
+
+            <Button android:id="@+id/key_seen" android:text="س"
+                android:layout_width="0dp" android:layout_weight="1"
+                android:minWidth="0dp" style="@style/KeyboardButton"/>
+
+            <Button android:id="@+id/key_alif" android:text="ا"
+                android:layout_width="0dp" android:layout_weight="1"
+                android:minWidth="0dp" style="@style/KeyboardButton"/>
 
         </LinearLayout>
 
-        <!-- Row 3
-             DELETE   ئ م ن ب ڀ ط خ ز   SHIFT
+
+        <!-- ROW 3
+             DELETE ئ م ن ب ڀ ط خ ز SHIFT
         -->
         <LinearLayout
             android:layout_width="match_parent"
@@ -77,26 +151,56 @@
             <Button
                 android:id="@+id/key_delete"
                 android:text="DELETE"
+                android:layout_width="0dp"
+                android:layout_weight="1"
+                android:minWidth="0dp"
                 style="@style/KeyboardButton"/>
 
-            <Button android:id="@+id/key_hamza_y" android:text="ئ" style="@style/KeyboardButton"/>
-            <Button android:id="@+id/key_meem" android:text="م" style="@style/KeyboardButton"/>
-            <Button android:id="@+id/key_noon" android:text="ن" style="@style/KeyboardButton"/>
-            <Button android:id="@+id/key_bay" android:text="ب" style="@style/KeyboardButton"/>
-            <Button android:id="@+id/key_bh" android:text="ڀ" style="@style/KeyboardButton"/>
-            <Button android:id="@+id/key_ta2" android:text="ط" style="@style/KeyboardButton"/>
-            <Button android:id="@+id/key_kha" android:text="خ" style="@style/KeyboardButton"/>
-            <Button android:id="@+id/key_za" android:text="ز" style="@style/KeyboardButton"/>
+            <Button android:id="@+id/key_hamza_y" android:text="ئ"
+                android:layout_width="0dp" android:layout_weight="1"
+                android:minWidth="0dp" style="@style/KeyboardButton"/>
+
+            <Button android:id="@+id/key_meem" android:text="م"
+                android:layout_width="0dp" android:layout_weight="1"
+                android:minWidth="0dp" style="@style/KeyboardButton"/>
+
+            <Button android:id="@+id/key_noon" android:text="ن"
+                android:layout_width="0dp" android:layout_weight="1"
+                android:minWidth="0dp" style="@style/KeyboardButton"/>
+
+            <Button android:id="@+id/key_bay" android:text="ب"
+                android:layout_width="0dp" android:layout_weight="1"
+                android:minWidth="0dp" style="@style/KeyboardButton"/>
+
+            <Button android:id="@+id/key_bh" android:text="ڀ"
+                android:layout_width="0dp" android:layout_weight="1"
+                android:minWidth="0dp" style="@style/KeyboardButton"/>
+
+            <Button android:id="@+id/key_ta2" android:text="ط"
+                android:layout_width="0dp" android:layout_weight="1"
+                android:minWidth="0dp" style="@style/KeyboardButton"/>
+
+            <Button android:id="@+id/key_kha" android:text="خ"
+                android:layout_width="0dp" android:layout_weight="1"
+                android:minWidth="0dp" style="@style/KeyboardButton"/>
+
+            <Button android:id="@+id/key_za" android:text="ز"
+                android:layout_width="0dp" android:layout_weight="1"
+                android:minWidth="0dp" style="@style/KeyboardButton"/>
 
             <Button
                 android:id="@+id/key_shift"
                 android:text="SHIFT"
+                android:layout_width="0dp"
+                android:layout_weight="1"
+                android:minWidth="0dp"
                 style="@style/KeyboardButton"/>
 
         </LinearLayout>
 
-        <!-- Row 4
-             ENTER   ARROW   PUNCTUATIONS
+
+        <!-- ROW 4
+             ENTER ARROW PUNCTUATIONS
         -->
         <LinearLayout
             android:layout_width="match_parent"
@@ -106,22 +210,32 @@
             <Button
                 android:id="@+id/key_enter"
                 android:text="ENTER"
+                android:layout_width="0dp"
+                android:layout_weight="1"
+                android:minWidth="0dp"
                 style="@style/KeyboardButton"/>
 
             <Button
                 android:id="@+id/key_arrow"
                 android:text="←"
+                android:layout_width="0dp"
+                android:layout_weight="1"
+                android:minWidth="0dp"
                 style="@style/KeyboardButton"/>
 
             <Button
                 android:id="@+id/key_punctuation"
                 android:text="PUNCTUATIONS"
+                android:layout_width="0dp"
+                android:layout_weight="1"
+                android:minWidth="0dp"
                 style="@style/KeyboardButton"/>
 
         </LinearLayout>
 
-        <!-- Row 5
-             ڊگهو ڪرڻ واري زبر زير پيش شد جزم ا خنجري
+
+        <!-- ROW 5
+             ڊگهو ڪرڻ واري َ ِ ُ ّ ْ ٰ
         -->
         <LinearLayout
             android:layout_width="match_parent"
@@ -131,41 +245,63 @@
             <Button
                 android:id="@+id/key_tatweel"
                 android:text="ڊگهو ڪرڻ واري"
+                android:layout_width="0dp"
+                android:layout_weight="2"
+                android:minWidth="0dp"
                 style="@style/KeyboardButton"/>
 
             <Button
                 android:id="@+id/key_zabar1"
                 android:text="َ"
+                android:layout_width="0dp"
+                android:layout_weight="1"
+                android:minWidth="0dp"
                 style="@style/KeyboardButton"/>
 
             <Button
                 android:id="@+id/key_zer1"
                 android:text="ِ"
+                android:layout_width="0dp"
+                android:layout_weight="1"
+                android:minWidth="0dp"
                 style="@style/KeyboardButton"/>
 
             <Button
                 android:id="@+id/key_pesh1"
                 android:text="ُ"
+                android:layout_width="0dp"
+                android:layout_weight="1"
+                android:minWidth="0dp"
                 style="@style/KeyboardButton"/>
 
             <Button
                 android:id="@+id/key_shadd1"
                 android:text="ّ"
+                android:layout_width="0dp"
+                android:layout_weight="1"
+                android:minWidth="0dp"
                 style="@style/KeyboardButton"/>
 
             <Button
                 android:id="@+id/key_jazm1"
                 android:text="ْ"
+                android:layout_width="0dp"
+                android:layout_weight="1"
+                android:minWidth="0dp"
                 style="@style/KeyboardButton"/>
 
             <Button
                 android:id="@+id/key_alif_khanjari1"
                 android:text="ٰ"
+                android:layout_width="0dp"
+                android:layout_weight="1"
+                android:minWidth="0dp"
                 style="@style/KeyboardButton"/>
 
         </LinearLayout>
 
-        <!-- Row 6
+
+        <!-- ROW 6
              0 9 8 7 6 5 4 3 2 1
         -->
         <LinearLayout
@@ -173,16 +309,45 @@
             android:layout_height="42dp"
             android:orientation="horizontal">
 
-            <Button android:id="@+id/key_num0" android:text="0" style="@style/KeyboardButton"/>
-            <Button android:id="@+id/key_num9" android:text="9" style="@style/KeyboardButton"/>
-            <Button android:id="@+id/key_num8" android:text="8" style="@style/KeyboardButton"/>
-            <Button android:id="@+id/key_num7" android:text="7" style="@style/KeyboardButton"/>
-            <Button android:id="@+id/key_num6" android:text="6" style="@style/KeyboardButton"/>
-            <Button android:id="@+id/key_num5" android:text="5" style="@style/KeyboardButton"/>
-            <Button android:id="@+id/key_num4" android:text="4" style="@style/KeyboardButton"/>
-            <Button android:id="@+id/key_num3" android:text="3" style="@style/KeyboardButton"/>
-            <Button android:id="@+id/key_num2" android:text="2" style="@style/KeyboardButton"/>
-            <Button android:id="@+id/key_num1" android:text="1" style="@style/KeyboardButton"/>
+            <Button android:id="@+id/key_num0" android:text="0"
+                android:layout_width="0dp" android:layout_weight="1"
+                android:minWidth="0dp" style="@style/KeyboardButton"/>
+
+            <Button android:id="@+id/key_num9" android:text="9"
+                android:layout_width="0dp" android:layout_weight="1"
+                android:minWidth="0dp" style="@style/KeyboardButton"/>
+
+            <Button android:id="@+id/key_num8" android:text="8"
+                android:layout_width="0dp" android:layout_weight="1"
+                android:minWidth="0dp" style="@style/KeyboardButton"/>
+
+            <Button android:id="@+id/key_num7" android:text="7"
+                android:layout_width="0dp" android:layout_weight="1"
+                android:minWidth="0dp" style="@style/KeyboardButton"/>
+
+            <Button android:id="@+id/key_num6" android:text="6"
+                android:layout_width="0dp" android:layout_weight="1"
+                android:minWidth="0dp" style="@style/KeyboardButton"/>
+
+            <Button android:id="@+id/key_num5" android:text="5"
+                android:layout_width="0dp" android:layout_weight="1"
+                android:minWidth="0dp" style="@style/KeyboardButton"/>
+
+            <Button android:id="@+id/key_num4" android:text="4"
+                android:layout_width="0dp" android:layout_weight="1"
+                android:minWidth="0dp" style="@style/KeyboardButton"/>
+
+            <Button android:id="@+id/key_num3" android:text="3"
+                android:layout_width="0dp" android:layout_weight="1"
+                android:minWidth="0dp" style="@style/KeyboardButton"/>
+
+            <Button android:id="@+id/key_num2" android:text="2"
+                android:layout_width="0dp" android:layout_weight="1"
+                android:minWidth="0dp" style="@style/KeyboardButton"/>
+
+            <Button android:id="@+id/key_num1" android:text="1"
+                android:layout_width="0dp" android:layout_weight="1"
+                android:minWidth="0dp" style="@style/KeyboardButton"/>
 
         </LinearLayout>
 
@@ -200,7 +365,7 @@
         android:orientation="vertical"
         android:visibility="gone">
 
-        <!-- Row 1
+        <!-- ROW 1
              ڄ ڃ ڦ ھ غ ث ٽ ڙ ض
         -->
         <LinearLayout
@@ -208,19 +373,46 @@
             android:layout_height="42dp"
             android:orientation="horizontal">
 
-            <Button android:id="@+id/s1" android:text="ڄ" style="@style/KeyboardButton"/>
-            <Button android:id="@+id/s2" android:text="ڃ" style="@style/KeyboardButton"/>
-            <Button android:id="@+id/s16" android:text="ڦ" style="@style/KeyboardButton"/>
-            <Button android:id="@+id/s4" android:text="ھ" style="@style/KeyboardButton"/>
-            <Button android:id="@+id/s5" android:text="غ" style="@style/KeyboardButton"/>
-            <Button android:id="@+id/s6" android:text="ث" style="@style/KeyboardButton"/>
-            <Button android:id="@+id/s7" android:text="ٽ" style="@style/KeyboardButton"/>
-            <Button android:id="@+id/s8" android:text="ڙ" style="@style/KeyboardButton"/>
-            <Button android:id="@+id/s9" android:text="ض" style="@style/KeyboardButton"/>
+            <Button android:id="@+id/s1" android:text="ڄ"
+                android:layout_width="0dp" android:layout_weight="1"
+                android:minWidth="0dp" style="@style/KeyboardButton"/>
+
+            <Button android:id="@+id/s2" android:text="ڃ"
+                android:layout_width="0dp" android:layout_weight="1"
+                android:minWidth="0dp" style="@style/KeyboardButton"/>
+
+            <Button android:id="@+id/s16" android:text="ڦ"
+                android:layout_width="0dp" android:layout_weight="1"
+                android:minWidth="0dp" style="@style/KeyboardButton"/>
+
+            <Button android:id="@+id/s4" android:text="ھ"
+                android:layout_width="0dp" android:layout_weight="1"
+                android:minWidth="0dp" style="@style/KeyboardButton"/>
+
+            <Button android:id="@+id/s5" android:text="غ"
+                android:layout_width="0dp" android:layout_weight="1"
+                android:minWidth="0dp" style="@style/KeyboardButton"/>
+
+            <Button android:id="@+id/s6" android:text="ث"
+                android:layout_width="0dp" android:layout_weight="1"
+                android:minWidth="0dp" style="@style/KeyboardButton"/>
+
+            <Button android:id="@+id/s7" android:text="ٽ"
+                android:layout_width="0dp" android:layout_weight="1"
+                android:minWidth="0dp" style="@style/KeyboardButton"/>
+
+            <Button android:id="@+id/s8" android:text="ڙ"
+                android:layout_width="0dp" android:layout_weight="1"
+                android:minWidth="0dp" style="@style/KeyboardButton"/>
+
+            <Button android:id="@+id/s9" android:text="ض"
+                android:layout_width="0dp" android:layout_weight="1"
+                android:minWidth="0dp" style="@style/KeyboardButton"/>
 
         </LinearLayout>
 
-        <!-- Row 2
+
+        <!-- ROW 2
              ٺ ڌ ڏ ۽ ح ڦ ڊ ش آ ة ؤ ہ ى
         -->
         <LinearLayout
@@ -228,24 +420,63 @@
             android:layout_height="42dp"
             android:orientation="horizontal">
 
-            <Button android:id="@+id/s10" android:text="ٺ" style="@style/KeyboardButton"/>
-            <Button android:id="@+id/s11" android:text="ڌ" style="@style/KeyboardButton"/>
-            <Button android:id="@+id/s12" android:text="ڏ" style="@style/KeyboardButton"/>
-            <Button android:id="@+id/s13" android:text="۽" style="@style/KeyboardButton"/>
-            <Button android:id="@+id/s14" android:text="ح" style="@style/KeyboardButton"/>
-            <Button android:id="@+id/s15" android:text="ڦ" style="@style/KeyboardButton"/>
-            <Button android:id="@+id/s17" android:text="ڊ" style="@style/KeyboardButton"/>
-            <Button android:id="@+id/s24" android:text="ش" style="@style/KeyboardButton"/>
-            <Button android:id="@+id/s25" android:text="آ" style="@style/KeyboardButton"/>
-            <Button android:id="@+id/s26" android:text="ة" style="@style/KeyboardButton"/>
-            <Button android:id="@+id/s27" android:text="ؤ" style="@style/KeyboardButton"/>
-            <Button android:id="@+id/s28" android:text="ہ" style="@style/KeyboardButton"/>
-            <Button android:id="@+id/s29" android:text="ى" style="@style/KeyboardButton"/>
+            <Button android:id="@+id/s10" android:text="ٺ"
+                android:layout_width="0dp" android:layout_weight="1"
+                android:minWidth="0dp" style="@style/KeyboardButton"/>
+
+            <Button android:id="@+id/s11" android:text="ڌ"
+                android:layout_width="0dp" android:layout_weight="1"
+                android:minWidth="0dp" style="@style/KeyboardButton"/>
+
+            <Button android:id="@+id/s12" android:text="ڏ"
+                android:layout_width="0dp" android:layout_weight="1"
+                android:minWidth="0dp" style="@style/KeyboardButton"/>
+
+            <Button android:id="@+id/s13" android:text="۽"
+                android:layout_width="0dp" android:layout_weight="1"
+                android:minWidth="0dp" style="@style/KeyboardButton"/>
+
+            <Button android:id="@+id/s14" android:text="ح"
+                android:layout_width="0dp" android:layout_weight="1"
+                android:minWidth="0dp" style="@style/KeyboardButton"/>
+
+            <Button android:id="@+id/s15" android:text="ڦ"
+                android:layout_width="0dp" android:layout_weight="1"
+                android:minWidth="0dp" style="@style/KeyboardButton"/>
+
+            <Button android:id="@+id/s17" android:text="ڊ"
+                android:layout_width="0dp" android:layout_weight="1"
+                android:minWidth="0dp" style="@style/KeyboardButton"/>
+
+            <Button android:id="@+id/s24" android:text="ش"
+                android:layout_width="0dp" android:layout_weight="1"
+                android:minWidth="0dp" style="@style/KeyboardButton"/>
+
+            <Button android:id="@+id/s25" android:text="آ"
+                android:layout_width="0dp" android:layout_weight="1"
+                android:minWidth="0dp" style="@style/KeyboardButton"/>
+
+            <Button android:id="@+id/s26" android:text="ة"
+                android:layout_width="0dp" android:layout_weight="1"
+                android:minWidth="0dp" style="@style/KeyboardButton"/>
+
+            <Button android:id="@+id/s27" android:text="ؤ"
+                android:layout_width="0dp" android:layout_weight="1"
+                android:minWidth="0dp" style="@style/KeyboardButton"/>
+
+            <Button android:id="@+id/s28" android:text="ہ"
+                android:layout_width="0dp" android:layout_weight="1"
+                android:minWidth="0dp" style="@style/KeyboardButton"/>
+
+            <Button android:id="@+id/s29" android:text="ى"
+                android:layout_width="0dp" android:layout_weight="1"
+                android:minWidth="0dp" style="@style/KeyboardButton"/>
 
         </LinearLayout>
 
-        <!-- Row 3
-             DELETE   ۾ ڻ ٻ ء ظ ذ جھ گھ   SHIFT BUTTON
+
+        <!-- ROW 3
+             DELETE ۾ ڻ ٻ ء ظ ذ جھ گھ SHIFT
         -->
         <LinearLayout
             android:layout_width="match_parent"
@@ -255,20 +486,49 @@
             <Button
                 android:id="@+id/key_delete2"
                 android:text="DELETE"
+                android:layout_width="0dp"
+                android:layout_weight="1"
+                android:minWidth="0dp"
                 style="@style/KeyboardButton"/>
 
-            <Button android:id="@+id/s18" android:text="۾" style="@style/KeyboardButton"/>
-            <Button android:id="@+id/s19" android:text="ڻ" style="@style/KeyboardButton"/>
-            <Button android:id="@+id/s20" android:text="ٻ" style="@style/KeyboardButton"/>
-            <Button android:id="@+id/s21" android:text="ء" style="@style/KeyboardButton"/>
-            <Button android:id="@+id/s22" android:text="ظ" style="@style/KeyboardButton"/>
-            <Button android:id="@+id/s23" android:text="ذ" style="@style/KeyboardButton"/>
-            <Button android:id="@+id/s3" android:text="جھ" style="@style/KeyboardButton"/>
-            <Button android:id="@+id/s30" android:text="گھ" style="@style/KeyboardButton"/>
+            <Button android:id="@+id/s18" android:text="۾"
+                android:layout_width="0dp" android:layout_weight="1"
+                android:minWidth="0dp" style="@style/KeyboardButton"/>
+
+            <Button android:id="@+id/s19" android:text="ڻ"
+                android:layout_width="0dp" android:layout_weight="1"
+                android:minWidth="0dp" style="@style/KeyboardButton"/>
+
+            <Button android:id="@+id/s20" android:text="ٻ"
+                android:layout_width="0dp" android:layout_weight="1"
+                android:minWidth="0dp" style="@style/KeyboardButton"/>
+
+            <Button android:id="@+id/s21" android:text="ء"
+                android:layout_width="0dp" android:layout_weight="1"
+                android:minWidth="0dp" style="@style/KeyboardButton"/>
+
+            <Button android:id="@+id/s22" android:text="ظ"
+                android:layout_width="0dp" android:layout_weight="1"
+                android:minWidth="0dp" style="@style/KeyboardButton"/>
+
+            <Button android:id="@+id/s23" android:text="ذ"
+                android:layout_width="0dp" android:layout_weight="1"
+                android:minWidth="0dp" style="@style/KeyboardButton"/>
+
+            <Button android:id="@+id/s3" android:text="جھ"
+                android:layout_width="0dp" android:layout_weight="1"
+                android:minWidth="0dp" style="@style/KeyboardButton"/>
+
+            <Button android:id="@+id/s30" android:text="گھ"
+                android:layout_width="0dp" android:layout_weight="1"
+                android:minWidth="0dp" style="@style/KeyboardButton"/>
 
             <Button
                 android:id="@+id/key_shift2"
                 android:text="SHIFT"
+                android:layout_width="0dp"
+                android:layout_weight="1"
+                android:minWidth="0dp"
                 style="@style/KeyboardButton"/>
 
         </LinearLayout>
