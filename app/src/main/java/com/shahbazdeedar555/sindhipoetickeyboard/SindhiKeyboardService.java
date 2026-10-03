@@ -1,4 +1,3 @@
-
 package com.shahbazdeedar555.sindhipoetickeyboard;
 
 import android.inputmethodservice.InputMethodService;
@@ -50,7 +49,6 @@ public class SindhiKeyboardService extends InputMethodService {
     }
 
     private View find(int id) {
-
         if (keyboard == null) {
             return null;
         }
@@ -59,7 +57,7 @@ public class SindhiKeyboardService extends InputMethodService {
     }
 
     // =====================================================
-    // PAGE 1 — XML سان مڪمل MATCH
+    // PAGE 1
     // =====================================================
 
     private void setupPage1() {
@@ -136,7 +134,7 @@ public class SindhiKeyboardService extends InputMethodService {
     }
 
     // =====================================================
-    // PAGE 2 — XML سان مڪمل MATCH
+    // PAGE 2
     // =====================================================
 
     private void setupPage2() {
@@ -311,9 +309,10 @@ public class SindhiKeyboardService extends InputMethodService {
                     );
 
                     return true;
-            }
 
-            return true;
+                default:
+                    return true;
+            }
         });
     }
 
@@ -546,4 +545,4 @@ public class SindhiKeyboardService extends InputMethodService {
 
         super.onDestroy();
     }
-    {
+}
