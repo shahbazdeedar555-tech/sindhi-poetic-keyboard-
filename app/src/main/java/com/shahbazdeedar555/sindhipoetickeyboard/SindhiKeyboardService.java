@@ -1,3 +1,4 @@
+
 package com.shahbazdeedar555.sindhipoetickeyboard;
 
 import android.content.Intent;
@@ -86,7 +87,7 @@ public class SindhiKeyboardService extends InputMethodService {
         // =================================================
         // گ
         // عام حالت = گ
-        // Shift حالت = گھ
+        // Shift ON = گھ
         // =================================================
 
         View gaf = find(R.id.key_gaf);
@@ -179,8 +180,7 @@ public class SindhiKeyboardService extends InputMethodService {
 
         // =================================================
         // SHIFT
-        // Short press = Shift ON/OFF
-        // Long press = Page 1 / Page 2
+        // Tap = Page 1 / Page 2
         // =================================================
 
         setupShift(R.id.key_shift);
@@ -226,10 +226,7 @@ public class SindhiKeyboardService extends InputMethodService {
 
         setKey(R.id.s1, "ڄ");
         setKey(R.id.s2, "ڃ");
-
-        // ڦ جي هڪ جاءِ تي جھ
         setKey(R.id.s3, "جھ");
-
         setKey(R.id.s4, "ھ");
         setKey(R.id.s5, "غ");
         setKey(R.id.s6, "ث");
@@ -244,9 +241,7 @@ public class SindhiKeyboardService extends InputMethodService {
         setKey(R.id.s14, "ڊ");
         setKey(R.id.s15, "ش");
 
-        // ٻي ڦ برقرار
         setKey(R.id.s16, "ڦ");
-
         setKey(R.id.s17, "آ");
 
         setKey(R.id.s18, "۾");
@@ -268,8 +263,7 @@ public class SindhiKeyboardService extends InputMethodService {
 
         // =================================================
         // SHIFT PAGE 2
-        // Short press = Shift ON/OFF
-        // Long press = Page 1
+        // Tap = واپس Page 1
         // =================================================
 
         setupShift(R.id.key_shift2);
@@ -337,28 +331,44 @@ public class SindhiKeyboardService extends InputMethodService {
             return;
         }
 
+        /*
+         * IMPORTANT:
+         *
+         * Shift تي هڪ دفعو tap ڪرڻ سان
+         * keyboard جو page تبديل ٿيندو.
+         *
+         * Page 1 -> Page 2
+         * Page 2 -> Page 1
+         *
+         * ساڳئي وقت shiftOn به تبديل ٿيندو،
+         * تنهنڪري گ -> گھ جهڙي functionality
+         * به ڪم ڪندي رهندي.
+         */
+
         view.setOnClickListener(v -> {
 
-            shiftOn = !shiftOn;
-
-            updateShiftButton();
-        });
-
-        view.setOnLongClickListener(v -> {
-
-            shiftOn = false;
-
             if (page2) {
+
+                // Page 2 -> Page 1
                 showPage1();
+
+                shiftOn = false;
+
             } else {
+
+                // Page 1 -> Page 2
                 showPage2();
+
+                shiftOn = true;
             }
 
             updateShiftButton();
-
-            return true;
         });
     }
+
+    // =====================================================
+    // SHIFT BUTTON TEXT
+    // =====================================================
 
     private void updateShiftButton() {
 
@@ -373,11 +383,17 @@ public class SindhiKeyboardService extends InputMethodService {
                         : null;
 
         if (shift1 != null) {
-            shift1.setText(shiftOn ? "SHIFT✓" : "SHIFT");
+
+            shift1.setText(
+                    shiftOn ? "SHIFT✓" : "SHIFT"
+            );
         }
 
         if (shift2 != null) {
-            shift2.setText(shiftOn ? "SHIFT✓" : "SHIFT");
+
+            shift2.setText(
+                    shiftOn ? "SHIFT✓" : "SHIFT"
+            );
         }
     }
 
@@ -614,7 +630,9 @@ public class SindhiKeyboardService extends InputMethodService {
         );
 
         if (keyboard != null) {
+
             showPage1();
+
             updateShiftButton();
         }
     }
