@@ -1,3 +1,4 @@
+
 package com.shahbazdeedar555.sindhipoetickeyboard;
 
 import android.inputmethodservice.InputMethodService;
@@ -106,6 +107,9 @@ public class SindhiKeyboardService extends InputMethodService {
         setupArrow(R.id.key_arrow);
         setupPunctuation(R.id.key_punctuation);
 
+        // SPACE
+        setupSpace(R.id.key_space);
+
         setupTatweel(R.id.key_tatweel);
 
         setKey(R.id.key_zabar1, "َ");
@@ -195,6 +199,22 @@ public class SindhiKeyboardService extends InputMethodService {
 
             view.setOnClickListener(
                     v -> commit("ـ")
+            );
+        }
+    }
+
+    // =====================================================
+    // SPACE
+    // =====================================================
+
+    private void setupSpace(int id) {
+
+        View view = find(id);
+
+        if (view != null) {
+
+            view.setOnClickListener(
+                    v -> commit(" ")
             );
         }
     }
