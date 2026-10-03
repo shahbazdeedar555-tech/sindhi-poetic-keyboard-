@@ -1,4 +1,4 @@
-
+<?xml version="1.0" encoding="utf-8"?>
 
 <LinearLayout
     xmlns:android="http://schemas.android.com/apk/res/android"
@@ -7,6 +7,7 @@
     android:layout_height="wrap_content"
     android:minHeight="300dp"
     android:orientation="vertical"
+    android:layoutDirection="rtl"
     android:background="#173F35"
     android:padding="3dp">
 
@@ -19,6 +20,7 @@
         android:layout_width="match_parent"
         android:layout_height="wrap_content"
         android:orientation="vertical"
+        android:layoutDirection="rtl"
         android:visibility="visible">
 
         <!-- ROW 1
@@ -28,7 +30,8 @@
         <LinearLayout
             android:layout_width="match_parent"
             android:layout_height="46dp"
-            android:orientation="horizontal">
+            android:orientation="horizontal"
+            android:layoutDirection="rtl">
 
             <Button android:id="@+id/key_ch" android:text="چ"
                 android:layout_width="0dp" android:layout_height="match_parent"
@@ -100,7 +103,8 @@
         <LinearLayout
             android:layout_width="match_parent"
             android:layout_height="46dp"
-            android:orientation="horizontal">
+            android:orientation="horizontal"
+            android:layoutDirection="rtl">
 
             <Button android:id="@+id/key_ddal" android:text="ڍ"
                 android:layout_width="0dp" android:layout_height="match_parent"
@@ -172,7 +176,8 @@
         <LinearLayout
             android:layout_width="match_parent"
             android:layout_height="46dp"
-            android:orientation="horizontal">
+            android:orientation="horizontal"
+            android:layoutDirection="rtl">
 
             <Button
                 android:id="@+id/key_delete"
@@ -221,7 +226,7 @@
 
             <Button android:id="@+id/key_za" android:text="ز"
                 android:layout_width="0dp" android:layout_height="match_parent"
-                android:layout_weight="1" android:minWidth="0dp"
+                android:layout_weight="1.0" android:minWidth="0dp"
                 android:padding="0dp" style="@style/KeyboardButton"/>
 
             <Button
@@ -237,12 +242,15 @@
         </LinearLayout>
 
 
-        <!-- ROW 4 -->
+        <!-- ROW 4
+             ENTER  ←  PUNCTUATIONS  SPACE
+        -->
 
         <LinearLayout
             android:layout_width="match_parent"
             android:layout_height="46dp"
-            android:orientation="horizontal">
+            android:orientation="horizontal"
+            android:layoutDirection="rtl">
 
             <Button
                 android:id="@+id/key_enter"
@@ -274,15 +282,28 @@
                 android:padding="0dp"
                 style="@style/KeyboardButton"/>
 
+            <Button
+                android:id="@+id/key_space"
+                android:text="SPACE"
+                android:layout_width="0dp"
+                android:layout_height="match_parent"
+                android:layout_weight="2.5"
+                android:minWidth="0dp"
+                android:padding="0dp"
+                style="@style/KeyboardButton"/>
+
         </LinearLayout>
 
 
-        <!-- ROW 5 -->
+        <!-- ROW 5
+             ڊگهو ڪرڻ واري  َ  ِ  ُ  ّ  ْ  ٰ
+        -->
 
         <LinearLayout
             android:layout_width="match_parent"
             android:layout_height="46dp"
-            android:orientation="horizontal">
+            android:orientation="horizontal"
+            android:layoutDirection="rtl">
 
             <Button
                 android:id="@+id/key_tatweel"
@@ -327,12 +348,15 @@
         </LinearLayout>
 
 
-        <!-- ROW 6 -->
+        <!-- ROW 6
+             0 9 8 7 6 5 4 3 2 1
+        -->
 
         <LinearLayout
             android:layout_width="match_parent"
             android:layout_height="46dp"
-            android:orientation="horizontal">
+            android:orientation="horizontal"
+            android:layoutDirection="rtl">
 
             <Button android:id="@+id/key_num0" android:text="0"
                 android:layout_width="0dp" android:layout_height="match_parent"
@@ -398,6 +422,7 @@
         android:layout_width="match_parent"
         android:layout_height="wrap_content"
         android:orientation="vertical"
+        android:layoutDirection="rtl"
         android:visibility="gone">
 
         <!-- ROW 1
@@ -407,7 +432,8 @@
         <LinearLayout
             android:layout_width="match_parent"
             android:layout_height="46dp"
-            android:orientation="horizontal">
+            android:orientation="horizontal"
+            android:layoutDirection="rtl">
 
             <Button android:id="@+id/s1" android:text="ڄ"
                 android:layout_width="0dp" android:layout_height="match_parent"
@@ -479,7 +505,8 @@
         <LinearLayout
             android:layout_width="match_parent"
             android:layout_height="46dp"
-            android:orientation="horizontal">
+            android:orientation="horizontal"
+            android:layoutDirection="rtl">
 
             <Button android:id="@+id/s13" android:text="۽"
                 android:layout_width="0dp" android:layout_height="match_parent"
@@ -521,7 +548,8 @@
         <LinearLayout
             android:layout_width="match_parent"
             android:layout_height="46dp"
-            android:orientation="horizontal">
+            android:orientation="horizontal"
+            android:layoutDirection="rtl">
 
             <Button
                 android:id="@+id/key_delete2"
