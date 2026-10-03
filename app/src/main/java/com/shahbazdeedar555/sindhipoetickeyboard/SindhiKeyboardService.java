@@ -59,11 +59,12 @@ public class SindhiKeyboardService extends InputMethodService {
     }
 
     // =====================================================
-    // PAGE 1
+    // PAGE 1 — XML سان مڪمل MATCH
     // =====================================================
 
     private void setupPage1() {
 
+        // ROW 1
         setKey(R.id.key_ch, "چ");
         setKey(R.id.key_chh, "ڇ");
         setKey(R.id.key_pay, "پ");
@@ -77,6 +78,7 @@ public class SindhiKeyboardService extends InputMethodService {
         setKey(R.id.key_sad, "ص");
         setKey(R.id.key_qaf, "ق");
 
+        // ROW 2
         setKey(R.id.key_ddal, "ڍ");
         setKey(R.id.key_ng, "ڱ");
         setKey(R.id.key_khay, "ک");
@@ -90,6 +92,7 @@ public class SindhiKeyboardService extends InputMethodService {
         setKey(R.id.key_seen, "س");
         setKey(R.id.key_alif, "ا");
 
+        // ROW 3
         setupFastDelete(R.id.key_delete);
 
         setKey(R.id.key_hamza_y, "ئ");
@@ -103,13 +106,13 @@ public class SindhiKeyboardService extends InputMethodService {
 
         setupShift(R.id.key_shift);
 
+        // ROW 4
         setupEnter(R.id.key_enter);
         setupArrow(R.id.key_arrow);
         setupPunctuation(R.id.key_punctuation);
-
-        // SPACE
         setupSpace(R.id.key_space);
 
+        // ROW 5
         setupTatweel(R.id.key_tatweel);
 
         setKey(R.id.key_zabar1, "َ");
@@ -119,6 +122,7 @@ public class SindhiKeyboardService extends InputMethodService {
         setKey(R.id.key_jazm1, "ْ");
         setKey(R.id.key_alif_khanjari1, "ٰ");
 
+        // ROW 6
         setKey(R.id.key_num0, "0");
         setKey(R.id.key_num9, "9");
         setKey(R.id.key_num8, "8");
@@ -132,11 +136,12 @@ public class SindhiKeyboardService extends InputMethodService {
     }
 
     // =====================================================
-    // PAGE 2
+    // PAGE 2 — XML سان مڪمل MATCH
     // =====================================================
 
     private void setupPage2() {
 
+        // ROW 1
         setKey(R.id.s1, "ڄ");
         setKey(R.id.s2, "ڃ");
         setKey(R.id.s16, "ڦ");
@@ -150,6 +155,7 @@ public class SindhiKeyboardService extends InputMethodService {
         setKey(R.id.s11, "ڌ");
         setKey(R.id.s12, "ڏ");
 
+        // ROW 2
         setKey(R.id.s13, "۽");
         setKey(R.id.s14, "ح");
         setKey(R.id.s15, "ڦ");
@@ -157,6 +163,7 @@ public class SindhiKeyboardService extends InputMethodService {
         setKey(R.id.s24, "ش");
         setKey(R.id.s25, "آ");
 
+        // ROW 3
         setupFastDelete(R.id.key_delete2);
 
         setKey(R.id.s18, "۾");
@@ -251,12 +258,14 @@ public class SindhiKeyboardService extends InputMethodService {
         View v2 = find(R.id.key_shift2);
 
         if (v1 instanceof Button) {
+
             ((Button) v1).setText(
                     shiftOn ? "SHIFT✓" : "SHIFT"
             );
         }
 
         if (v2 instanceof Button) {
+
             ((Button) v2).setText(
                     shiftOn ? "SHIFT✓" : "SHIFT"
             );
@@ -453,7 +462,7 @@ public class SindhiKeyboardService extends InputMethodService {
     }
 
     // =====================================================
-    // PAGE 1
+    // SHOW PAGE 1
     // =====================================================
 
     private void showPage1() {
@@ -473,7 +482,7 @@ public class SindhiKeyboardService extends InputMethodService {
     }
 
     // =====================================================
-    // PAGE 2
+    // SHOW PAGE 2
     // =====================================================
 
     private void showPage2() {
@@ -537,4 +546,4 @@ public class SindhiKeyboardService extends InputMethodService {
 
         super.onDestroy();
     }
-}
+    {
