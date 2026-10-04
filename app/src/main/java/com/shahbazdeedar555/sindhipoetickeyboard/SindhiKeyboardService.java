@@ -2,10 +2,7 @@
 package com.shahbazdeedar555.sindhipoetickeyboard;
 
 import android.inputmethodservice.InputMethodService;
-import android.os.Handler;
-import android.os.Looper;
 import android.view.KeyEvent;
-import android.view.MotionEvent;
 import android.view.View;
 import android.view.inputmethod.EditorInfo;
 import android.view.inputmethod.InputConnection;
@@ -14,24 +11,7 @@ import android.widget.Button;
 public class SindhiKeyboardService extends InputMethodService {
 
     private View keyboard;
-
-    private boolean page2 = false;
-    private boolean shiftOn = false;
-
-    private final Handler deleteHandler =
-            new Handler(Looper.getMainLooper());
-
-    private boolean fastDeleting = false;
-
-    private final Runnable deleteRunnable = new Runnable() {
-        @Override
-        public void run() {
-            if (fastDeleting) {
-                deleteOne();
-                deleteHandler.postDelayed(this, 70);
-            }
-        }
-    };
+    private boolean shiftActive = false;
 
     @Override
     public View onCreateInputView() {
@@ -41,519 +21,336 @@ public class SindhiKeyboardService extends InputMethodService {
                 null
         );
 
-        setupPage1();
-        setupPage2();
-
-        showPage1();
+        setupKeys();
 
         return keyboard;
     }
 
-    private View find(int id) {
-        if (keyboard == null) {
-            return null;
-        }
+    private void setupKeys() {
 
-        return keyboard.findViewById(id);
-    }
+        // =====================================================
+        // PAGE 1 — سنڌي اکر
+        // =====================================================
 
-    // =====================================================
-    // PAGE 1
-    // =====================================================
-
-    private void setupPage1() {
-
-        // ROW 1
-        setKey(R.id.key_ch, "چ");
-        setKey(R.id.key_chh, "ڇ");
-        setKey(R.id.key_pay, "پ");
-        setKey(R.id.key_waw, "و");
-        setKey(R.id.key_ghain, "ڳ");
-        setKey(R.id.key_ain, "ع");
-        setKey(R.id.key_th, "ٿ");
-        setKey(R.id.key_ta1, "ت");
-        setKey(R.id.key_ray, "ر");
-        setKey(R.id.key_yay, "ي");
-        setKey(R.id.key_sad, "ص");
+        setKey(R.id.key_alif, "چ");
+        setKey(R.id.key_bay, "ڇ");
+        setKey(R.id.key_bay2, "پ");
+        setKey(R.id.key_pay, "و");
+        setKey(R.id.key_bhe, "ڳ");
+        setKey(R.id.key_te, "ع");
+        setKey(R.id.key_tay, "ٿ");
+        setKey(R.id.key_ray, "ت");
+        setKey(R.id.key_jeem, "ر");
+        setKey(R.id.key_ye, "ي");
+        setKey(R.id.key_se, "ص");
         setKey(R.id.key_qaf, "ق");
 
-        // ROW 2
-        setKey(R.id.key_ddal, "ڍ");
-        setKey(R.id.key_ng, "ڱ");
-        setKey(R.id.key_khay, "ک");
+        setKey(R.id.key_dal, "ڍ");
+        setKey(R.id.key_dhal, "ڱ");
+        setKey(R.id.key_kaf, "ک");
         setKey(R.id.key_lam, "ل");
-        setKey(R.id.key_kaf, "ڪ");
-        setKey(R.id.key_jeem, "ج");
-        setKey(R.id.key_hay, "ه");
+        setKey(R.id.key_kaf2, "ڪ");
+        setKey(R.id.key_jim, "ج");
+        setKey(R.id.key_he, "ه");
         setKey(R.id.key_gaf, "گ");
         setKey(R.id.key_fay, "ف");
-        setKey(R.id.key_dal, "د");
+        setKey(R.id.key_dad, "د");
         setKey(R.id.key_seen, "س");
-        setKey(R.id.key_alif, "ا");
+        setKey(R.id.key_alif2, "ا");
 
-        // ROW 3
-        setupFastDelete(R.id.key_delete);
-
-        setKey(R.id.key_hamza_y, "ئ");
+        setKey(R.id.key_alif_mad, "ئ");
         setKey(R.id.key_meem, "م");
         setKey(R.id.key_noon, "ن");
-        setKey(R.id.key_bay, "ب");
-        setKey(R.id.key_bh, "ڀ");
-        setKey(R.id.key_ta2, "ط");
-        setKey(R.id.key_kha, "خ");
-        setKey(R.id.key_za, "ز");
+        setKey(R.id.key_bay3, "ب");
+        setKey(R.id.key_bhe2, "ڀ");
+        setKey(R.id.key_tay2, "ط");
+        setKey(R.id.key_khay, "خ");
+        setKey(R.id.key_zay, "ز");
 
-        setupShift(R.id.key_shift);
 
-        // ROW 4
-        setupEnter(R.id.key_enter);
-        setupArrow(R.id.key_arrow);
+        // =====================================================
+        // PAGE 1 — خاص نشانيون
+        // =====================================================
 
-        setKey(R.id.key_dot, "۔");
-        setKey(R.id.key_comma, "،");
-        setKey(R.id.key_question, "؟");
-        setKey(R.id.key_exclamation, "!");
-        setKey(R.id.key_colon, ":");
-        setKey(R.id.key_semicolon, "؛");
-        setKey(R.id.key_quotes, "\"");
+        setSpecialKey(R.id.key_zabar, "َ");
+        setSpecialKey(R.id.key_zer, "ِ");
+        setSpecialKey(R.id.key_pesh, "ُ");
+        setSpecialKey(R.id.key_shad, "ّ");
+        setSpecialKey(R.id.key_jazm, "ْ");
+        setSpecialKey(R.id.key_khanjari, "ٰ");
 
-        setupSpace(R.id.key_space);
 
-        // ROW 5
-        setupTatweel(R.id.key_tatweel);
+        // =====================================================
+        // PUNCTUATION
+        // =====================================================
 
-        setKey(R.id.key_baha, "بہ");
-        setKey(R.id.key_taha, "تہ");
-        setKey(R.id.key_noha, "نہ");
-        setKey(R.id.key_yeh_alt, "ى");
-        setKey(R.id.key_heh_alt, "ہ");
-        setKey(R.id.key_waw_hamza, "ؤ");
-        setKey(R.id.key_teh_marbuta, "ة");
+        setSpecialKey(R.id.key_dot, ".");
+        setSpecialKey(R.id.key_comma, "،");
+        setSpecialKey(R.id.key_question, "؟");
+        setSpecialKey(R.id.key_quotes, "“”");
+        setSpecialKey(R.id.key_colon, ":");
+        setSpecialKey(R.id.key_exclamation, "!");
 
-        // ROW 6
-        setKey(R.id.key_zabar1, "َ");
-        setKey(R.id.key_zer1, "ِ");
-        setKey(R.id.key_pesh1, "ُ");
-        setKey(R.id.key_shadd1, "ّ");
-        setKey(R.id.key_jazm1, "ْ");
-        setKey(R.id.key_alif_khanjari1, "ٰ");
-        setKey(R.id.key_alif_khanjari2, "ٖ");
-        setKey(R.id.key_alif_khanjari3, "ٗ");
 
-        
+        // =====================================================
+        // LONG ALIF
+        // =====================================================
 
-    // =====================================================
-    // PAGE 2 / SHIFT
-    // =====================================================
+        setSpecialKey(R.id.key_long_alif, "ٰ");
 
-    private void setupPage2() {
 
-        // ROW 1
-        setKey(R.id.s1, "ڄ");
-        setKey(R.id.s2, "ڃ");
-        setKey(R.id.s16, "ڦ");
-        setKey(R.id.s4, "ھ");
-        setKey(R.id.s5, "غ");
-        setKey(R.id.s6, "ث");
-        setKey(R.id.s7, "ٽ");
-        setKey(R.id.s8, "ڙ");
-        setKey(R.id.s9, "ض");
-        setKey(R.id.s10, "ٺ");
-        setKey(R.id.s11, "ڌ");
-        setKey(R.id.s12, "ڏ");
+        // =====================================================
+        // SHIFT PAGE
+        // =====================================================
 
-        // ROW 2
-        setKey(R.id.s13, "۽");
-        setKey(R.id.s14, "ح");
-        setKey(R.id.s15, "ڦ");
-        setKey(R.id.s17, "ڊ");
-        setKey(R.id.s24, "ش");
-        setKey(R.id.s25, "آ");
+        setSpecialKey(R.id.key_jeem2, "ڄ");
+        setSpecialKey(R.id.key_jeem3, "ڃ");
+        setSpecialKey(R.id.key_fay2, "ڦ");
+        setSpecialKey(R.id.key_he2, "ھ");
+        setSpecialKey(R.id.key_ghain, "غ");
+        setSpecialKey(R.id.key_say, "ث");
+        setSpecialKey(R.id.key_tay3, "ٽ");
+        setSpecialKey(R.id.key_ray2, "ڙ");
+        setSpecialKey(R.id.key_dad2, "ض");
+        setSpecialKey(R.id.key_tay4, "ٺ");
+        setSpecialKey(R.id.key_dhal2, "ڌ");
+        setSpecialKey(R.id.key_dal2, "ڏ");
+        setSpecialKey(R.id.key_and, "۽");
+        setSpecialKey(R.id.key_he3, "ح");
+        setSpecialKey(R.id.key_fay3, "ڦ");
+        setSpecialKey(R.id.key_dal3, "ڊ");
+        setSpecialKey(R.id.key_sheen, "ش");
+        setSpecialKey(R.id.key_alif_mad2, "آ");
 
-        // ROW 3
-        setupFastDelete(R.id.key_delete2);
+        setSpecialKey(R.id.key_meem2, "۾");
+        setSpecialKey(R.id.key_noon2, "ڻ");
+        setSpecialKey(R.id.key_bay4, "ٻ");
+        setSpecialKey(R.id.key_hamza, "ء");
+        setSpecialKey(R.id.key_zo, "ظ");
+        setSpecialKey(R.id.key_zal, "ذ");
 
-        setKey(R.id.s18, "۾");
-        setKey(R.id.s19, "ڻ");
-        setKey(R.id.s20, "ٻ");
-        setKey(R.id.s21, "ء");
-        setKey(R.id.s22, "ظ");
-        setKey(R.id.s23, "ذ");
 
-        setupShift(R.id.key_shift2);
+        // =====================================================
+        // DELETE
+        // =====================================================
 
-        // ROW 4
-        setupEnter(R.id.key_enter2);
-        setupArrow(R.id.key_arrow2);
+        Button delete = keyboard.findViewById(R.id.key_delete);
 
-        setKey(R.id.key_dot2, "۔");
-        setKey(R.id.key_comma2, "،");
-        setKey(R.id.key_question2, "؟");
-        setKey(R.id.key_exclamation2, "!");
-        setKey(R.id.key_quotes2, "\"");
+        if (delete != null) {
+            delete.setOnClickListener(v -> deleteText());
+        }
 
-        setupSpace(R.id.key_space2);
 
-        // ROW 5
-        setupTatweel(R.id.key_tatweel2);
+        // =====================================================
+        // SHIFT
+        // =====================================================
 
-        setKey(R.id.key_baha2, "بہ");
-        setKey(R.id.key_taha2, "تہ");
-        setKey(R.id.key_noha2, "نہ");
-        setKey(R.id.key_yeh_alt2, "ى");
-        setKey(R.id.key_heh_alt2, "ہ");
-        setKey(R.id.key_waw_hamza2, "ؤ");
-        setKey(R.id.key_teh_marbuta2, "ة");
+        Button shift = keyboard.findViewById(R.id.key_shift);
 
-        // ROW 6
-        setKey(R.id.key_zabar2, "َ");
-        setKey(R.id.key_zer2, "ِ");
-        setKey(R.id.key_pesh2, "ُ");
-        setKey(R.id.key_shadd2, "ّ");
-        setKey(R.id.key_jazm2, "ْ");
-        setKey(R.id.key_alif_khanjari2b, "ٰ");
-        setKey(R.id.key_alif_khanjari2c, "ٖ");
-        setKey(R.id.key_alif_khanjari2d, "ٗ");
-    }
+        if (shift != null) {
 
-    // =====================================================
-    // NORMAL KEY
-    // =====================================================
+            shift.setOnClickListener(v -> {
 
-    private void setKey(int id, final String text) {
+                shiftActive = !shiftActive;
 
-        View view = find(id);
+                if (shiftActive) {
+                    showShiftPage();
+                } else {
+                    showPage1();
+                }
+            });
+        }
 
-        if (view instanceof Button) {
 
-            Button button = (Button) view;
+        // =====================================================
+        // ENTER
+        // =====================================================
 
-            button.setOnClickListener(
-                    v -> commit(text)
-            );
+        Button enter = keyboard.findViewById(R.id.key_enter);
+
+        if (enter != null) {
+
+            enter.setOnClickListener(v -> {
+
+                InputConnection ic = getCurrentInputConnection();
+
+                if (ic != null) {
+
+                    ic.sendKeyEvent(
+                            new KeyEvent(
+                                    KeyEvent.ACTION_DOWN,
+                                    KeyEvent.KEYCODE_ENTER
+                            )
+                    );
+
+                    ic.sendKeyEvent(
+                            new KeyEvent(
+                                    KeyEvent.ACTION_UP,
+                                    KeyEvent.KEYCODE_ENTER
+                            )
+                    );
+                }
+            });
+        }
+
+
+        // =====================================================
+        // SPACE
+        // =====================================================
+
+        Button space = keyboard.findViewById(R.id.key_space);
+
+        if (space != null) {
+
+            space.setOnClickListener(v -> {
+
+                InputConnection ic = getCurrentInputConnection();
+
+                if (ic != null) {
+                    ic.commitText(" ", 1);
+                }
+            });
         }
     }
 
-    // =====================================================
-    // TATWEEL
-    // =====================================================
 
-    private void setupTatweel(int id) {
+    // =========================================================
+    // عام سنڌي اکر
+    // =========================================================
 
-        View view = find(id);
+    private void setKey(int id, String text) {
 
-        if (view != null) {
-            view.setOnClickListener(
-                    v -> commit("ـ")
-            );
-        }
-    }
+        Button button = keyboard.findViewById(id);
 
-    // =====================================================
-    // SPACE
-    // =====================================================
-
-    private void setupSpace(int id) {
-
-        View view = find(id);
-
-        if (view != null) {
-            view.setOnClickListener(
-                    v -> commit(" ")
-            );
-        }
-    }
-
-    // =====================================================
-    // SHIFT
-    // =====================================================
-
-    private void setupShift(int id) {
-
-        View view = find(id);
-
-        if (view == null) {
+        if (button == null) {
             return;
         }
 
-        view.setOnClickListener(v -> {
+        button.setOnClickListener(v -> {
 
-            if (page2) {
-                showPage1();
-                shiftOn = false;
-            } else {
-                showPage2();
-                shiftOn = true;
-            }
+            InputConnection ic = getCurrentInputConnection();
 
-            updateShiftButton();
-        });
-    }
-
-    private void updateShiftButton() {
-
-        View v1 = find(R.id.key_shift);
-        View v2 = find(R.id.key_shift2);
-
-        if (v1 instanceof Button) {
-            ((Button) v1).setText(
-                    shiftOn ? "SHIFT ✓" : "SHIFT"
-            );
-        }
-
-        if (v2 instanceof Button) {
-            ((Button) v2).setText(
-                    shiftOn ? "SHIFT ✓" : "SHIFT"
-            );
-        }
-    }
-
-    // =====================================================
-    // DELETE
-    // =====================================================
-
-    private void setupFastDelete(int id) {
-
-        View view = find(id);
-
-        if (view == null) {
-            return;
-        }
-
-        view.setOnTouchListener((v, event) -> {
-
-            switch (event.getAction()) {
-
-                case MotionEvent.ACTION_DOWN:
-
-                    deleteOne();
-
-                    fastDeleting = true;
-
-                    deleteHandler.postDelayed(
-                            deleteRunnable,
-                            350
-                    );
-
-                    return true;
-
-                case MotionEvent.ACTION_UP:
-                case MotionEvent.ACTION_CANCEL:
-
-                    fastDeleting = false;
-
-                    deleteHandler.removeCallbacks(
-                            deleteRunnable
-                    );
-
-                    return true;
-
-                default:
-                    return true;
+            if (ic != null) {
+                ic.commitText(text, 1);
             }
         });
     }
 
-    private void deleteOne() {
 
-        InputConnection ic =
-                getCurrentInputConnection();
+    // =========================================================
+    // خاص نشاني
+    // =========================================================
 
-        if (ic != null) {
-            ic.deleteSurroundingText(1, 0);
+    private void setSpecialKey(int id, String text) {
+
+        Button button = keyboard.findViewById(id);
+
+        if (button == null) {
+            return;
         }
+
+        button.setOnClickListener(v -> {
+
+            InputConnection ic = getCurrentInputConnection();
+
+            if (ic != null) {
+                ic.commitText(text, 1);
+            }
+        });
     }
 
-    // =====================================================
-    // COMMIT
-    // =====================================================
 
-    private void commit(String text) {
+    // =========================================================
+    // DELETE / BACKSPACE
+    // =========================================================
 
-        InputConnection ic =
-                getCurrentInputConnection();
+    private void deleteText() {
 
-        if (ic != null) {
-            ic.commitText(text, 1);
-        }
-    }
-
-    // =====================================================
-    // ENTER
-    // =====================================================
-
-    private void setupEnter(int id) {
-
-        View view = find(id);
-
-        if (view != null) {
-            view.setOnClickListener(
-                    v -> pressEnter()
-            );
-        }
-    }
-
-    private void pressEnter() {
-
-        InputConnection ic =
-                getCurrentInputConnection();
+        InputConnection ic = getCurrentInputConnection();
 
         if (ic == null) {
             return;
         }
 
-        EditorInfo info =
-                getCurrentInputEditorInfo();
+        CharSequence selected = ic.getSelectedText(0);
 
-        if (info != null) {
-
-            int action =
-                    info.imeOptions
-                            & EditorInfo.IME_MASK_ACTION;
-
-            if (action != EditorInfo.IME_ACTION_NONE
-                    && action != EditorInfo.IME_ACTION_UNSPECIFIED) {
-
-                ic.performEditorAction(action);
-                return;
-            }
+        if (selected != null && selected.length() > 0) {
+            ic.commitText("", 0);
+            return;
         }
 
-        ic.sendKeyEvent(
-                new KeyEvent(
-                        KeyEvent.ACTION_DOWN,
-                        KeyEvent.KEYCODE_ENTER
-                )
-        );
+        CharSequence before = ic.getTextBeforeCursor(1, 0);
 
-        ic.sendKeyEvent(
-                new KeyEvent(
-                        KeyEvent.ACTION_UP,
-                        KeyEvent.KEYCODE_ENTER
-                )
-        );
-    }
-
-    // =====================================================
-    // ARROW
-    // =====================================================
-
-    private void setupArrow(int id) {
-
-        View view = find(id);
-
-        if (view != null) {
-            view.setOnClickListener(
-                    v -> moveCursorLeft()
-            );
+        if (before != null && before.length() > 0) {
+            ic.deleteSurroundingText(1, 0);
         }
     }
 
-    private void moveCursorLeft() {
 
-        InputConnection ic =
-                getCurrentInputConnection();
-
-        if (ic != null) {
-
-            ic.sendKeyEvent(
-                    new KeyEvent(
-                            KeyEvent.ACTION_DOWN,
-                            KeyEvent.KEYCODE_DPAD_LEFT
-                    )
-            );
-
-            ic.sendKeyEvent(
-                    new KeyEvent(
-                            KeyEvent.ACTION_UP,
-                            KeyEvent.KEYCODE_DPAD_LEFT
-                    )
-            );
-        }
-    }
-
-    // =====================================================
-    // SHOW PAGE 1
-    // =====================================================
+    // =========================================================
+    // PAGE 1
+    // =========================================================
 
     private void showPage1() {
 
-        page2 = false;
+        View page1 = keyboard.findViewById(R.id.keyboard_page1);
+        View page2 = keyboard.findViewById(R.id.keyboard_page2);
 
-        View p1 = find(R.id.keyboard_page1);
-        View p2 = find(R.id.keyboard_page2);
-
-        if (p1 != null) {
-            p1.setVisibility(View.VISIBLE);
+        if (page1 != null) {
+            page1.setVisibility(View.VISIBLE);
         }
 
-        if (p2 != null) {
-            p2.setVisibility(View.GONE);
+        if (page2 != null) {
+            page2.setVisibility(View.GONE);
         }
     }
 
-    // =====================================================
-    // SHOW PAGE 2
-    // =====================================================
 
-    private void showPage2() {
+    // =========================================================
+    // SHIFT PAGE
+    // =========================================================
 
-        page2 = true;
+    private void showShiftPage() {
 
-        View p1 = find(R.id.keyboard_page1);
-        View p2 = find(R.id.keyboard_page2);
+        View page1 = keyboard.findViewById(R.id.keyboard_page1);
+        View page2 = keyboard.findViewById(R.id.keyboard_page2);
 
-        if (p1 != null) {
-            p1.setVisibility(View.GONE);
+        if (page1 != null) {
+            page1.setVisibility(View.GONE);
         }
 
-        if (p2 != null) {
-            p2.setVisibility(View.VISIBLE);
+        if (page2 != null) {
+            page2.setVisibility(View.VISIBLE);
         }
     }
 
-    // =====================================================
-    // START INPUT
-    // =====================================================
+
+    // =========================================================
+    // نئون input شروع ٿيڻ وقت Page 1
+    // =========================================================
 
     @Override
-    public void onStartInput(
-            EditorInfo attribute,
-            boolean restarting) {
+    public void onStartInput(EditorInfo attribute, boolean restarting) {
 
-        super.onStartInput(
-                attribute,
-                restarting
-        );
+        super.onStartInput(attribute, restarting);
 
-        page2 = false;
-        shiftOn = false;
-        fastDeleting = false;
-
-        deleteHandler.removeCallbacks(
-                deleteRunnable
-        );
+        shiftActive = false;
 
         if (keyboard != null) {
             showPage1();
-            updateShiftButton();
         }
     }
 
-    // =====================================================
-    // DESTROY
-    // =====================================================
+
+    // =========================================================
+    // input ختم
+    // =========================================================
 
     @Override
-    public void onDestroy() {
+    public void onFinishInput() {
 
-        fastDeleting = false;
-        shiftOn = false;
+        super.onFinishInput();
 
-        deleteHandler.removeCallbacks(
-                deleteRunnable
-        );
-
-        super.onDestroy();
+        shiftActive = false;
     }
 }
