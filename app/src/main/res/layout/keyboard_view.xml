@@ -1,5 +1,4 @@
 
-
 <LinearLayout
     xmlns:android="http://schemas.android.com/apk/res/android"
     android:id="@+id/keyboard_root"
@@ -66,17 +65,12 @@
 
         </LinearLayout>
 
-        <!-- ROW 3 -->
+        <!-- ROW 3 : LETTERS ONLY -->
         <LinearLayout
             android:layout_width="match_parent"
             android:layout_height="48dp"
             android:orientation="horizontal"
             android:layoutDirection="rtl">
-
-            <Button
-                android:id="@+id/key_delete"
-                android:text="DELETE"
-                style="@style/KeyboardButton"/>
 
             <Button android:id="@+id/key_hamza_y" android:text="ئ" style="@style/KeyboardButton"/>
             <Button android:id="@+id/key_meem" android:text="م" style="@style/KeyboardButton"/>
@@ -87,24 +81,14 @@
             <Button android:id="@+id/key_kha" android:text="خ" style="@style/KeyboardButton"/>
             <Button android:id="@+id/key_za" android:text="ز" style="@style/KeyboardButton"/>
 
-            <Button
-                android:id="@+id/key_shift"
-                android:text="SHIFT"
-                style="@style/KeyboardButton"/>
-
         </LinearLayout>
 
-        <!-- ROW 4 -->
+        <!-- ROW 4 : PUNCTUATION ONLY -->
         <LinearLayout
             android:layout_width="match_parent"
             android:layout_height="48dp"
             android:orientation="horizontal"
             android:layoutDirection="rtl">
-
-            <Button
-                android:id="@+id/key_enter"
-                android:text="ENTER"
-                style="@style/KeyboardButton"/>
 
             <Button
                 android:id="@+id/key_arrow"
@@ -146,11 +130,6 @@
                 android:text="&quot;"
                 style="@style/KeyboardButton"/>
 
-            <Button
-                android:id="@+id/key_space"
-                android:text="SPACE"
-                style="@style/KeyboardButton"/>
-
         </LinearLayout>
 
         <!-- ROW 5 : SPECIALS -->
@@ -190,35 +169,36 @@
         </LinearLayout>
 
         <!-- ROW 7 : MAIN CONTROL BUTTONS -->
-<LinearLayout
-    android:layout_width="match_parent"
-    android:layout_height="48dp"
-    android:orientation="horizontal"
-    android:layoutDirection="rtl">
+        <LinearLayout
+            android:layout_width="match_parent"
+            android:layout_height="48dp"
+            android:orientation="horizontal"
+            android:layoutDirection="rtl">
 
-    <Button
-        android:id="@+id/key_shift_bottom"
-        android:text="SHIFT"
-        style="@style/KeyboardButton"/>
+            <Button
+                android:id="@+id/key_shift_bottom"
+                android:text="SHIFT"
+                style="@style/KeyboardButton"/>
 
-    <Button
-        android:id="@+id/key_delete_bottom"
-        android:text="DELETE"
-        style="@style/KeyboardButton"/>
+            <Button
+                android:id="@+id/key_delete_bottom"
+                android:text="DELETE"
+                style="@style/KeyboardButton"/>
 
-    <Button
-        android:id="@+id/key_space_bottom"
-        android:text="SPACE"
-        style="@style/KeyboardButton"/>
+            <Button
+                android:id="@+id/key_space_bottom"
+                android:text="SPACE"
+                style="@style/KeyboardButton"/>
 
-    <Button
-        android:id="@+id/key_enter_bottom"
-        android:text="ENTER"
-        style="@style/KeyboardButton"/>
+            <Button
+                android:id="@+id/key_enter_bottom"
+                android:text="ENTER"
+                style="@style/KeyboardButton"/>
 
-</LinearLayout>
+        </LinearLayout>
 
-</LinearLayout>
+    </LinearLayout>
+
     <!-- ================================================= -->
     <!-- PAGE 2 / SHIFT -->
     <!-- ================================================= -->
@@ -268,17 +248,12 @@
 
         </LinearLayout>
 
-        <!-- ROW 3 -->
+        <!-- ROW 3 : LETTERS ONLY -->
         <LinearLayout
             android:layout_width="match_parent"
             android:layout_height="48dp"
             android:orientation="horizontal"
             android:layoutDirection="rtl">
-
-            <Button
-                android:id="@+id/key_delete2"
-                android:text="DELETE"
-                style="@style/KeyboardButton"/>
 
             <Button android:id="@+id/s18" android:text="۾" style="@style/KeyboardButton"/>
             <Button android:id="@+id/s19" android:text="ڻ" style="@style/KeyboardButton"/>
@@ -287,24 +262,14 @@
             <Button android:id="@+id/s22" android:text="ظ" style="@style/KeyboardButton"/>
             <Button android:id="@+id/s23" android:text="ذ" style="@style/KeyboardButton"/>
 
-            <Button
-                android:id="@+id/key_shift2"
-                android:text="SHIFT"
-                style="@style/KeyboardButton"/>
-
         </LinearLayout>
 
-        <!-- ROW 4 -->
+        <!-- ROW 4 : PUNCTUATION ONLY -->
         <LinearLayout
             android:layout_width="match_parent"
             android:layout_height="48dp"
             android:orientation="horizontal"
             android:layoutDirection="rtl">
-
-            <Button
-                android:id="@+id/key_enter2"
-                android:text="ENTER"
-                style="@style/KeyboardButton"/>
 
             <Button
                 android:id="@+id/key_arrow2"
@@ -334,11 +299,6 @@
             <Button
                 android:id="@+id/key_quotes2"
                 android:text="&quot;"
-                style="@style/KeyboardButton"/>
-
-            <Button
-                android:id="@+id/key_space2"
-                android:text="SPACE"
                 style="@style/KeyboardButton"/>
 
         </LinearLayout>
@@ -376,6 +336,35 @@
             <Button android:id="@+id/key_alif_khanjari2b" android:text="ٰ" style="@style/KeyboardButton"/>
             <Button android:id="@+id/key_alif_khanjari2c" android:text="ٖ" style="@style/KeyboardButton"/>
             <Button android:id="@+id/key_alif_khanjari2d" android:text="ٗ" style="@style/KeyboardButton"/>
+
+        </LinearLayout>
+
+        <!-- ROW 7 : MAIN CONTROL BUTTONS -->
+        <LinearLayout
+            android:layout_width="match_parent"
+            android:layout_height="48dp"
+            android:orientation="horizontal"
+            android:layoutDirection="rtl">
+
+            <Button
+                android:id="@+id/key_shift_bottom"
+                android:text="SHIFT"
+                style="@style/KeyboardButton"/>
+
+            <Button
+                android:id="@+id/key_delete_bottom"
+                android:text="DELETE"
+                style="@style/KeyboardButton"/>
+
+            <Button
+                android:id="@+id/key_space_bottom"
+                android:text="SPACE"
+                style="@style/KeyboardButton"/>
+
+            <Button
+                android:id="@+id/key_enter_bottom"
+                android:text="ENTER"
+                style="@style/KeyboardButton"/>
 
         </LinearLayout>
 
