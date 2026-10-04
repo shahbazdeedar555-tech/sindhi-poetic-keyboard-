@@ -140,18 +140,7 @@ public class SindhiKeyboardService extends InputMethodService {
         setKey(R.id.key_alif_khanjari2, "ٖ");
         setKey(R.id.key_alif_khanjari3, "ٗ");
 
-        // ROW 7
-        setKey(R.id.key_num0, "0");
-        setKey(R.id.key_num9, "9");
-        setKey(R.id.key_num8, "8");
-        setKey(R.id.key_num7, "7");
-        setKey(R.id.key_num6, "6");
-        setKey(R.id.key_num5, "5");
-        setKey(R.id.key_num4, "4");
-        setKey(R.id.key_num3, "3");
-        setKey(R.id.key_num2, "2");
-        setKey(R.id.key_num1, "1");
-    }
+        
 
     // =====================================================
     // PAGE 2 / SHIFT
