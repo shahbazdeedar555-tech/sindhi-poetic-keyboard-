@@ -154,7 +154,7 @@ public class SindhiKeyboardService extends InputMethodService {
         // ROW 2
         setKey(R.id.s13, "۽");
         setKey(R.id.s14, "ح");
-        setKey(R.id.s15, "ڦ");
+        setKey(R.id.s15, "گھ");
         setKey(R.id.s17, "ڊ");
         setKey(R.id.s24, "ش");
         setKey(R.id.s25, "آ");
@@ -166,15 +166,6 @@ public class SindhiKeyboardService extends InputMethodService {
         setKey(R.id.s21, "ء");
         setKey(R.id.s22, "ظ");
         setKey(R.id.s23, "ذ");
-
-        // PUNCTUATION
-        setArrow(R.id.key_arrow2);
-
-        setKey(R.id.key_dot2, "۔");
-        setKey(R.id.key_comma2, "،");
-        setKey(R.id.key_question2, "؟");
-        setKey(R.id.key_exclamation2, "!");
-        setKey(R.id.key_quotes2, "\"");
 
         // SPECIALS
         setKey(R.id.key_tatweel2, "ـ");
