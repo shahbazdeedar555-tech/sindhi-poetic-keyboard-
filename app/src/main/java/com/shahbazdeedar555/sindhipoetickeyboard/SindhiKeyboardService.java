@@ -2,6 +2,8 @@
 package com.shahbazdeedar555.sindhipoetickeyboard;
 
 import android.inputmethodservice.InputMethodService;
+import android.os.Handler;
+import android.os.Looper;
 import android.view.KeyEvent;
 import android.view.View;
 import android.view.inputmethod.InputConnection;
@@ -14,6 +16,11 @@ public class SindhiKeyboardService extends InputMethodService {
     private View page2;
 
     private boolean shiftOn = false;
+
+    // DELETE LONG PRESS
+    private Handler deleteHandler = new Handler(Looper.getMainLooper());
+    private Runnable deleteRunnable;
+    private boolean deleteHolding = false;
 
     @Override
     public View onCreateInputView() {
@@ -261,6 +268,7 @@ public class SindhiKeyboardService extends InputMethodService {
 
     // =========================================================
     // DELETE
+    // TAP + LONG PRESS
     // =========================================================
 
     private void setDelete(int id) {
@@ -273,12 +281,83 @@ public class SindhiKeyboardService extends InputMethodService {
 
             button.setOnClickListener(v -> {
 
-                InputConnection ic = getCurrentInputConnection();
-
-                if (ic != null) {
-                    ic.deleteSurroundingText(1, 0);
+                if (deleteHolding) {
+                    return;
                 }
+
+                deleteOne();
             });
+
+            button.setOnLongClickListener(v -> {
+
+                deleteHolding = true;
+
+                // پهريون delete
+                deleteOne();
+
+                // مسلسل delete
+                deleteRunnable = new Runnable() {
+
+                    @Override
+                    public void run() {
+
+                        if (!deleteHolding) {
+                            return;
+                        }
+
+                        deleteOne();
+
+                        deleteHandler.postDelayed(
+                                this,
+                                70
+                        );
+                    }
+                };
+
+                deleteHandler.postDelayed(
+                        deleteRunnable,
+                        250
+                );
+
+                return true;
+            });
+
+            button.setOnTouchListener((v, event) -> {
+
+                switch (event.getAction()) {
+
+                    case android.view.MotionEvent.ACTION_DOWN:
+                        return false;
+
+                    case android.view.MotionEvent.ACTION_UP:
+                    case android.view.MotionEvent.ACTION_CANCEL:
+
+                        deleteHolding = false;
+
+                        if (deleteRunnable != null) {
+                            deleteHandler.removeCallbacks(
+                                    deleteRunnable
+                            );
+                        }
+
+                        return false;
+                }
+
+                return false;
+            });
+        }
+    }
+
+    // =========================================================
+    // DELETE ONE CHARACTER
+    // =========================================================
+
+    private void deleteOne() {
+
+        InputConnection ic = getCurrentInputConnection();
+
+        if (ic != null) {
+            ic.deleteSurroundingText(1, 0);
         }
     }
 
@@ -323,7 +402,7 @@ public class SindhiKeyboardService extends InputMethodService {
 
                 if (ic != null) {
 
-                    boolean handled = ic.sendKeyEvent(
+                    ic.sendKeyEvent(
                             new KeyEvent(
                                     KeyEvent.ACTION_DOWN,
                                     KeyEvent.KEYCODE_ENTER
@@ -433,7 +512,15 @@ public class SindhiKeyboardService extends InputMethodService {
 
     @Override
     public void onFinishInput() {
+
         super.onFinishInput();
+
         shiftOn = false;
+
+        deleteHolding = false;
+
+        if (deleteRunnable != null) {
+            deleteHandler.removeCallbacks(deleteRunnable);
+        }
     }
 }
