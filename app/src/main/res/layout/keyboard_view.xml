@@ -189,29 +189,36 @@
 
         </LinearLayout>
 
-        <!-- ROW 7 : NUMBERS -->
-        <LinearLayout
-            android:layout_width="match_parent"
-            android:layout_height="44dp"
-            android:orientation="horizontal"
-            android:layoutDirection="rtl">
+        <!-- ROW 7 : MAIN CONTROL BUTTONS -->
+<LinearLayout
+    android:layout_width="match_parent"
+    android:layout_height="48dp"
+    android:orientation="horizontal"
+    android:layoutDirection="rtl">
 
-            <Button android:id="@+id/key_num0" android:text="0" style="@style/KeyboardButton"/>
-            <Button android:id="@+id/key_num9" android:text="9" style="@style/KeyboardButton"/>
-            <Button android:id="@+id/key_num8" android:text="8" style="@style/KeyboardButton"/>
-            <Button android:id="@+id/key_num7" android:text="7" style="@style/KeyboardButton"/>
-            <Button android:id="@+id/key_num6" android:text="6" style="@style/KeyboardButton"/>
-            <Button android:id="@+id/key_num5" android:text="5" style="@style/KeyboardButton"/>
-            <Button android:id="@+id/key_num4" android:text="4" style="@style/KeyboardButton"/>
-            <Button android:id="@+id/key_num3" android:text="3" style="@style/KeyboardButton"/>
-            <Button android:id="@+id/key_num2" android:text="2" style="@style/KeyboardButton"/>
-            <Button android:id="@+id/key_num1" android:text="1" style="@style/KeyboardButton"/>
+    <Button
+        android:id="@+id/key_shift_bottom"
+        android:text="SHIFT"
+        style="@style/KeyboardButton"/>
 
-        </LinearLayout>
+    <Button
+        android:id="@+id/key_delete_bottom"
+        android:text="DELETE"
+        style="@style/KeyboardButton"/>
 
-    </LinearLayout>
+    <Button
+        android:id="@+id/key_space_bottom"
+        android:text="SPACE"
+        style="@style/KeyboardButton"/>
 
+    <Button
+        android:id="@+id/key_enter_bottom"
+        android:text="ENTER"
+        style="@style/KeyboardButton"/>
 
+</LinearLayout>
+
+</LinearLayout>
     <!-- ================================================= -->
     <!-- PAGE 2 / SHIFT -->
     <!-- ================================================= -->
