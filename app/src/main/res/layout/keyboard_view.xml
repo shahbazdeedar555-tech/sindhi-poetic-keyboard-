@@ -143,7 +143,7 @@
 
         </LinearLayout>
 
-        <!-- ROW 7 : NEW CONTROLS -->
+        <!-- ROW 7 : CONTROLS -->
 
         <LinearLayout
             android:layout_width="match_parent"
@@ -220,7 +220,7 @@
 
             <Button android:id="@+id/s13" android:text="۽" style="@style/KeyboardButton"/>
             <Button android:id="@+id/s14" android:text="ح" style="@style/KeyboardButton"/>
-            <Button android:id="@+id/s15" android:text="ڦ" style="@style/KeyboardButton"/>
+            <Button android:id="@+id/s15" android:text="گھ" style="@style/KeyboardButton"/>
             <Button android:id="@+id/s17" android:text="ڊ" style="@style/KeyboardButton"/>
             <Button android:id="@+id/s24" android:text="ش" style="@style/KeyboardButton"/>
             <Button android:id="@+id/s25" android:text="آ" style="@style/KeyboardButton"/>
@@ -265,24 +265,7 @@
 
         </LinearLayout>
 
-        <!-- ROW 5 : PUNCTUATION -->
-
-        <LinearLayout
-            android:layout_width="match_parent"
-            android:layout_height="48dp"
-            android:orientation="horizontal"
-            android:layoutDirection="rtl">
-
-            <Button android:id="@+id/key_arrow2" android:text="←" style="@style/KeyboardButton"/>
-            <Button android:id="@+id/key_dot2" android:text="۔" style="@style/KeyboardButton"/>
-            <Button android:id="@+id/key_comma2" android:text="،" style="@style/KeyboardButton"/>
-            <Button android:id="@+id/key_question2" android:text="؟" style="@style/KeyboardButton"/>
-            <Button android:id="@+id/key_exclamation2" android:text="!" style="@style/KeyboardButton"/>
-            <Button android:id="@+id/key_quotes2" android:text="&quot;" style="@style/KeyboardButton"/>
-
-        </LinearLayout>
-
-        <!-- ROW 6 : SPECIALS -->
+        <!-- ROW 5 : SPECIALS -->
 
         <LinearLayout
             android:layout_width="match_parent"
@@ -301,7 +284,7 @@
 
         </LinearLayout>
 
-        <!-- ROW 7 : DIACRITICS -->
+        <!-- ROW 6 : DIACRITICS -->
 
         <LinearLayout
             android:layout_width="match_parent"
@@ -320,7 +303,7 @@
 
         </LinearLayout>
 
-        <!-- ROW 8 : CONTROLS -->
+        <!-- ROW 7 : CONTROLS -->
 
         <LinearLayout
             android:layout_width="match_parent"
