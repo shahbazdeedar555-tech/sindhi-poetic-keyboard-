@@ -200,17 +200,42 @@ public class SindhiKeyboardService extends InputMethodService {
 
     private void setupNumbers() {
 
-        setKey(R.id.key_num0, "0");
-        setKey(R.id.key_num1, "1");
-        setKey(R.id.key_num2, "2");
-        setKey(R.id.key_num3, "3");
-        setKey(R.id.key_num4, "4");
-        setKey(R.id.key_num5, "5");
-        setKey(R.id.key_num6, "6");
-        setKey(R.id.key_num7, "7");
-        setKey(R.id.key_num8, "8");
-        setKey(R.id.key_num9, "9");
+    setNumber(R.id.key_num0, "0");
+    setNumber(R.id.key_num1, "1");
+    setNumber(R.id.key_num2, "2");
+    setNumber(R.id.key_num3, "3");
+    setNumber(R.id.key_num4, "4");
+    setNumber(R.id.key_num5, "5");
+    setNumber(R.id.key_num6, "6");
+    setNumber(R.id.key_num7, "7");
+    setNumber(R.id.key_num8, "8");
+    setNumber(R.id.key_num9, "9");
+}
+
+    private void setNumber(int id, final String number) {
+
+    View view = keyboard.findViewById(id);
+
+    if (!(view instanceof Button)) {
+        return;
     }
+
+    Button button = (Button) view;
+
+    button.setOnClickListener(v -> {
+
+        InputConnection ic =
+                getCurrentInputConnection();
+
+        if (ic != null) {
+
+            ic.commitText(
+                    number,
+                    1
+            );
+        }
+    });
+}
 
     // =========================================================
     // NORMAL KEY
