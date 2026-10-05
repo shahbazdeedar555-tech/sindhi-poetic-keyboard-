@@ -1,3 +1,4 @@
+
 package com.shahbazdeedar555.sindhipoetickeyboard;
 
 import android.inputmethodservice.InputMethodService;
@@ -96,7 +97,9 @@ public class SindhiKeyboardService extends InputMethodService {
         // PUNCTUATION
         setArrow(R.id.key_arrow);
 
-        setKey(R.id.key_dot, "۔");
+        // FULL STOP
+        setKey(R.id.key_dot, ".");
+
         setKey(R.id.key_comma, "،");
         setKey(R.id.key_question, "؟");
         setKey(R.id.key_exclamation, "!");
@@ -121,10 +124,13 @@ public class SindhiKeyboardService extends InputMethodService {
         setKey(R.id.key_shadd1, "ّ");
         setKey(R.id.key_jazm1, "ْ");
         setKey(R.id.key_alif_khanjari1, "ٰ");
-        setKey(R.id.key_alif_khanjari2, "ٖ");
+
+        // ٖ  ->  UNDERSCORE
+        setKey(R.id.key_alif_khanjari2, "_");
+
         setKey(R.id.key_alif_khanjari3, "ٗ");
 
-        // NEW CONTROLS
+        // CONTROLS
         setShift(R.id.key_shift_bottom);
         setDelete(R.id.key_delete_bottom);
         setSpace(R.id.key_space_bottom);
@@ -187,7 +193,7 @@ public class SindhiKeyboardService extends InputMethodService {
         setKey(R.id.key_alif_khanjari2c, "ٖ");
         setKey(R.id.key_alif_khanjari2d, "ٗ");
 
-        // NEW CONTROLS
+        // CONTROLS
         setShiftBack(R.id.key_shift_bottom2);
         setDelete(R.id.key_delete_bottom2);
         setSpace(R.id.key_space_bottom2);
@@ -200,42 +206,42 @@ public class SindhiKeyboardService extends InputMethodService {
 
     private void setupNumbers() {
 
-    setNumber(R.id.key_num0, "0");
-    setNumber(R.id.key_num1, "1");
-    setNumber(R.id.key_num2, "2");
-    setNumber(R.id.key_num3, "3");
-    setNumber(R.id.key_num4, "4");
-    setNumber(R.id.key_num5, "5");
-    setNumber(R.id.key_num6, "6");
-    setNumber(R.id.key_num7, "7");
-    setNumber(R.id.key_num8, "8");
-    setNumber(R.id.key_num9, "9");
-}
+        setNumber(R.id.key_num0, "0");
+        setNumber(R.id.key_num1, "1");
+        setNumber(R.id.key_num2, "2");
+        setNumber(R.id.key_num3, "3");
+        setNumber(R.id.key_num4, "4");
+        setNumber(R.id.key_num5, "5");
+        setNumber(R.id.key_num6, "6");
+        setNumber(R.id.key_num7, "7");
+        setNumber(R.id.key_num8, "8");
+        setNumber(R.id.key_num9, "9");
+    }
 
     private void setNumber(int id, final String number) {
 
-    View view = keyboard.findViewById(id);
+        View view = keyboard.findViewById(id);
 
-    if (!(view instanceof Button)) {
-        return;
-    }
-
-    Button button = (Button) view;
-
-    button.setOnClickListener(v -> {
-
-        InputConnection ic =
-                getCurrentInputConnection();
-
-        if (ic != null) {
-
-            ic.commitText(
-                    number,
-                    1
-            );
+        if (!(view instanceof Button)) {
+            return;
         }
-    });
-}
+
+        Button button = (Button) view;
+
+        button.setOnClickListener(v -> {
+
+            InputConnection ic =
+                    getCurrentInputConnection();
+
+            if (ic != null) {
+
+                ic.commitText(
+                        number,
+                        1
+                );
+            }
+        });
+    }
 
     // =========================================================
     // NORMAL KEY
