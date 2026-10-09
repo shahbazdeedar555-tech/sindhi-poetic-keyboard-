@@ -398,12 +398,12 @@ public class SindhiKeyboardService extends InputMethodService {
                         ViewGroup.LayoutParams.MATCH_PARENT,
                         ViewGroup.LayoutParams.WRAP_CONTENT));
 
-        addUrduRow(urduPage, "پچجحخہ");
-        addUrduRow(urduPage, "تٹڈڑدذ");
-        addUrduRow(urduPage, "زژسشصض");
-        addUrduRow(urduPage, "طظعغفق");
-        addUrduRow(urduPage, "کگلمںن");
-        addUrduRow(urduPage, "وہیء");
+        addUrduRow(urduPage, "ابتپٽث");
+        addUrduRow(urduPage, "جچحخدڈ");
+        addUrduRow(urduPage, "ذرڑزژس");
+        addUrduRow(urduPage, "شصضطظع");
+        addUrduRow(urduPage, "غفقکگل");
+        addUrduRow(urduPage, "منںوہھ");
 
         LinearLayout bottom = new LinearLayout(this);
         bottom.setOrientation(LinearLayout.HORIZONTAL);
@@ -420,6 +420,7 @@ public class SindhiKeyboardService extends InputMethodService {
         urduPage.addView(bottom);
     }
 
+    
     // URDU PAGE 2
 
     private void createUrduPage2() {
@@ -435,12 +436,13 @@ public class SindhiKeyboardService extends InputMethodService {
                         ViewGroup.LayoutParams.MATCH_PARENT,
                         ViewGroup.LayoutParams.WRAP_CONTENT));
 
+        addUrduRow(urduPage2, "یءے");
         addUrduRow(urduPage2, "آأإٱ");
-        addUrduRow(urduPage2, "ؤئئے");
+        addUrduRow(urduPage2, "ؤئئےۓ");
         addUrduRow(urduPage2, "ھہۃة");
-        addUrduRow(urduPage2, "کگںن");
+        addUrduRow(urduPage2, "ىٰـ");
         addUrduRow(urduPage2, "ًٌٍَُِ");
-        addUrduRow(urduPage2, "ّْٰٓ");
+        addUrduRow(urduPage2, "ّْٕٓٔ");
 
         LinearLayout bottom = new LinearLayout(this);
         bottom.setOrientation(LinearLayout.HORIZONTAL);
@@ -457,6 +459,7 @@ public class SindhiKeyboardService extends InputMethodService {
         urduPage2.addView(bottom);
     }
 
+    
     private void addUrduRow(LinearLayout target, String letters) {
         LinearLayout row = new LinearLayout(this);
         row.setOrientation(LinearLayout.HORIZONTAL);
@@ -474,7 +477,6 @@ public class SindhiKeyboardService extends InputMethodService {
 
         target.addView(row);
     }
-
     // SHARED BUTTONS
 
     private Button makeButton(String label) {
