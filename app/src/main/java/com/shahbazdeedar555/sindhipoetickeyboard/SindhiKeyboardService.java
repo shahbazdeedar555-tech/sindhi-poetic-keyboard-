@@ -1,4 +1,5 @@
 
+
 package com.shahbazdeedar555.sindhipoetickeyboard;
 
 import android.inputmethodservice.InputMethodService;
@@ -36,6 +37,10 @@ public class SindhiKeyboardService extends InputMethodService {
 
     private Runnable deleteRunnable;
     private boolean deleteHolding = false;
+
+    // Urdu and English delete
+    private Runnable languageDeleteRunnable;
+    private boolean languageDeleteHolding = false;
 
     private final int green = Color.rgb(23, 63, 53);
     private final int black = Color.BLACK;
@@ -420,7 +425,6 @@ public class SindhiKeyboardService extends InputMethodService {
         urduPage.addView(bottom);
     }
 
-    
     // URDU PAGE 2
 
     private void createUrduPage2() {
@@ -459,7 +463,6 @@ public class SindhiKeyboardService extends InputMethodService {
         urduPage2.addView(bottom);
     }
 
-    
     private void addUrduRow(LinearLayout target, String letters) {
         LinearLayout row = new LinearLayout(this);
         row.setOrientation(LinearLayout.HORIZONTAL);
@@ -477,6 +480,7 @@ public class SindhiKeyboardService extends InputMethodService {
 
         target.addView(row);
     }
+
     // SHARED BUTTONS
 
     private Button makeButton(String label) {
@@ -498,6 +502,8 @@ public class SindhiKeyboardService extends InputMethodService {
         return button;
     }
 
+    // SPECIAL BUTTONS WITH FAST LONG-PRESS DELETE
+
     private void addSpecialButton(
             LinearLayout row,
             String label,
@@ -505,12 +511,65 @@ public class SindhiKeyboardService extends InputMethodService {
 
         Button button = makeButton(label);
 
-        if (label.length() > 2) button.setTextSize(12);
+        if (label.length() > 2) {
+            button.setTextSize(12);
+        }
 
         row.addView(button, new LinearLayout.LayoutParams(
                 0, dp(48), label.equals("SPACE") ? 2 : 1));
 
-        button.setOnClickListener(v -> action.run());
+        if (label.equals("⌫")) {
+
+            button.setOnTouchListener((v, event) -> {
+
+                if (event.getAction() == MotionEvent.ACTION_DOWN) {
+
+                    languageDeleteHolding = true;
+
+                    // Delete one character immediately
+                    deleteOne();
+
+                    // Start repeating after a short delay
+                    languageDeleteRunnable = new Runnable() {
+                        @Override
+                        public void run() {
+
+                            if (!languageDeleteHolding) {
+                                return;
+                            }
+
+                            deleteOne();
+
+                            deleteHandler.postDelayed(this, 45);
+                        }
+                    };
+
+                    deleteHandler.postDelayed(
+                            languageDeleteRunnable, 250);
+
+                    return true;
+                }
+
+                if (event.getAction() == MotionEvent.ACTION_UP
+                        || event.getAction() == MotionEvent.ACTION_CANCEL) {
+
+                    languageDeleteHolding = false;
+
+                    if (languageDeleteRunnable != null) {
+                        deleteHandler.removeCallbacks(
+                                languageDeleteRunnable);
+                        languageDeleteRunnable = null;
+                    }
+
+                    return true;
+                }
+
+                return true;
+            });
+
+        } else {
+            button.setOnClickListener(v -> action.run());
+        }
     }
 
     private void openLanguageMenu() {
@@ -539,7 +598,7 @@ public class SindhiKeyboardService extends InputMethodService {
         }
     }
 
-    // DELETE WITH LONG PRESS
+    // SINDHI DELETE WITH LONG PRESS (UNCHANGED)
 
     private void setDelete(int id) {
         View view = keyboard.findViewById(id);
@@ -683,10 +742,17 @@ public class SindhiKeyboardService extends InputMethodService {
         shiftOn = false;
         englishShift = false;
         urduSecondPage = false;
+
         deleteHolding = false;
+        languageDeleteHolding = false;
 
         if (deleteRunnable != null) {
             deleteHandler.removeCallbacks(deleteRunnable);
+        }
+
+        if (languageDeleteRunnable != null) {
+            deleteHandler.removeCallbacks(languageDeleteRunnable);
+            languageDeleteRunnable = null;
         }
     }
 }
