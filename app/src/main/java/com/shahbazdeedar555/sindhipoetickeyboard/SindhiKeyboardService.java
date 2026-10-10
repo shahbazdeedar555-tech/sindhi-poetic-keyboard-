@@ -484,7 +484,7 @@ public class SindhiKeyboardService extends InputMethodService {
         addUrduRow(urduPage2, "ىٰـ");
         addUrduRow(urduPage2, "ًٌٍَُِ");
         addUrduRow(urduPage2, "ّْٕٓٔ");
-        addUrduRow(urduPage2, "… ( ) ' \" ! : ؛ ۔ ؟ ،");
+        addUrduRow(urduPage2, "… ( ) ' \" ! : ؛ ؟ ۔");
         LinearLayout bottom = new LinearLayout(this);
         bottom.setOrientation(LinearLayout.HORIZONTAL);
         bottom.setLayoutDirection(View.LAYOUT_DIRECTION_RTL);
