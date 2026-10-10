@@ -1,4 +1,5 @@
 
+
 package com.shahbazdeedar555.sindhipoetickeyboard;
 
 import android.inputmethodservice.InputMethodService;
@@ -81,7 +82,8 @@ public class SindhiKeyboardService extends InputMethodService {
                         ViewGroup.LayoutParams.MATCH_PARENT,
                         dp(42)));
 
-        languageButton.setOnClickListener(v -> openLanguageMenu());
+        languageButton.setOnClickListener(
+                v -> openLanguageMenu());
     }
 
     private void openLanguageMenu() {
@@ -452,14 +454,17 @@ public class SindhiKeyboardService extends InputMethodService {
         bottom.setOrientation(LinearLayout.HORIZONTAL);
         bottom.setLayoutDirection(View.LAYOUT_DIRECTION_RTL);
 
+        // Each control appears only once.
         addSpecialButton(bottom, "⇧", this::showUrduPage2);
         addSpecialButton(bottom, "🌐", this::openLanguageMenu);
         addSpecialButton(bottom, "؟", () -> commit("؟"));
-        addSpecialButton(bottom, "۔", () -> commit("۔"));
+
+        // English full stop on Urdu Page 1.
+        addSpecialButton(bottom, ".", () -> commit("."));
+
         addSpecialButton(bottom, "⌫", this::deleteOne);
         addSpecialButton(bottom, "SPACE", () -> commit(" "));
         addSpecialButton(bottom, "ENTER", this::pressEnter);
-
 
         urduPage.addView(bottom);
     }
@@ -486,6 +491,7 @@ public class SindhiKeyboardService extends InputMethodService {
         addUrduRow(urduPage2, "ًٌٍَُِ");
         addUrduRow(urduPage2, "ّْٕٓٔ");
         addUrduRow(urduPage2, "… ( ) ' \" ! : ؛ ؟ ۔");
+
         LinearLayout bottom = new LinearLayout(this);
         bottom.setOrientation(LinearLayout.HORIZONTAL);
         bottom.setLayoutDirection(View.LAYOUT_DIRECTION_RTL);
