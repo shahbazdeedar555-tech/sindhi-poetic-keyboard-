@@ -455,10 +455,11 @@ public class SindhiKeyboardService extends InputMethodService {
         addSpecialButton(bottom, "⇧", this::showUrduPage2);
         addSpecialButton(bottom, "🌐", this::openLanguageMenu);
         addSpecialButton(bottom, "؟", () -> commit("؟"));
-        addSpecialButton(bottom, "،", () -> commit("،"));
+        addSpecialButton(bottom, "۔", () -> commit("۔"));
         addSpecialButton(bottom, "⌫", this::deleteOne);
         addSpecialButton(bottom, "SPACE", () -> commit(" "));
         addSpecialButton(bottom, "ENTER", this::pressEnter);
+
 
         urduPage.addView(bottom);
     }
