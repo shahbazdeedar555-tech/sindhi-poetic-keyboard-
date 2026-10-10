@@ -1,5 +1,4 @@
 
-
 package com.shahbazdeedar555.sindhipoetickeyboard;
 
 import android.inputmethodservice.InputMethodService;
@@ -18,14 +17,9 @@ import android.widget.LinearLayout;
 
 public class SindhiKeyboardService extends InputMethodService {
 
-    private View keyboard;
-    private View page1;
-    private View page2;
-
-    private LinearLayout root;
-    private LinearLayout englishPage;
-    private LinearLayout urduPage;
-    private LinearLayout urduPage2;
+    private View keyboard, page1, page2;
+    private LinearLayout root, englishPage, englishSymbolsPage;
+    private LinearLayout urduPage, urduPage2;
     private Button languageButton;
 
     private boolean shiftOn = false;
@@ -37,8 +31,6 @@ public class SindhiKeyboardService extends InputMethodService {
 
     private Runnable deleteRunnable;
     private boolean deleteHolding = false;
-
-    // Urdu and English delete
     private Runnable languageDeleteRunnable;
     private boolean languageDeleteHolding = false;
 
@@ -48,7 +40,6 @@ public class SindhiKeyboardService extends InputMethodService {
 
     @Override
     public View onCreateInputView() {
-
         keyboard = getLayoutInflater().inflate(
                 R.layout.keyboard_view, null);
 
@@ -62,6 +53,7 @@ public class SindhiKeyboardService extends InputMethodService {
 
         createLanguageButton();
         createEnglishPage();
+        createEnglishSymbolsPage();
         createUrduPage();
         createUrduPage2();
 
@@ -77,7 +69,6 @@ public class SindhiKeyboardService extends InputMethodService {
     // LANGUAGE MENU
 
     private void createLanguageButton() {
-
         languageButton = new Button(this);
         languageButton.setText("🌐  ٻولي / Language");
         languageButton.setTextColor(white);
@@ -90,35 +81,38 @@ public class SindhiKeyboardService extends InputMethodService {
                         ViewGroup.LayoutParams.MATCH_PARENT,
                         dp(42)));
 
-        languageButton.setOnClickListener(v -> {
-            android.widget.PopupMenu menu =
-                    new android.widget.PopupMenu(this, languageButton);
+        languageButton.setOnClickListener(v -> openLanguageMenu());
+    }
 
-            menu.getMenu().add("سنڌي");
-            menu.getMenu().add("English");
-            menu.getMenu().add("اردو");
+    private void openLanguageMenu() {
+        if (languageButton == null) return;
 
-            menu.setOnMenuItemClickListener(item -> {
-                String selected = item.getTitle().toString();
+        android.widget.PopupMenu menu =
+                new android.widget.PopupMenu(this, languageButton);
 
-                if (selected.equals("سنڌي")) {
-                    showPage1();
-                } else if (selected.equals("English")) {
-                    showEnglishPage();
-                } else {
-                    showUrduPage();
-                }
-                return true;
-            });
+        menu.getMenu().add("سنڌي");
+        menu.getMenu().add("English");
+        menu.getMenu().add("اردو");
 
-            menu.show();
+        menu.setOnMenuItemClickListener(item -> {
+            String selected = item.getTitle().toString();
+
+            if (selected.equals("سنڌي")) {
+                showPage1();
+            } else if (selected.equals("English")) {
+                showEnglishPage();
+            } else {
+                showUrduPage();
+            }
+            return true;
         });
+
+        menu.show();
     }
 
     // SINDHI PAGE 1
 
     private void setupPage1() {
-
         setKey(R.id.key_ch, "چ");
         setKey(R.id.key_chh, "ڇ");
         setKey(R.id.key_pay, "پ");
@@ -191,7 +185,6 @@ public class SindhiKeyboardService extends InputMethodService {
     // SINDHI PAGE 2
 
     private void setupPage2() {
-
         setKey(R.id.s1, "ڄ");
         setKey(R.id.s2, "ڃ");
         setKey(R.id.s16, "ڦ");
@@ -271,10 +264,7 @@ public class SindhiKeyboardService extends InputMethodService {
 
         view.setOnClickListener(v -> {
             String output = text;
-
-            if (shiftOn && text.equals("ا")) {
-                output = "آ";
-            }
+            if (shiftOn && text.equals("ا")) output = "آ";
 
             commit(output);
 
@@ -290,10 +280,9 @@ public class SindhiKeyboardService extends InputMethodService {
         if (ic != null) ic.commitText(text, 1);
     }
 
-    // ENGLISH PAGE
+    // ENGLISH LETTER PAGE
 
     private void createEnglishPage() {
-
         englishPage = new LinearLayout(this);
         englishPage.setOrientation(LinearLayout.VERTICAL);
         englishPage.setBackgroundColor(green);
@@ -329,7 +318,9 @@ public class SindhiKeyboardService extends InputMethodService {
         bottom.setLayoutDirection(View.LAYOUT_DIRECTION_LTR);
 
         addSpecialButton(bottom, "🌐", this::openLanguageMenu);
-        addSpecialButton(bottom, "?123", () -> showPage2());
+        addSpecialButton(bottom, "?123", this::showEnglishSymbolsPage);
+        addSpecialButton(bottom, ",", () -> commit(","));
+        addSpecialButton(bottom, ".", () -> commit("."));
         addSpecialButton(bottom, "SPACE", () -> commit(" "));
         addSpecialButton(bottom, "ENTER", this::pressEnter);
 
@@ -349,7 +340,6 @@ public class SindhiKeyboardService extends InputMethodService {
 
     private void addEnglishLetter(LinearLayout row, String letter) {
         Button button = makeButton(letter);
-
         row.addView(button, new LinearLayout.LayoutParams(0, dp(48), 1));
 
         button.setOnClickListener(v -> {
@@ -388,10 +378,58 @@ public class SindhiKeyboardService extends InputMethodService {
         }
     }
 
+    // ENGLISH PUNCTUATION PAGE
+
+    private void createEnglishSymbolsPage() {
+        englishSymbolsPage = new LinearLayout(this);
+        englishSymbolsPage.setOrientation(LinearLayout.VERTICAL);
+        englishSymbolsPage.setBackgroundColor(green);
+        englishSymbolsPage.setLayoutDirection(View.LAYOUT_DIRECTION_LTR);
+        englishSymbolsPage.setVisibility(View.GONE);
+
+        root.addView(englishSymbolsPage,
+                new LinearLayout.LayoutParams(
+                        ViewGroup.LayoutParams.MATCH_PARENT,
+                        ViewGroup.LayoutParams.WRAP_CONTENT));
+
+        addSymbolRow("1234567890");
+        addSymbolRow("@#$%&*-+()");
+        addSymbolRow(".,?!':;\"/");
+
+        LinearLayout bottom = new LinearLayout(this);
+        bottom.setOrientation(LinearLayout.HORIZONTAL);
+        bottom.setLayoutDirection(View.LAYOUT_DIRECTION_LTR);
+
+        addSpecialButton(bottom, "ABC", this::showEnglishPage);
+        addSpecialButton(bottom, "🌐", this::openLanguageMenu);
+        addSpecialButton(bottom, "⌫", this::deleteOne);
+        addSpecialButton(bottom, "SPACE", () -> commit(" "));
+        addSpecialButton(bottom, "ENTER", this::pressEnter);
+
+        englishSymbolsPage.addView(bottom);
+    }
+
+    private void addSymbolRow(String symbols) {
+        LinearLayout row = new LinearLayout(this);
+        row.setOrientation(LinearLayout.HORIZONTAL);
+        row.setLayoutDirection(View.LAYOUT_DIRECTION_LTR);
+
+        for (int i = 0; i < symbols.length(); i++) {
+            String symbol = String.valueOf(symbols.charAt(i));
+            Button button = makeButton(symbol);
+
+            row.addView(button,
+                    new LinearLayout.LayoutParams(0, dp(48), 1));
+
+            button.setOnClickListener(v -> commit(symbol));
+        }
+
+        englishSymbolsPage.addView(row);
+    }
+
     // URDU PAGE 1
 
     private void createUrduPage() {
-
         urduPage = new LinearLayout(this);
         urduPage.setOrientation(LinearLayout.VERTICAL);
         urduPage.setBackgroundColor(green);
@@ -428,7 +466,6 @@ public class SindhiKeyboardService extends InputMethodService {
     // URDU PAGE 2
 
     private void createUrduPage2() {
-
         urduPage2 = new LinearLayout(this);
         urduPage2.setOrientation(LinearLayout.VERTICAL);
         urduPage2.setBackgroundColor(green);
@@ -485,7 +522,6 @@ public class SindhiKeyboardService extends InputMethodService {
 
     private Button makeButton(String label) {
         Button button = new Button(this);
-
         button.setText(label);
         button.setTextColor(white);
         button.setTextSize(18);
@@ -502,57 +538,38 @@ public class SindhiKeyboardService extends InputMethodService {
         return button;
     }
 
-    // SPECIAL BUTTONS WITH FAST LONG-PRESS DELETE
-
     private void addSpecialButton(
-            LinearLayout row,
-            String label,
-            Runnable action) {
+            LinearLayout row, String label, Runnable action) {
 
         Button button = makeButton(label);
 
-        if (label.length() > 2) {
-            button.setTextSize(12);
-        }
+        if (label.length() > 2) button.setTextSize(12);
 
         row.addView(button, new LinearLayout.LayoutParams(
                 0, dp(48), label.equals("SPACE") ? 2 : 1));
 
         if (label.equals("⌫")) {
-
             button.setOnTouchListener((v, event) -> {
-
                 if (event.getAction() == MotionEvent.ACTION_DOWN) {
-
                     languageDeleteHolding = true;
-
-                    // Delete one character immediately
                     deleteOne();
 
-                    // Start repeating after a short delay
                     languageDeleteRunnable = new Runnable() {
                         @Override
                         public void run() {
-
-                            if (!languageDeleteHolding) {
-                                return;
-                            }
-
+                            if (!languageDeleteHolding) return;
                             deleteOne();
-
                             deleteHandler.postDelayed(this, 45);
                         }
                     };
 
                     deleteHandler.postDelayed(
                             languageDeleteRunnable, 250);
-
                     return true;
                 }
 
                 if (event.getAction() == MotionEvent.ACTION_UP
                         || event.getAction() == MotionEvent.ACTION_CANCEL) {
-
                     languageDeleteHolding = false;
 
                     if (languageDeleteRunnable != null) {
@@ -560,20 +577,13 @@ public class SindhiKeyboardService extends InputMethodService {
                                 languageDeleteRunnable);
                         languageDeleteRunnable = null;
                     }
-
                     return true;
                 }
-
                 return true;
             });
-
         } else {
             button.setOnClickListener(v -> action.run());
         }
-    }
-
-    private void openLanguageMenu() {
-        if (languageButton != null) languageButton.performClick();
     }
 
     // SINDHI SHIFT
@@ -598,7 +608,7 @@ public class SindhiKeyboardService extends InputMethodService {
         }
     }
 
-    // SINDHI DELETE WITH LONG PRESS (UNCHANGED)
+    // SINDHI DELETE
 
     private void setDelete(int id) {
         View view = keyboard.findViewById(id);
@@ -641,8 +651,6 @@ public class SindhiKeyboardService extends InputMethodService {
         InputConnection ic = getCurrentInputConnection();
         if (ic != null) ic.deleteSurroundingText(1, 0);
     }
-
-    // SPACE AND ENTER
 
     private void setSpace(int id) {
         View view = keyboard.findViewById(id);
@@ -687,6 +695,7 @@ public class SindhiKeyboardService extends InputMethodService {
         page1.setVisibility(View.GONE);
         page2.setVisibility(View.GONE);
         englishPage.setVisibility(View.GONE);
+        englishSymbolsPage.setVisibility(View.GONE);
         urduPage.setVisibility(View.GONE);
         urduPage2.setVisibility(View.GONE);
     }
@@ -707,6 +716,11 @@ public class SindhiKeyboardService extends InputMethodService {
         englishPage.setVisibility(View.VISIBLE);
     }
 
+    private void showEnglishSymbolsPage() {
+        hideAllPages();
+        englishSymbolsPage.setVisibility(View.VISIBLE);
+    }
+
     private void showUrduPage() {
         hideAllPages();
         urduPage.setVisibility(View.VISIBLE);
@@ -719,8 +733,6 @@ public class SindhiKeyboardService extends InputMethodService {
         urduSecondPage = true;
     }
 
-    // HARDWARE DELETE
-
     @Override
     public boolean onKeyDown(int keyCode, KeyEvent event) {
         if (keyCode == KeyEvent.KEYCODE_DEL) {
@@ -732,8 +744,6 @@ public class SindhiKeyboardService extends InputMethodService {
         }
         return super.onKeyDown(keyCode, event);
     }
-
-    // CLEANUP
 
     @Override
     public void onFinishInput() {
