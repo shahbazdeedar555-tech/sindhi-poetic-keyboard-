@@ -2,19 +2,16 @@
 
 package com.shahbazdeedar555.sindhipoetickeyboard;
 
-import android.inputmethodservice.InputMethodService; import android.os.Handler; import android.os.Looper; import android.graphics.Color; import android.graphics.drawable.GradientDrawable; import android.view.Gravity; import android.view.KeyEvent; import android.view.MotionEvent; import android.view.View; import android.view.ViewGroup; import android.view.inputmethod.InputConnection; import android.view.inputmethod.EditorInfo; import android.view.textservice.SentenceSuggestionsInfo; import android.view.textservice.SpellCheckerSession; import android.view.textservice.SpellCheckerSession.SpellCheckerSessionListener; import android.view.textservice.SuggestionsInfo; import android.view.textservice.TextInfo; import android.view.textservice.TextServicesManager; import android.widget.Button; import android.widget.LinearLayout; import java.util.Locale;
-
-
+import android.inputmethodservice.InputMethodService; import android.os.Handler; import android.os.Looper; import android.graphics.Color; import android.graphics.drawable.GradientDrawable; import android.view.Gravity; import android.view.KeyEvent; import android.view.MotionEvent; import android.view.View; import android.view.ViewGroup; import android.view.inputmethod.InputConnection; import android.view.inputmethod.EditorInfo; import android.widget.Button; import android.widget.LinearLayout; import java.util.Locale;
+import java.util.ArrayList;
 public class SindhiKeyboardService extends InputMethodService
-        implements SpellCheckerSessionListener {
+         {
     private View keyboard, page1, page2;
     private LinearLayout root, englishPage, englishSymbolsPage;
     
     private LinearLayout urduPage, urduPage2;
     private LinearLayout suggestionBar;
-    
-private SpellCheckerSession spellCheckerSession;
-            
+         
     private String currentCheckedWord = "";
     private Button languageButton;
 
@@ -34,20 +31,7 @@ private SpellCheckerSession spellCheckerSession;
     private final int black = Color.BLACK;
     private final int white = Color.WHITE;
 
-           private void initSpellChecker() {
-    TextServicesManager manager =
-            (TextServicesManager) getSystemService(
-                    TEXT_SERVICES_MANAGER_SERVICE);
-
-    if (manager == null) return;
-
-    spellCheckerSession = manager.newSpellCheckerSession(
-            null,
-            Locale.ENGLISH,
-            this,
-            true
-    );
-} 
+        
     @Override
     public View onCreateInputView() {
         keyboard = getLayoutInflater().inflate(
@@ -66,7 +50,7 @@ private SpellCheckerSession spellCheckerSession;
         createEnglishSymbolsPage();
         createUrduPage();
         createUrduPage2();
-       initSpellChecker();
+       
         showPage1();
         return keyboard;
     }
@@ -447,13 +431,7 @@ private void updateEnglishSuggestions() {
         currentIC.commitText(currentCheckedWord, 1);
     });
 
-    if (spellCheckerSession != null
-            && currentCheckedWord.length() >= 2) {
-        spellCheckerSession.getSuggestions(
-                new TextInfo(currentCheckedWord), 5);
-    }
 }
-
 
     private void refreshEnglishLabels() {
         if (englishPage != null) refreshEnglishView(englishPage);
@@ -837,7 +815,7 @@ private void updateEnglishSuggestions() {
         urduSecondPage = true;
     }
 
-    @Override
+@Override
     public boolean onKeyDown(int keyCode, KeyEvent event) {
         if (keyCode == KeyEvent.KEYCODE_DEL) {
             InputConnection ic = getCurrentInputConnection();
@@ -846,6 +824,7 @@ private void updateEnglishSuggestions() {
                 return true;
             }
         }
+
         return super.onKeyDown(keyCode, event);
     }
 
@@ -869,10 +848,8 @@ private void updateEnglishSuggestions() {
             languageDeleteRunnable = null;
         }
     }
+}
 
-@Override
-public void onGetSuggestions(SuggestionsInfo[] results) {
-    if (results == null || results.length == 0) return;
 
     SuggestionsInfo info = results[0];
     if (info == null) return;
@@ -965,9 +942,4 @@ public void onGetSuggestions(SuggestionsInfo[] results) {
 }
 
 
-    @Override
-    public void onGetSentenceSuggestions(
-            SentenceSuggestionsInfo[] results) {
-        // Sentence suggestions will be added later.
-    }
-}
+  
