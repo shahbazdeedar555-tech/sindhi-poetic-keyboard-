@@ -384,18 +384,20 @@ private void addEnglishLetter(LinearLayout row, String letter) {
     });
 }
 
-                
+
 private void updateEnglishSuggestions() {
     InputConnection ic = getCurrentInputConnection();
 
-    if (suggestionBar == null || ic == null
-            || spellCheckerSession == null) {
+    if (suggestionBar == null) return;
+
+    suggestionBar.removeAllViews();
+
+    if (ic == null || englishPage == null
+            || englishPage.getVisibility() != View.VISIBLE) {
         return;
     }
 
     CharSequence before = ic.getTextBeforeCursor(100, 0);
-
-    suggestionBar.removeAllViews();
 
     if (before == null || before.length() == 0) {
         return;
@@ -412,11 +414,46 @@ private void updateEnglishSuggestions() {
 
     currentCheckedWord = matcher.group();
 
-    if (currentCheckedWord.length() >= 2) {
+    // Show the current word immediately while checking spelling.
+    Button wordButton = makeButton(currentCheckedWord);
+    wordButton.setTextSize(14);
+    wordButton.setBackgroundColor(green);
+
+    suggestionBar.addView(
+            wordButton,
+            new LinearLayout.LayoutParams(
+                    0, dp(36), 1)
+    );
+
+    wordButton.setOnClickListener(v -> {
+        InputConnection currentIC = getCurrentInputConnection();
+        if (currentIC == null) return;
+
+        CharSequence currentBefore =
+                currentIC.getTextBeforeCursor(100, 0);
+
+        if (currentBefore == null) return;
+
+        java.util.regex.Matcher currentMatcher =
+                java.util.regex.Pattern
+                        .compile("[A-Za-z]+$")
+                        .matcher(currentBefore.toString());
+
+        if (!currentMatcher.find()) return;
+
+        int length = currentMatcher.group().length();
+
+        currentIC.deleteSurroundingText(length, 0);
+        currentIC.commitText(currentCheckedWord, 1);
+    });
+
+    if (spellCheckerSession != null
+            && currentCheckedWord.length() >= 2) {
         spellCheckerSession.getSuggestions(
                 new TextInfo(currentCheckedWord), 5);
     }
 }
+
 
     private void refreshEnglishLabels() {
         if (englishPage != null) refreshEnglishView(englishPage);
@@ -833,21 +870,31 @@ private void updateEnglishSuggestions() {
         }
     }
 
-   
-
 @Override
 public void onGetSuggestions(SuggestionsInfo[] results) {
-    if (results == null || results.length == 0) {
-        return;
-    }
+    if (results == null || results.length == 0) return;
 
     SuggestionsInfo info = results[0];
     if (info == null) return;
 
     final String checkedWord = currentCheckedWord;
 
+    int count = Math.min(info.getSuggestionsCount(), 3);
+    java.util.ArrayList<String> candidates =
+            new java.util.ArrayList<>();
+
+    for (int i = 0; i < count; i++) {
+        String candidate = info.getSuggestionAt(i);
+        if (candidate != null && !candidate.isEmpty()) {
+            candidates.add(candidate);
+        }
+    }
+
     deleteHandler.post(() -> {
-        if (suggestionBar == null || checkedWord.isEmpty()) {
+        if (suggestionBar == null
+                || englishPage == null
+                || englishPage.getVisibility() != View.VISIBLE
+                || checkedWord.isEmpty()) {
             return;
         }
 
@@ -869,19 +916,17 @@ public void onGetSuggestions(SuggestionsInfo[] results) {
 
         suggestionBar.removeAllViews();
 
-        boolean correct =
-                (info.getSuggestionsAttributes()
-                & SuggestionsInfo.RESULT_ATTR_IN_THE_DICTIONARY) != 0;
+        // Keep the typed word visible.
+        Button typedWord = makeButton(checkedWord);
+        typedWord.setTextSize(14);
+        typedWord.setBackgroundColor(green);
 
-        if (correct) return;
+        suggestionBar.addView(
+                typedWord,
+                new LinearLayout.LayoutParams(0, dp(36), 1)
+        );
 
-        int count = Math.min(info.getSuggestionsCount(), 3);
-
-        for (int i = 0; i < count; i++) {
-            final String candidate = info.getSuggestionAt(i);
-
-            if (candidate == null || candidate.isEmpty()) continue;
-
+        for (String candidate : candidates) {
             Button button = makeButton(candidate);
             button.setTextSize(14);
 
@@ -893,12 +938,10 @@ public void onGetSuggestions(SuggestionsInfo[] results) {
             button.setOnClickListener(v -> {
                 InputConnection currentIC =
                         getCurrentInputConnection();
-
                 if (currentIC == null) return;
 
                 CharSequence currentBefore =
                         currentIC.getTextBeforeCursor(100, 0);
-
                 if (currentBefore == null) return;
 
                 java.util.regex.Matcher currentMatcher =
@@ -912,7 +955,6 @@ public void onGetSuggestions(SuggestionsInfo[] results) {
                 }
 
                 int length = currentMatcher.group().length();
-
                 currentIC.deleteSurroundingText(length, 0);
                 currentIC.commitText(candidate, 1);
 
