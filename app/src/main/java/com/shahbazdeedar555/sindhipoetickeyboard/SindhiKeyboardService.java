@@ -1,23 +1,39 @@
+
+
 package com.shahbazdeedar555.sindhipoetickeyboard;
 
-import android.inputmethodservice.InputMethodService; import android.os.Handler; import android.os.Looper; import android.graphics.Color; import android.graphics.drawable.GradientDrawable; import android.view.Gravity; import android.view.KeyEvent; import android.view.MotionEvent; import android.view.View; import android.view.ViewGroup; import android.view.inputmethod.InputConnection; import android.view.inputmethod.EditorInfo; import android.widget.Button; import android.widget.LinearLayout; import java.util.Locale;
-import java.util.ArrayList;
+import android.inputmethodservice.InputMethodService;
+import android.os.Handler;
+import android.os.Looper;
+import android.graphics.Color;
+import android.graphics.drawable.GradientDrawable;
+import android.view.Gravity;
+import android.view.KeyEvent;
+import android.view.MotionEvent;
+import android.view.View;
+import android.view.ViewGroup;
+import android.view.inputmethod.InputConnection;
 import android.view.textservice.SpellCheckerSession;
 import android.view.textservice.SuggestionsInfo;
 import android.view.textservice.TextServicesManager;
 import android.view.textservice.TextInfo;
-public class SindhiKeyboardService extends InputMethodService
-         {
+import android.widget.Button;
+import android.widget.LinearLayout;
+
+import java.util.Locale;
+import java.util.HashSet;
+
+public class SindhiKeyboardService extends InputMethodService {
+
     private View keyboard, page1, page2;
     private LinearLayout root, englishPage, englishSymbolsPage;
-    
-    private LinearLayout urduPage, urduPage2;
-    private LinearLayout suggestionBar;
-         
-    private String currentCheckedWord = "";
-    private SpellCheckerSession spellCheckerSession;
-private boolean spellCheckPending = false;          
+    private LinearLayout urduPage, urduPage2, suggestionBar;
+
     private Button languageButton;
+
+    private SpellCheckerSession spellCheckerSession;
+    private String currentCheckedWord = "";
+    private boolean spellCheckPending = false;
 
     private boolean shiftOn = false;
     private boolean englishShift = false;
@@ -35,7 +51,6 @@ private boolean spellCheckPending = false;
     private final int black = Color.BLACK;
     private final int white = Color.WHITE;
 
-        
     @Override
     public View onCreateInputView() {
         keyboard = getLayoutInflater().inflate(
@@ -48,15 +63,17 @@ private boolean spellCheckPending = false;
         setupPage1();
         setupPage2();
         setupNumbers();
-  createLanguageButton();
-createEnglishPage();
-createEnglishSymbolsPage();
-createUrduPage();
-createUrduPage2();
 
-showPage1();
-startSpellChecker();
-return keyboard;
+        createLanguageButton();
+        createEnglishPage();
+        createEnglishSymbolsPage();
+        createUrduPage();
+        createUrduPage2();
+
+        startSpellChecker();
+        showPage1();
+
+        return keyboard;
     }
 
     private int dp(int value) {
@@ -292,22 +309,19 @@ return keyboard;
                 new LinearLayout.LayoutParams(
                         ViewGroup.LayoutParams.MATCH_PARENT,
                         ViewGroup.LayoutParams.WRAP_CONTENT));
-            
 
-            // English spelling suggestion bar
-suggestionBar = new LinearLayout(this);
-suggestionBar.setOrientation(LinearLayout.HORIZONTAL);
-suggestionBar.setGravity(Gravity.CENTER);
-suggestionBar.setLayoutDirection(View.LAYOUT_DIRECTION_LTR);
-suggestionBar.setBackgroundColor(green);
+        suggestionBar = new LinearLayout(this);
+        suggestionBar.setOrientation(LinearLayout.HORIZONTAL);
+        suggestionBar.setGravity(Gravity.CENTER);
+        suggestionBar.setLayoutDirection(View.LAYOUT_DIRECTION_LTR);
+        suggestionBar.setBackgroundColor(green);
 
-englishPage.addView(
-        suggestionBar,
-        new LinearLayout.LayoutParams(
-                ViewGroup.LayoutParams.MATCH_PARENT,
-                dp(36)
-        )
-);
+        englishPage.addView(
+                suggestionBar,
+                new LinearLayout.LayoutParams(
+                        ViewGroup.LayoutParams.MATCH_PARENT,
+                        dp(36)));
+
         addEnglishRow("qwertyuiop");
         addEnglishRow("asdfghjkl");
 
@@ -349,183 +363,262 @@ englishPage.addView(
         for (char c : letters.toCharArray()) {
             addEnglishLetter(row, String.valueOf(c));
         }
+
         englishPage.addView(row);
     }
 
-    
-private void addEnglishLetter(LinearLayout row, String letter) {
-    Button button = makeButton(letter);
-    row.addView(button, new LinearLayout.LayoutParams(0, dp(48), 1));
+    private void addEnglishLetter(
+            LinearLayout row, String letter) {
 
-    button.setOnClickListener(v -> {
-        String output = englishShift
-                ? letter.toUpperCase(Locale.ENGLISH)
-                : letter.toLowerCase(Locale.ENGLISH);
+        Button button = makeButton(letter);
+        row.addView(button,
+                new LinearLayout.LayoutParams(0, dp(48), 1));
 
-        commit(output);
-        updateEnglishSuggestions();
+        button.setOnClickListener(v -> {
+            String output = englishShift
+                    ? letter.toUpperCase(Locale.ENGLISH)
+                    : letter.toLowerCase(Locale.ENGLISH);
 
-        if (englishShift) {
-            englishShift = false;
-            refreshEnglishLabels();
+            commit(output);
+
+            if (englishShift) {
+                englishShift = false;
+                refreshEnglishLabels();
+            }
+
+            updateEnglishSuggestions();
+        });
+    }
+
+    // ENGLISH SPELL CHECKER
+
+    private void startSpellChecker() {
+        TextServicesManager manager =
+                (TextServicesManager) getSystemService(
+                        TEXT_SERVICES_MANAGER_SERVICE);
+
+        if (manager == null) return;
+
+        try {
+            spellCheckerSession = manager.newSpellCheckerSession(
+                    null,
+                    Locale.ENGLISH,
+                    new SpellCheckerSession.SpellCheckerSessionListener() {
+
+                        @Override
+                        public void onGetSuggestions(
+                                SuggestionsInfo[] results) {
+
+                            deleteHandler.post(() -> {
+                                spellCheckPending = false;
+
+                                if (suggestionBar == null
+                                        || results == null
+                                        || currentCheckedWord.isEmpty()) {
+                                    return;
+                                }
+
+                                if (englishPage == null
+                                        || englishPage.getVisibility()
+                                        != View.VISIBLE) {
+                                    return;
+                                }
+
+                                InputConnection ic =
+                                        getCurrentInputConnection();
+
+                                if (ic == null) return;
+
+                                CharSequence before =
+                                        ic.getTextBeforeCursor(100, 0);
+
+                                if (before == null) return;
+
+                                java.util.regex.Matcher matcher =
+                                        java.util.regex.Pattern
+                                                .compile("[A-Za-z]+$")
+                                                .matcher(before.toString());
+
+                                if (!matcher.find()
+                                        || !matcher.group().equals(
+                                                currentCheckedWord)) {
+                                    return;
+                                }
+
+                                suggestionBar.removeAllViews();
+
+                                addSuggestionButton(
+                                        currentCheckedWord, false);
+
+                                HashSet<String> added =
+                                        new HashSet<>();
+
+                                added.add(currentCheckedWord.toLowerCase(
+                                        Locale.ENGLISH));
+
+                                for (SuggestionsInfo info : results) {
+                                    if (info == null) continue;
+
+                                    for (int i = 0;
+                                            i < info.getSuggestionsCount();
+                                            i++) {
+
+                                        String suggestion =
+                                                info.getSuggestionAt(i);
+
+                                        if (suggestion == null
+                                                || suggestion.trim().isEmpty()) {
+                                            continue;
+                                        }
+
+                                        String candidate =
+                                                suggestion.trim();
+
+                                        if (!added.add(candidate.toLowerCase(
+                                                Locale.ENGLISH))) {
+                                            continue;
+                                        }
+
+                                        addSuggestionButton(
+                                                candidate, true);
+                                    }
+                                }
+                            });
+                        }
+
+                        @Override
+                        public void onGetSentenceSuggestions(
+                                android.view.textservice
+                                        .SentenceSuggestionsInfo[] results) {
+                            // Not needed for single-word suggestions.
+                        }
+                    },
+                    true
+            );
+        } catch (Exception e) {
+            spellCheckerSession = null;
         }
-    });
-}
-
-
-java.util.HashSet<String> added =
-        new java.util.HashSet<>();
-
-for (String suggestion : suggestions) {
-    if (suggestion == null || suggestion.trim().isEmpty()) {
-        continue;
     }
 
-    String candidate = suggestion.trim();
-
-    if (candidate.equalsIgnoreCase(currentCheckedWord)) {
-        continue;
-    }
-
-    if (!added.add(candidate.toLowerCase(Locale.ENGLISH))) {
-        continue;
-    }
-
-    addSuggestionButton(candidate, true);
-}
-
-    
-               
-            
-                    });
-                }
-
-                @Override
-                public void onGetSentenceSuggestions(
-                        android.view.textservice.SentenceSuggestionsInfo[]
-                                results) {
-                }
-            },
-            true
-    );
-}
-
-private void addSuggestionButton(
-        String word, boolean replaceWord) {
-
-    Button button = makeButton(word);
-    button.setTextSize(14);
-
-    suggestionBar.addView(
-            button,
-            new LinearLayout.LayoutParams(0, dp(36), 1));
-
-    button.setOnClickListener(v -> {
+    private void updateEnglishSuggestions() {
         InputConnection ic = getCurrentInputConnection();
-        if (ic == null) return;
+
+        if (suggestionBar == null) return;
+
+        if (ic == null || englishPage == null
+                || englishPage.getVisibility() != View.VISIBLE) {
+            suggestionBar.removeAllViews();
+            return;
+        }
 
         CharSequence before = ic.getTextBeforeCursor(100, 0);
-        if (before == null) return;
+
+        if (before == null || before.length() == 0) {
+            currentCheckedWord = "";
+            suggestionBar.removeAllViews();
+            return;
+        }
 
         java.util.regex.Matcher matcher =
                 java.util.regex.Pattern
                         .compile("[A-Za-z]+$")
                         .matcher(before.toString());
 
-        if (!matcher.find()) return;
-
-        String typedWord = matcher.group();
-
-        if (!typedWord.equalsIgnoreCase(currentCheckedWord)) {
+        if (!matcher.find()) {
+            currentCheckedWord = "";
+            suggestionBar.removeAllViews();
             return;
         }
 
-        if (replaceWord) {
-            ic.deleteSurroundingText(typedWord.length(), 0);
-            ic.commitText(word, 1);
+        String word = matcher.group();
+
+        if (word.equals(currentCheckedWord) && spellCheckPending) {
+            return;
         }
 
-        updateEnglishSuggestions();
-    });
-}
-
-private void checkEnglishWord(String word) {
-    if (spellCheckerSession == null
-            || word == null
-            || word.isEmpty()) {
-        return;
-    }
-
-    currentCheckedWord = word;
-    spellCheckPending = true;
-
-    spellCheckerSession.getSuggestions(
-            new TextInfo(word), 5);
-}
-
-private void updateEnglishSuggestions() {
-    InputConnection ic = getCurrentInputConnection();
-
-    if (suggestionBar == null) return;
-
-    suggestionBar.removeAllViews();
-
-    if (ic == null || englishPage == null
-            || englishPage.getVisibility() != View.VISIBLE) {
-        return;
-    }
-
-    CharSequence before = ic.getTextBeforeCursor(100, 0);
-
-    if (before == null || before.length() == 0) return;
-
-    java.util.regex.Matcher matcher =
-            java.util.regex.Pattern
-                    .compile("[A-Za-z]+$")
-                    .matcher(before.toString());
-
-    if (!matcher.find()) {
+        currentCheckedWord = word;
         spellCheckPending = false;
-        return;
+
+        suggestionBar.removeAllViews();
+        addSuggestionButton(currentCheckedWord, false);
+
+        if (spellCheckerSession != null) {
+            spellCheckPending = true;
+
+            try {
+                spellCheckerSession.getSuggestions(
+                        new TextInfo(currentCheckedWord),
+                        5,
+                        false);
+            } catch (Exception e) {
+                spellCheckPending = false;
+            }
+        }
     }
 
-    currentCheckedWord = matcher.group();
+    private void addSuggestionButton(
+            String word, boolean isSuggestion) {
 
-    // Display the typed word while checking spelling.
-    addSuggestionButton(currentCheckedWord, false);
-    checkEnglishWord(currentCheckedWord);
-}
+        Button button = makeButton(word);
+        button.setTextSize(14);
+        button.setBackgroundColor(
+                isSuggestion ? black : green);
 
-                 
-private void refreshEnglishLabels() {
-    if (englishPage == null) return;
+        suggestionBar.addView(
+                button,
+                new LinearLayout.LayoutParams(
+                        0, dp(36), 1));
 
-    for (int i = 0; i < englishPage.getChildCount(); i++) {
-        View rowView = englishPage.getChildAt(i);
+        button.setOnClickListener(v -> {
+            InputConnection ic = getCurrentInputConnection();
+            if (ic == null) return;
 
-        if (!(rowView instanceof LinearLayout)) continue;
+            CharSequence before = ic.getTextBeforeCursor(100, 0);
+            if (before == null) return;
 
-        LinearLayout row = (LinearLayout) rowView;
+            java.util.regex.Matcher matcher =
+                    java.util.regex.Pattern
+                            .compile("[A-Za-z]+$")
+                            .matcher(before.toString());
 
-        for (int j = 0; j < row.getChildCount(); j++) {
-            View child = row.getChildAt(j);
+            if (!matcher.find()) return;
 
-            if (!(child instanceof Button)) continue;
+            int length = matcher.group().length();
 
-            Button button = (Button) child;
+            ic.deleteSurroundingText(length, 0);
+            ic.commitText(word, 1);
+
+            currentCheckedWord = "";
+            updateEnglishSuggestions();
+        });
+    }
+
+    private void refreshEnglishLabels() {
+        if (englishPage != null) {
+            refreshEnglishView(englishPage);
+        }
+    }
+
+    private void refreshEnglishView(View view) {
+        if (view instanceof Button) {
+            Button button = (Button) view;
             String label = button.getText().toString();
 
-            if (label.length() == 1
-                    && "abcdefghijklmnopqrstuvwxyz"
-                            .contains(label.toLowerCase(Locale.ENGLISH))) {
+            if (label.matches("[a-zA-Z]")) {
                 button.setText(englishShift
                         ? label.toUpperCase(Locale.ENGLISH)
                         : label.toLowerCase(Locale.ENGLISH));
             }
+        } else if (view instanceof ViewGroup) {
+            ViewGroup group = (ViewGroup) view;
+
+            for (int i = 0; i < group.getChildCount(); i++) {
+                refreshEnglishView(group.getChildAt(i));
+            }
         }
     }
-} 
-    // ENGLISH PUNCTUATION PAGE
+
+    // ENGLISH SYMBOLS PAGE
 
     private void createEnglishSymbolsPage() {
         englishSymbolsPage = new LinearLayout(this);
@@ -599,14 +692,10 @@ private void refreshEnglishLabels() {
         bottom.setOrientation(LinearLayout.HORIZONTAL);
         bottom.setLayoutDirection(View.LAYOUT_DIRECTION_RTL);
 
-        // Each control appears only once.
         addSpecialButton(bottom, "⇧", this::showUrduPage2);
         addSpecialButton(bottom, "🌐", this::openLanguageMenu);
         addSpecialButton(bottom, "؟", () -> commit("؟"));
-
-        // English full stop on Urdu Page 1.
         addSpecialButton(bottom, ".", () -> commit("."));
-
         addSpecialButton(bottom, "⌫", this::deleteOne);
         addSpecialButton(bottom, "SPACE", () -> commit(" "));
         addSpecialButton(bottom, "ENTER", this::pressEnter);
@@ -652,7 +741,9 @@ private void refreshEnglishLabels() {
         urduPage2.addView(bottom);
     }
 
-    private void addUrduRow(LinearLayout target, String letters) {
+    private void addUrduRow(
+            LinearLayout target, String letters) {
+
         LinearLayout row = new LinearLayout(this);
         row.setOrientation(LinearLayout.HORIZONTAL);
         row.setLayoutDirection(View.LAYOUT_DIRECTION_RTL);
@@ -695,10 +786,13 @@ private void refreshEnglishLabels() {
 
         Button button = makeButton(label);
 
-        if (label.length() > 2) button.setTextSize(12);
+        if (label.length() > 2) {
+            button.setTextSize(12);
+        }
 
-        row.addView(button, new LinearLayout.LayoutParams(
-                0, dp(48), label.equals("SPACE") ? 2 : 1));
+        row.addView(button,
+                new LinearLayout.LayoutParams(
+                        0, dp(48), label.equals("SPACE") ? 2 : 1));
 
         if (label.equals("⌫")) {
             button.setOnTouchListener((v, event) -> {
@@ -721,7 +815,9 @@ private void refreshEnglishLabels() {
                 }
 
                 if (event.getAction() == MotionEvent.ACTION_UP
-                        || event.getAction() == MotionEvent.ACTION_CANCEL) {
+                        || event.getAction()
+                        == MotionEvent.ACTION_CANCEL) {
+
                     languageDeleteHolding = false;
 
                     if (languageDeleteRunnable != null) {
@@ -731,6 +827,7 @@ private void refreshEnglishLabels() {
                     }
                     return true;
                 }
+
                 return true;
             });
         } else {
@@ -742,6 +839,7 @@ private void refreshEnglishLabels() {
 
     private void setShift(int id) {
         View view = keyboard.findViewById(id);
+
         if (view != null) {
             view.setOnClickListener(v -> {
                 shiftOn = true;
@@ -752,6 +850,7 @@ private void refreshEnglishLabels() {
 
     private void setShiftBack(int id) {
         View view = keyboard.findViewById(id);
+
         if (view != null) {
             view.setOnClickListener(v -> {
                 shiftOn = false;
@@ -788,51 +887,76 @@ private void refreshEnglishLabels() {
 
         button.setOnTouchListener((v, event) -> {
             if (event.getAction() == MotionEvent.ACTION_UP
-                    || event.getAction() == MotionEvent.ACTION_CANCEL) {
+                    || event.getAction()
+                    == MotionEvent.ACTION_CANCEL) {
+
                 deleteHolding = false;
 
                 if (deleteRunnable != null) {
                     deleteHandler.removeCallbacks(deleteRunnable);
                 }
             }
+
             return false;
         });
     }
 
     private void deleteOne() {
         InputConnection ic = getCurrentInputConnection();
-        if (ic != null) ic.deleteSurroundingText(1, 0);
+
+        if (ic != null) {
+            ic.deleteSurroundingText(1, 0);
+        }
+
+        if (englishPage != null
+                && englishPage.getVisibility() == View.VISIBLE) {
+            currentCheckedWord = "";
+            updateEnglishSuggestions();
+        }
     }
 
     private void setSpace(int id) {
         View view = keyboard.findViewById(id);
-        if (view != null) view.setOnClickListener(v -> commit(" "));
+
+        if (view != null) {
+            view.setOnClickListener(v -> commit(" "));
+        }
     }
 
     private void setEnter(int id) {
         View view = keyboard.findViewById(id);
-        if (view != null) view.setOnClickListener(v -> pressEnter());
+
+        if (view != null) {
+            view.setOnClickListener(v -> pressEnter());
+        }
     }
 
     private void pressEnter() {
         InputConnection ic = getCurrentInputConnection();
+
         if (ic != null) {
             ic.sendKeyEvent(new KeyEvent(
-                    KeyEvent.ACTION_DOWN, KeyEvent.KEYCODE_ENTER));
+                    KeyEvent.ACTION_DOWN,
+                    KeyEvent.KEYCODE_ENTER));
+
             ic.sendKeyEvent(new KeyEvent(
-                    KeyEvent.ACTION_UP, KeyEvent.KEYCODE_ENTER));
+                    KeyEvent.ACTION_UP,
+                    KeyEvent.KEYCODE_ENTER));
         }
     }
 
     private void setArrow(int id) {
         View view = keyboard.findViewById(id);
+
         if (view != null) {
             view.setOnClickListener(v -> {
                 InputConnection ic = getCurrentInputConnection();
+
                 if (ic != null) {
                     ic.sendKeyEvent(new KeyEvent(
                             KeyEvent.ACTION_DOWN,
                             KeyEvent.KEYCODE_DPAD_LEFT));
+
                     ic.sendKeyEvent(new KeyEvent(
                             KeyEvent.ACTION_UP,
                             KeyEvent.KEYCODE_DPAD_LEFT));
@@ -866,6 +990,7 @@ private void refreshEnglishLabels() {
     private void showEnglishPage() {
         hideAllPages();
         englishPage.setVisibility(View.VISIBLE);
+        updateEnglishSuggestions();
     }
 
     private void showEnglishSymbolsPage() {
@@ -879,16 +1004,17 @@ private void refreshEnglishLabels() {
         urduSecondPage = false;
     }
 
-        private void showUrduPage2() {
+    private void showUrduPage2() {
         hideAllPages();
         urduPage2.setVisibility(View.VISIBLE);
         urduSecondPage = true;
     }
 
-@Override
+    @Override
     public boolean onKeyDown(int keyCode, KeyEvent event) {
         if (keyCode == KeyEvent.KEYCODE_DEL) {
             InputConnection ic = getCurrentInputConnection();
+
             if (ic != null) {
                 ic.deleteSurroundingText(1, 0);
                 return true;
@@ -908,14 +1034,31 @@ private void refreshEnglishLabels() {
 
         deleteHolding = false;
         languageDeleteHolding = false;
+        currentCheckedWord = "";
+        spellCheckPending = false;
 
         if (deleteRunnable != null) {
             deleteHandler.removeCallbacks(deleteRunnable);
         }
 
-              if (languageDeleteRunnable != null) {
+        if (languageDeleteRunnable != null) {
             deleteHandler.removeCallbacks(languageDeleteRunnable);
             languageDeleteRunnable = null;
         }
+
+        if (suggestionBar != null) {
+            suggestionBar.removeAllViews();
+        }
+    }
+
+    @Override
+    public void onDestroy() {
+        if (spellCheckerSession != null) {
+            spellCheckerSession.close();
+            spellCheckerSession = null;
+        }
+
+        deleteHandler.removeCallbacksAndMessages(null);
+        super.onDestroy();
     }
 }
