@@ -48,16 +48,15 @@ private boolean spellCheckPending = false;
         setupPage1();
         setupPage2();
         setupNumbers();
+  createLanguageButton();
+createEnglishPage();
+createEnglishSymbolsPage();
+createUrduPage();
+createUrduPage2();
 
-        createLanguageButton();
-        createEnglishPage();
-        createEnglishSymbolsPage();
-        createUrduPage();
-        createUrduPage2();
-       
-        showPage1();
-       startSpellChecker();
-        return keyboard;
+showPage1();
+startSpellChecker();
+return keyboard;
     }
 
     private int dp(int value) {
@@ -376,8 +375,8 @@ private void addEnglishLetter(LinearLayout row, String letter) {
 
 private void startSpellChecker() {
     TextServicesManager manager =
-            (TextServicesManager)
-                    getSystemService(TEXT_SERVICES_MANAGER_SERVICE);
+            (TextServicesManager) getSystemService(
+                    TEXT_SERVICES_MANAGER_SERVICE);
 
     if (manager == null) return;
 
@@ -395,23 +394,20 @@ private void startSpellChecker() {
                 public void onGetSuggestions(
                         SuggestionsInfo[] results) {
 
-                    if (results == null || results.length == 0) {
-                        return;
-                    }
+                    ArrayList<String> suggestions =
+                            new ArrayList<>();
 
-                    SuggestionsInfo info = results[0];
-                    int count = info.getSuggestionsCount();
+                    if (results != null && results.length > 0
+                            && results[0] != null) {
+                        SuggestionsInfo info = results[0];
 
-                    if (count <= 0) return;
+                        for (int i = 0;
+                             i < info.getSuggestionsCount(); i++) {
+                            String word = info.getSuggestionAt(i);
 
-                    java.util.ArrayList<String> suggestions =
-                            new java.util.ArrayList<>();
-
-                    for (int i = 0; i < count; i++) {
-                        String word = info.getSuggestionAt(i);
-
-                        if (word != null && !word.isEmpty()) {
-                            suggestions.add(word);
+                            if (word != null && !word.isEmpty()) {
+                                suggestions.add(word);
+                            }
                         }
                     }
 
@@ -425,41 +421,36 @@ private void startSpellChecker() {
                         }
 
                         spellCheckPending = false;
+
+                        InputConnection ic =
+                                getCurrentInputConnection();
+                        if (ic == null) return;
+
+                        CharSequence before =
+                                ic.getTextBeforeCursor(100, 0);
+                        if (before == null) return;
+
+                        java.util.regex.Matcher matcher =
+                                java.util.regex.Pattern
+                                        .compile("[A-Za-z]+$")
+                                        .matcher(before.toString());
+
+                        if (!matcher.find()
+                                || !matcher.group().equalsIgnoreCase(
+                                        currentCheckedWord)) {
+                            return;
+                        }
+
                         suggestionBar.removeAllViews();
 
+                        // Keep the typed word visible.
+                        addSuggestionButton(currentCheckedWord, false);
+
                         for (String suggestion : suggestions) {
-                            Button button = makeButton(suggestion);
-                            button.setTextSize(14);
-
-                            suggestionBar.addView(
-                                    button,
-                                    new LinearLayout.LayoutParams(
-                                            0, dp(36), 1));
-
-                            button.setOnClickListener(v -> {
-                                InputConnection ic =
-                                        getCurrentInputConnection();
-
-                                if (ic == null) return;
-
-                                CharSequence before =
-                                        ic.getTextBeforeCursor(100, 0);
-
-                                if (before == null) return;
-
-                                java.util.regex.Matcher matcher =
-                                        java.util.regex.Pattern
-                                                .compile("[A-Za-z]+$")
-                                                .matcher(before.toString());
-
-                                if (!matcher.find()) return;
-
-                                ic.deleteSurroundingText(
-                                        matcher.group().length(), 0);
-                                ic.commitText(suggestion, 1);
-
-                                updateEnglishSuggestions();
-                            });
+                            if (!suggestion.equalsIgnoreCase(
+                                    currentCheckedWord)) {
+                                addSuggestionButton(suggestion, true);
+                            }
                         }
                     });
                 }
@@ -474,29 +465,59 @@ private void startSpellChecker() {
     );
 }
 
-                @Override
-                public void onGetSentenceSuggestions(
-                        android.view.textservice.SentenceSuggestionsInfo[] results) {
-                }
-            },
-            true
-    );
+private void addSuggestionButton(
+        String word, boolean replaceWord) {
+
+    Button button = makeButton(word);
+    button.setTextSize(14);
+
+    suggestionBar.addView(
+            button,
+            new LinearLayout.LayoutParams(0, dp(36), 1));
+
+    button.setOnClickListener(v -> {
+        InputConnection ic = getCurrentInputConnection();
+        if (ic == null) return;
+
+        CharSequence before = ic.getTextBeforeCursor(100, 0);
+        if (before == null) return;
+
+        java.util.regex.Matcher matcher =
+                java.util.regex.Pattern
+                        .compile("[A-Za-z]+$")
+                        .matcher(before.toString());
+
+        if (!matcher.find()) return;
+
+        String typedWord = matcher.group();
+
+        if (!typedWord.equalsIgnoreCase(currentCheckedWord)) {
+            return;
+        }
+
+        if (replaceWord) {
+            ic.deleteSurroundingText(typedWord.length(), 0);
+            ic.commitText(word, 1);
+        }
+
+        updateEnglishSuggestions();
+    });
 }
 
-                  private void checkEnglishWord(String word) {
+private void checkEnglishWord(String word) {
     if (spellCheckerSession == null
             || word == null
             || word.isEmpty()) {
         return;
     }
 
-    spellCheckPending = true;
     currentCheckedWord = word;
-                           
+    spellCheckPending = true;
 
     spellCheckerSession.getSuggestions(
             new TextInfo(word), 5);
 }
+
 private void updateEnglishSuggestions() {
     InputConnection ic = getCurrentInputConnection();
 
@@ -511,9 +532,7 @@ private void updateEnglishSuggestions() {
 
     CharSequence before = ic.getTextBeforeCursor(100, 0);
 
-    if (before == null || before.length() == 0) {
-        return;
-    }
+    if (before == null || before.length() == 0) return;
 
     java.util.regex.Matcher matcher =
             java.util.regex.Pattern
@@ -521,68 +540,16 @@ private void updateEnglishSuggestions() {
                     .matcher(before.toString());
 
     if (!matcher.find()) {
+        spellCheckPending = false;
         return;
     }
 
     currentCheckedWord = matcher.group();
+
+    // Display the typed word while checking spelling.
+    addSuggestionButton(currentCheckedWord, false);
     checkEnglishWord(currentCheckedWord);
-
-    // Show the current word immediately while checking spelling.
-    Button wordButton = makeButton(currentCheckedWord);
-    wordButton.setTextSize(14);
-    wordButton.setBackgroundColor(green);
-
-    suggestionBar.addView(
-            wordButton,
-            new LinearLayout.LayoutParams(
-                    0, dp(36), 1)
-    );
-
-    wordButton.setOnClickListener(v -> {
-        InputConnection currentIC = getCurrentInputConnection();
-        if (currentIC == null) return;
-
-        CharSequence currentBefore =
-                currentIC.getTextBeforeCursor(100, 0);
-
-        if (currentBefore == null) return;
-
-        java.util.regex.Matcher currentMatcher =
-                java.util.regex.Pattern
-                        .compile("[A-Za-z]+$")
-                        .matcher(currentBefore.toString());
-
-        if (!currentMatcher.find()) return;
-
-        int length = currentMatcher.group().length();
-
-        currentIC.deleteSurroundingText(length, 0);
-        currentIC.commitText(currentCheckedWord, 1);
-    });
-
 }
-
-    private void refreshEnglishLabels() {
-        if (englishPage != null) refreshEnglishView(englishPage);
-    }
-
-    private void refreshEnglishView(View view) {
-        if (view instanceof Button) {
-            Button button = (Button) view;
-            String label = button.getText().toString();
-
-            if (label.matches("[a-zA-Z]")) {
-                button.setText(englishShift
-                        ? label.toUpperCase()
-                        : label.toLowerCase());
-            }
-        } else if (view instanceof ViewGroup) {
-            ViewGroup group = (ViewGroup) view;
-            for (int i = 0; i < group.getChildCount(); i++) {
-                refreshEnglishView(group.getChildAt(i));
-            }
-        }
-    }
 
     // ENGLISH PUNCTUATION PAGE
 
