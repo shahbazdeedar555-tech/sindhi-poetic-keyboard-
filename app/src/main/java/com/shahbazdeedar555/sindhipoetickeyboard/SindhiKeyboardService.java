@@ -551,6 +551,35 @@ private void updateEnglishSuggestions() {
     checkEnglishWord(currentCheckedWord);
 }
 
+                 
+private void refreshEnglishLabels() {
+    if (englishPage == null) return;
+
+    for (int i = 0; i < englishPage.getChildCount(); i++) {
+        View rowView = englishPage.getChildAt(i);
+
+        if (!(rowView instanceof LinearLayout)) continue;
+
+        LinearLayout row = (LinearLayout) rowView;
+
+        for (int j = 0; j < row.getChildCount(); j++) {
+            View child = row.getChildAt(j);
+
+            if (!(child instanceof Button)) continue;
+
+            Button button = (Button) child;
+            String label = button.getText().toString();
+
+            if (label.length() == 1
+                    && "abcdefghijklmnopqrstuvwxyz"
+                            .contains(label.toLowerCase(Locale.ENGLISH))) {
+                button.setText(englishShift
+                        ? label.toUpperCase(Locale.ENGLISH)
+                        : label.toLowerCase(Locale.ENGLISH));
+            }
+        }
+    }
+} 
     // ENGLISH PUNCTUATION PAGE
 
     private void createEnglishSymbolsPage() {
