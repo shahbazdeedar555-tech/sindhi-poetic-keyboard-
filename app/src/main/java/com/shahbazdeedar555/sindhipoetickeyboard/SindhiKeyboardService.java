@@ -373,85 +373,30 @@ private void addEnglishLetter(LinearLayout row, String letter) {
 }
 
 
-private void startSpellChecker() {
-    TextServicesManager manager =
-            (TextServicesManager) getSystemService(
-                    TEXT_SERVICES_MANAGER_SERVICE);
+java.util.HashSet<String> added =
+        new java.util.HashSet<>();
 
-    if (manager == null) return;
-
-    if (spellCheckerSession != null) {
-        spellCheckerSession.close();
-        spellCheckerSession = null;
+for (String suggestion : suggestions) {
+    if (suggestion == null || suggestion.trim().isEmpty()) {
+        continue;
     }
 
-    spellCheckerSession = manager.newSpellCheckerSession(
-            null,
-            Locale.ENGLISH,
-            new SpellCheckerSession.SpellCheckerSessionListener() {
+    String candidate = suggestion.trim();
 
-                @Override
-                public void onGetSuggestions(
-                        SuggestionsInfo[] results) {
+    if (candidate.equalsIgnoreCase(currentCheckedWord)) {
+        continue;
+    }
 
-                    ArrayList<String> suggestions =
-                            new ArrayList<>();
+    if (!added.add(candidate.toLowerCase(Locale.ENGLISH))) {
+        continue;
+    }
 
-                    if (results != null && results.length > 0
-                            && results[0] != null) {
-                        SuggestionsInfo info = results[0];
+    addSuggestionButton(candidate, true);
+}
 
-                        for (int i = 0;
-                             i < info.getSuggestionsCount(); i++) {
-                            String word = info.getSuggestionAt(i);
-
-                            if (word != null && !word.isEmpty()) {
-                                suggestions.add(word);
-                            }
-                        }
-                    }
-
-                    new Handler(Looper.getMainLooper()).post(() -> {
-                        if (!spellCheckPending
-                                || suggestionBar == null
-                                || englishPage == null
-                                || englishPage.getVisibility()
-                                        != View.VISIBLE) {
-                            return;
-                        }
-
-                        spellCheckPending = false;
-
-                        InputConnection ic =
-                                getCurrentInputConnection();
-                        if (ic == null) return;
-
-                        CharSequence before =
-                                ic.getTextBeforeCursor(100, 0);
-                        if (before == null) return;
-
-                        java.util.regex.Matcher matcher =
-                                java.util.regex.Pattern
-                                        .compile("[A-Za-z]+$")
-                                        .matcher(before.toString());
-
-                        if (!matcher.find()
-                                || !matcher.group().equalsIgnoreCase(
-                                        currentCheckedWord)) {
-                            return;
-                        }
-
-                        suggestionBar.removeAllViews();
-
-                        // Keep the typed word visible.
-                        addSuggestionButton(currentCheckedWord, false);
-
-                        for (String suggestion : suggestions) {
-                            if (!suggestion.equalsIgnoreCase(
-                                    currentCheckedWord)) {
-                                addSuggestionButton(suggestion, true);
-                            }
-                        }
+    
+               
+            
                     });
                 }
 
