@@ -2,6 +2,10 @@ package com.shahbazdeedar555.sindhipoetickeyboard;
 
 import android.inputmethodservice.InputMethodService; import android.os.Handler; import android.os.Looper; import android.graphics.Color; import android.graphics.drawable.GradientDrawable; import android.view.Gravity; import android.view.KeyEvent; import android.view.MotionEvent; import android.view.View; import android.view.ViewGroup; import android.view.inputmethod.InputConnection; import android.view.inputmethod.EditorInfo; import android.widget.Button; import android.widget.LinearLayout; import java.util.Locale;
 import java.util.ArrayList;
+import android.view.textservice.SpellCheckerSession;
+import android.view.textservice.SuggestionsInfo;
+import android.view.textservice.TextServicesManager;
+import android.view.textservice.TextInfo;
 public class SindhiKeyboardService extends InputMethodService
          {
     private View keyboard, page1, page2;
@@ -11,6 +15,8 @@ public class SindhiKeyboardService extends InputMethodService
     private LinearLayout suggestionBar;
          
     private String currentCheckedWord = "";
+    private SpellCheckerSession spellCheckerSession;
+private boolean spellCheckPending = false;          
     private Button languageButton;
 
     private boolean shiftOn = false;
@@ -50,6 +56,7 @@ public class SindhiKeyboardService extends InputMethodService
         createUrduPage2();
        
         showPage1();
+       startSpellChecker();
         return keyboard;
     }
 
@@ -367,6 +374,129 @@ private void addEnglishLetter(LinearLayout row, String letter) {
 }
 
 
+private void startSpellChecker() {
+    TextServicesManager manager =
+            (TextServicesManager)
+                    getSystemService(TEXT_SERVICES_MANAGER_SERVICE);
+
+    if (manager == null) return;
+
+    if (spellCheckerSession != null) {
+        spellCheckerSession.close();
+        spellCheckerSession = null;
+    }
+
+    spellCheckerSession = manager.newSpellCheckerSession(
+            null,
+            Locale.ENGLISH,
+            new SpellCheckerSession.SpellCheckerSessionListener() {
+
+                @Override
+                public void onGetSuggestions(
+                        SuggestionsInfo[] results) {
+
+                    if (results == null || results.length == 0) {
+                        return;
+                    }
+
+                    SuggestionsInfo info = results[0];
+                    int count = info.getSuggestionsCount();
+
+                    if (count <= 0) return;
+
+                    java.util.ArrayList<String> suggestions =
+                            new java.util.ArrayList<>();
+
+                    for (int i = 0; i < count; i++) {
+                        String word = info.getSuggestionAt(i);
+
+                        if (word != null && !word.isEmpty()) {
+                            suggestions.add(word);
+                        }
+                    }
+
+                    new Handler(Looper.getMainLooper()).post(() -> {
+                        if (!spellCheckPending
+                                || suggestionBar == null
+                                || englishPage == null
+                                || englishPage.getVisibility()
+                                        != View.VISIBLE) {
+                            return;
+                        }
+
+                        spellCheckPending = false;
+                        suggestionBar.removeAllViews();
+
+                        for (String suggestion : suggestions) {
+                            Button button = makeButton(suggestion);
+                            button.setTextSize(14);
+
+                            suggestionBar.addView(
+                                    button,
+                                    new LinearLayout.LayoutParams(
+                                            0, dp(36), 1));
+
+                            button.setOnClickListener(v -> {
+                                InputConnection ic =
+                                        getCurrentInputConnection();
+
+                                if (ic == null) return;
+
+                                CharSequence before =
+                                        ic.getTextBeforeCursor(100, 0);
+
+                                if (before == null) return;
+
+                                java.util.regex.Matcher matcher =
+                                        java.util.regex.Pattern
+                                                .compile("[A-Za-z]+$")
+                                                .matcher(before.toString());
+
+                                if (!matcher.find()) return;
+
+                                ic.deleteSurroundingText(
+                                        matcher.group().length(), 0);
+                                ic.commitText(suggestion, 1);
+
+                                updateEnglishSuggestions();
+                            });
+                        }
+                    });
+                }
+
+                @Override
+                public void onGetSentenceSuggestions(
+                        android.view.textservice.SentenceSuggestionsInfo[]
+                                results) {
+                }
+            },
+            true
+    );
+}
+
+                @Override
+                public void onGetSentenceSuggestions(
+                        android.view.textservice.SentenceSuggestionsInfo[] results) {
+                }
+            },
+            true
+    );
+}
+
+                  private void checkEnglishWord(String word) {
+    if (spellCheckerSession == null
+            || word == null
+            || word.isEmpty()) {
+        return;
+    }
+
+    spellCheckPending = true;
+    currentCheckedWord = word;
+                           
+
+    spellCheckerSession.getSuggestions(
+            new TextInfo(word), 5);
+}
 private void updateEnglishSuggestions() {
     InputConnection ic = getCurrentInputConnection();
 
@@ -395,6 +525,7 @@ private void updateEnglishSuggestions() {
     }
 
     currentCheckedWord = matcher.group();
+    checkEnglishWord(currentCheckedWord);
 
     // Show the current word immediately while checking spelling.
     Button wordButton = makeButton(currentCheckedWord);
