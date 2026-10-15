@@ -403,13 +403,15 @@ private final String[] englishWords = {
     "yes", "you", "your"
 };
 
+
+
 private void updateEnglishSuggestions() {
     if (suggestionBar == null) return;
 
     suggestionBar.removeAllViews();
 
-    if (englishPage == null ||
-            englishPage.getVisibility() != View.VISIBLE) {
+    if (englishPage == null
+            || englishPage.getVisibility() != View.VISIBLE) {
         return;
     }
 
@@ -427,38 +429,30 @@ private void updateEnglishSuggestions() {
     if (!matcher.find()) return;
 
     final String typedWord = matcher.group();
-    final String lowerWord = typedWord.toLowerCase(Locale.ENGLISH);
+    final String lowerWord =
+            typedWord.toLowerCase(Locale.ENGLISH);
 
     ArrayList<String> results = new ArrayList<>();
 
-    // First: words that complete the typed prefix.
+    // Show matching words first.
     for (String word : englishWords) {
-        if (word.toLowerCase(Locale.ENGLISH).startsWith(lowerWord)
-                && !word.equalsIgnoreCase(typedWord)) {
-            if (!results.contains(word)) results.add(word);
+        String candidate = word.toLowerCase(Locale.ENGLISH);
+
+        if (candidate.startsWith(lowerWord)
+                && !results.contains(word)) {
+            results.add(word);
         }
     }
 
-    // If there is no prefix match, look for spelling alternatives.
-    if (results.isEmpty() && lowerWord.length() >= 3) {
-        ArrayList<String> corrections = new ArrayList<>();
-
-        for (String word : englishWords) {
-            String candidate = word.toLowerCase(Locale.ENGLISH);
-
-            if (Math.abs(candidate.length() - lowerWord.length()) > 2) {
-                continue;
-            }
-
-            if (editDistance(lowerWord, candidate) <= 2) {
-                corrections.add(word);
-            }
+    // Keep the complete typed word available.
+    for (String word : englishWords) {
+        if (word.equalsIgnoreCase(typedWord)) {
+            results.remove(word);
+            results.add(0, word);
+            break;
         }
-
-        results.addAll(corrections);
     }
 
-    // Show up to three suggestions.
     int count = Math.min(3, results.size());
 
     for (int i = 0; i < count; i++) {
@@ -466,16 +460,18 @@ private void updateEnglishSuggestions() {
         Button button = makeButton(suggestion);
         button.setTextSize(14);
 
-        suggestionBar.addView(button,
-                new LinearLayout.LayoutParams(0, dp(36), 1));
+        suggestionBar.addView(
+                button,
+                new LinearLayout.LayoutParams(
+                        0, dp(36), 1));
 
         button.setOnClickListener(v -> {
-            InputConnection currentIC = getCurrentInputConnection();
+            InputConnection currentIC =
+                    getCurrentInputConnection();
             if (currentIC == null) return;
 
             CharSequence currentBefore =
                     currentIC.getTextBeforeCursor(100, 0);
-
             if (currentBefore == null) return;
 
             java.util.regex.Matcher currentMatcher =
@@ -485,17 +481,20 @@ private void updateEnglishSuggestions() {
 
             if (!currentMatcher.find()) return;
 
-            int length = currentMatcher.group().length();
+            String currentWord = currentMatcher.group();
 
-            currentIC.deleteSurroundingText(length, 0);
+            currentIC.deleteSurroundingText(
+                    currentWord.length(), 0);
 
             String replacement = suggestion;
 
-            // Preserve initial capitalization.
-            if (!typedWord.isEmpty()
-                    && Character.isUpperCase(typedWord.charAt(0))) {
-                replacement = suggestion.substring(0, 1).toUpperCase(
-                        Locale.ENGLISH) + suggestion.substring(1);
+            if (!currentWord.isEmpty()
+                    && Character.isUpperCase(
+                            currentWord.charAt(0))) {
+                replacement =
+                        suggestion.substring(0, 1)
+                                .toUpperCase(Locale.ENGLISH)
+                        + suggestion.substring(1);
             }
 
             currentIC.commitText(replacement, 1);
