@@ -268,10 +268,16 @@ public class SindhiKeyboardService extends InputMethodService
         });
     }
 
-    private void commit(String text) {
-        InputConnection ic = getCurrentInputConnection();
-        if (ic != null) ic.commitText(text, 1);
+    
+private void commit(String text) {
+    InputConnection ic = getCurrentInputConnection();
+
+    if (ic != null) {
+        ic.commitText(text, 1);
+        updateEnglishSuggestions();
     }
+}
+
 
     // ENGLISH LETTER PAGE
 
@@ -367,73 +373,157 @@ private void addEnglishLetter(LinearLayout row, String letter) {
 }
 
 
-private void updateEnglishSuggestions() {
-    InputConnection ic = getCurrentInputConnection();
 
+private final String[] englishWords = {
+    "a", "about", "after", "again", "all", "also", "am",
+    "an", "and", "any", "are", "as", "ask", "at",
+    "back", "be", "because", "been", "before", "best",
+    "better", "book", "boy", "but", "by", "can",
+    "come", "could", "day", "did", "do", "does",
+    "down", "each", "easy", "eat", "English", "even",
+    "every", "example", "family", "feel", "find", "first",
+    "for", "friend", "from", "get", "give", "go", "good",
+    "great", "had", "has", "have", "he", "hello", "help",
+    "her", "here", "him", "his", "how", "I", "if",
+    "in", "into", "is", "it", "its", "just", "know",
+    "learn", "like", "little", "look", "love", "make",
+    "many", "may", "me", "more", "most", "much", "my",
+    "name", "need", "never", "new", "next", "no", "not",
+    "now", "of", "off", "old", "on", "one", "only",
+    "or", "other", "our", "out", "people", "please",
+    "read", "right", "said", "same", "school", "see",
+    "she", "should", "so", "some", "student", "study",
+    "take", "teacher", "tell", "than", "thank", "that",
+    "the", "their", "them", "then", "there", "these",
+    "they", "thing", "think", "this", "time", "to",
+    "today", "tomorrow", "too", "try", "up", "us",
+    "use", "very", "want", "was", "way", "we", "well",
+    "were", "what", "when", "where", "which", "who",
+    "will", "with", "word", "work", "would", "write",
+    "yes", "you", "your"
+};
+
+private void updateEnglishSuggestions() {
     if (suggestionBar == null) return;
 
     suggestionBar.removeAllViews();
 
-    if (ic == null || englishPage == null
-            || englishPage.getVisibility() != View.VISIBLE) {
+    if (englishPage == null ||
+            englishPage.getVisibility() != View.VISIBLE) {
         return;
     }
+
+    InputConnection ic = getCurrentInputConnection();
+    if (ic == null) return;
 
     CharSequence before = ic.getTextBeforeCursor(100, 0);
-
-    if (before == null || before.length() == 0) {
-        return;
-    }
+    if (before == null || before.length() == 0) return;
 
     java.util.regex.Matcher matcher =
             java.util.regex.Pattern
                     .compile("[A-Za-z]+$")
                     .matcher(before.toString());
 
-    if (!matcher.find()) {
-        return;
+    if (!matcher.find()) return;
+
+    final String typedWord = matcher.group();
+    final String lowerWord = typedWord.toLowerCase(Locale.ENGLISH);
+
+    ArrayList<String> results = new ArrayList<>();
+
+    // First: words that complete the typed prefix.
+    for (String word : englishWords) {
+        if (word.toLowerCase(Locale.ENGLISH).startsWith(lowerWord)
+                && !word.equalsIgnoreCase(typedWord)) {
+            if (!results.contains(word)) results.add(word);
+        }
     }
 
-    currentCheckedWord = matcher.group();
+    // If there is no prefix match, look for spelling alternatives.
+    if (results.isEmpty() && lowerWord.length() >= 3) {
+        ArrayList<String> corrections = new ArrayList<>();
 
-    // Show the current word immediately while checking spelling.
-    Button wordButton = makeButton(currentCheckedWord);
-    wordButton.setTextSize(14);
-    wordButton.setBackgroundColor(green);
+        for (String word : englishWords) {
+            String candidate = word.toLowerCase(Locale.ENGLISH);
 
-    suggestionBar.addView(
-            wordButton,
-            new LinearLayout.LayoutParams(
-                    0, dp(36), 1)
-    );
+            if (Math.abs(candidate.length() - lowerWord.length()) > 2) {
+                continue;
+            }
 
-    wordButton.setOnClickListener(v -> {
-        InputConnection currentIC = getCurrentInputConnection();
-        if (currentIC == null) return;
+            if (editDistance(lowerWord, candidate) <= 2) {
+                corrections.add(word);
+            }
+        }
 
-        CharSequence currentBefore =
-                currentIC.getTextBeforeCursor(100, 0);
+        results.addAll(corrections);
+    }
 
-        if (currentBefore == null) return;
+    // Show up to three suggestions.
+    int count = Math.min(3, results.size());
 
-        java.util.regex.Matcher currentMatcher =
-                java.util.regex.Pattern
-                        .compile("[A-Za-z]+$")
-                        .matcher(currentBefore.toString());
+    for (int i = 0; i < count; i++) {
+        final String suggestion = results.get(i);
+        Button button = makeButton(suggestion);
+        button.setTextSize(14);
 
-        if (!currentMatcher.find()) return;
+        suggestionBar.addView(button,
+                new LinearLayout.LayoutParams(0, dp(36), 1));
 
-        int length = currentMatcher.group().length();
+        button.setOnClickListener(v -> {
+            InputConnection currentIC = getCurrentInputConnection();
+            if (currentIC == null) return;
 
-        currentIC.deleteSurroundingText(length, 0);
-        currentIC.commitText(currentCheckedWord, 1);
-    });
+            CharSequence currentBefore =
+                    currentIC.getTextBeforeCursor(100, 0);
 
+            if (currentBefore == null) return;
+
+            java.util.regex.Matcher currentMatcher =
+                    java.util.regex.Pattern
+                            .compile("[A-Za-z]+$")
+                            .matcher(currentBefore.toString());
+
+            if (!currentMatcher.find()) return;
+
+            int length = currentMatcher.group().length();
+
+            currentIC.deleteSurroundingText(length, 0);
+
+            String replacement = suggestion;
+
+            // Preserve initial capitalization.
+            if (!typedWord.isEmpty()
+                    && Character.isUpperCase(typedWord.charAt(0))) {
+                replacement = suggestion.substring(0, 1).toUpperCase(
+                        Locale.ENGLISH) + suggestion.substring(1);
+            }
+
+            currentIC.commitText(replacement, 1);
+            updateEnglishSuggestions();
+        });
+    }
 }
 
-    private void refreshEnglishLabels() {
-        if (englishPage != null) refreshEnglishView(englishPage);
+private int editDistance(String a, String b) {
+    int[][] dp = new int[a.length() + 1][b.length() + 1];
+
+    for (int i = 0; i <= a.length(); i++) dp[i][0] = i;
+    for (int j = 0; j <= b.length(); j++) dp[0][j] = j;
+
+    for (int i = 1; i <= a.length(); i++) {
+        for (int j = 1; j <= b.length(); j++) {
+            int cost = a.charAt(i - 1) == b.charAt(j - 1) ? 0 : 1;
+
+            dp[i][j] = Math.min(
+                    Math.min(dp[i - 1][j] + 1, dp[i][j - 1] + 1),
+                    dp[i - 1][j - 1] + cost
+            );
+        }
     }
+
+    return dp[a.length()][b.length()];
+}
+
 
     private void refreshEnglishView(View view) {
         if (view instanceof Button) {
@@ -727,10 +817,15 @@ private void updateEnglishSuggestions() {
         });
     }
 
-    private void deleteOne() {
-        InputConnection ic = getCurrentInputConnection();
-        if (ic != null) ic.deleteSurroundingText(1, 0);
+    
+private void deleteOne() {
+    InputConnection ic = getCurrentInputConnection();
+
+    if (ic != null) {
+        ic.deleteSurroundingText(1, 0);
+        updateEnglishSuggestions();
     }
+}
 
     private void setSpace(int id) {
         View view = keyboard.findViewById(id);
