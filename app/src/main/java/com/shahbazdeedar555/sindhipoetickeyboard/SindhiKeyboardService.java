@@ -524,7 +524,7 @@ private int editDistance(String a, String b) {
     return dp[a.length()][b.length()];
 }
 
-
+private void refreshEnglishLabels() { if (englishPage != null) { refreshEnglishView(englishPage); } }
     private void refreshEnglishView(View view) {
         if (view instanceof Button) {
             Button button = (Button) view;
