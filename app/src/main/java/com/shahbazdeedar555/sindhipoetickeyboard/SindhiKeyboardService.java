@@ -535,20 +535,23 @@ private void updateEnglishSuggestions() {
 
    
         
-        button.setOnClickListener(v -> {
-            InputConnection currentIc = getCurrentInputConnection();
+        
+button.setOnClickListener(v -> {
+    InputConnection currentIc = getCurrentInputConnection();
 
-            if (currentIc != null) {
-                currentIc.deleteSurroundingText(
-                        typedWord.length(), 0);
+    if (currentIc != null) {
+        if (lowerWord.equals("i")
+                && !suggestion.equalsIgnoreCase("I")) {
+            currentIc.commitText(suggestion + " ", 1);
+        } else {
+            currentIc.deleteSurroundingText(
+                    typedWord.length(), 0);
+            currentIc.commitText(suggestion + " ", 1);
+        }
 
-                currentIc.commitText(suggestion + " ", 1);
-                updateEnglishSuggestions();
-            }
-        });
+        updateEnglishSuggestions();
     }
-}
-
+});
 private int editDistance(String a, String b) {
     int[][] dp = new int[a.length() + 1][b.length() + 1];
 
