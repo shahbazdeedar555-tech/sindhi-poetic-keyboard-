@@ -549,10 +549,15 @@ button.setOnClickListener(v -> {
             currentIc.commitText(suggestion + " ", 1);
         }
 
+        
         updateEnglishSuggestions();
     }
 });
+    }
+}
+
 private int editDistance(String a, String b) {
+
     int[][] dp = new int[a.length() + 1][b.length() + 1];
 
     for (int i = 0; i <= a.length(); i++) dp[i][0] = i;
