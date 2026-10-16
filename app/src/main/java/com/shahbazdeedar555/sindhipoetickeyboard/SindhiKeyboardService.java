@@ -435,14 +435,39 @@ private void updateEnglishSuggestions() {
     ArrayList<String> results = new ArrayList<>();
 
     // Show matching words first.
+    
+
+
+for (String word : englishWords) {
+    String candidate = word.toLowerCase(Locale.ENGLISH);
+
+    if (candidate.startsWith(lowerWord)
+            && !results.contains(word)) {
+        results.add(word);
+    }
+}
+
+// Add spelling corrections for close matches.
+if (results.size() < 3 && lowerWord.length() >= 3) {
+    ArrayList<String> corrections = new ArrayList<>();
+
     for (String word : englishWords) {
         String candidate = word.toLowerCase(Locale.ENGLISH);
 
-        if (candidate.startsWith(lowerWord)
+        int distance = editDistance(lowerWord, candidate);
+
+        if (distance > 0
+                && distance <= 2
                 && !results.contains(word)) {
-            results.add(word);
+            corrections.add(word);
         }
     }
+
+    for (String correction : corrections) {
+        if (results.size() >= 3) break;
+        results.add(correction);
+    }
+}
 
     // Keep the complete typed word available.
     for (String word : englishWords) {
