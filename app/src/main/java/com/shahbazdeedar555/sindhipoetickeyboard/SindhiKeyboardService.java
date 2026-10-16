@@ -533,16 +533,19 @@ private void updateEnglishSuggestions() {
                 new LinearLayout.LayoutParams(
                         0, dp(36), 1));
 
-   button.setOnClickListener(v -> {
-            InputConnection ic = getCurrentInputConnection();
-            if (ic != null) {
-                ic.commitText(suggestion + " ", 1);
+   
+        button.setOnClickListener(v -> {
+            InputConnection currentIc = getCurrentInputConnection();
+
+            if (currentIc != null) {
+                currentIc.commitText(suggestion + " ", 1);
                 updateEnglishSuggestions();
             }
         });
     }
 }
 
+private int editDistance(String a, String b) {
 private int editDistance(String a, String b) {
     int[][] dp = new int[a.length() + 1][b.length() + 1];
 
