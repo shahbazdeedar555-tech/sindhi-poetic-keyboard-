@@ -531,6 +531,104 @@ if (results.size() < 3 && lowerWord.length() >= 3) {
                         0, dp(36), 1));
 
         button.setOnClickListener(v -> {
+    InputConnection currentIC = getCurrentInputConnection();
+    if (currentIC == null) return;
+
+
+private void updateEnglishSuggestions() {
+    if (suggestionBar == null) return;
+
+    suggestionBar.removeAllViews();
+
+    if (englishPage == null
+            || englishPage.getVisibility() != View.VISIBLE) {
+        return;
+    }
+
+    InputConnection ic = getCurrentInputConnection();
+    if (ic == null) return;
+
+    CharSequence before = ic.getTextBeforeCursor(100, 0);
+    if (before == null || before.length() == 0) return;
+
+    java.util.regex.Matcher matcher =
+            java.util.regex.Pattern
+                    .compile("[A-Za-z']+$")
+                    .matcher(before.toString());
+
+    if (!matcher.find()) return;
+
+    final String typedWord = matcher.group();
+    final String lowerWord =
+            typedWord.toLowerCase(Locale.ENGLISH);
+
+    ArrayList<String> results = new ArrayList<>();
+
+    // Suggestions after typing I.
+    if (lowerWord.equals("i")) {
+        results.add("I");
+        results.add("am");
+        results.add("can");
+        results.add("should");
+        results.add("want");
+    }
+
+    // Matching words and word completions.
+    for (String word : englishWords) {
+        String candidate = word.toLowerCase(Locale.ENGLISH);
+
+        if (!lowerWord.equals("i")
+                && candidate.startsWith(lowerWord)
+                && !results.contains(word)) {
+            results.add(word);
+        }
+    }
+
+    // Spelling corrections for close matches.
+    if (results.size() < 3 && lowerWord.length() >= 3) {
+        ArrayList<String> corrections = new ArrayList<>();
+
+        for (String word : englishWords) {
+            String candidate = word.toLowerCase(Locale.ENGLISH);
+            int distance = editDistance(lowerWord, candidate);
+
+            if (distance > 0
+                    && distance <= 2
+                    && !results.contains(word)) {
+                corrections.add(word);
+            }
+        }
+
+        for (String correction : corrections) {
+            if (results.size() >= 3) break;
+            results.add(correction);
+        }
+    }
+
+    // Keep the exact typed word available.
+    if (!lowerWord.equals("i")) {
+        for (String word : englishWords) {
+            if (word.equalsIgnoreCase(typedWord)) {
+                results.remove(word);
+                results.add(0, word);
+                break;
+            }
+        }
+    }
+
+    int count = Math.min(3, results.size());
+
+    for (int i = 0; i < count; i++) {
+        final String suggestion = results.get(i);
+        Button button = makeButton(suggestion);
+        button.setTextSize(14);
+
+        suggestionBar.addView(
+                button,
+                new LinearLayout.LayoutParams(
+                        0, dp(36), 1));
+
+        button.setOnClickListener(v -> {
             InputConnection currentIC =
                     getCurrentInputConnection();
             if (currentIC == null) return;
@@ -548,6 +646,15 @@ if (results.size() < 3 && lowerWord.length() >= 3) {
 
             String currentWord = currentMatcher.group();
 
+            // Preserve I when selecting a next-word suggestion.
+            if (currentWord.equalsIgnoreCase("i")
+                    && !suggestion.equalsIgnoreCase("i")) {
+                currentIC.commitText(" " + suggestion, 1);
+                updateEnglishSuggestions();
+                return;
+            }
+
+            // Replace the current word for corrections/completions.
             currentIC.deleteSurroundingText(
                     currentWord.length(), 0);
 
@@ -567,6 +674,7 @@ if (results.size() < 3 && lowerWord.length() >= 3) {
         });
     }
 }
+
 
 private int editDistance(String a, String b) {
     int[][] dp = new int[a.length() + 1][b.length() + 1];
