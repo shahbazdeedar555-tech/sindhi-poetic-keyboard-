@@ -886,9 +886,10 @@ private void deleteOne() {
     }
 
     private void showEnglishPage() {
-        hideAllPages();
-        englishPage.setVisibility(View.VISIBLE);
-    }
+    hideAllPages();
+    englishPage.setVisibility(View.VISIBLE);
+    updateEnglishSuggestions();
+}
 
     private void showEnglishSymbolsPage() {
         hideAllPages();
