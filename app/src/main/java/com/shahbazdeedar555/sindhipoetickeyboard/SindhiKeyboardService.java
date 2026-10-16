@@ -401,6 +401,7 @@ private boolean shouldCapitalizeNextLetter() {
     return last == '.' || last == '?' || last == '!';
 }
 
+
 private final String[] englishWords = {
     "a", "about", "after", "again", "all", "also", "am",
     "an", "and", "any", "are", "as", "ask", "at",
@@ -427,15 +428,15 @@ private final String[] englishWords = {
     "use", "very", "want", "was", "way", "we", "well",
     "were", "what", "when", "where", "which", "who",
     "will", "with", "word", "work", "would", "write",
-    "yes", "you", "your" };
-         "can't", "don't", "doesn't", "isn't", "wasn't",
-"weren't", "won't", "wouldn't", "couldn't",
-"shouldn't", "haven't", "hasn't", "hadn't",
-"I'm", "you're", "we're", "they're", "it's",
-"that's", "there's", "I've", "you've", "we've",
-"they've", "I'll", "you'll", "we'll", "they'll",
-};
+    "yes", "you", "your",
 
+    "can't", "don't", "doesn't", "isn't", "wasn't",
+    "weren't", "won't", "wouldn't", "couldn't",
+    "shouldn't", "haven't", "hasn't", "hadn't",
+    "I'm", "you're", "we're", "they're", "it's",
+    "that's", "there's", "I've", "you've", "we've",
+    "they've", "I'll", "you'll", "we'll", "they'll"
+};
 
 
 private void updateEnglishSuggestions() {
