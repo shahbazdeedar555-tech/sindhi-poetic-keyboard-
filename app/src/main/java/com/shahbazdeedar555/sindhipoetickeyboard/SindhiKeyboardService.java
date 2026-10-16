@@ -534,10 +534,14 @@ private void updateEnglishSuggestions() {
                         0, dp(36), 1));
 
    
+        
         button.setOnClickListener(v -> {
             InputConnection currentIc = getCurrentInputConnection();
 
             if (currentIc != null) {
+                currentIc.deleteSurroundingText(
+                        typedWord.length(), 0);
+
                 currentIc.commitText(suggestion + " ", 1);
                 updateEnglishSuggestions();
             }
