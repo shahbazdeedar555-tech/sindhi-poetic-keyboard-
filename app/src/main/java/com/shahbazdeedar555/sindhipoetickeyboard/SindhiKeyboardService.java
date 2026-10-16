@@ -353,17 +353,22 @@ englishPage.addView(
     }
 
     
-private void addEnglishLetter(LinearLayout row, String letter) {
+private void addEnglishLetter(
+        LinearLayout row, String letter) {
+
     Button button = makeButton(letter);
-    row.addView(button, new LinearLayout.LayoutParams(0, dp(48), 1));
+
+    row.addView(button,
+            new LinearLayout.LayoutParams(0, dp(48), 1));
 
     button.setOnClickListener(v -> {
-        String output = englishShift
+        boolean capitalize = shouldCapitalizeNextLetter();
+
+        String output = (englishShift || capitalize)
                 ? letter.toUpperCase(Locale.ENGLISH)
                 : letter.toLowerCase(Locale.ENGLISH);
 
         commit(output);
-        updateEnglishSuggestions();
 
         if (englishShift) {
             englishShift = false;
@@ -372,7 +377,29 @@ private void addEnglishLetter(LinearLayout row, String letter) {
     });
 }
 
+private boolean shouldCapitalizeNextLetter() {
+    InputConnection ic = getCurrentInputConnection();
+    if (ic == null) return false;
 
+    CharSequence before = ic.getTextBeforeCursor(100, 0);
+
+    if (before == null || before.length() == 0) {
+        return true;
+    }
+
+    String text = before.toString();
+    int i = text.length() - 1;
+
+    while (i >= 0 && Character.isWhitespace(text.charAt(i))) {
+        i--;
+    }
+
+    if (i < 0) return true;
+
+    char last = text.charAt(i);
+
+    return last == '.' || last == '?' || last == '!';
+}
 
 private final String[] englishWords = {
     "a", "about", "after", "again", "all", "also", "am",
@@ -401,6 +428,12 @@ private final String[] englishWords = {
     "were", "what", "when", "where", "which", "who",
     "will", "with", "word", "work", "would", "write",
     "yes", "you", "your"
+         "can't", "don't", "doesn't", "isn't", "wasn't",
+"weren't", "won't", "wouldn't", "couldn't",
+"shouldn't", "haven't", "hasn't", "hadn't",
+"I'm", "you're", "we're", "they're", "it's",
+"that's", "there's", "I've", "you've", "we've",
+"they've", "I'll", "you'll", "we'll", "they'll",
 };
 
 
@@ -433,6 +466,12 @@ private void updateEnglishSuggestions() {
             typedWord.toLowerCase(Locale.ENGLISH);
 
     ArrayList<String> results = new ArrayList<>();
+        if (lowerWord.equals("i")) {
+    results.add("I");
+    results.add("am");
+    results.add("can");
+    results.add("want");
+} 
 
     // Show matching words first.
     
@@ -441,12 +480,12 @@ private void updateEnglishSuggestions() {
 for (String word : englishWords) {
     String candidate = word.toLowerCase(Locale.ENGLISH);
 
-    if (candidate.startsWith(lowerWord)
+    if (!lowerWord.equals("i")
+            && candidate.startsWith(lowerWord)
             && !results.contains(word)) {
         results.add(word);
     }
 }
-
 // Add spelling corrections for close matches.
 if (results.size() < 3 && lowerWord.length() >= 3) {
     ArrayList<String> corrections = new ArrayList<>();
@@ -501,7 +540,7 @@ if (results.size() < 3 && lowerWord.length() >= 3) {
 
             java.util.regex.Matcher currentMatcher =
                     java.util.regex.Pattern
-                            .compile("[A-Za-z]+$")
+                            .compile("[A-Za-z']+$")
                             .matcher(currentBefore.toString());
 
             if (!currentMatcher.find()) return;
