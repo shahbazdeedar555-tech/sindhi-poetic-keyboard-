@@ -556,6 +556,7 @@ private void updateEnglishSuggestions() {
         String last = hasTrailingSpace
                 ? parts[parts.length - 1].toLowerCase(Locale.ENGLISH)
                 : lowerWord;
+             String previousWord = "";
 
         int lastIndex = parts.length - 2;
 
