@@ -649,20 +649,199 @@ private void updateEnglishSuggestions() {
 
         button.setOnClickListener(v -> {
             InputConnection currentIc =
-                    getCurrentInputConnection();
 
+private void updateEnglishSuggestions() {
+    if (suggestionBar == null || englishPage == null) return;
+
+    suggestionBar.removeAllViews();
+
+    if (englishPage.getVisibility() != View.VISIBLE) return;
+
+    InputConnection ic = getCurrentInputConnection();
+    if (ic == null) return;
+
+    CharSequence before = ic.getTextBeforeCursor(150, 0);
+    if (before == null || before.length() == 0) return;
+
+    String text = before.toString();
+    boolean hasTrailingSpace =
+            Character.isWhitespace(text.charAt(text.length() - 1));
+
+    String trimmed = text.trim();
+    if (trimmed.isEmpty()) return;
+
+    String[] parts = trimmed.split("\\s+");
+    String typedWord = hasTrailingSpace ? "" : parts[parts.length - 1];
+
+    StringBuilder previous = new StringBuilder();
+    int previousEnd = hasTrailingSpace ? parts.length : parts.length - 1;
+
+    for (int i = 0; i < previousEnd; i++) {
+        if (previous.length() > 0) previous.append(" ");
+        previous.append(parts[i]);
+    }
+
+    String priorText = previous.toString().toLowerCase(Locale.ENGLISH);
+    String lowerWord = typedWord.toLowerCase(Locale.ENGLISH);
+
+    ArrayList<String> results = new ArrayList<>();
+    boolean nextWordMode = false;
+
+    // 1. Correct common missing apostrophes.
+    String correction = correctContraction(lowerWord);
+
+    if (correction != null && !hasTrailingSpace) {
+        results.add(correction);
+    }
+
+    // 2. Recognize a likely completed question.
+    else if (isLikelyQuestion(trimmed)
+            && !trimmed.endsWith("?")
+            && !trimmed.endsWith(".")
+            && !trimmed.endsWith("!")) {
+        results.add("?");
+    }
+
+    // 3. Predict phrases after "hello my".
+    else if (priorText.equals("hello") && lowerWord.equals("my")
+            || hasTrailingSpace && priorText.equals("hello my")) {
+        results.add("dear");
+        results.add("friend");
+        results.add("students");
+        nextWordMode = true;
+    }
+
+    // 4. Predict after "I".
+    else if (lowerWord.equals("i") && !hasTrailingSpace) {
+        results.add("am");
+        results.add("can");
+        results.add("will");
+        results.add("have");
+        nextWordMode = true;
+    }
+
+    // 5. Predict after "I am".
+    else if (priorText.equals("i") && lowerWord.equals("am")
+            || hasTrailingSpace && priorText.equals("i am")) {
+        addWords(results, "happy", "fine", "ready",
+                "going", "learning", "working");
+        nextWordMode = true;
+    }
+
+    // 6. Predict after "I am going".
+    else if (priorText.equals("i am") && lowerWord.equals("going")
+            || hasTrailingSpace && priorText.equals("i am going")) {
+        addWords(results, "to", "home", "there", "outside");
+        nextWordMode = true;
+    }
+
+    // 7. Predict after "I am going to".
+    else if (priorText.equals("i am going") && lowerWord.equals("to")
+            || hasTrailingSpace && priorText.equals("i am going to")) {
+        addWords(results, "school", "work", "learn", "study", "eat");
+        nextWordMode = true;
+    }
+
+    // 8. Common subject and sentence patterns.
+    else if (hasTrailingSpace || lowerWord.isEmpty()
+            || lowerWord.equals("you") || lowerWord.equals("he")
+            || lowerWord.equals("she") || lowerWord.equals("it")
+            || lowerWord.equals("we") || lowerWord.equals("they")
+            || lowerWord.equals("boy") || lowerWord.equals("boys")) {
+
+        String last = hasTrailingSpace
+                ? parts[parts.length - 1].toLowerCase(Locale.ENGLISH)
+                : lowerWord;
+
+        String[] choices;
+
+        if (last.equals("i")) {
+            choices = new String[]{"am", "can", "will"};
+        } else if (last.equals("you")) {
+            choices = new String[]{"are", "can", "have"};
+        } else if (last.equals("he") || last.equals("she")
+                || last.equals("it")) {
+            choices = new String[]{"is", "has", "does"};
+        } else if (last.equals("we") || last.equals("they")
+                || last.equals("boys")) {
+            choices = new String[]{"are", "have", "can"};
+        } else if (last.equals("am")) {
+            choices = new String[]{"happy", "fine", "going"};
+        } else if (last.equals("is")) {
+            choices = new String[]{"good", "here", "going"};
+        } else if (last.equals("are")) {
+            choices = new String[]{"ready", "here", "going"};
+        } else if (last.equals("the")) {
+            choices = new String[]{"boy", "boys", "school"};
+        } else if (last.equals("a")) {
+            choices = new String[]{"boy", "book", "good"};
+        } else {
+            choices = new String[]{"the", "to", "and"};
+        }
+
+        addWords(results, choices);
+        nextWordMode = true;
+    }
+
+    // 9. Complete words and suggest spelling corrections.
+    if (results.isEmpty() && !lowerWord.isEmpty()) {
+        for (String word : englishWords) {
+            if (word.toLowerCase(Locale.ENGLISH).startsWith(lowerWord)
+                    && !results.contains(word)) {
+                results.add(word);
+            }
+        }
+
+        if (results.size() < 3 && lowerWord.length() >= 3) {
+            for (String word : englishWords) {
+                int distance = editDistance(
+                        lowerWord, word.toLowerCase(Locale.ENGLISH));
+
+                if (distance > 0 && distance <= 2
+                        && !results.contains(word)) {
+                    results.add(word);
+                }
+
+                if (results.size() >= 3) break;
+            }
+        }
+    }
+
+    int count = Math.min(3, results.size());
+
+    for (int i = 0; i < count; i++) {
+        final String suggestion = results.get(i);
+        final boolean appendNext = nextWordMode;
+        final String wordToReplace = typedWord;
+        final boolean trailingSpace = hasTrailingSpace;
+
+        Button button = makeButton(suggestion);
+        button.setTextSize(14);
+
+        suggestionBar.addView(button,
+                new LinearLayout.LayoutParams(0, dp(36), 1));
+
+        button.setOnClickListener(v -> {
+            InputConnection currentIc = getCurrentInputConnection();
             if (currentIc == null) return;
 
-            if (appendNext) {
-                String insertion = hasTrailingSpace
+            // Punctuation must follow the sentence, not replace its last word.
+            if (suggestion.equals("?")) {
+                if (trailingSpace) {
+                    currentIc.deleteSurroundingText(1, 0);
+                }
+                currentIc.commitText("?", 1);
+            } else if (appendNext) {
+                String insertion = trailingSpace
                         ? suggestion + " "
                         : " " + suggestion + " ";
 
                 currentIc.commitText(insertion, 1);
-
             } else {
-                currentIc.deleteSurroundingText(
-                        typedWord.length(), 0);
+                if (!wordToReplace.isEmpty()) {
+                    currentIc.deleteSurroundingText(
+                            wordToReplace.length(), 0);
+                }
 
                 String replacement = suggestion;
 
@@ -676,6 +855,66 @@ private void updateEnglishSuggestions() {
             updateEnglishSuggestions();
         });
     }
+}
+
+private void addWords(ArrayList<String> target, String... words) {
+    for (String word : words) {
+        if (!target.contains(word)) target.add(word);
+    }
+}
+
+private String correctContraction(String word) {
+    switch (word) {
+        case "lets": return "let's";
+        case "dont": return "don't";
+        case "doesnt": return "doesn't";
+        case "didnt": return "didn't";
+        case "cant": return "can't";
+        case "wont": return "won't";
+        case "isnt": return "isn't";
+        case "wasnt": return "wasn't";
+        case "werent": return "weren't";
+        case "im": return "I'm";
+        case "youre": return "you're";
+        case "theyre": return "they're";
+        case "were": return null;
+        case "ive": return "I've";
+        case "youve": return "you've";
+        case "ill": return "I'll";
+        case "youll": return "you'll";
+        default: return null;
+    }
+}
+
+private boolean isLikelyQuestion(String sentence) {
+    String lower = sentence.toLowerCase(Locale.ENGLISH).trim();
+    String[] words = lower.split("\\s+");
+
+    if (words.length < 2) return false;
+
+    String first = words[0];
+
+    String[] questionStarters = {
+        "what", "where", "when", "why", "who",
+        "whom", "whose", "which", "how"
+    };
+
+    for (String starter : questionStarters) {
+        if (first.equals(starter)) return true;
+    }
+
+    String[] auxiliaryStarters = {
+        "am", "is", "are", "was", "were",
+        "do", "does", "did", "can", "could",
+        "will", "would", "shall", "should",
+        "have", "has", "had"
+    };
+
+    for (String starter : auxiliaryStarters) {
+        if (first.equals(starter)) return true;
+    }
+
+    return false;
 }
 
 
