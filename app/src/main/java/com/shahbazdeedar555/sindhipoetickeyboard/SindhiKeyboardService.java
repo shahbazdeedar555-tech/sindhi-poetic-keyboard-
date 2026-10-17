@@ -144,11 +144,6 @@ public class SindhiKeyboardService extends InputMethodService
         setArrow(R.id.key_arrow);
 
         setKey(R.id.key_dot, "۔");
-
-        Button sindhiFullStop = findViewById(R.id.key_dot);
-        if (sindhiFullStop != null) {
-            sindhiFullStop.setTextSize(26);
-        }
         setKey(R.id.key_comma, "،");
         setKey(R.id.key_question, "؟");
         setKey(R.id.key_exclamation, "!");
