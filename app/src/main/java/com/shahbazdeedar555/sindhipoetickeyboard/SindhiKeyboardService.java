@@ -534,28 +534,37 @@ private void updateEnglishSuggestions() {
                         0, dp(36), 1));
 
    
-        
-        
 button.setOnClickListener(v -> {
     InputConnection currentIc = getCurrentInputConnection();
 
-    if (currentIc != null) {
-        if (lowerWord.equals("i")
-                && !suggestion.equalsIgnoreCase("I")) {
-            currentIc.commitText(suggestion + " ", 1);
-        } else {
-            currentIc.deleteSurroundingText(
-                    typedWord.length(), 0);
-            currentIc.commitText(suggestion + " ", 1);
+    if (currentIc == null) return;
+
+    if (lowerWord.equals("i")
+            && !suggestion.equalsIgnoreCase("I")) {
+
+        // Keep the existing I and add the selected next word.
+        currentIc.commitText(" " + suggestion + " ", 1);
+
+    } else {
+
+        // Replace the currently typed word with the suggestion.
+        currentIc.deleteSurroundingText(typedWord.length(), 0);
+
+        String replacement = suggestion;
+
+        // Capitalize the pronoun I.
+        if (suggestion.equalsIgnoreCase("i")) {
+            replacement = "I";
         }
 
-        
-        updateEnglishSuggestions();
+        currentIc.commitText(replacement + " ", 1);
     }
-});
-    }
-}
 
+    updateEnglishSuggestions();
+});
+             
+   }
+}
 private int editDistance(String a, String b) {
 
     int[][] dp = new int[a.length() + 1][b.length() + 1];
