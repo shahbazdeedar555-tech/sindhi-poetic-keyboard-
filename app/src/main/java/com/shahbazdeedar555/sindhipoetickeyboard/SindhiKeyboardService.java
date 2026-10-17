@@ -541,39 +541,60 @@ private void updateEnglishSuggestions() {
         nextWordMode = true;
     }
 
-    // OTHER COMMON CONTEXTS
-    else if (hasTrailingSpace || lowerWord.isEmpty()) {
 
-        String last = parts[parts.length - 1]
-                .toLowerCase(Locale.ENGLISH);
+    // OTHER COMMON CONTEXTS — SUBJECT-BASED PREDICTION
+    else if (hasTrailingSpace || lowerWord.isEmpty()
+            || lowerWord.equals("you")
+            || lowerWord.equals("he")
+            || lowerWord.equals("she")
+            || lowerWord.equals("it")
+            || lowerWord.equals("we")
+            || lowerWord.equals("they")
+            || lowerWord.equals("boy")
+            || lowerWord.equals("boys")) {
+
+        String last = hasTrailingSpace
+                ? parts[parts.length - 1].toLowerCase(Locale.ENGLISH)
+                : lowerWord;
+
+        int lastIndex = parts.length - 2;
+
+        if (lastIndex >= 0) {
+            previousWord = parts[lastIndex]
+                    .toLowerCase(Locale.ENGLISH);
+        }
 
         String[] choices;
 
-        if (last.equals("you")) {
-            choices = new String[]{
-                    "are", "can", "will"
-            };
-        } else if (last.equals("he")) {
-            choices = new String[]{
-                    "is", "has", "can"
-            };
-        } else if (last.equals("she")) {
-            choices = new String[]{
-                    "is", "has", "can"
-            };
-        } else if (last.equals("they") || last.equals("we")) {
-            choices = new String[]{
-                    "are", "have", "can"
-            };
+        if (last.equals("i")) {
+            choices = new String[]{"am", "can", "will"};
+        } else if (last.equals("you")) {
+            choices = new String[]{"are", "can", "have"};
+        } else if (last.equals("he") || last.equals("she")
+                || last.equals("it")
+                || (last.equals("boy") && previousWord.equals("a"))) {
+            choices = new String[]{"is", "has", "does"};
+        } else if (last.equals("we") || last.equals("they")
+                || last.equals("boys")) {
+            choices = new String[]{"are", "have", "can"};
+        } else if (last.equals("am")) {
+            choices = new String[]{"happy", "fine", "going"};
+        } else if (last.equals("is")) {
+            choices = new String[]{"good", "here", "going"};
+        } else if (last.equals("are")) {
+            choices = new String[]{"ready", "here", "going"};
+        } else if (last.equals("the")) {
+            choices = new String[]{"boy", "boys", "school"};
+        } else if (last.equals("a")) {
+            choices = new String[]{"boy", "book", "good"};
         } else {
-            choices = new String[]{
-                    "the", "to", "and"
-            };
+            choices = new String[]{"the", "to", "and"};
         }
 
         for (String word : choices) results.add(word);
         nextWordMode = true;
     }
+
 
     // NORMAL WORD COMPLETION
     if (!nextWordMode && !lowerWord.isEmpty()) {
