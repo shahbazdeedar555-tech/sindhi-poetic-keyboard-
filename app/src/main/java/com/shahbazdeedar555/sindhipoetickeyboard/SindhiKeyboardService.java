@@ -439,7 +439,6 @@ private final String[] englishWords = {
 };
 
 
-
 private void updateEnglishSuggestions() {
     if (suggestionBar == null) return;
 
@@ -456,67 +455,158 @@ private void updateEnglishSuggestions() {
     CharSequence before = ic.getTextBeforeCursor(100, 0);
     if (before == null || before.length() == 0) return;
 
-    java.util.regex.Matcher matcher =
-            java.util.regex.Pattern
-                    .compile("[A-Za-z']+$")
-                    .matcher(before.toString());
+    String text = before.toString();
+    boolean hasTrailingSpace =
+            Character.isWhitespace(text.charAt(text.length() - 1));
 
-    if (!matcher.find()) return;
+    String trimmed = text.trim();
+    if (trimmed.isEmpty()) return;
 
-    final String typedWord = matcher.group();
-    final String lowerWord =
-            typedWord.toLowerCase(Locale.ENGLISH);
+    String[] parts = trimmed.split("\\s+");
+
+    String typedWord = hasTrailingSpace
+            ? ""
+            : parts[parts.length - 1];
+
+    StringBuilder previous = new StringBuilder();
+
+    int previousEnd = hasTrailingSpace
+            ? parts.length
+            : parts.length - 1;
+
+    for (int i = 0; i < previousEnd; i++) {
+        if (previous.length() > 0) previous.append(" ");
+        previous.append(parts[i]);
+    }
+
+    String priorText = previous.toString()
+            .toLowerCase(Locale.ENGLISH);
+
+    String lowerWord = typedWord.toLowerCase(Locale.ENGLISH);
 
     ArrayList<String> results = new ArrayList<>();
 
-    // Suggestions after typing I.
-    if (lowerWord.equals("i")) {
-        results.add("I");
+    boolean nextWordMode = false;
+
+    // AFTER I
+    if (lowerWord.equals("i") && !hasTrailingSpace) {
         results.add("am");
         results.add("can");
+        results.add("will");
+        results.add("have");
         results.add("should");
-        results.add("want");
+        nextWordMode = true;
     }
 
-    // Matching words and word completions.
-    for (String word : englishWords) {
-        String candidate = word.toLowerCase(Locale.ENGLISH);
+    // AFTER I AM
+    else if ((priorText.equals("i") && lowerWord.equals("am"))
+            || (hasTrailingSpace && priorText.equals("i am"))) {
 
-        if (!lowerWord.equals("i")
-                && candidate.startsWith(lowerWord)
-                && !results.contains(word)) {
-            results.add(word);
+        String[] choices = {
+                "happy", "fine", "delighted",
+                "coming", "going", "learning",
+                "working", "playing", "ready"
+        };
+
+        for (String word : choices) results.add(word);
+        nextWordMode = true;
+    }
+
+    // AFTER I AM GOING
+    else if ((priorText.equals("i am")
+                && lowerWord.equals("going"))
+            || (hasTrailingSpace
+                && priorText.equals("i am going"))) {
+
+        String[] choices = {
+                "to", "home", "there", "outside"
+        };
+
+        for (String word : choices) results.add(word);
+        nextWordMode = true;
+    }
+
+    // AFTER I AM GOING TO
+    else if ((priorText.equals("i am going")
+                && lowerWord.equals("to"))
+            || (hasTrailingSpace
+                && priorText.equals("i am going to"))) {
+
+        String[] choices = {
+                "school", "work", "learn",
+                "study", "eat", "come"
+        };
+
+        for (String word : choices) results.add(word);
+        nextWordMode = true;
+    }
+
+    // OTHER COMMON CONTEXTS
+    else if (hasTrailingSpace || lowerWord.isEmpty()) {
+
+        String last = parts[parts.length - 1]
+                .toLowerCase(Locale.ENGLISH);
+
+        String[] choices;
+
+        if (last.equals("you")) {
+            choices = new String[]{
+                    "are", "can", "will"
+            };
+        } else if (last.equals("he")) {
+            choices = new String[]{
+                    "is", "has", "can"
+            };
+        } else if (last.equals("she")) {
+            choices = new String[]{
+                    "is", "has", "can"
+            };
+        } else if (last.equals("they") || last.equals("we")) {
+            choices = new String[]{
+                    "are", "have", "can"
+            };
+        } else {
+            choices = new String[]{
+                    "the", "to", "and"
+            };
         }
+
+        for (String word : choices) results.add(word);
+        nextWordMode = true;
     }
 
-    // Spelling corrections for close matches.
-    if (results.size() < 3 && lowerWord.length() >= 3) {
-        ArrayList<String> corrections = new ArrayList<>();
+    // NORMAL WORD COMPLETION
+    if (!nextWordMode && !lowerWord.isEmpty()) {
 
         for (String word : englishWords) {
-            String candidate = word.toLowerCase(Locale.ENGLISH);
-            int distance = editDistance(lowerWord, candidate);
-
-            if (distance > 0
-                    && distance <= 2
+            if (word.toLowerCase(Locale.ENGLISH)
+                    .startsWith(lowerWord)
                     && !results.contains(word)) {
-                corrections.add(word);
+                results.add(word);
             }
         }
 
-        for (String correction : corrections) {
-            if (results.size() >= 3) break;
-            results.add(correction);
-        }
-    }
-
-    // Keep the exact typed word available.
-    if (!lowerWord.equals("i")) {
+        // Keep the correctly typed word available.
         for (String word : englishWords) {
             if (word.equalsIgnoreCase(typedWord)) {
                 results.remove(word);
                 results.add(0, word);
                 break;
+            }
+        }
+
+        // Spelling corrections
+        if (results.size() < 3 && lowerWord.length() >= 3) {
+            for (String word : englishWords) {
+                int distance = editDistance(
+                        lowerWord,
+                        word.toLowerCase(Locale.ENGLISH));
+
+                if (distance > 0 && distance <= 2
+                        && !results.contains(word)) {
+                    results.add(word);
+                    if (results.size() >= 3) break;
+                }
             }
         }
     }
@@ -525,6 +615,8 @@ private void updateEnglishSuggestions() {
 
     for (int i = 0; i < count; i++) {
         final String suggestion = results.get(i);
+        final boolean appendNext = nextWordMode;
+
         Button button = makeButton(suggestion);
         button.setTextSize(14);
 
@@ -533,38 +625,38 @@ private void updateEnglishSuggestions() {
                 new LinearLayout.LayoutParams(
                         0, dp(36), 1));
 
-   
-button.setOnClickListener(v -> {
-    InputConnection currentIc = getCurrentInputConnection();
+        button.setOnClickListener(v -> {
+            InputConnection currentIc =
+                    getCurrentInputConnection();
 
-    if (currentIc == null) return;
+            if (currentIc == null) return;
 
-    if (lowerWord.equals("i")
-            && !suggestion.equalsIgnoreCase("I")) {
+            if (appendNext) {
+                String insertion = hasTrailingSpace
+                        ? suggestion + " "
+                        : " " + suggestion + " ";
 
-        // Keep the existing I and add the selected next word.
-        currentIc.commitText(" " + suggestion + " ", 1);
+                currentIc.commitText(insertion, 1);
 
-    } else {
+            } else {
+                currentIc.deleteSurroundingText(
+                        typedWord.length(), 0);
 
-        // Replace the currently typed word with the suggestion.
-        currentIc.deleteSurroundingText(typedWord.length(), 0);
+                String replacement = suggestion;
 
-        String replacement = suggestion;
+                if (suggestion.equalsIgnoreCase("i")) {
+                    replacement = "I";
+                }
 
-        // Capitalize the pronoun I.
-        if (suggestion.equalsIgnoreCase("i")) {
-            replacement = "I";
-        }
+                currentIc.commitText(replacement + " ", 1);
+            }
 
-        currentIc.commitText(replacement + " ", 1);
+            updateEnglishSuggestions();
+        });
     }
-
-    updateEnglishSuggestions();
-});
-             
-   }
 }
+
+
 private int editDistance(String a, String b) {
 
     int[][] dp = new int[a.length() + 1][b.length() + 1];
