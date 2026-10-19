@@ -12,6 +12,7 @@ public class SindhiKeyboardService extends InputMethodService
          
     private String currentCheckedWord = "";
     private Button languageButton;
+    private PersonalDictionary personalDictionary;          
 
     private boolean shiftOn = false;
     private boolean englishShift = false;
