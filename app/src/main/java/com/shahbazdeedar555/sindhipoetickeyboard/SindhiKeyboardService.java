@@ -33,6 +33,9 @@ public class SindhiKeyboardService extends InputMethodService
         
     @Override
     public View onCreateInputView() {
+         if (personalDictionary == null) {
+    personalDictionary = new PersonalDictionary(this);
+}    
         keyboard = getLayoutInflater().inflate(
                 R.layout.keyboard_view, null);
 
