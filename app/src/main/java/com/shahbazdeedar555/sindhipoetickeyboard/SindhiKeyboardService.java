@@ -273,14 +273,61 @@ public class SindhiKeyboardService extends InputMethodService
     }
 
     
+
 private void commit(String text) {
     InputConnection ic = getCurrentInputConnection();
 
-    if (ic != null) {
-        ic.commitText(text, 1);
-        updateEnglishSuggestions();
+    if (ic == null) return;
+
+    // Learn the completed word before inserting a separator.
+    if (personalDictionary != null && text != null
+            && text.length() == 1) {
+
+        char ch = text.charAt(0);
+
+        boolean boundary = Character.isWhitespace(ch)
+                || ".,!?;:،؟؛۔".indexOf(ch) >= 0;
+
+        if (boundary) {
+            CharSequence before =
+                    ic.getTextBeforeCursor(150, 0);
+
+            if (before != null && before.length() > 0) {
+                String trimmed = before.toString().trim();
+
+                if (!trimmed.isEmpty()) {
+                    String[] words = trimmed.split("\\s+");
+                    String word = words[words.length - 1];
+
+                    word = word.replaceAll(
+                            "[.,!?;:،؟؛۔]+$", "");
+
+                    String language =
+                            englishPage != null
+                            && englishPage.getVisibility()
+                                    == View.VISIBLE
+                            ? PersonalDictionary.ENGLISH
+                            : (urduPage != null
+                            && (urduPage.getVisibility()
+                                    == View.VISIBLE
+                            || urduPage2.getVisibility()
+                                    == View.VISIBLE)
+                            ? PersonalDictionary.URDU
+                            : PersonalDictionary.SINDHI);
+
+                    if (!word.isEmpty()) {
+                        personalDictionary.learnWord(
+                                word, language);
+                    }
+                }
+            }
+        }
     }
+
+    ic.commitText(text, 1);
+    updateEnglishSuggestions();
 }
+
 
 
     // ENGLISH LETTER PAGE
