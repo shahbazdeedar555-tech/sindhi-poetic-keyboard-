@@ -626,9 +626,8 @@ private void updateEnglishSuggestions() {
         nextWordMode = true;
     }
 
-    
 
-    // 9. Complete words using built-in and learned vocabulary.
+    // Complete words using learned and built-in vocabulary.
     if (results.isEmpty() && !lowerWord.isEmpty()) {
 
         // First: show words learned by this user.
@@ -642,55 +641,33 @@ private void updateEnglishSuggestions() {
                     if (!results.contains(word)) {
                         results.add(word);
                     }
+
+                    if (results.size() >= 3) {
+                        break;
+                    }
                 }
             } catch (Exception ignored) {
-                // Keep the keyboard usable if dictionary lookup fails.
+                // Continue with built-in words if needed.
             }
         }
 
-        // Then: add built-in word completions.
+        // Then: fill remaining spaces with built-in words.
         for (String word : englishWords) {
-            if (word.toLowerCase(Locale.ENGLISH).startsWith(lowerWord)
+            if (results.size() >= 3) {
+                break;
+            }
+
+            if (word != null
+                    && word.toLowerCase().startsWith(lowerWord)
+                    && !word.equalsIgnoreCase(lowerWord)
                     && !results.contains(word)) {
+
                 results.add(word);
             }
-
-            if (results.size() >= 3) break;
-        }
-
-        // Finally: offer spelling corrections if space remains.
-        if (results.size() < 3 && lowerWord.length() >= 3) {
-            for (String word : englishWords) {
-                int distance = editDistance(
-                        lowerWord,
-                        word.toLowerCase(Locale.ENGLISH));
-
-                if (distance > 0 && distance <= 2
-                        && !results.contains(word)) {
-                    results.add(word);
-                }
-
-                if (results.size() >= 3) break;
-            }
         }
     }
 
-
-        if (results.size() < 3 && lowerWord.length() >= 3) {
-            for (String word : englishWords) {
-                int distance = editDistance(
-                        lowerWord, word.toLowerCase(Locale.ENGLISH));
-
-                if (distance > 0 && distance <= 2
-                        && !results.contains(word)) {
-                    results.add(word);
-                }
-
-                if (results.size() >= 3) break;
-            }
-        }
-    }
-
+                
     int count = Math.min(3, results.size());
 
     for (int i = 0; i < count; i++) {
