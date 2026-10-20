@@ -626,14 +626,55 @@ private void updateEnglishSuggestions() {
         nextWordMode = true;
     }
 
-    // 9. Complete words and suggest spelling corrections.
+    
+
+    // 9. Complete words using built-in and learned vocabulary.
     if (results.isEmpty() && !lowerWord.isEmpty()) {
+
+        // First: show words learned by this user.
+        if (personalDictionary != null) {
+            try {
+                for (String word : personalDictionary.getSuggestions(
+                        lowerWord,
+                        PersonalDictionary.ENGLISH,
+                        3)) {
+
+                    if (!results.contains(word)) {
+                        results.add(word);
+                    }
+                }
+            } catch (Exception ignored) {
+                // Keep the keyboard usable if dictionary lookup fails.
+            }
+        }
+
+        // Then: add built-in word completions.
         for (String word : englishWords) {
             if (word.toLowerCase(Locale.ENGLISH).startsWith(lowerWord)
                     && !results.contains(word)) {
                 results.add(word);
             }
+
+            if (results.size() >= 3) break;
         }
+
+        // Finally: offer spelling corrections if space remains.
+        if (results.size() < 3 && lowerWord.length() >= 3) {
+            for (String word : englishWords) {
+                int distance = editDistance(
+                        lowerWord,
+                        word.toLowerCase(Locale.ENGLISH));
+
+                if (distance > 0 && distance <= 2
+                        && !results.contains(word)) {
+                    results.add(word);
+                }
+
+                if (results.size() >= 3) break;
+            }
+        }
+    }
+
 
         if (results.size() < 3 && lowerWord.length() >= 3) {
             for (String word : englishWords) {
