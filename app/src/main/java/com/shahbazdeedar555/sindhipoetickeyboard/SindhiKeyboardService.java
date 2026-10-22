@@ -566,22 +566,70 @@ private void updateEnglishSuggestions() {
     // 5. Predict after "I am".
     else if (priorText.equals("i") && lowerWord.equals("am")
             || hasTrailingSpace && priorText.equals("i am")) {
-        addWords(results, "happy", "fine", "ready",
-                "going", "learning", "working");
+
+        addWords(results,
+                "happy", "delighted", "tired",
+                "fine", "ready", "going",
+                "learning", "working", "playing",
+                "reading", "writing", "studying",
+                "eating", "sleeping", "speaking");
+
         nextWordMode = true;
     }
 
-    // 6. Predict after "I am going".
+    // 6. Predict after "I have".
+    else if (priorText.equals("i") && lowerWord.equals("have")
+            || hasTrailingSpace && priorText.equals("i have")) {
+
+        addWords(results,
+                "written", "eaten", "done",
+                "seen", "gone", "finished",
+                "learned", "worked", "been");
+
+        nextWordMode = true;
+    }
+
+    // 7. Predict after "I have to".
+    else if (priorText.equals("i have") && lowerWord.equals("to")
+            || hasTrailingSpace && priorText.equals("i have to")) {
+
+        addWords(results,
+                "go", "write", "eat",
+                "study", "work", "learn",
+                "read", "leave", "help");
+
+        nextWordMode = true;
+    }
+
+    // 8. Predict after "I have been".
+    else if (priorText.equals("i have") && lowerWord.equals("been")
+            || hasTrailingSpace
+            && priorText.equals("i have been")) {
+
+        addWords(results,
+                "working", "learning", "reading",
+                "writing", "waiting", "playing",
+                "studying", "speaking");
+
+        nextWordMode = true;
+    }
+
+    // 9. Predict after "I am going".
     else if (priorText.equals("i am") && lowerWord.equals("going")
             || hasTrailingSpace && priorText.equals("i am going")) {
+
         addWords(results, "to", "home", "there", "outside");
         nextWordMode = true;
     }
 
-    // 7. Predict after "I am going to".
+    // 10. Predict after "I am going to".
     else if (priorText.equals("i am going") && lowerWord.equals("to")
-            || hasTrailingSpace && priorText.equals("i am going to")) {
-        addWords(results, "school", "work", "learn", "study", "eat");
+            || hasTrailingSpace
+            && priorText.equals("i am going to")) {
+
+        addWords(results,
+                "school", "work", "learn", "study", "eat");
+
         nextWordMode = true;
     }
 
