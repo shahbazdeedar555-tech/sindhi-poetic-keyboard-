@@ -324,7 +324,27 @@ private void commit(String text) {
         }
     }
 
-    ic.commitText(text, 1);
+    
+// Capitalize the standalone English pronoun "i".
+if (englishPage != null
+        && englishPage.getVisibility() == View.VISIBLE
+        && "i".equals(text)) {
+
+    CharSequence before = ic.getTextBeforeCursor(2, 0);
+
+    boolean wordStart = before == null
+            || before.length() == 0
+            || Character.isWhitespace(
+                    before.charAt(before.length() - 1))
+            || "([{\"'".indexOf(
+                    before.charAt(before.length() - 1)) >= 0;
+
+    if (wordStart) {
+        text = "I";
+    }
+}
+
+ic.commitText(text, 1);
     updateEnglishSuggestions();
 }
 
