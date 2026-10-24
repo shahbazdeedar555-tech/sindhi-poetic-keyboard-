@@ -1,6 +1,6 @@
 package com.shahbazdeedar555.sindhipoetickeyboard;
 
-import android.inputmethodservice.InputMethodService; import android.os.Handler; import android.os.Looper; import android.graphics.Color; import android.graphics.drawable.GradientDrawable; import android.view.Gravity; import android.view.KeyEvent; import android.view.MotionEvent; import android.view.View; import android.view.ViewGroup; import android.view.inputmethod.InputConnection; import android.view.inputmethod.EditorInfo; import android.widget.Button; import android.widget.LinearLayout; import java.util.Locale;
+import android.inputmethodservice.InputMethodService; import android.os.Handler; import android.os.Looper; import android.graphics.Color; import android.graphics.drawable.GradientDrawable; import android.view.Gravity; import android.view.KeyEvent; import android.view.MotionEvent; import android.view.View; import android.view.ViewGroup; import android.view.inputmethod.InputConnection; import android.view.inputmethod.EditorInfo; import android.widget.Button; import android.widget.LinearLayout; import android.widget.ScrollView;    import java.util.Locale;
 import java.util.ArrayList;
 public class SindhiKeyboardService extends InputMethodService
          {
@@ -8,6 +8,8 @@ public class SindhiKeyboardService extends InputMethodService
     private LinearLayout root, englishPage, englishSymbolsPage;
     
     private LinearLayout urduPage, urduPage2;
+
+    private LinearLayout emojiPage;         
     private LinearLayout suggestionBar;
          
     private String currentCheckedWord = "";
@@ -51,9 +53,10 @@ public class SindhiKeyboardService extends InputMethodService
         createEnglishPage();
         createEnglishSymbolsPage();
         createUrduPage();
-        createUrduPage2();
-       
-        showPage1();
+       createUrduPage2();
+        createEmojiPage();
+
+         showPage1();
         return keyboard;
     }
 
@@ -90,6 +93,7 @@ public class SindhiKeyboardService extends InputMethodService
         menu.getMenu().add("سنڌي");
         menu.getMenu().add("English");
         menu.getMenu().add("اردو");
+         menu.getMenu().add("😀 Emoji");    
 
         menu.setOnMenuItemClickListener(item -> {
             String selected = item.getTitle().toString();
@@ -98,9 +102,11 @@ public class SindhiKeyboardService extends InputMethodService
                 showPage1();
             } else if (selected.equals("English")) {
                 showEnglishPage();
-            } else {
-                showUrduPage();
-            }
+            } else if (selected.equals("اردو")) {
+    showUrduPage();
+} else if (selected.equals("😀 Emoji")) {
+    showEmojiPage();
+}
             return true;
         });
 
@@ -936,6 +942,108 @@ private void refreshEnglishLabels() { if (englishPage != null) { refreshEnglishV
         englishSymbolsPage.addView(row);
     }
 
+         
+
+    // EMOJI AND GREETINGS PAGE
+
+    private void createEmojiPage() {
+        emojiPage = new LinearLayout(this);
+        emojiPage.setOrientation(LinearLayout.VERTICAL);
+        emojiPage.setBackgroundColor(green);
+        emojiPage.setVisibility(View.GONE);
+        emojiPage.setPadding(dp(3), dp(3), dp(3), dp(3));
+
+        root.addView(emojiPage,
+                new LinearLayout.LayoutParams(
+                        ViewGroup.LayoutParams.MATCH_PARENT,
+                        ViewGroup.LayoutParams.WRAP_CONTENT));
+
+        ScrollView scrollView = new ScrollView(this);
+        scrollView.setFillViewport(true);
+
+        emojiPage.addView(scrollView,
+                new LinearLayout.LayoutParams(
+                        ViewGroup.LayoutParams.MATCH_PARENT,
+                        dp(250)));
+
+        LinearLayout content = new LinearLayout(this);
+        content.setOrientation(LinearLayout.VERTICAL);
+        scrollView.addView(content);
+
+        addEmojiRow(content, "❤️", "😍", "🥰", "😊", "😂", "🙏");
+        addEmojiRow(content, "🌹", "🌷", "💐", "🌺", "🌸", "🌻");
+        addEmojiRow(content, "👍", "👏", "🤲", "💚", "💖", "✨");
+        addEmojiRow(content, "😀", "😁", "😎", "😭", "😢", "😇");
+        addEmojiRow(content, "🎉", "🎂", "🌙", "☀️", "⭐", "🔥");
+        addEmojiRow(content, "🤲", "❤️", "🌹", "😊", "🙏", "💚");
+
+        addGreetingRow(content,
+                "السلام عليڪم", "وعليڪم السلام");
+
+        addGreetingRow(content,
+                "يا علي مدد", "يا علي مدد!");
+
+        addGreetingRow(content,
+                "Good Morning", "Good Evening");
+
+        addGreetingRow(content,
+                "Good Night", "Thank You");
+
+        LinearLayout bottom = new LinearLayout(this);
+        bottom.setOrientation(LinearLayout.HORIZONTAL);
+
+        addSpecialButton(bottom, "🌐 ٻولي",
+                this::openLanguageMenu);
+
+        addSpecialButton(bottom, "ABC",
+                this::showEnglishPage);
+
+        emojiPage.addView(bottom);
+    }
+
+    private void addEmojiRow(
+            LinearLayout parent, String... emojis) {
+
+        LinearLayout row = new LinearLayout(this);
+        row.setOrientation(LinearLayout.HORIZONTAL);
+
+        for (String emoji : emojis) {
+            Button button = makeButton(emoji);
+            button.setTextSize(23);
+
+            row.addView(button,
+                    new LinearLayout.LayoutParams(
+                            0, dp(44), 1));
+
+            button.setOnClickListener(v -> commit(emoji));
+        }
+
+        parent.addView(row);
+    }
+
+    private void addGreetingRow(
+            LinearLayout parent, String... phrases) {
+
+        LinearLayout row = new LinearLayout(this);
+        row.setOrientation(LinearLayout.HORIZONTAL);
+
+        for (String phrase : phrases) {
+            Button button = makeButton(phrase);
+            button.setTextSize(13);
+
+            row.addView(button,
+                    new LinearLayout.LayoutParams(
+                            0, dp(44), 1));
+
+            button.setOnClickListener(v -> {
+                commit(phrase);
+                commit(" ");
+            });
+        }
+
+        parent.addView(row);
+    }
+       
     // URDU PAGE 1
 
     private void createUrduPage() {
@@ -1208,6 +1316,10 @@ private void deleteOne() {
         }
     }
 
+    private void showEmojiPage() {
+    hideAllPages();
+    emojiPage.setVisibility(View.VISIBLE);
+}      
     // SHOW PAGES
 
     private void hideAllPages() {
@@ -1217,6 +1329,7 @@ private void deleteOne() {
         englishSymbolsPage.setVisibility(View.GONE);
         urduPage.setVisibility(View.GONE);
         urduPage2.setVisibility(View.GONE);
+         emojiPage.setVisibility(View.GONE);
     }
 
     private void showPage1() {
