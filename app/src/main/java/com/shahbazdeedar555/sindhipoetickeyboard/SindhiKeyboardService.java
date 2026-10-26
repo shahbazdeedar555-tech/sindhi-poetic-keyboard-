@@ -728,13 +728,17 @@ private void updateEnglishSuggestions() {
                             .equals(lowerWord)
                     && !typedWord.equals(word)) {
 
-                String sentenceCapitalized =
-        word.substring(0, 1).toUpperCase(Locale.ENGLISH)
-        + word.substring(1);
+              String expectedWord = word;
 
-String expectedWord = sentenceStart
-        ? sentenceCapitalized
-        : word;
+// Capitalize only the first word of a sentence.
+// Keep the English pronoun "I" capitalized everywhere.
+if (word.equalsIgnoreCase("i")) {
+    expectedWord = "I";
+} else if (sentenceStart) {
+    expectedWord =
+            word.substring(0, 1).toUpperCase(Locale.ENGLISH)
+            + word.substring(1);
+}  
 
 if (typedWord.equals(expectedWord)) {
     continue;
