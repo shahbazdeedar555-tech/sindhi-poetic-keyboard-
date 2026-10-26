@@ -456,16 +456,9 @@ private void addEnglishLetter(
         InputConnection ic = getCurrentInputConnection();
 
         if (capitalize && !englishShift
-                && letter.equalsIgnoreCase("i")
-                && ic != null) {
-
-            CharSequence after = ic.getTextAfterCursor(1, 0);
-
-            if (after == null || after.length() == 0
-                    || !Character.isLetterOrDigit(after.charAt(0))) {
-                output = "i";
-            }
-        }
+        && letter.equalsIgnoreCase("i")) {
+    output = "i";
+}
 
         commit(output);
 
