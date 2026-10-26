@@ -436,7 +436,6 @@ englishPage.addView(
 
     
 
-
 private void addEnglishLetter(
         LinearLayout row, String letter) {
 
@@ -448,16 +447,9 @@ private void addEnglishLetter(
     button.setOnClickListener(v -> {
         boolean capitalize = shouldCapitalizeNextLetter();
 
-        String output;
-
-        if (letter.equalsIgnoreCase("i")
-                && !englishShift) {
-            output = "I";
-        } else {
-            output = (englishShift || capitalize)
-                    ? letter.toUpperCase(Locale.ENGLISH)
-                    : letter.toLowerCase(Locale.ENGLISH);
-        }
+        String output = (englishShift || capitalize)
+                ? letter.toUpperCase(Locale.ENGLISH)
+                : letter.toLowerCase(Locale.ENGLISH);
 
         commit(output);
 
@@ -467,6 +459,7 @@ private void addEnglishLetter(
         }
     });
 }
+
 
 
 private boolean shouldCapitalizeNextLetter() {
@@ -524,13 +517,16 @@ private final String[] englishWords = {
     "will", "with", "word", "work", "would", "write",
     "yes", "you", "your",
 
-    "can't", "don't", "doesn't", "isn't", "wasn't",
+"can't", "don't", "doesn't", "isn't", "wasn't",
     "weren't", "won't", "wouldn't", "couldn't",
     "shouldn't", "haven't", "hasn't", "hadn't",
     "I'm", "you're", "we're", "they're", "it's",
     "that's", "there's", "I've", "you've", "we've",
-    "they've", "I'll", "you'll", "we'll", "they'll"
+    "they've", "I'll", "you'll", "we'll", "they'll",
+
+    "ice", "cream", "ink", "insect", "thinking"
 };
+
 
 
          
@@ -721,8 +717,34 @@ private void updateEnglishSuggestions() {
     // Complete words using learned and built-in vocabulary.
     if (results.isEmpty() && !lowerWord.isEmpty()) {
 
+        // Suggest correct spelling and capitalization for known words.
+        boolean sentenceStart = priorText.isEmpty()
+                || priorText.endsWith(".")
+                || priorText.endsWith("?")
+                || priorText.endsWith("!");
+
+        for (String word : englishWords) {
+            if (word != null
+                    && word.toLowerCase(Locale.ENGLISH)
+                            .equals(lowerWord)
+                    && !typedWord.equals(word)) {
+
+                String sentenceCapitalized =
+                        word.substring(0, 1).toUpperCase(Locale.ENGLISH)
+                        + word.substring(1);
+
+                if (sentenceStart
+                        && typedWord.equals(sentenceCapitalized)) {
+                    continue;
+                }
+
+                results.add(word);
+                break;
+            }
+        }
+
         // First: show words learned by this user.
-        if (personalDictionary != null) {
+        if (results.isEmpty() && personalDictionary != null) {
             try {
                 for (String word : personalDictionary.getSuggestions(
                         lowerWord,
@@ -749,7 +771,8 @@ private void updateEnglishSuggestions() {
             }
 
             if (word != null
-                    && word.toLowerCase().startsWith(lowerWord)
+                    && word.toLowerCase(Locale.ENGLISH)
+                            .startsWith(lowerWord)
                     && !word.equalsIgnoreCase(lowerWord)
                     && !results.contains(word)) {
 
