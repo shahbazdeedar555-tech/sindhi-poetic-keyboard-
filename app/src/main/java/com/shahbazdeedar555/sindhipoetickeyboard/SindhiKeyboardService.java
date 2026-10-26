@@ -730,16 +730,20 @@ private void updateEnglishSuggestions() {
                     && !typedWord.equals(word)) {
 
                 String sentenceCapitalized =
-                        word.substring(0, 1).toUpperCase(Locale.ENGLISH)
-                        + word.substring(1);
+        word.substring(0, 1).toUpperCase(Locale.ENGLISH)
+        + word.substring(1);
 
-                if (sentenceStart
-                        && typedWord.equals(sentenceCapitalized)) {
-                    continue;
-                }
+String expectedWord = sentenceStart
+        ? sentenceCapitalized
+        : word;
 
-                results.add(word);
-                break;
+if (typedWord.equals(expectedWord)) {
+    continue;
+}
+
+results.add(expectedWord);
+break;
+
             }
         }
 
