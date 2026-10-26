@@ -436,6 +436,7 @@ englishPage.addView(
 
     
 
+
 private void addEnglishLetter(
         LinearLayout row, String letter) {
 
@@ -447,9 +448,16 @@ private void addEnglishLetter(
     button.setOnClickListener(v -> {
         boolean capitalize = shouldCapitalizeNextLetter();
 
-        String output = (englishShift || capitalize)
-                ? letter.toUpperCase(Locale.ENGLISH)
-                : letter.toLowerCase(Locale.ENGLISH);
+        String output;
+
+        if (letter.equalsIgnoreCase("i")
+                && !englishShift) {
+            output = "I";
+        } else {
+            output = (englishShift || capitalize)
+                    ? letter.toUpperCase(Locale.ENGLISH)
+                    : letter.toLowerCase(Locale.ENGLISH);
+        }
 
         commit(output);
 
@@ -459,7 +467,6 @@ private void addEnglishLetter(
         }
     });
 }
-
 
 
 private boolean shouldCapitalizeNextLetter() {
