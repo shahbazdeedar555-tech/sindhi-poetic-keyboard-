@@ -435,6 +435,7 @@ englishPage.addView(
     }
 
     
+
 private void addEnglishLetter(
         LinearLayout row, String letter) {
 
@@ -459,17 +460,20 @@ private void addEnglishLetter(
     });
 }
 
+
+
 private boolean shouldCapitalizeNextLetter() {
     InputConnection ic = getCurrentInputConnection();
     if (ic == null) return false;
 
-    CharSequence before = ic.getTextBeforeCursor(100, 0);
+    CharSequence before = ic.getTextBeforeCursor(150, 0);
 
     if (before == null || before.length() == 0) {
         return true;
     }
 
     String text = before.toString();
+
     int i = text.length() - 1;
 
     while (i >= 0 && Character.isWhitespace(text.charAt(i))) {
@@ -482,6 +486,7 @@ private boolean shouldCapitalizeNextLetter() {
 
     return last == '.' || last == '?' || last == '!';
 }
+
 
 
 private final String[] englishWords = {
