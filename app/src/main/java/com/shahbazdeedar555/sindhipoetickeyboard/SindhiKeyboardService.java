@@ -434,7 +434,7 @@ englishPage.addView(
         englishPage.addView(row);
     }
 
-    
+   
 
 private void addEnglishLetter(
         LinearLayout row, String letter) {
@@ -451,6 +451,22 @@ private void addEnglishLetter(
                 ? letter.toUpperCase(Locale.ENGLISH)
                 : letter.toLowerCase(Locale.ENGLISH);
 
+        // Do not capitalize the first letter of ordinary words
+        // beginning with i, such as important, inside, and insect.
+        InputConnection ic = getCurrentInputConnection();
+
+        if (capitalize && !englishShift
+                && letter.equalsIgnoreCase("i")
+                && ic != null) {
+
+            CharSequence after = ic.getTextAfterCursor(1, 0);
+
+            if (after == null || after.length() == 0
+                    || !Character.isLetterOrDigit(after.charAt(0))) {
+                output = "i";
+            }
+        }
+
         commit(output);
 
         if (englishShift) {
@@ -459,6 +475,7 @@ private void addEnglishLetter(
         }
     });
 }
+
 
 
 
