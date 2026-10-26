@@ -331,25 +331,30 @@ private void commit(String text) {
     }
 
     
-// Capitalize the standalone English pronoun "i".
+
+ // Capitalize standalone English pronoun "i",
+ // but preserve words such as iPhone and iPad.
 if (englishPage != null
         && englishPage.getVisibility() == View.VISIBLE
-        && "i".equals(text)) {
+        && "i".equalsIgnoreCase(text)) {
 
-    CharSequence before = ic.getTextBeforeCursor(2, 0);
+    CharSequence before = ic.getTextBeforeCursor(1, 0);
+    CharSequence after = ic.getTextAfterCursor(1, 0);
 
-    boolean wordStart = before == null
+    boolean leftBoundary = before == null
             || before.length() == 0
-            || Character.isWhitespace(
-                    before.charAt(before.length() - 1))
-            || "([{\"'".indexOf(
-                    before.charAt(before.length() - 1)) >= 0;
+            || !Character.isLetterOrDigit(
+                    before.charAt(before.length() - 1));
 
-    if (wordStart) {
+    boolean rightBoundary = after == null
+            || after.length() == 0
+            || !Character.isLetterOrDigit(
+                    after.charAt(0));
+
+    if (leftBoundary && rightBoundary) {
         text = "I";
     }
 }
-
 ic.commitText(text, 1);
     updateEnglishSuggestions();
 }
