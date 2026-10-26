@@ -461,6 +461,8 @@ private void addEnglishLetter(
 }
 
 
+
+
 private boolean shouldCapitalizeNextLetter() {
     InputConnection ic = getCurrentInputConnection();
     if (ic == null) return false;
@@ -468,24 +470,22 @@ private boolean shouldCapitalizeNextLetter() {
     CharSequence before = ic.getTextBeforeCursor(150, 0);
 
     if (before == null || before.length() == 0) {
-        return true;
+        return false;
     }
 
     String text = before.toString();
-
     int i = text.length() - 1;
 
     while (i >= 0 && Character.isWhitespace(text.charAt(i))) {
         i--;
     }
 
-    if (i < 0) return true;
+    if (i < 0) return false;
 
     char last = text.charAt(i);
 
     return last == '.' || last == '?' || last == '!';
 }
-
 
 
 private final String[] englishWords = {
