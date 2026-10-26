@@ -434,7 +434,7 @@ englishPage.addView(
         englishPage.addView(row);
     }
 
-   
+  
 
 private void addEnglishLetter(
         LinearLayout row, String letter) {
@@ -451,15 +451,6 @@ private void addEnglishLetter(
                 ? letter.toUpperCase(Locale.ENGLISH)
                 : letter.toLowerCase(Locale.ENGLISH);
 
-        // Do not capitalize the first letter of ordinary words
-        // beginning with i, such as important, inside, and insect.
-        InputConnection ic = getCurrentInputConnection();
-
-        if (capitalize && !englishShift
-        && letter.equalsIgnoreCase("i")) {
-    output = "i";
-}
-
         commit(output);
 
         if (englishShift) {
@@ -468,8 +459,6 @@ private void addEnglishLetter(
         }
     });
 }
-
-
 
 
 private boolean shouldCapitalizeNextLetter() {
