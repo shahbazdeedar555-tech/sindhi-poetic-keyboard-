@@ -420,10 +420,6 @@ englishPage.addView(
 
   
 
-
-
-
-
 private void addEnglishLetter(
         LinearLayout row, String letter) {
 
@@ -433,11 +429,14 @@ private void addEnglishLetter(
             new LinearLayout.LayoutParams(0, dp(48), 1));
 
     button.setOnClickListener(v -> {
-        boolean capitalize = shouldCapitalizeNextLetter();
+        String output;
 
-        String output = (englishShift || capitalize)
-                ? letter.toUpperCase(Locale.ENGLISH)
-                : letter.toLowerCase(Locale.ENGLISH);
+        if (englishShift) {
+            output = letter.toUpperCase(Locale.ENGLISH);
+        } else {
+            // Default: lowercase letters everywhere.
+            output = letter.toLowerCase(Locale.ENGLISH);
+        }
 
         commit(output);
 
