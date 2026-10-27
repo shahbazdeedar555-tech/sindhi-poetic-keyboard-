@@ -321,22 +321,29 @@ private void commit(String text) {
             }
         }
     }
-
-    // Capitalize lowercase i only at the beginning of a word.
+// Capitalize i only when it is a standalone English pronoun.
     if (englishPage != null
             && englishPage.getVisibility() == View.VISIBLE
             && text.equals("i")) {
 
-        CharSequence before = ic.getTextBeforeCursor(1, 0);
+        CharSequence before = ic.getTextBeforeCursor(150, 0);
 
-        boolean leftBoundary = before == null
-                || before.length() == 0
-                || !Character.isLetterOrDigit(before.charAt(0));
+        String precedingText = before == null
+                ? ""
+                : before.toString();
 
-        if (leftBoundary) {
+        String trimmedBefore = precedingText.trim();
+
+        boolean atWordStart = trimmedBefore.isEmpty()
+                || Character.isWhitespace(
+                        precedingText.charAt(precedingText.length() - 1));
+
+        if (atWordStart) {
             text = "I";
         }
     }
+
+         
 
     ic.commitText(text, 1);
     updateEnglishSuggestions();
