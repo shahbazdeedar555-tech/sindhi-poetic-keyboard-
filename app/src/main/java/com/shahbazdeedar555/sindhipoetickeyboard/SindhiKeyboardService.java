@@ -322,27 +322,23 @@ private void commit(String text) {
         }
     }
 
-    // Capitalize standalone English pronoun "i" as "I".
+
+
+    // Capitalize only a standalone lowercase pronoun i.
     if (englishPage != null
             && englishPage.getVisibility() == View.VISIBLE
-            && "i".equals(text)) {
+            && text.equals("i")) {
 
-        CharSequence before = ic.getTextBeforeCursor(150, 0);
+        CharSequence before = ic.getTextBeforeCursor(1, 0);
+
         boolean leftBoundary = before == null
                 || before.length() == 0
-                || !Character.isLetterOrDigit(
-                        before.charAt(before.length() - 1));
+                || !Character.isLetterOrDigit(before.charAt(0));
 
         if (leftBoundary) {
             text = "I";
         }
     }
-
-    // Insert the character exactly once.
-    ic.commitText(text, 1);
-    updateEnglishSuggestions();
-}
-
 
 
     // ENGLISH LETTER PAGE
