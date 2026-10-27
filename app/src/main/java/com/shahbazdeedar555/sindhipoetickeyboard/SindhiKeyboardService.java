@@ -1225,6 +1225,63 @@ private void refreshEnglishLabels() { if (englishPage != null) { refreshEnglishV
     }
 
     
+private void commit(String text) {
+    InputConnection ic = getCurrentInputConnection();
+    if (ic == null || text == null) return;
+
+    // Capitalize only the standalone English pronoun "i".
+    // Never change i inside words such as fish, ink, bill, kill or will.
+    if (text.equals("i")) {
+        CharSequence before = ic.getTextBeforeCursor(150, 0);
+
+        boolean wordStart = before == null || before.length() == 0;
+
+        if (before != null && before.length() > 0) {
+            char last = before.charAt(before.length() - 1);
+            wordStart = Character.isWhitespace(last);
+        }
+
+        if (wordStart) {
+            text = "I";
+        }
+    }
+
+    // Learn the completed word before inserting a separator.
+    if (personalDictionary != null && text.length() == 1) {
+        char ch = text.charAt(0);
+
+        boolean boundary = Character.isWhitespace(ch)
+                || ".,!?;:،؟؛۔".indexOf(ch) >= 0;
+
+        if (boundary) {
+            CharSequence before = ic.getTextBeforeCursor(100, 0);
+
+            if (before != null) {
+                String trimmed = before.toString().trim();
+
+                if (!trimmed.isEmpty()) {
+                    String[] words = trimmed.split("\\s+");
+                    String lastWord = words[words.length - 1];
+
+                    if (!lastWord.isEmpty()) {
+                        try {
+                            personalDictionary.learnWord(
+                                    lastWord,
+                                    PersonalDictionary.ENGLISH
+                            );
+                        } catch (Exception ignored) {
+                            // Keep keyboard typing working if learning fails.
+                        }
+                    }
+                }
+            }
+        }
+    }
+
+    ic.commitText(text, 1);
+    updateEnglishSuggestions();
+}
+
 private void deleteOne() {
     InputConnection ic = getCurrentInputConnection();
 
