@@ -340,6 +340,12 @@ private void commit(String text) {
         }
     }
 
+         ic.commitText(text, 1);
+        updateEnglishSuggestions();
+    }
+
+    // ENGLISH LETTER PAGE
+    private void createEnglishPage() {
 
     // ENGLISH LETTER PAGE
 
