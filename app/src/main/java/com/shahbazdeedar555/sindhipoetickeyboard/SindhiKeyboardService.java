@@ -280,7 +280,6 @@ public class SindhiKeyboardService extends InputMethodService
 
     
 
-
 private void commit(String text) {
     InputConnection ic = getCurrentInputConnection();
     if (ic == null || text == null) return;
@@ -310,7 +309,8 @@ private void commit(String text) {
                             ? PersonalDictionary.ENGLISH
                             : (urduPage != null
                             && (urduPage.getVisibility() == View.VISIBLE
-                            || urduPage2.getVisibility() == View.VISIBLE)
+                            || (urduPage2 != null
+                            && urduPage2.getVisibility() == View.VISIBLE))
                             ? PersonalDictionary.URDU
                             : PersonalDictionary.SINDHI);
 
@@ -322,9 +322,7 @@ private void commit(String text) {
         }
     }
 
-
-
-    // Capitalize only a standalone lowercase pronoun i.
+    // Capitalize lowercase i only at the beginning of a word.
     if (englishPage != null
             && englishPage.getVisibility() == View.VISIBLE
             && text.equals("i")) {
@@ -340,12 +338,11 @@ private void commit(String text) {
         }
     }
 
-         ic.commitText(text, 1);
-        updateEnglishSuggestions();
-    }
+    ic.commitText(text, 1);
+    updateEnglishSuggestions();
+}
 
-    // ENGLISH LETTER PAGE
-    private void createEnglishPage() {
+
 
     // ENGLISH LETTER PAGE
 
