@@ -280,23 +280,20 @@ public class SindhiKeyboardService extends InputMethodService
 
     
 
+
 private void commit(String text) {
     InputConnection ic = getCurrentInputConnection();
-
-    if (ic == null) return;
+    if (ic == null || text == null) return;
 
     // Learn the completed word before inserting a separator.
-    if (personalDictionary != null && text != null
-            && text.length() == 1) {
-
+    if (personalDictionary != null && text.length() == 1) {
         char ch = text.charAt(0);
 
         boolean boundary = Character.isWhitespace(ch)
                 || ".,!?;:،؟؛۔".indexOf(ch) >= 0;
 
         if (boundary) {
-            CharSequence before =
-                    ic.getTextBeforeCursor(150, 0);
+            CharSequence before = ic.getTextBeforeCursor(150, 0);
 
             if (before != null && before.length() > 0) {
                 String trimmed = before.toString().trim();
@@ -305,74 +302,44 @@ private void commit(String text) {
                     String[] words = trimmed.split("\\s+");
                     String word = words[words.length - 1];
 
-                    word = word.replaceAll(
-                            "[.,!?;:،؟؛۔]+$", "");
+                    word = word.replaceAll("[.,!?;:،؟۔]+$", "");
 
                     String language =
                             englishPage != null
-                            && englishPage.getVisibility()
-                                    == View.VISIBLE
+                            && englishPage.getVisibility() == View.VISIBLE
                             ? PersonalDictionary.ENGLISH
                             : (urduPage != null
-                            && (urduPage.getVisibility()
-                                    == View.VISIBLE
-                            || urduPage2.getVisibility()
-                                    == View.VISIBLE)
+                            && (urduPage.getVisibility() == View.VISIBLE
+                            || urduPage2.getVisibility() == View.VISIBLE)
                             ? PersonalDictionary.URDU
                             : PersonalDictionary.SINDHI);
 
                     if (!word.isEmpty()) {
-                        personalDictionary.learnWord(
-                                word, language);
+                        personalDictionary.learnWord(word, language);
                     }
                 }
             }
         }
     }
 
-    
-if (englishPage != null
-        && englishPage.getVisibility() == View.VISIBLE
-        && "i".equals(text)) {
+    // Capitalize standalone English pronoun "i" as "I".
+    if (englishPage != null
+            && englishPage.getVisibility() == View.VISIBLE
+            && "i".equals(text)) {
 
-    CharSequence before = ic.getTextBeforeCursor(150, 0);
+        CharSequence before = ic.getTextBeforeCursor(150, 0);
+        boolean leftBoundary = before == null
+                || before.length() == 0
+                || !Character.isLetterOrDigit(
+                        before.charAt(before.length() - 1));
 
-    boolean leftBoundary = before == null
-            || before.length() == 0
-            || !Character.isLetterOrDigit(
-                    before.charAt(before.length() - 1));
-
-    if (leftBoundary) {
-        text = "I";
+        if (leftBoundary) {
+            text = "I";
+        }
     }
-}
 
-ic.commitText(text, 1);
-updateEnglishSuggestions();
-
- 
-if (englishPage != null
-        && englishPage.getVisibility() == View.VISIBLE
-        && "i".equalsIgnoreCase(text)) {
-
-    CharSequence before = ic.getTextBeforeCursor(1, 0);
-    CharSequence after = ic.getTextAfterCursor(1, 0);
-
-    boolean leftBoundary = before == null
-            || before.length() == 0
-            || !Character.isLetterOrDigit(
-                    before.charAt(before.length() - 1));
-
-    boolean rightBoundary = after == null
-            || after.length() == 0
-            || !Character.isLetterOrDigit(
-                    after.charAt(0));
-
-    if (leftBoundary && rightBoundary) {
-        text = "I";
-    }
-}
-ic.commitText(text, 1);
+    // Insert the character exactly once.
+    ic.commitText(text, 1);
     updateEnglishSuggestions();
 }
 
