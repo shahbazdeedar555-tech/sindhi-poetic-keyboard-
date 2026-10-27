@@ -331,9 +331,26 @@ private void commit(String text) {
     }
 
     
+if (englishPage != null
+        && englishPage.getVisibility() == View.VISIBLE
+        && "i".equals(text)) {
 
- // Capitalize standalone English pronoun "i",
- // but preserve words such as iPhone and iPad.
+    CharSequence before = ic.getTextBeforeCursor(150, 0);
+
+    boolean leftBoundary = before == null
+            || before.length() == 0
+            || !Character.isLetterOrDigit(
+                    before.charAt(before.length() - 1));
+
+    if (leftBoundary) {
+        text = "I";
+    }
+}
+
+ic.commitText(text, 1);
+updateEnglishSuggestions();
+
+ 
 if (englishPage != null
         && englishPage.getVisibility() == View.VISIBLE
         && "i".equalsIgnoreCase(text)) {
@@ -436,6 +453,10 @@ englishPage.addView(
 
   
 
+
+
+
+
 private void addEnglishLetter(
         LinearLayout row, String letter) {
 
@@ -459,7 +480,6 @@ private void addEnglishLetter(
         }
     });
 }
-
 
 
 
