@@ -647,19 +647,16 @@ private void updateEnglishSuggestions() {
                 || priorText.endsWith("!");
 
         for (String word : englishWords) {
-            if (word != null
-                    && word.toLowerCase(Locale.ENGLISH)
-                            .equals(lowerWord)
-                    && !typedWord.equals(word)) {
+    if (word != null
+            && word.toLowerCase(Locale.ENGLISH)
+                    .equals(lowerWord)
+            && !typedWord.equals(word)) {
 
-              String expectedWord = word;
-
-if (typedWord.equals(expectedWord)) {
-    continue;
+        String expectedWord = word;
+        results.add(expectedWord);
+        break;
+    }
 }
-
-results.add(expectedWord);
-break;
 
         // First: show words learned by this user.
         if (results.isEmpty() && personalDictionary != null) {
