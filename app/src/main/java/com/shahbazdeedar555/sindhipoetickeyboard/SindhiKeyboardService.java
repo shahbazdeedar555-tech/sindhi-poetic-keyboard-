@@ -280,74 +280,6 @@ public class SindhiKeyboardService extends InputMethodService
 
     
 
-private void commit(String text) {
-    InputConnection ic = getCurrentInputConnection();
-    if (ic == null || text == null) return;
-
-    // Learn the completed word before inserting a separator.
-    if (personalDictionary != null && text.length() == 1) {
-        char ch = text.charAt(0);
-
-        boolean boundary = Character.isWhitespace(ch)
-                || ".,!?;:،؟؛۔".indexOf(ch) >= 0;
-
-        if (boundary) {
-            CharSequence before = ic.getTextBeforeCursor(150, 0);
-
-            if (before != null && before.length() > 0) {
-                String trimmed = before.toString().trim();
-
-                if (!trimmed.isEmpty()) {
-                    String[] words = trimmed.split("\\s+");
-                    String word = words[words.length - 1];
-
-                    word = word.replaceAll("[.,!?;:،؟۔]+$", "");
-
-                    String language =
-                            englishPage != null
-                            && englishPage.getVisibility() == View.VISIBLE
-                            ? PersonalDictionary.ENGLISH
-                            : (urduPage != null
-                            && (urduPage.getVisibility() == View.VISIBLE
-                            || (urduPage2 != null
-                            && urduPage2.getVisibility() == View.VISIBLE))
-                            ? PersonalDictionary.URDU
-                            : PersonalDictionary.SINDHI);
-
-                    if (!word.isEmpty()) {
-                        personalDictionary.learnWord(word, language);
-                    }
-                }
-            }
-        }
-    }
-// Capitalize i only when it is a standalone English pronoun.
-    if (englishPage != null
-            && englishPage.getVisibility() == View.VISIBLE
-            && text.equals("i")) {
-
-        CharSequence before = ic.getTextBeforeCursor(150, 0);
-
-        String precedingText = before == null
-                ? ""
-                : before.toString();
-
-        String trimmedBefore = precedingText.trim();
-
-        boolean atWordStart = trimmedBefore.isEmpty()
-                || Character.isWhitespace(
-                        precedingText.charAt(precedingText.length() - 1));
-
-        if (atWordStart) {
-            text = "I";
-        }
-    }
-
-         
-
-    ic.commitText(text, 1);
-    updateEnglishSuggestions();
-}
 
 
 
@@ -722,25 +654,12 @@ private void updateEnglishSuggestions() {
 
               String expectedWord = word;
 
-// Capitalize only the first word of a sentence.
-// Keep the English pronoun "I" capitalized everywhere.
-if (word.equalsIgnoreCase("i")) {
-    expectedWord = "I";
-} else if (sentenceStart) {
-    expectedWord =
-            word.substring(0, 1).toUpperCase(Locale.ENGLISH)
-            + word.substring(1);
-}  
-
 if (typedWord.equals(expectedWord)) {
     continue;
 }
 
 results.add(expectedWord);
 break;
-
-            }
-        }
 
         // First: show words learned by this user.
         if (results.isEmpty() && personalDictionary != null) {
