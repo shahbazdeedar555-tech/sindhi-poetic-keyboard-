@@ -711,35 +711,32 @@ private void updateEnglishSuggestions() {
         suggestionBar.addView(button,
                 new LinearLayout.LayoutParams(0, dp(36), 1));
 
+        
         button.setOnClickListener(v -> {
             InputConnection currentIc = getCurrentInputConnection();
             if (currentIc == null) return;
 
-            // Punctuation must follow the sentence, not replace its last word.
+            // Punctuation must follow the sentence.
             if (suggestion.equals("?")) {
                 if (trailingSpace) {
                     currentIc.deleteSurroundingText(1, 0);
                 }
                 currentIc.commitText("?", 1);
+
             } else if (appendNext) {
                 String insertion = trailingSpace
                         ? suggestion + " "
                         : " " + suggestion + " ";
 
                 currentIc.commitText(insertion, 1);
+
             } else {
                 if (!wordToReplace.isEmpty()) {
                     currentIc.deleteSurroundingText(
                             wordToReplace.length(), 0);
                 }
 
-                String replacement = suggestion;
-
-                if (suggestion.equalsIgnoreCase("i")) {
-                    replacement = "I";
-                }
-
-                currentIc.commitText(replacement + " ", 1);
+                currentIc.commitText(suggestion + " ", 1);
             }
 
             updateEnglishSuggestions();
@@ -1229,22 +1226,7 @@ private void commit(String text) {
     InputConnection ic = getCurrentInputConnection();
     if (ic == null || text == null) return;
 
-    // Capitalize only the standalone English pronoun "i".
-    // Never change i inside words such as fish, ink, bill, kill or will.
-    if (text.equals("i")) {
-        CharSequence before = ic.getTextBeforeCursor(150, 0);
-
-        boolean wordStart = before == null || before.length() == 0;
-
-        if (before != null && before.length() > 0) {
-            char last = before.charAt(before.length() - 1);
-            wordStart = Character.isWhitespace(last);
-        }
-
-        if (wordStart) {
-            text = "I";
-        }
-    }
+    
 
     // Learn the completed word before inserting a separator.
     if (personalDictionary != null && text.length() == 1) {
