@@ -1260,10 +1260,26 @@ private void commit(String text) {
         }
     }
 
-    ic.commitText(text, 1);
-    updateEnglishSuggestions();
+   
+// Capitalize standalone English pronoun "i" only.
+// Do not change words such as ice, ink, or inside.
+if (text.equals(" ")) {
+    CharSequence before = ic.getTextBeforeCursor(10, 0);
+
+    if (before != null && before.length() > 0) {
+        String previous = before.toString();
+
+        if (previous.equals("i")) {
+            ic.deleteSurroundingText(1, 0);
+            ic.commitText("I ", 1);
+            updateEnglishSuggestions();
+            return;
+        }
+    }
 }
 
+ic.commitText(text, 1);
+updateEnglishSuggestions();}
 private void deleteOne() {
     InputConnection ic = getCurrentInputConnection();
 
@@ -1271,8 +1287,8 @@ private void deleteOne() {
         ic.deleteSurroundingText(1, 0);
         updateEnglishSuggestions();
     }
-}
-
+}       
+   
     private void setSpace(int id) {
         View view = keyboard.findViewById(id);
         if (view != null) view.setOnClickListener(v -> commit(" "));
