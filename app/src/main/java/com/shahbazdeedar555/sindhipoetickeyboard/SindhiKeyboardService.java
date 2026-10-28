@@ -1260,23 +1260,29 @@ private void commit(String text) {
         }
     }
 
-   
-// Capitalize standalone English pronoun "i" only.
-// Do not change words such as ice, ink, or inside.
+
+  
+// Capitalize standalone English pronoun "i" before a space.
 if (text.equals(" ")) {
-    CharSequence before = ic.getTextBeforeCursor(10, 0);
+    CharSequence before = ic.getTextBeforeCursor(20, 0);
 
     if (before != null && before.length() > 0) {
         String previous = before.toString();
 
-        if (previous.equals("i")) {
-            ic.deleteSurroundingText(1, 0);
+        // Find the word immediately before the cursor.
+        String trimmed = previous.replaceFirst("\\s+$", "");
+        int wordStart = trimmed.lastIndexOf(' ') + 1;
+        String lastWord = trimmed.substring(wordStart);
+
+        if (lastWord.equals("i")) {
+            ic.deleteSurroundingText(lastWord.length(), 0);
             ic.commitText("I ", 1);
             updateEnglishSuggestions();
             return;
         }
     }
 }
+
 
 ic.commitText(text, 1);
 updateEnglishSuggestions();}
