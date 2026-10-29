@@ -386,6 +386,7 @@ private void addEnglishLetter(
 
 
 
+
 private boolean shouldCapitalizeNextLetter() {
     InputConnection ic = getCurrentInputConnection();
     if (ic == null) return false;
@@ -393,7 +394,7 @@ private boolean shouldCapitalizeNextLetter() {
     CharSequence before = ic.getTextBeforeCursor(150, 0);
 
     if (before == null || before.length() == 0) {
-        return false;
+        return true;
     }
 
     String text = before.toString();
@@ -403,7 +404,8 @@ private boolean shouldCapitalizeNextLetter() {
         i--;
     }
 
-    if (i < 0) return false;
+    // Beginning of a sentence or empty text
+    if (i < 0) return true;
 
     char last = text.charAt(i);
 
