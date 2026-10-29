@@ -369,12 +369,11 @@ private void addEnglishLetter(
     button.setOnClickListener(v -> {
         String output;
 
-        if (englishShift) {
-            output = letter.toUpperCase(Locale.ENGLISH);
-        } else {
-            // Default: lowercase letters everywhere.
-            output = letter.toLowerCase(Locale.ENGLISH);
-        }
+        if (englishShift || shouldCapitalizeNextLetter()) {
+    output = letter.toUpperCase(Locale.ENGLISH);
+} else {
+    output = letter.toLowerCase(Locale.ENGLISH);
+}
 
         commit(output);
 
