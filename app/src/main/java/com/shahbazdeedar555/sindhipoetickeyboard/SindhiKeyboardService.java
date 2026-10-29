@@ -539,6 +539,64 @@ private void updateEnglishSuggestions() {
         nextWordMode = true;
     }
 
+             
+
+    // Predict possessive words from the subject.
+    else if (
+            (priorText.equals("i") && lowerWord.equals("have"))
+            || (hasTrailingSpace && priorText.equals("i have"))
+            || (priorText.equals("you") && lowerWord.equals("have"))
+            || (hasTrailingSpace && priorText.equals("you have"))
+            || (priorText.equals("she") && lowerWord.equals("has"))
+            || (hasTrailingSpace && priorText.equals("she has"))
+            || (priorText.equals("he") && lowerWord.equals("has"))
+            || (hasTrailingSpace && priorText.equals("he has"))
+            || (priorText.equals("they") && lowerWord.equals("have"))
+            || (hasTrailingSpace && priorText.equals("they have"))
+            || (priorText.equals("we") && lowerWord.equals("have"))
+            || (hasTrailingSpace && priorText.equals("we have"))
+            || (priorText.equals("it") && lowerWord.equals("has"))
+            || (hasTrailingSpace && priorText.equals("it has"))
+    ) {
+        String subject = "";
+
+        if (priorText.equals("i") || priorText.equals("you")
+                || priorText.equals("she") || priorText.equals("he")
+                || priorText.equals("they") || priorText.equals("we")
+                || priorText.equals("it")) {
+            subject = priorText;
+        } else if (hasTrailingSpace) {
+            String[] contextWords = priorText.split("\\s+");
+            subject = contextWords[contextWords.length - 1];
+        }
+
+        switch (subject) {
+            case "i":
+                addWords(results, "my");
+                break;
+            case "you":
+                addWords(results, "your");
+                break;
+            case "she":
+                addWords(results, "her");
+                break;
+            case "he":
+                addWords(results, "his");
+                break;
+            case "they":
+                addWords(results, "their");
+                break;
+            case "we":
+                addWords(results, "our");
+                break;
+            case "it":
+                addWords(results, "its");
+                break;
+        }
+
+        nextWordMode = true;
+    }
+
     // 6. Predict after "I have".
     else if (priorText.equals("i") && lowerWord.equals("have")
             || hasTrailingSpace && priorText.equals("i have")) {
