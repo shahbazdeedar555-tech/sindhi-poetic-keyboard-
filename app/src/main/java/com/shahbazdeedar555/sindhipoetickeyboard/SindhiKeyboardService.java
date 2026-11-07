@@ -447,6 +447,10 @@ private final String[] englishWords = {
     "I'm", "you're", "we're", "they're", "it's",
     "that's", "there's", "I've", "you've", "we've",
     "they've", "I'll", "you'll", "we'll", "they'll",
+         "it's",
+"what's",
+"whichever's",
+"whoever's",
 
     "ice", "cream", "ink", "insect", "thinking"
 };
