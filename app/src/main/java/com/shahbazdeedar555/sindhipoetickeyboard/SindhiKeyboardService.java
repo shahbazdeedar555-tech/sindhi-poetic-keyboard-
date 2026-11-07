@@ -493,7 +493,31 @@ private void updateEnglishSuggestions() {
 
     String priorText = previous.toString().toLowerCase(Locale.ENGLISH);
     String lowerWord = typedWord.toLowerCase(Locale.ENGLISH);
+         
+// Suggest contractions before ordinary dictionary words.
+if (!hasTrailingSpace) {
+    String contraction = correctContraction(lowerWord);
 
+    if (contraction != null) {
+        Button button = makeButton(contraction);
+        button.setTextSize(14);
+
+        suggestionBar.addView(button,
+                new LinearLayout.LayoutParams(0, dp(36), 1));
+
+        button.setOnClickListener(v -> {
+            InputConnection currentIc = getCurrentInputConnection();
+            if (currentIc == null) return;
+
+            currentIc.deleteSurroundingText(typedWord.length(), 0);
+            currentIc.commitText(contraction + " ", 1);
+
+            updateEnglishSuggestions();
+        });
+
+        return;
+    }
+}
     ArrayList<String> results = new ArrayList<>();
     boolean nextWordMode = false;
 
@@ -832,6 +856,12 @@ private String correctContraction(String word) {
         case "youve": return "you've";
         case "ill": return "I'll";
         case "youll": return "you'll";
+
+        case "its": return "it's";
+        case "whats": return "what's";
+        case "whichevers": return "whichever's";
+        case "whoevers": return "whoever's";
+
         default: return null;
     }
 }
