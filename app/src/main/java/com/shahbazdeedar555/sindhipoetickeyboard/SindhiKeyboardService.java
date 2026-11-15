@@ -1097,7 +1097,19 @@ addPhraseButton(content, "قلم کي سلام، ڇا ته لکيو اٿوَ!");
 
         parent.addView(row);
     }
-       
+                  
+       private void addPhraseHeading(
+        LinearLayout parent, String title) {
+
+    TextView heading = new TextView(this);
+    heading.setText(title);
+    heading.setTextSize(19);
+    heading.setTextColor(Color.WHITE);
+    heading.setGravity(Gravity.CENTER);
+    heading.setPadding(8, 16, 8, 12);
+
+    parent.addView(heading);
+}
     // URDU PAGE 1
 
     private void createUrduPage() {
