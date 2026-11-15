@@ -1,6 +1,7 @@
 package com.shahbazdeedar555.sindhipoetickeyboard;
 
-import android.inputmethodservice.InputMethodService; import android.os.Handler; import android.os.Looper; import android.graphics.Color; import android.graphics.drawable.GradientDrawable; import android.view.Gravity; import android.view.KeyEvent; import android.view.MotionEvent; import android.view.View; import android.view.ViewGroup; import android.view.inputmethod.InputConnection; import android.view.inputmethod.EditorInfo; import android.widget.Button; import android.widget.LinearLayout; import android.widget.ScrollView;    import java.util.Locale;
+import android.inputmethodservice.InputMethodService; import android.os.Handler; import android.os.Looper; import android.graphics.Color; import android.graphics.drawable.GradientDrawable; import android.view.Gravity; import android.view.KeyEvent; import android.view.MotionEvent; import android.view.View; import android.view.ViewGroup; import android.view.inputmethod.InputConnection; import android.view.inputmethod.EditorInfo; import android.widget.Button; import android.widget.LinearLayout; import android.widget.ScrollView;  import android.widget.TextView;
+import android.graphics.Typeface;  import java.util.Locale;
 import java.util.ArrayList;
 public class SindhiKeyboardService extends InputMethodService
          {
