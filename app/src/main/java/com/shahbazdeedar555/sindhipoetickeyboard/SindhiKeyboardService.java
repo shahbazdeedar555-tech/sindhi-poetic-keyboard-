@@ -1442,14 +1442,13 @@ private void deleteOne() {
     }
 
     private void pressEnter() {
-        InputConnection ic = getCurrentInputConnection();
-        if (ic != null) {
-            ic.sendKeyEvent(new KeyEvent(
-                    KeyEvent.ACTION_DOWN, KeyEvent.KEYCODE_ENTER));
-            ic.sendKeyEvent(new KeyEvent(
-                    KeyEvent.ACTION_UP, KeyEvent.KEYCODE_ENTER));
-        }
+    InputConnection ic = getCurrentInputConnection();
+
+    if (ic != null) {
+        ic.commitText("\n", 1);
     }
+}
+
 
     private void setArrow(int id) {
         View view = keyboard.findViewById(id);
