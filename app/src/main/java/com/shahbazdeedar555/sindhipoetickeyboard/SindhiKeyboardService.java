@@ -1034,6 +1034,7 @@ private void refreshEnglishLabels() { if (englishPage != null) { refreshEnglishV
 
         addGreetingRow(content,
                 "Good Night", "Thank You");
+             addPhraseHeading(content, "🌹 ادبي داد");
 
         LinearLayout bottom = new LinearLayout(this);
         bottom.setOrientation(LinearLayout.HORIZONTAL);
