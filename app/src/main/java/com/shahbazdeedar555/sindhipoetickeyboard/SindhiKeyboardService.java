@@ -1034,7 +1034,14 @@ private void refreshEnglishLabels() { if (englishPage != null) { refreshEnglishV
 
         addGreetingRow(content,
                 "Good Night", "Thank You");
+             
              addPhraseHeading(content, "🌹 ادبي داد");
+             addPhraseButton(content, "وااااهه! وااااه! ڇا ته غزل آهي!");
+addPhraseButton(content, "تمام خوبصورت ۽ دل کي ڇهندڙ شاعري!");
+addPhraseButton(content, "واه! لفظن جي چونڊ لاجواب آهي!");
+addPhraseButton(content, "توهان جي تخليق بي مثال آهي!");
+addPhraseButton(content, "تمام گهڻي خوبصورت ڪوتا!");
+addPhraseButton(content, "قلم کي سلام، ڇا ته لکيو اٿوَ!");
 
         LinearLayout bottom = new LinearLayout(this);
         bottom.setOrientation(LinearLayout.HORIZONTAL);
