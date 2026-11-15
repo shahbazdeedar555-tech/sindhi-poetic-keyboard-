@@ -1110,6 +1110,28 @@ addPhraseButton(content, "قلم کي سلام، ڇا ته لکيو اٿوَ!");
 
     parent.addView(heading);
 }
+
+        private void addPhraseButton(
+        LinearLayout parent, String phrase) {
+
+    Button button = makeButton(phrase);
+    button.setTextSize(15);
+    button.setMinHeight(dp(48));
+
+    LinearLayout.LayoutParams params =
+            new LinearLayout.LayoutParams(
+                    ViewGroup.LayoutParams.MATCH_PARENT,
+                    ViewGroup.LayoutParams.WRAP_CONTENT);
+
+    params.setMargins(dp(3), dp(2), dp(3), dp(2));
+
+    parent.addView(button, params);
+
+    button.setOnClickListener(v -> {
+        commit(phrase);
+        commit(" ");
+    });
+}          
     // URDU PAGE 1
 
     private void createUrduPage() {
