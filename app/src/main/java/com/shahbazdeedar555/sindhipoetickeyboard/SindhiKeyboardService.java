@@ -1043,6 +1043,34 @@ addPhraseButton(content, "توهان جي تخليق بي مثال آهي!");
 addPhraseButton(content, "تمام گهڻي خوبصورت ڪوتا!");
 addPhraseButton(content, "قلم کي سلام، ڇا ته لکيو اٿوَ!");
 
+             
+             
+
+addPhraseHeading(content, "💐 شڪرگذاري جا جملا");
+
+addPhraseButton(content, "اوهان جي محبت ۽ همٿ افزائيءَ جا لک لک ٿورا!");
+addPhraseButton(content, "مهرباني سائين، اوهان جي لفظن منهنجي همت وڌائي ڇڏي.");
+addPhraseButton(content, "اوهان جي محبت منهنجي لاءِ وڏو اعزاز آهي.");
+addPhraseButton(content, "لک قرب سائين، اوهان جي نظرن جي مهرباني.");
+addPhraseButton(content, "اوهان جي حوصلا افزائيءَ لاءِ دل جي گهراين سان ٿورائتو آهيان.");
+addPhraseButton(content, "مهرباني، اوهان جهڙن ادب دوستن جي محبت ئي سرمايو آهي.");
+addPhraseButton(content, "اوهان جي داد منهنجي لاءِ ڪنهن ايوارڊ کان گهٽ ناهي.");
+addPhraseButton(content, "نوازش سائين، سدائين خوش ۽ آباد هجو.");
+addPhraseButton(content, "اوهان جي محبتن جو قرضدار رهندس.");
+addPhraseButton(content, "تمام گهڻيون مهربانيون، اوهان جي محبت سلامت رهي!");
+
+// سريها جملا
+addPhraseHeading(content, "💐 سريها جملا");
+
+addPhraseButton(content, "واااااه! پيارا!");
+addPhraseButton(content, "واااااه! سهڻا!");
+addPhraseButton(content, "دلبر سائين اوهانجون نوازشون.");
+addPhraseButton(content, "مِٺا ماڻهون لک ٿورا.");
+addPhraseButton(content, "اڻميا احسان اوهان جا محبوب سائين!");
+addPhraseButton(content, "شال! ڪارونجهر جي ڄمار ماڻيو.");
+addPhraseButton(content, "شال سدائين شاد ۽ آباد رهو!");
+
+
         LinearLayout bottom = new LinearLayout(this);
         bottom.setOrientation(LinearLayout.HORIZONTAL);
 
