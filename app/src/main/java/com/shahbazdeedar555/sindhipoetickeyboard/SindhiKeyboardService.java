@@ -1071,6 +1071,26 @@ addPhraseButton(content, "شال! ڪارونجهر جي ڄمار ماڻيو.");
 addPhraseButton(content, "شال سدائين شاد ۽ آباد رهو!");
 
 
+// 🎉 مبارڪون ۽ نيڪ تمنائون
+addPhraseHeading(content, "🎉 مبارڪون ۽ نيڪ تمنائون");
+
+addPhraseButton(content, "خوبصورت تصوير پيارا!");
+
+addPhraseButton(content, "جنم ڏينهن مبارڪ پيارا! جُڳ جُڳ جيئو");
+
+addPhraseButton(content, "کوڙ ساريون مبارڪون پيارا!");
+
+addPhraseButton(content, "عيد مبارڪون پيارا!");
+
+addPhraseButton(content, "سڀني دوستن کي رمضان جو بابرڪت مهينو مبارڪ");
+
+addPhraseButton(content, "عيد جو چنڊ مبارڪ!");
+
+addPhraseButton(content, "شادي مبارڪ پيارا!");
+
+addPhraseButton(content,
+        "جنم ڏينهَن تي مُبارڪ يار منهنجا،\nسدائين خوش رهين دلدار منهنجا.");
+
         LinearLayout bottom = new LinearLayout(this);
         bottom.setOrientation(LinearLayout.HORIZONTAL);
 
