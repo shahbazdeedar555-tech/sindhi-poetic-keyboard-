@@ -1028,7 +1028,7 @@ private void refreshEnglishLabels() { if (englishPage != null) { refreshEnglishV
         LinearLayout content = new LinearLayout(this);
         content.setOrientation(LinearLayout.VERTICAL);
         scrollView.addView(content);
-         customPhraseContainer = content;
+         
 
         addEmojiRow(content, "❤️", "😍", "🥰", "😊", "😂", "🙏");
         addEmojiRow(content, "🌹", "🌷", "💐", "🌺", "🌸", "🌻");
