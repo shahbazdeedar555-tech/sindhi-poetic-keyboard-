@@ -25,6 +25,7 @@ private PersonalDictionary personalDictionary;
 // Custom Literary Phrases
 private android.content.SharedPreferences phrasePreferences;
 private LinearLayout customPhraseContainer;
+  private LinearLayout customPhraseSection;        
     private boolean shiftOn = false;
     private boolean englishShift = false;
     private boolean urduSecondPage = false;
@@ -1118,11 +1119,201 @@ addPhraseButton(content, "شادي مبارڪ پيارا!");
 addPhraseButton(content,
         "جنم ڏينهَن تي مُبارڪ يار منهنجا،\nسدائين خوش رهين دلدار منهنجا.");
 
-             // Load previously saved custom phrases
-loadCustomPhrases();
+        
+// ADD NEW LITERARY PHRASE BUTTON
+private void createAddPhraseButton() {
 
-// Add button for new literary phrases
-createAddPhraseButton();
+    Button addButton = makeButton("➕ نئون ادبي جملو شامل ڪريو");
+    addButton.setTextSize(16);
+    addButton.setMinHeight(dp(50));
+
+    customPhraseSection.addView(addButton);
+
+    addButton.setOnClickListener(v -> showAddPhraseDialog());
+}
+
+
+// SHOW ADD PHRASE DIALOG
+private void showAddPhraseDialog() {
+
+    EditText input = new EditText(this);
+    input.setHint("پنهنجو نئون ادبي جملو لکو");
+    input.setTextSize(17);
+    input.setMinLines(2);
+    input.setGravity(Gravity.TOP);
+
+    new AlertDialog.Builder(this)
+            .setTitle("🌹 نئون ادبي جملو")
+            .setView(input)
+            .setPositiveButton("Save", (dialog, which) -> {
+
+                String phrase = input.getText().toString().trim();
+
+                if (!phrase.isEmpty()) {
+                    saveCustomPhrase(phrase);
+                }
+            })
+            .setNegativeButton("Cancel", null)
+            .show();
+}
+
+
+// SAVE CUSTOM PHRASE
+private void saveCustomPhrase(String phrase) {
+
+    if (phrasePreferences == null) {
+        phrasePreferences = getSharedPreferences(
+                "literary_phrases", MODE_PRIVATE);
+    }
+
+    String saved = phrasePreferences.getString(
+            "custom_phrases", "[]");
+
+    try {
+        JSONArray array = new JSONArray(saved);
+
+        // Prevent duplicate phrases
+        for (int i = 0; i < array.length(); i++) {
+
+            if (phrase.equals(array.getString(i))) {
+
+                new AlertDialog.Builder(this)
+                        .setMessage("هي جملو اڳ ۾ محفوظ ٿيل آهي.")
+                        .setPositiveButton("OK", null)
+                        .show();
+
+                return;
+            }
+        }
+
+        array.put(phrase);
+
+        phrasePreferences.edit()
+                .putString("custom_phrases", array.toString())
+                .apply();
+
+        addCustomPhraseButton(phrase);
+
+    } catch (Exception e) {
+        e.printStackTrace();
+    }
+}
+
+
+// DISPLAY CUSTOM PHRASE WITH DELETE BUTTON
+private void addCustomPhraseButton(String phrase) {
+
+    LinearLayout row = new LinearLayout(this);
+    row.setOrientation(LinearLayout.HORIZONTAL);
+    row.setGravity(Gravity.CENTER_VERTICAL);
+
+    LinearLayout.LayoutParams rowParams =
+            new LinearLayout.LayoutParams(
+                    ViewGroup.LayoutParams.MATCH_PARENT,
+                    ViewGroup.LayoutParams.WRAP_CONTENT);
+
+    rowParams.setMargins(dp(3), dp(2), dp(3), dp(2));
+
+    customPhraseContainer.addView(row, rowParams);
+
+    // Phrase button
+    Button phraseButton = makeButton(phrase);
+    phraseButton.setTextSize(15);
+    phraseButton.setMinHeight(dp(48));
+
+    row.addView(phraseButton,
+            new LinearLayout.LayoutParams(0,
+                    ViewGroup.LayoutParams.WRAP_CONTENT, 1));
+
+    phraseButton.setOnClickListener(v -> {
+        commit(phrase);
+        commit(" ");
+    });
+
+    // Delete button
+    Button deleteButton = makeButton("🗑️");
+    deleteButton.setTextSize(19);
+
+    row.addView(deleteButton,
+            new LinearLayout.LayoutParams(
+                    dp(52), dp(48)));
+
+    deleteButton.setOnClickListener(v ->
+            confirmDeletePhrase(phrase));
+}
+
+
+// CONFIRM BEFORE DELETING
+private void confirmDeletePhrase(String phrase) {
+
+    new AlertDialog.Builder(this)
+            .setTitle("🗑️ جملو ختم ڪريو؟")
+            .setMessage(
+                    "ڇا توهان واقعي هي محفوظ ڪيل جملو ختم ڪرڻ چاهيو ٿا؟\n\n"
+                            + phrase)
+            .setPositiveButton("Delete", (dialog, which) -> {
+                deleteCustomPhrase(phrase);
+            })
+            .setNegativeButton("Cancel", null)
+            .show();
+}
+
+
+// DELETE CUSTOM PHRASE
+private void deleteCustomPhrase(String phrase) {
+
+    String saved = phrasePreferences.getString(
+            "custom_phrases", "[]");
+
+    try {
+
+        JSONArray oldArray = new JSONArray(saved);
+        JSONArray newArray = new JSONArray();
+
+        for (int i = 0; i < oldArray.length(); i++) {
+
+            String existing = oldArray.getString(i);
+
+            if (!existing.equals(phrase)) {
+                newArray.put(existing);
+            }
+        }
+
+        phrasePreferences.edit()
+                .putString("custom_phrases", newArray.toString())
+                .apply();
+
+        // Refresh only custom phrases
+        customPhraseContainer.removeAllViews();
+
+        loadCustomPhrases();
+
+    } catch (Exception e) {
+        e.printStackTrace();
+    }
+}
+
+
+// LOAD SAVED CUSTOM PHRASES
+private void loadCustomPhrases() {
+
+    String saved = phrasePreferences.getString(
+            "custom_phrases", "[]");
+
+    try {
+
+        JSONArray array = new JSONArray(saved);
+
+        for (int i = 0; i < array.length(); i++) {
+
+            addCustomPhraseButton(array.getString(i));
+        }
+
+    } catch (Exception e) {
+        e.printStackTrace();
+    }
+}
+
         LinearLayout bottom = new LinearLayout(this);
         bottom.setOrientation(LinearLayout.HORIZONTAL);
 
