@@ -358,30 +358,27 @@ public class SindhiKeyboardService extends InputMethodService {
                 .setOnClickListener(v -> commit("\n"));
     }
 
-    private void setupNumbers() {
-
-        // Number keys are added in the next section.
-    }
-
     
-    private void setupNumbers() {
+private void setupNumbers() {
 
-        LinearLayout row = createRow(page1);
+    LinearLayout row = createRow(page1);
 
-        String[] numbers = {
-                "۱", "۲", "۳", "۴", "۵",
-                "۶", "۷", "۸", "۹", "۰"
-        };
+    String[] numbers = {
+            "۱", "۲", "۳", "۴", "۵",
+            "۶", "۷", "۸", "۹", "۰"
+    };
 
-        for (String number : numbers) {
+    for (String number : numbers) {
 
-            Button button = createButton(
-                    number, row, green, white);
+        Button button = createButton(
+                number, row, green, white);
 
-            button.setOnClickListener(v ->
-                    commit(number));
-        }
+        button.setOnClickListener(v ->
+                commit(number));
     }
+}
+    
+    
 
     private void createLanguageButton() {
 
