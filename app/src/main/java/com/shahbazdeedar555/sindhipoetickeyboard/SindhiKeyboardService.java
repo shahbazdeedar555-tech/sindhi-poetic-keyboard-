@@ -1,3 +1,5 @@
+
+
 package com.shahbaz555.sindhipoetickeyboard;
 
 import android.inputmethodservice.InputMethodService;
@@ -8,7 +10,6 @@ import android.graphics.Typeface;
 import android.graphics.drawable.GradientDrawable;
 import android.view.Gravity;
 import android.view.KeyEvent;
-import android.view.MotionEvent;
 import android.view.View;
 import android.view.ViewGroup;
 import android.view.inputmethod.InputConnection;
@@ -29,30 +30,20 @@ import java.util.Locale;
 public class SindhiKeyboardService extends InputMethodService {
 
     private View keyboard;
+
     private LinearLayout page1, page2, root;
     private LinearLayout englishPage, englishSymbolsPage;
     private LinearLayout urduPage, urduPage2, emojiPage;
-    private LinearLayout suggestionBar;
+
     private LinearLayout customPhraseContainer;
-    private LinearLayout customPhraseSection;
 
-    private TextView currentCheckedWord;
-    private Button languageButton;
-
-    private PersonalDictionary personalDictionary;
     private SharedPreferences phrasePreferences;
 
-    private boolean shiftOn = false;
     private boolean englishShift = false;
     private boolean urduSecondPage = false;
 
-    private final Handler handler = new Handler(Looper.getMainLooper());
-
-    private Runnable deleteRunnable;
-    private Runnable languageDeleteRunnable;
-
-    private boolean deleteHolding = false;
-    private boolean languageDeleteHolding = false;
+    private final Handler handler =
+            new Handler(Looper.getMainLooper());
 
     private final int GREEN = Color.rgb(23, 63, 53);
     private final int BLACK = Color.BLACK;
@@ -61,15 +52,12 @@ public class SindhiKeyboardService extends InputMethodService {
     private final ArrayList<String> defaultLiteraryPhrases =
             new ArrayList<>();
 
+    // =================================================
+    // CREATE KEYBOARD
+    // =================================================
+
     @Override
     public View onCreateInputView() {
-
-        if (personalDictionary == null) {
-            personalDictionary = new PersonalDictionary(this);
-        }
-
-        phrasePreferences = getSharedPreferences(
-                "literary_phrases", MODE_PRIVATE);
 
         keyboard = getLayoutInflater().inflate(
                 R.layout.keyboard_view, null);
@@ -78,23 +66,32 @@ public class SindhiKeyboardService extends InputMethodService {
         page1 = keyboard.findViewById(R.id.keyboard_page1);
         page2 = keyboard.findViewById(R.id.keyboard_page2);
 
+        phrasePreferences = getSharedPreferences(
+                "literary_phrases", MODE_PRIVATE);
+
         setupPage1();
         setupPage2();
+
         setupNumbers();
 
-        createLanguageButton();
         createEnglishPage();
         createEnglishSymbolsPage();
+
         createUrduPage();
         createUrduPage2();
+
         createEmojiPage();
 
-        showPage1();
+        attachExtraPages();
+
+        showSindhiPage1();
 
         return keyboard;
     }
 
-    // ---------------- PAGE 1 ----------------
+    // =================================================
+    // SINDHI PAGE 1
+    // =================================================
 
     private void setupPage1() {
 
@@ -121,7 +118,9 @@ public class SindhiKeyboardService extends InputMethodService {
         addBottomRow(page1);
     }
 
-    // ---------------- PAGE 2 ----------------
+    // =================================================
+    // SINDHI PAGE 2
+    // =================================================
 
     private void setupPage2() {
 
@@ -145,15 +144,13 @@ public class SindhiKeyboardService extends InputMethodService {
         addBottomRow(page2);
     }
 
-    // ---------------- NUMBER ROW ----------------
-
     private void setupNumbers() {
-
-        // Number keys are shown through the bottom controls.
-        // The number page can be expanded later if needed.
+        // Reserved for future number page.
     }
 
-    // ---------------- KEY ROW ----------------
+    // =================================================
+    // KEY ROW
+    // =================================================
 
     private void addKeyRow(
             LinearLayout parent,
@@ -163,9 +160,11 @@ public class SindhiKeyboardService extends InputMethodService {
 
         row.setOrientation(LinearLayout.HORIZONTAL);
         row.setGravity(Gravity.CENTER);
-        row.setLayoutParams(new LinearLayout.LayoutParams(
-                ViewGroup.LayoutParams.MATCH_PARENT,
-                dp(48)));
+
+        row.setLayoutParams(
+                new LinearLayout.LayoutParams(
+                        ViewGroup.LayoutParams.MATCH_PARENT,
+                        dp(48)));
 
         for (String key : keys) {
 
@@ -173,11 +172,10 @@ public class SindhiKeyboardService extends InputMethodService {
 
             LinearLayout.LayoutParams params =
                     new LinearLayout.LayoutParams(
-                            0,
-                            dp(43),
-                            1f);
+                            0, dp(43), 1f);
 
-            params.setMargins(dp(2), dp(2), dp(2), dp(2));
+            params.setMargins(
+                    dp(2), dp(2), dp(2), dp(2));
 
             row.addView(button, params);
         }
@@ -185,7 +183,9 @@ public class SindhiKeyboardService extends InputMethodService {
         parent.addView(row);
     }
 
-    // ---------------- KEY BUTTON ----------------
+    // =================================================
+    // KEY BUTTON
+    // =================================================
 
     private Button createKeyButton(String text) {
 
@@ -198,27 +198,23 @@ public class SindhiKeyboardService extends InputMethodService {
         button.setTypeface(Typeface.DEFAULT_BOLD);
         button.setPadding(0, 0, 0, 0);
 
-        GradientDrawable background = new GradientDrawable();
+        GradientDrawable background =
+                new GradientDrawable();
+
         background.setColor(WHITE);
         background.setCornerRadius(dp(6));
         background.setStroke(dp(1), Color.LTGRAY);
 
         button.setBackground(background);
 
-        button.setOnClickListener(v -> {
-
-            InputConnection connection =
-                    getCurrentInputConnection();
-
-            if (connection != null) {
-                connection.commitText(text, 1);
-            }
-        });
+        button.setOnClickListener(v -> commitText(text));
 
         return button;
     }
 
-    // ---------------- BOTTOM ROW ----------------
+    // =================================================
+    // BOTTOM ROW
+    // =================================================
 
     private void addBottomRow(LinearLayout parent) {
 
@@ -227,16 +223,28 @@ public class SindhiKeyboardService extends InputMethodService {
         row.setOrientation(LinearLayout.HORIZONTAL);
         row.setGravity(Gravity.CENTER);
 
-        row.setLayoutParams(new LinearLayout.LayoutParams(
-                ViewGroup.LayoutParams.MATCH_PARENT,
-                dp(50)));
+        row.setLayoutParams(
+                new LinearLayout.LayoutParams(
+                        ViewGroup.LayoutParams.MATCH_PARENT,
+                        dp(50)));
 
-        addBottomButton(row, "?123", v -> showPage2());
-        addBottomButton(row, "🌐", v -> showLanguageMenu());
-        addBottomButton(row, "،", v -> commitText("،"));
-        addBottomButton(row, "Space", v -> commitText(" "));
-        addBottomButton(row, "Enter", v -> pressEnter());
-        addBottomButton(row, "⌫", v -> deleteOne());
+        addBottomButton(row, "?123",
+                v -> showSindhiPage2());
+
+        addBottomButton(row, "🌐",
+                v -> showLanguageMenu());
+
+        addBottomButton(row, "،",
+                v -> commitText("،"));
+
+        addBottomButton(row, "Space",
+                v -> commitText(" "));
+
+        addBottomButton(row, "Enter",
+                v -> pressEnter());
+
+        addBottomButton(row, "⌫",
+                v -> deleteOne());
 
         parent.addView(row);
     }
@@ -258,16 +266,17 @@ public class SindhiKeyboardService extends InputMethodService {
 
         LinearLayout.LayoutParams params =
                 new LinearLayout.LayoutParams(
-                        0,
-                        dp(44),
-                        1f);
+                        0, dp(44), 1f);
 
-        params.setMargins(dp(2), dp(2), dp(2), dp(2));
+        params.setMargins(
+                dp(2), dp(2), dp(2), dp(2));
 
         row.addView(button, params);
     }
 
-    // ---------------- INPUT HELPERS ----------------
+    // =================================================
+    // INPUT HELPERS
+    // =================================================
 
     private void commitText(String text) {
 
@@ -295,47 +304,33 @@ public class SindhiKeyboardService extends InputMethodService {
                 getCurrentInputConnection();
 
         if (connection != null) {
-            connection.sendKeyEvent(new KeyEvent(
-                    KeyEvent.ACTION_DOWN,
-                    KeyEvent.KEYCODE_ENTER));
 
-            connection.sendKeyEvent(new KeyEvent(
-                    KeyEvent.ACTION_UP,
-                    KeyEvent.KEYCODE_ENTER));
+            connection.sendKeyEvent(
+                    new KeyEvent(
+                            KeyEvent.ACTION_DOWN,
+                            KeyEvent.KEYCODE_ENTER));
+
+            connection.sendKeyEvent(
+                    new KeyEvent(
+                            KeyEvent.ACTION_UP,
+                            KeyEvent.KEYCODE_ENTER));
         }
     }
 
-    // ---------------- PAGE SWITCHING ----------------
-
-    private void showPage1() {
-
-        page1.setVisibility(View.VISIBLE);
-        page2.setVisibility(View.GONE);
-    }
-
-    private void showPage2() {
-
-        page1.setVisibility(View.GONE);
-        page2.setVisibility(View.VISIBLE);
-    }
+    // =================================================
+    // DP
+    // =================================================
 
     private int dp(float value) {
 
-        return (int) (value *
+        return (int) (
+                value *
                 getResources().getDisplayMetrics().density);
     }
 
-    // ---------------- LANGUAGE BUTTON ----------------
-
-    private void createLanguageButton() {
-
-        languageButton = new Button(this);
-        languageButton.setText("🌐");
-        languageButton.setAllCaps(false);
-        languageButton.setTextSize(18);
-        languageButton.setBackgroundColor(GREEN);
-        languageButton.setTextColor(WHITE);
-    }
+    // =================================================
+    // LANGUAGE MENU
+    // =================================================
 
     private void showLanguageMenu() {
 
@@ -353,7 +348,7 @@ public class SindhiKeyboardService extends InputMethodService {
                     switch (which) {
 
                         case 0:
-                            showPage1();
+                            showSindhiPage1();
                             break;
 
                         case 1:
@@ -372,13 +367,23 @@ public class SindhiKeyboardService extends InputMethodService {
                 .show();
     }
 
-    
-    // ---------------- ENGLISH KEYBOARD ----------------
+    // =================================================
+    // ENGLISH KEYBOARD
+    // =================================================
 
     private void createEnglishPage() {
 
         englishPage = new LinearLayout(this);
-        englishPage.setOrientation(LinearLayout.VERTICAL);
+
+        englishPage.setOrientation(
+                LinearLayout.VERTICAL);
+
+        rebuildEnglishPage();
+    }
+
+    private void rebuildEnglishPage() {
+
+        englishPage.removeAllViews();
 
         addEnglishRow("qwertyuiop");
         addEnglishRow("asdfghjkl");
@@ -390,21 +395,28 @@ public class SindhiKeyboardService extends InputMethodService {
     private void addEnglishRow(String letters) {
 
         LinearLayout row = new LinearLayout(this);
-        row.setOrientation(LinearLayout.HORIZONTAL);
+
+        row.setOrientation(
+                LinearLayout.HORIZONTAL);
+
         row.setGravity(Gravity.CENTER);
 
         for (char letter : letters.toCharArray()) {
 
             String key = String.valueOf(letter);
 
-            Button button = createKeyButton(
-                    englishShift ? key.toUpperCase(Locale.ROOT) : key);
+            String displayKey = englishShift
+                    ? key.toUpperCase(Locale.ROOT)
+                    : key;
+
+            Button button = createKeyButton(displayKey);
 
             LinearLayout.LayoutParams params =
                     new LinearLayout.LayoutParams(
                             0, dp(43), 1f);
 
-            params.setMargins(dp(2), dp(2), dp(2), dp(2));
+            params.setMargins(
+                    dp(2), dp(2), dp(2), dp(2));
 
             row.addView(button, params);
         }
@@ -415,30 +427,49 @@ public class SindhiKeyboardService extends InputMethodService {
     private void addEnglishBottomRow() {
 
         LinearLayout row = new LinearLayout(this);
-        row.setOrientation(LinearLayout.HORIZONTAL);
+
+        row.setOrientation(
+                LinearLayout.HORIZONTAL);
+
         row.setGravity(Gravity.CENTER);
 
         addBottomButton(row, "⇧", v -> {
+
             englishShift = !englishShift;
-            createEnglishPage();
+
+            rebuildEnglishPage();
+
             showEnglishPage();
         });
 
-        addBottomButton(row, "?123", v -> showEnglishSymbolsPage());
-        addBottomButton(row, "🌐", v -> showLanguageMenu());
-        addBottomButton(row, "Space", v -> commitText(" "));
-        addBottomButton(row, "⌫", v -> deleteOne());
-        addBottomButton(row, "↵", v -> pressEnter());
+        addBottomButton(row, "?123",
+                v -> showEnglishSymbolsPage());
+
+        addBottomButton(row, "🌐",
+                v -> showLanguageMenu());
+
+        addBottomButton(row, "Space",
+                v -> commitText(" "));
+
+        addBottomButton(row, "⌫",
+                v -> deleteOne());
+
+        addBottomButton(row, "↵",
+                v -> pressEnter());
 
         englishPage.addView(row);
     }
 
-    // ---------------- ENGLISH SYMBOLS ----------------
+    // =================================================
+    // ENGLISH SYMBOLS
+    // =================================================
 
     private void createEnglishSymbolsPage() {
 
         englishSymbolsPage = new LinearLayout(this);
-        englishSymbolsPage.setOrientation(LinearLayout.VERTICAL);
+
+        englishSymbolsPage.setOrientation(
+                LinearLayout.VERTICAL);
 
         addKeyRow(englishSymbolsPage,
                 new String[]{"1","2","3","4","5","6","7","8","9","0"});
@@ -450,23 +481,38 @@ public class SindhiKeyboardService extends InputMethodService {
                 new String[]{"*","\"","'",":",";","!","?","/"});
 
         LinearLayout row = new LinearLayout(this);
-        row.setOrientation(LinearLayout.HORIZONTAL);
 
-        addBottomButton(row, "ABC", v -> showEnglishPage());
-        addBottomButton(row, "🌐", v -> showLanguageMenu());
-        addBottomButton(row, "Space", v -> commitText(" "));
-        addBottomButton(row, "⌫", v -> deleteOne());
-        addBottomButton(row, "↵", v -> pressEnter());
+        row.setOrientation(
+                LinearLayout.HORIZONTAL);
+
+        addBottomButton(row, "ABC",
+                v -> showEnglishPage());
+
+        addBottomButton(row, "🌐",
+                v -> showLanguageMenu());
+
+        addBottomButton(row, "Space",
+                v -> commitText(" "));
+
+        addBottomButton(row, "⌫",
+                v -> deleteOne());
+
+        addBottomButton(row, "↵",
+                v -> pressEnter());
 
         englishSymbolsPage.addView(row);
     }
 
-    // ---------------- URDU KEYBOARD ----------------
+    // =================================================
+    // URDU PAGE 1
+    // =================================================
 
     private void createUrduPage() {
 
         urduPage = new LinearLayout(this);
-        urduPage.setOrientation(LinearLayout.VERTICAL);
+
+        urduPage.setOrientation(
+                LinearLayout.VERTICAL);
 
         addKeyRow(urduPage,
                 new String[]{"ق","و","ع","ر","ت","ے","ء","ی","ہ","پ"});
@@ -480,10 +526,16 @@ public class SindhiKeyboardService extends InputMethodService {
         addUrduBottomRow(urduPage);
     }
 
+    // =================================================
+    // URDU PAGE 2
+    // =================================================
+
     private void createUrduPage2() {
 
         urduPage2 = new LinearLayout(this);
-        urduPage2.setOrientation(LinearLayout.VERTICAL);
+
+        urduPage2.setOrientation(
+                LinearLayout.VERTICAL);
 
         addKeyRow(urduPage2,
                 new String[]{"آ","أ","إ","ؤ","ئ","ء","ة","ۃ"});
@@ -500,29 +552,56 @@ public class SindhiKeyboardService extends InputMethodService {
     private void addUrduBottomRow(LinearLayout parent) {
 
         LinearLayout row = new LinearLayout(this);
-        row.setOrientation(LinearLayout.HORIZONTAL);
 
-        addBottomButton(row, "صفحہ 2", v -> showUrduPage2());
-        addBottomButton(row, "🌐", v -> showLanguageMenu());
-        addBottomButton(row, "Space", v -> commitText(" "));
-        addBottomButton(row, "⌫", v -> deleteOne());
-        addBottomButton(row, "↵", v -> pressEnter());
+        row.setOrientation(
+                LinearLayout.HORIZONTAL);
+
+        addBottomButton(row,
+                parent == urduPage ? "صفحہ 2" : "صفحہ 1",
+                v -> {
+
+                    if (parent == urduPage) {
+                        showUrduPage2();
+                    } else {
+                        showUrduPage();
+                    }
+                });
+
+        addBottomButton(row, "🌐",
+                v -> showLanguageMenu());
+
+        addBottomButton(row, "Space",
+                v -> commitText(" "));
+
+        addBottomButton(row, "⌫",
+                v -> deleteOne());
+
+        addBottomButton(row, "↵",
+                v -> pressEnter());
 
         parent.addView(row);
     }
 
-    // ---------------- EMOJI PAGE ----------------
+    // =================================================
+    // EMOJI PAGE
+    // =================================================
 
     private void createEmojiPage() {
 
         emojiPage = new LinearLayout(this);
-        emojiPage.setOrientation(LinearLayout.VERTICAL);
+
+        emojiPage.setOrientation(
+                LinearLayout.VERTICAL);
 
         ScrollView scrollView = new ScrollView(this);
 
         LinearLayout content = new LinearLayout(this);
-        content.setOrientation(LinearLayout.VERTICAL);
-        content.setPadding(dp(5), dp(5), dp(5), dp(5));
+
+        content.setOrientation(
+                LinearLayout.VERTICAL);
+
+        content.setPadding(
+                dp(5), dp(5), dp(5), dp(5));
 
         scrollView.addView(content);
 
@@ -539,14 +618,12 @@ public class SindhiKeyboardService extends InputMethodService {
 
         addPhraseHeading(content, "🌹 ادبي داد");
 
-        customPhraseSection = new LinearLayout(this);
-        customPhraseSection.setOrientation(LinearLayout.VERTICAL);
-
         customPhraseContainer = new LinearLayout(this);
-        customPhraseContainer.setOrientation(LinearLayout.VERTICAL);
 
-        customPhraseSection.addView(customPhraseContainer);
-        content.addView(customPhraseSection);
+        customPhraseContainer.setOrientation(
+                LinearLayout.VERTICAL);
+
+        content.addView(customPhraseContainer);
 
         addPhraseHeading(content, "سلام جا جملا");
 
@@ -555,28 +632,35 @@ public class SindhiKeyboardService extends InputMethodService {
         emojiPage.addView(scrollView);
 
         loadDefaultLiteraryPhrases();
+
         loadCustomPhrases();
     }
 
-    // ---------------- EMOJI ROW ----------------
+    // =================================================
+    // EMOJI ROW
+    // =================================================
 
     private void addEmojiRow(
             LinearLayout parent,
             String[] emojis) {
 
         LinearLayout row = new LinearLayout(this);
-        row.setOrientation(LinearLayout.HORIZONTAL);
+
+        row.setOrientation(
+                LinearLayout.HORIZONTAL);
 
         for (String emoji : emojis) {
 
             Button button = createKeyButton(emoji);
+
             button.setTextSize(23);
 
             LinearLayout.LayoutParams params =
                     new LinearLayout.LayoutParams(
                             0, dp(45), 1f);
 
-            params.setMargins(dp(2), dp(2), dp(2), dp(2));
+            params.setMargins(
+                    dp(2), dp(2), dp(2), dp(2));
 
             row.addView(button, params);
         }
@@ -584,7 +668,9 @@ public class SindhiKeyboardService extends InputMethodService {
         parent.addView(row);
     }
 
-    // ---------------- PHRASE HEADING ----------------
+    // =================================================
+    // PHRASE HEADING
+    // =================================================
 
     private void addPhraseHeading(
             LinearLayout parent,
@@ -595,23 +681,34 @@ public class SindhiKeyboardService extends InputMethodService {
         title.setText(heading);
         title.setTextSize(19);
         title.setTextColor(GREEN);
-        title.setTypeface(null, Typeface.BOLD);
+
+        title.setTypeface(
+                null, Typeface.BOLD);
+
         title.setGravity(Gravity.CENTER);
-        title.setPadding(dp(5), dp(10), dp(5), dp(10));
+
+        title.setPadding(
+                dp(5), dp(10), dp(5), dp(10));
 
         parent.addView(title);
     }
 
-    // ---------------- GREETING PHRASES ----------------
+    // =================================================
+    // GREETING PHRASES
+    // =================================================
 
     private void addGreetingRow(LinearLayout parent) {
 
         addPhraseButton(parent, "اسلام عليڪم");
+
         addPhraseButton(parent, "وعليڪم السلام");
+
         addPhraseButton(parent, "يا علي مدد");
     }
 
-    // ---------------- LITERARY PHRASES ----------------
+    // =================================================
+    // DEFAULT LITERARY PHRASES
+    // =================================================
 
     private void loadDefaultLiteraryPhrases() {
 
@@ -639,7 +736,9 @@ public class SindhiKeyboardService extends InputMethodService {
                 "تمام بهترين تخليق!");
     }
 
-    // ---------------- PHRASE BUTTON ----------------
+    // =================================================
+    // PHRASE BUTTON
+    // =================================================
 
     private void addPhraseButton(
             LinearLayout parent,
@@ -653,33 +752,46 @@ public class SindhiKeyboardService extends InputMethodService {
         button.setAllCaps(false);
         button.setBackgroundColor(GREEN);
 
-        button.setOnClickListener(v -> commitText(phrase + " "));
+        button.setOnClickListener(
+                v -> commitText(phrase + " "));
 
         LinearLayout.LayoutParams params =
                 new LinearLayout.LayoutParams(
                         ViewGroup.LayoutParams.MATCH_PARENT,
                         ViewGroup.LayoutParams.WRAP_CONTENT);
 
-        params.setMargins(dp(3), dp(3), dp(3), dp(3));
+        params.setMargins(
+                dp(3), dp(3), dp(3), dp(3));
 
         parent.addView(button, params);
     }
 
-    // ---------------- CUSTOM PHRASES ----------------
+    // =================================================
+    // ADD NEW PHRASE BUTTON
+    // =================================================
 
     private void createAddPhraseButton() {
 
         Button addButton = new Button(this);
 
-        addButton.setText("➕ نئون ادبي جملو شامل ڪريو");
+        addButton.setText(
+                "➕ نئون ادبي جملو شامل ڪريو");
+
         addButton.setTextColor(WHITE);
+
         addButton.setAllCaps(false);
+
         addButton.setBackgroundColor(GREEN);
 
-        addButton.setOnClickListener(v -> showAddPhraseDialog());
+        addButton.setOnClickListener(
+                v -> showAddPhraseDialog());
 
         customPhraseContainer.addView(addButton);
     }
+
+    // =================================================
+    // ADD PHRASE DIALOG
+    // =================================================
 
     private void showAddPhraseDialog() {
 
@@ -687,23 +799,35 @@ public class SindhiKeyboardService extends InputMethodService {
 
         input.setHint("پنهنجو ادبي جملو لکو");
 
+        input.setTextSize(18);
+
         new AlertDialog.Builder(this)
+
                 .setTitle("نئون ادبي جملو")
+
                 .setView(input)
+
                 .setPositiveButton("Save", (dialog, which) -> {
 
-                    String phrase = input.getText().toString().trim();
+                    String phrase = input.getText()
+                            .toString().trim();
 
                     if (!phrase.isEmpty()) {
+
                         saveCustomPhrase(phrase);
+
                         loadCustomPhrases();
                     }
                 })
+
                 .setNegativeButton("Cancel", null)
+
                 .show();
     }
 
-    // ---------------- SAVE CUSTOM PHRASE ----------------
+    // =================================================
+    // SAVE CUSTOM PHRASE
+    // =================================================
 
     private void saveCustomPhrase(String phrase) {
 
@@ -716,15 +840,22 @@ public class SindhiKeyboardService extends InputMethodService {
             phrases.put(phrase);
 
             phrasePreferences.edit()
-                    .putString("custom_phrases", phrases.toString())
+
+                    .putString(
+                            "custom_phrases",
+                            phrases.toString())
+
                     .apply();
 
         } catch (Exception e) {
+
             e.printStackTrace();
         }
     }
 
-    // ---------------- LOAD CUSTOM PHRASES ----------------
+    // =================================================
+    // LOAD CUSTOM PHRASES
+    // =================================================
 
     private void loadCustomPhrases() {
 
@@ -734,9 +865,15 @@ public class SindhiKeyboardService extends InputMethodService {
 
         customPhraseContainer.removeAllViews();
 
+        // Default phrases
+
         for (String phrase : defaultLiteraryPhrases) {
-            addPhraseButton(customPhraseContainer, phrase);
+
+            addPhraseButton(
+                    customPhraseContainer, phrase);
         }
+
+        // User-added phrases
 
         try {
 
@@ -753,28 +890,39 @@ public class SindhiKeyboardService extends InputMethodService {
             }
 
         } catch (Exception e) {
+
             e.printStackTrace();
         }
 
         createAddPhraseButton();
     }
 
-    // ---------------- CUSTOM PHRASE BUTTON ----------------
+    // =================================================
+    // CUSTOM PHRASE BUTTON
+    // =================================================
 
     private void addCustomPhraseButton(
             LinearLayout parent,
             String phrase) {
 
         LinearLayout row = new LinearLayout(this);
-        row.setOrientation(LinearLayout.HORIZONTAL);
-        row.setGravity(Gravity.CENTER_VERTICAL);
+
+        row.setOrientation(
+                LinearLayout.HORIZONTAL);
+
+        row.setGravity(
+                Gravity.CENTER_VERTICAL);
 
         Button phraseButton = new Button(this);
 
         phraseButton.setText(phrase);
+
         phraseButton.setTextSize(15);
+
         phraseButton.setTextColor(WHITE);
+
         phraseButton.setAllCaps(false);
+
         phraseButton.setBackgroundColor(GREEN);
 
         phraseButton.setOnClickListener(
@@ -783,17 +931,21 @@ public class SindhiKeyboardService extends InputMethodService {
         Button deleteButton = new Button(this);
 
         deleteButton.setText("✖");
+
         deleteButton.setTextColor(WHITE);
+
         deleteButton.setBackgroundColor(Color.RED);
 
         deleteButton.setOnClickListener(
                 v -> confirmDeletePhrase(phrase));
 
-        row.addView(phraseButton,
+        row.addView(
+                phraseButton,
                 new LinearLayout.LayoutParams(
                         0, dp(48), 1f));
 
-        row.addView(deleteButton,
+        row.addView(
+                deleteButton,
                 new LinearLayout.LayoutParams(
                         dp(55), dp(48)));
 
@@ -802,26 +954,39 @@ public class SindhiKeyboardService extends InputMethodService {
                         ViewGroup.LayoutParams.MATCH_PARENT,
                         ViewGroup.LayoutParams.WRAP_CONTENT);
 
-        params.setMargins(dp(3), dp(3), dp(3), dp(3));
+        params.setMargins(
+                dp(3), dp(3), dp(3), dp(3));
 
         parent.addView(row, params);
     }
 
-    // ---------------- DELETE PHRASE ----------------
+    // =================================================
+    // CONFIRM DELETE
+    // =================================================
 
     private void confirmDeletePhrase(String phrase) {
 
         new AlertDialog.Builder(this)
+
                 .setTitle("جملو ختم ڪريو؟")
+
                 .setMessage(phrase)
+
                 .setPositiveButton("Delete", (dialog, which) -> {
 
                     deleteCustomPhrase(phrase);
+
                     loadCustomPhrases();
                 })
+
                 .setNegativeButton("Cancel", null)
+
                 .show();
     }
+
+    // =================================================
+    // DELETE CUSTOM PHRASE
+    // =================================================
 
     private void deleteCustomPhrase(String phrase) {
 
@@ -833,37 +998,45 @@ public class SindhiKeyboardService extends InputMethodService {
 
             JSONArray newPhrases = new JSONArray();
 
+            boolean deleted = false;
+
             for (int i = 0; i < oldPhrases.length(); i++) {
 
                 String item = oldPhrases.getString(i);
 
-                if (!item.equals(phrase)) {
+                if (!deleted && item.equals(phrase)) {
+
+                    deleted = true;
+
+                } else {
+
                     newPhrases.put(item);
                 }
             }
 
             phrasePreferences.edit()
-                    .putString("custom_phrases", newPhrases.toString())
+
+                    .putString(
+                            "custom_phrases",
+                            newPhrases.toString())
+
                     .apply();
 
         } catch (Exception e) {
+
             e.printStackTrace();
         }
     }
 
-
-    
-    // ---------------- ADD EXTRA PAGES ----------------
-
-    @Override
-    public void onStartInputView(EditorInfo info, boolean restarting) {
-        super.onStartInputView(info, restarting);
-
-        attachExtraPages();
-        showPage1();
-    }
+    // =================================================
+    // ATTACH EXTRA PAGES
+    // =================================================
 
     private void attachExtraPages() {
+
+        if (root == null) {
+            return;
+        }
 
         if (englishPage.getParent() == null) {
             root.addView(englishPage);
@@ -888,6 +1061,10 @@ public class SindhiKeyboardService extends InputMethodService {
         hideExtraPages();
     }
 
+    // =================================================
+    // HIDE EXTRA PAGES
+    // =================================================
+
     private void hideExtraPages() {
 
         if (englishPage != null) {
@@ -911,9 +1088,14 @@ public class SindhiKeyboardService extends InputMethodService {
         }
     }
 
+    // =================================================
+    // SHOW ONLY SELECTED PAGE
+    // =================================================
+
     private void showOnly(View selectedPage) {
 
         page1.setVisibility(View.GONE);
+
         page2.setVisibility(View.GONE);
 
         hideExtraPages();
@@ -921,90 +1103,119 @@ public class SindhiKeyboardService extends InputMethodService {
         selectedPage.setVisibility(View.VISIBLE);
     }
 
-    // ---------------- SINDHI PAGE 1 ----------------
-
-    // Part 1 واري showPage1() کي هن طريقي سان تبديل ڪريو.
+    // =================================================
+    // SHOW SINDHI PAGE 1
+    // =================================================
 
     private void showSindhiPage1() {
 
-        page1.setVisibility(View.VISIBLE);
-        page2.setVisibility(View.GONE);
-
         hideExtraPages();
+
+        page1.setVisibility(View.VISIBLE);
+
+        page2.setVisibility(View.GONE);
     }
 
-    // ---------------- SINDHI PAGE 2 ----------------
+    // =================================================
+    // SHOW SINDHI PAGE 2
+    // =================================================
 
     private void showSindhiPage2() {
 
-        page1.setVisibility(View.GONE);
-        page2.setVisibility(View.VISIBLE);
-
         hideExtraPages();
+
+        page1.setVisibility(View.GONE);
+
+        page2.setVisibility(View.VISIBLE);
     }
 
-    // ---------------- ENGLISH PAGE ----------------
+    // =================================================
+    // SHOW ENGLISH PAGE
+    // =================================================
 
     private void showEnglishPage() {
 
         showOnly(englishPage);
     }
 
-    // ---------------- ENGLISH SYMBOLS ----------------
+    // =================================================
+    // SHOW ENGLISH SYMBOLS
+    // =================================================
 
     private void showEnglishSymbolsPage() {
 
         showOnly(englishSymbolsPage);
     }
 
-    // ---------------- URDU PAGE ----------------
+    // =================================================
+    // SHOW URDU PAGE
+    // =================================================
 
     private void showUrduPage() {
+
+        urduSecondPage = false;
 
         showOnly(urduPage);
     }
 
-    // ---------------- URDU PAGE 2 ----------------
+    // =================================================
+    // SHOW URDU PAGE 2
+    // =================================================
 
     private void showUrduPage2() {
+
+        urduSecondPage = true;
 
         showOnly(urduPage2);
     }
 
-    // ---------------- EMOJI PAGE ----------------
+    // =================================================
+    // SHOW EMOJI PAGE
+    // =================================================
 
     private void showEmojiPage() {
 
         showOnly(emojiPage);
     }
 
-    // ---------------- LANGUAGE SWITCH ----------------
+    // =================================================
+    // INPUT START
+    // =================================================
 
-    private void switchToSindhi() {
+    @Override
+    public void onStartInput(EditorInfo attribute,
+                             boolean restarting) {
+
+        super.onStartInput(attribute, restarting);
+
+        englishShift = false;
+
+        urduSecondPage = false;
+    }
+
+    // =================================================
+    // INPUT VIEW START
+    // =================================================
+
+    @Override
+    public void onStartInputView(EditorInfo info,
+                                 boolean restarting) {
+
+        super.onStartInputView(info, restarting);
+
+        attachExtraPages();
 
         showSindhiPage1();
     }
 
-    // ---------------- INPUT CONNECTION ----------------
-
-    @Override
-    public void onStartInput(EditorInfo attribute, boolean restarting) {
-
-        super.onStartInput(attribute, restarting);
-
-        shiftOn = false;
-        englishShift = false;
-        urduSecondPage = false;
-    }
-
-    // ---------------- CLEANUP ----------------
+    // =================================================
+    // CLEANUP
+    // =================================================
 
     @Override
     public void onDestroy() {
 
-        if (handler != null) {
-            handler.removeCallbacksAndMessages(null);
-        }
+        handler.removeCallbacksAndMessages(null);
 
         super.onDestroy();
     }
