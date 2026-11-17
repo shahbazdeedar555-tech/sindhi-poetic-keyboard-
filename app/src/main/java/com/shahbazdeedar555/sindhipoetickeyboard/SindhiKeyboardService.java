@@ -1202,6 +1202,92 @@ addPhraseButton(content,
         commit(" ");
     });
 }          
+
+               
+// ADD NEW LITERARY PHRASE BUTTON
+private void createAddPhraseButton() {
+    Button addButton = makeButton("➕ نئون ادبي جملو شامل ڪريو");
+    addButton.setTextSize(16);
+    addButton.setMinHeight(dp(50));
+
+    customPhraseContainer.addView(addButton);
+
+    addButton.setOnClickListener(v -> showAddPhraseDialog());
+}
+
+// SHOW ADD PHRASE DIALOG
+private void showAddPhraseDialog() {
+    EditText input = new EditText(this);
+    input.setHint("پنهنجو نئون ادبي جملو لکو");
+    input.setTextSize(17);
+    input.setMinLines(2);
+    input.setGravity(Gravity.TOP);
+
+    new AlertDialog.Builder(this)
+            .setTitle("🌹 نئون ادبي جملو")
+            .setView(input)
+            .setPositiveButton("Save", (dialog, which) -> {
+                String phrase = input.getText().toString().trim();
+
+                if (!phrase.isEmpty()) {
+                    saveCustomPhrase(phrase);
+                }
+            })
+            .setNegativeButton("Cancel", null)
+            .show();
+}
+
+// SAVE CUSTOM PHRASE
+private void saveCustomPhrase(String phrase) {
+    if (phrasePreferences == null) {
+        phrasePreferences = getSharedPreferences(
+                "literary_phrases", MODE_PRIVATE);
+    }
+
+    String saved = phrasePreferences.getString(
+            "custom_phrases", "[]");
+
+    try {
+        JSONArray array = new JSONArray(saved);
+
+        for (int i = 0; i < array.length(); i++) {
+            if (phrase.equals(array.getString(i))) {
+                return;
+            }
+        }
+
+        array.put(phrase);
+
+        phrasePreferences.edit()
+                .putString("custom_phrases", array.toString())
+                .apply();
+
+        addPhraseButton(customPhraseContainer, phrase);
+
+    } catch (Exception e) {
+        e.printStackTrace();
+    }
+}
+
+// LOAD SAVED PHRASES
+private void loadCustomPhrases() {
+    String saved = phrasePreferences.getString(
+            "custom_phrases", "[]");
+
+    try {
+        JSONArray array = new JSONArray(saved);
+
+        for (int i = 0; i < array.length(); i++) {
+            addPhraseButton(
+                    customPhraseContainer,
+                    array.getString(i));
+        }
+
+    } catch (Exception e) {
+        e.printStackTrace();
+    }
+}
+   
     // URDU PAGE 1
 
     private void createUrduPage() {
