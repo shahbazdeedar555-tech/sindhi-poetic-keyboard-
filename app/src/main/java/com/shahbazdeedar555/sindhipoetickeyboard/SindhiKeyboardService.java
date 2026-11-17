@@ -533,5 +533,5 @@ private void setArrow() {
 
     button.setOnClickListener(v -> showPage2());
 }
-
+}
     
