@@ -443,26 +443,11 @@ private void setupPage2() {
 }
 
     
-
-    
 private void setupNumbers() {
-
-    LinearLayout row = createRow(page1);
-
-    String[] numbers = {
-            "۱", "۲", "۳", "۴", "۵",
-            "۶", "۷", "۸", "۹", "۰"
-    };
-
-    for (String number : numbers) {
-
-        Button button = createButton(
-                number, row, green, white);
-
-        button.setOnClickListener(v ->
-                commit(number));
-    }
+    // Numbers are already connected in setupPage2().
 }
+    
+
     
     
 
