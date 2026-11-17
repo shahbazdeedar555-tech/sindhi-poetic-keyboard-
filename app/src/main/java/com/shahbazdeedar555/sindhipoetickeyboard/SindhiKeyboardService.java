@@ -510,4 +510,10 @@ private void setupNumbers() {
         });
     }
 
-    
+    private void setKey(int id, String text) {
+    Button button = keyboard.findViewById(id);
+
+    if (button == null) return;
+
+    button.setOnClickListener(v -> commit(text));
+}
