@@ -371,3 +371,484 @@ public class SindhiKeyboardService extends InputMethodService {
                 })
                 .show();
     }
+
+    
+    // ---------------- ENGLISH KEYBOARD ----------------
+
+    private void createEnglishPage() {
+
+        englishPage = new LinearLayout(this);
+        englishPage.setOrientation(LinearLayout.VERTICAL);
+
+        addEnglishRow("qwertyuiop");
+        addEnglishRow("asdfghjkl");
+        addEnglishRow("zxcvbnm");
+
+        addEnglishBottomRow();
+    }
+
+    private void addEnglishRow(String letters) {
+
+        LinearLayout row = new LinearLayout(this);
+        row.setOrientation(LinearLayout.HORIZONTAL);
+        row.setGravity(Gravity.CENTER);
+
+        for (char letter : letters.toCharArray()) {
+
+            String key = String.valueOf(letter);
+
+            Button button = createKeyButton(
+                    englishShift ? key.toUpperCase(Locale.ROOT) : key);
+
+            LinearLayout.LayoutParams params =
+                    new LinearLayout.LayoutParams(
+                            0, dp(43), 1f);
+
+            params.setMargins(dp(2), dp(2), dp(2), dp(2));
+
+            row.addView(button, params);
+        }
+
+        englishPage.addView(row);
+    }
+
+    private void addEnglishBottomRow() {
+
+        LinearLayout row = new LinearLayout(this);
+        row.setOrientation(LinearLayout.HORIZONTAL);
+        row.setGravity(Gravity.CENTER);
+
+        addBottomButton(row, "⇧", v -> {
+            englishShift = !englishShift;
+            createEnglishPage();
+            showEnglishPage();
+        });
+
+        addBottomButton(row, "?123", v -> showEnglishSymbolsPage());
+        addBottomButton(row, "🌐", v -> showLanguageMenu());
+        addBottomButton(row, "Space", v -> commitText(" "));
+        addBottomButton(row, "⌫", v -> deleteOne());
+        addBottomButton(row, "↵", v -> pressEnter());
+
+        englishPage.addView(row);
+    }
+
+    // ---------------- ENGLISH SYMBOLS ----------------
+
+    private void createEnglishSymbolsPage() {
+
+        englishSymbolsPage = new LinearLayout(this);
+        englishSymbolsPage.setOrientation(LinearLayout.VERTICAL);
+
+        addKeyRow(englishSymbolsPage,
+                new String[]{"1","2","3","4","5","6","7","8","9","0"});
+
+        addKeyRow(englishSymbolsPage,
+                new String[]{"@","#","$","%","&","-","+","(",")"});
+
+        addKeyRow(englishSymbolsPage,
+                new String[]{"*","\"","'",":",";","!","?","/"});
+
+        LinearLayout row = new LinearLayout(this);
+        row.setOrientation(LinearLayout.HORIZONTAL);
+
+        addBottomButton(row, "ABC", v -> showEnglishPage());
+        addBottomButton(row, "🌐", v -> showLanguageMenu());
+        addBottomButton(row, "Space", v -> commitText(" "));
+        addBottomButton(row, "⌫", v -> deleteOne());
+        addBottomButton(row, "↵", v -> pressEnter());
+
+        englishSymbolsPage.addView(row);
+    }
+
+    // ---------------- URDU KEYBOARD ----------------
+
+    private void createUrduPage() {
+
+        urduPage = new LinearLayout(this);
+        urduPage.setOrientation(LinearLayout.VERTICAL);
+
+        addKeyRow(urduPage,
+                new String[]{"ق","و","ع","ر","ت","ے","ء","ی","ہ","پ"});
+
+        addKeyRow(urduPage,
+                new String[]{"ا","س","د","ف","گ","ھ","ج","ک","ل"});
+
+        addKeyRow(urduPage,
+                new String[]{"ز","ش","چ","ط","ب","ن","م"});
+
+        addUrduBottomRow(urduPage);
+    }
+
+    private void createUrduPage2() {
+
+        urduPage2 = new LinearLayout(this);
+        urduPage2.setOrientation(LinearLayout.VERTICAL);
+
+        addKeyRow(urduPage2,
+                new String[]{"آ","أ","إ","ؤ","ئ","ء","ة","ۃ"});
+
+        addKeyRow(urduPage2,
+                new String[]{"،","؛","؟","!","۔","(",")"});
+
+        addKeyRow(urduPage2,
+                new String[]{"۰","۱","۲","۳","۴","۵","۶","۷","۸","۹"});
+
+        addUrduBottomRow(urduPage2);
+    }
+
+    private void addUrduBottomRow(LinearLayout parent) {
+
+        LinearLayout row = new LinearLayout(this);
+        row.setOrientation(LinearLayout.HORIZONTAL);
+
+        addBottomButton(row, "صفحہ 2", v -> showUrduPage2());
+        addBottomButton(row, "🌐", v -> showLanguageMenu());
+        addBottomButton(row, "Space", v -> commitText(" "));
+        addBottomButton(row, "⌫", v -> deleteOne());
+        addBottomButton(row, "↵", v -> pressEnter());
+
+        parent.addView(row);
+    }
+
+    // ---------------- EMOJI PAGE ----------------
+
+    private void createEmojiPage() {
+
+        emojiPage = new LinearLayout(this);
+        emojiPage.setOrientation(LinearLayout.VERTICAL);
+
+        ScrollView scrollView = new ScrollView(this);
+
+        LinearLayout content = new LinearLayout(this);
+        content.setOrientation(LinearLayout.VERTICAL);
+        content.setPadding(dp(5), dp(5), dp(5), dp(5));
+
+        scrollView.addView(content);
+
+        addPhraseHeading(content, "😊 Emojis");
+
+        addEmojiRow(content,
+                new String[]{"😀","😃","😄","😁","😆","😊","🙂","😉"});
+
+        addEmojiRow(content,
+                new String[]{"😍","🥰","😘","😎","🤗","🤔","😢","😭"});
+
+        addEmojiRow(content,
+                new String[]{"😂","🤣","😇","🙏","👏","👍","❤️","🌹"});
+
+        addPhraseHeading(content, "🌹 ادبي داد");
+
+        customPhraseSection = new LinearLayout(this);
+        customPhraseSection.setOrientation(LinearLayout.VERTICAL);
+
+        customPhraseContainer = new LinearLayout(this);
+        customPhraseContainer.setOrientation(LinearLayout.VERTICAL);
+
+        customPhraseSection.addView(customPhraseContainer);
+        content.addView(customPhraseSection);
+
+        addPhraseHeading(content, "سلام جا جملا");
+
+        addGreetingRow(content);
+
+        emojiPage.addView(scrollView);
+
+        loadDefaultLiteraryPhrases();
+        loadCustomPhrases();
+    }
+
+    // ---------------- EMOJI ROW ----------------
+
+    private void addEmojiRow(
+            LinearLayout parent,
+            String[] emojis) {
+
+        LinearLayout row = new LinearLayout(this);
+        row.setOrientation(LinearLayout.HORIZONTAL);
+
+        for (String emoji : emojis) {
+
+            Button button = createKeyButton(emoji);
+            button.setTextSize(23);
+
+            LinearLayout.LayoutParams params =
+                    new LinearLayout.LayoutParams(
+                            0, dp(45), 1f);
+
+            params.setMargins(dp(2), dp(2), dp(2), dp(2));
+
+            row.addView(button, params);
+        }
+
+        parent.addView(row);
+    }
+
+    // ---------------- PHRASE HEADING ----------------
+
+    private void addPhraseHeading(
+            LinearLayout parent,
+            String heading) {
+
+        TextView title = new TextView(this);
+
+        title.setText(heading);
+        title.setTextSize(19);
+        title.setTextColor(GREEN);
+        title.setTypeface(null, Typeface.BOLD);
+        title.setGravity(Gravity.CENTER);
+        title.setPadding(dp(5), dp(10), dp(5), dp(10));
+
+        parent.addView(title);
+    }
+
+    // ---------------- GREETING PHRASES ----------------
+
+    private void addGreetingRow(LinearLayout parent) {
+
+        addPhraseButton(parent, "اسلام عليڪم");
+        addPhraseButton(parent, "وعليڪم السلام");
+        addPhraseButton(parent, "يا علي مدد");
+    }
+
+    // ---------------- LITERARY PHRASES ----------------
+
+    private void loadDefaultLiteraryPhrases() {
+
+        defaultLiteraryPhrases.clear();
+
+        defaultLiteraryPhrases.add(
+                "وااااهه! وااااه! ڇا ته غزل آهي!");
+
+        defaultLiteraryPhrases.add(
+                "تمام خوبصورت شاعري!");
+
+        defaultLiteraryPhrases.add(
+                "دل کي ڇهندڙ لفظ!");
+
+        defaultLiteraryPhrases.add(
+                "لاجواب! بي مثال!");
+
+        defaultLiteraryPhrases.add(
+                "واه! ڇا ته خيال آهي!");
+
+        defaultLiteraryPhrases.add(
+                "لفظن ۾ احساسن جو سمنڊ!");
+
+        defaultLiteraryPhrases.add(
+                "تمام بهترين تخليق!");
+    }
+
+    // ---------------- PHRASE BUTTON ----------------
+
+    private void addPhraseButton(
+            LinearLayout parent,
+            String phrase) {
+
+        Button button = new Button(this);
+
+        button.setText(phrase);
+        button.setTextSize(16);
+        button.setTextColor(WHITE);
+        button.setAllCaps(false);
+        button.setBackgroundColor(GREEN);
+
+        button.setOnClickListener(v -> commitText(phrase + " "));
+
+        LinearLayout.LayoutParams params =
+                new LinearLayout.LayoutParams(
+                        ViewGroup.LayoutParams.MATCH_PARENT,
+                        ViewGroup.LayoutParams.WRAP_CONTENT);
+
+        params.setMargins(dp(3), dp(3), dp(3), dp(3));
+
+        parent.addView(button, params);
+    }
+
+    // ---------------- CUSTOM PHRASES ----------------
+
+    private void createAddPhraseButton() {
+
+        Button addButton = new Button(this);
+
+        addButton.setText("➕ نئون ادبي جملو شامل ڪريو");
+        addButton.setTextColor(WHITE);
+        addButton.setAllCaps(false);
+        addButton.setBackgroundColor(GREEN);
+
+        addButton.setOnClickListener(v -> showAddPhraseDialog());
+
+        customPhraseContainer.addView(addButton);
+    }
+
+    private void showAddPhraseDialog() {
+
+        EditText input = new EditText(this);
+
+        input.setHint("پنهنجو ادبي جملو لکو");
+
+        new AlertDialog.Builder(this)
+                .setTitle("نئون ادبي جملو")
+                .setView(input)
+                .setPositiveButton("Save", (dialog, which) -> {
+
+                    String phrase = input.getText().toString().trim();
+
+                    if (!phrase.isEmpty()) {
+                        saveCustomPhrase(phrase);
+                        loadCustomPhrases();
+                    }
+                })
+                .setNegativeButton("Cancel", null)
+                .show();
+    }
+
+    // ---------------- SAVE CUSTOM PHRASE ----------------
+
+    private void saveCustomPhrase(String phrase) {
+
+        try {
+
+            JSONArray phrases = new JSONArray(
+                    phrasePreferences.getString(
+                            "custom_phrases", "[]"));
+
+            phrases.put(phrase);
+
+            phrasePreferences.edit()
+                    .putString("custom_phrases", phrases.toString())
+                    .apply();
+
+        } catch (Exception e) {
+            e.printStackTrace();
+        }
+    }
+
+    // ---------------- LOAD CUSTOM PHRASES ----------------
+
+    private void loadCustomPhrases() {
+
+        if (customPhraseContainer == null) {
+            return;
+        }
+
+        customPhraseContainer.removeAllViews();
+
+        for (String phrase : defaultLiteraryPhrases) {
+            addPhraseButton(customPhraseContainer, phrase);
+        }
+
+        try {
+
+            JSONArray phrases = new JSONArray(
+                    phrasePreferences.getString(
+                            "custom_phrases", "[]"));
+
+            for (int i = 0; i < phrases.length(); i++) {
+
+                String phrase = phrases.getString(i);
+
+                addCustomPhraseButton(
+                        customPhraseContainer, phrase);
+            }
+
+        } catch (Exception e) {
+            e.printStackTrace();
+        }
+
+        createAddPhraseButton();
+    }
+
+    // ---------------- CUSTOM PHRASE BUTTON ----------------
+
+    private void addCustomPhraseButton(
+            LinearLayout parent,
+            String phrase) {
+
+        LinearLayout row = new LinearLayout(this);
+        row.setOrientation(LinearLayout.HORIZONTAL);
+        row.setGravity(Gravity.CENTER_VERTICAL);
+
+        Button phraseButton = new Button(this);
+
+        phraseButton.setText(phrase);
+        phraseButton.setTextSize(15);
+        phraseButton.setTextColor(WHITE);
+        phraseButton.setAllCaps(false);
+        phraseButton.setBackgroundColor(GREEN);
+
+        phraseButton.setOnClickListener(
+                v -> commitText(phrase + " "));
+
+        Button deleteButton = new Button(this);
+
+        deleteButton.setText("✖");
+        deleteButton.setTextColor(WHITE);
+        deleteButton.setBackgroundColor(Color.RED);
+
+        deleteButton.setOnClickListener(
+                v -> confirmDeletePhrase(phrase));
+
+        row.addView(phraseButton,
+                new LinearLayout.LayoutParams(
+                        0, dp(48), 1f));
+
+        row.addView(deleteButton,
+                new LinearLayout.LayoutParams(
+                        dp(55), dp(48)));
+
+        LinearLayout.LayoutParams params =
+                new LinearLayout.LayoutParams(
+                        ViewGroup.LayoutParams.MATCH_PARENT,
+                        ViewGroup.LayoutParams.WRAP_CONTENT);
+
+        params.setMargins(dp(3), dp(3), dp(3), dp(3));
+
+        parent.addView(row, params);
+    }
+
+    // ---------------- DELETE PHRASE ----------------
+
+    private void confirmDeletePhrase(String phrase) {
+
+        new AlertDialog.Builder(this)
+                .setTitle("جملو ختم ڪريو؟")
+                .setMessage(phrase)
+                .setPositiveButton("Delete", (dialog, which) -> {
+
+                    deleteCustomPhrase(phrase);
+                    loadCustomPhrases();
+                })
+                .setNegativeButton("Cancel", null)
+                .show();
+    }
+
+    private void deleteCustomPhrase(String phrase) {
+
+        try {
+
+            JSONArray oldPhrases = new JSONArray(
+                    phrasePreferences.getString(
+                            "custom_phrases", "[]"));
+
+            JSONArray newPhrases = new JSONArray();
+
+            for (int i = 0; i < oldPhrases.length(); i++) {
+
+                String item = oldPhrases.getString(i);
+
+                if (!item.equals(phrase)) {
+                    newPhrases.put(item);
+                }
+            }
+
+            phrasePreferences.edit()
+                    .putString("custom_phrases", newPhrases.toString())
+                    .apply();
+
+        } catch (Exception e) {
+            e.printStackTrace();
+        }
+    }
+
+
