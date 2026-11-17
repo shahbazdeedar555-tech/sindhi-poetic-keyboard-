@@ -517,3 +517,13 @@ private void setupNumbers() {
 
     button.setOnClickListener(v -> commit(text));
 }
+
+private void setNumber(int id) {
+    Button button = keyboard.findViewById(id);
+
+    if (button == null) return;
+
+    button.setOnClickListener(v ->
+            commit(button.getText().toString()));
+}
+    
