@@ -1118,6 +1118,11 @@ addPhraseButton(content, "شادي مبارڪ پيارا!");
 addPhraseButton(content,
         "جنم ڏينهَن تي مُبارڪ يار منهنجا،\nسدائين خوش رهين دلدار منهنجا.");
 
+             // Load previously saved custom phrases
+loadCustomPhrases();
+
+// Add button for new literary phrases
+createAddPhraseButton();
         LinearLayout bottom = new LinearLayout(this);
         bottom.setOrientation(LinearLayout.HORIZONTAL);
 
