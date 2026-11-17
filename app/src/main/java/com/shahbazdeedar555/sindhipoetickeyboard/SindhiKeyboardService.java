@@ -42,14 +42,18 @@ private LinearLayout customPhraseContainer;
     private final int white = Color.WHITE;
 
         
-    @Override
-    public View onCreateInputView() {
-         if (personalDictionary == null) {
-    personalDictionary = new PersonalDictionary(this);
-}    
-        keyboard = getLayoutInflater().inflate(
-                R.layout.keyboard_view, null);
+    
+@Override
+public View onCreateInputView() {
+    if (personalDictionary == null) {
+        personalDictionary = new PersonalDictionary(this);
+    }
 
+    phrasePreferences = getSharedPreferences(
+            "literary_phrases", MODE_PRIVATE);
+
+    keyboard = getLayoutInflater().inflate(
+            R.layout.keyboard_view, null);
         root = keyboard.findViewById(R.id.keyboard_root);
         page1 = keyboard.findViewById(R.id.keyboard_page1);
         page2 = keyboard.findViewById(R.id.keyboard_page2);
@@ -1023,6 +1027,7 @@ private void refreshEnglishLabels() { if (englishPage != null) { refreshEnglishV
         LinearLayout content = new LinearLayout(this);
         content.setOrientation(LinearLayout.VERTICAL);
         scrollView.addView(content);
+         customPhraseContainer = content;
 
         addEmojiRow(content, "❤️", "😍", "🥰", "😊", "😂", "🙏");
         addEmojiRow(content, "🌹", "🌷", "💐", "🌺", "🌸", "🌻");
