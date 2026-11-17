@@ -527,3 +527,10 @@ private void setNumber(int id) {
             commit(button.getText().toString()));
 }
     
+private void setArrow() {
+    Button button = keyboard.findViewById(R.id.key_arrow);
+
+    if (button == null) return;
+
+    button.setOnClickListener(v -> showPage2());
+}
