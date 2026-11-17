@@ -852,3 +852,160 @@ public class SindhiKeyboardService extends InputMethodService {
     }
 
 
+    
+    // ---------------- ADD EXTRA PAGES ----------------
+
+    @Override
+    public void onStartInputView(EditorInfo info, boolean restarting) {
+        super.onStartInputView(info, restarting);
+
+        attachExtraPages();
+        showPage1();
+    }
+
+    private void attachExtraPages() {
+
+        if (englishPage.getParent() == null) {
+            root.addView(englishPage);
+        }
+
+        if (englishSymbolsPage.getParent() == null) {
+            root.addView(englishSymbolsPage);
+        }
+
+        if (urduPage.getParent() == null) {
+            root.addView(urduPage);
+        }
+
+        if (urduPage2.getParent() == null) {
+            root.addView(urduPage2);
+        }
+
+        if (emojiPage.getParent() == null) {
+            root.addView(emojiPage);
+        }
+
+        hideExtraPages();
+    }
+
+    private void hideExtraPages() {
+
+        if (englishPage != null) {
+            englishPage.setVisibility(View.GONE);
+        }
+
+        if (englishSymbolsPage != null) {
+            englishSymbolsPage.setVisibility(View.GONE);
+        }
+
+        if (urduPage != null) {
+            urduPage.setVisibility(View.GONE);
+        }
+
+        if (urduPage2 != null) {
+            urduPage2.setVisibility(View.GONE);
+        }
+
+        if (emojiPage != null) {
+            emojiPage.setVisibility(View.GONE);
+        }
+    }
+
+    private void showOnly(View selectedPage) {
+
+        page1.setVisibility(View.GONE);
+        page2.setVisibility(View.GONE);
+
+        hideExtraPages();
+
+        selectedPage.setVisibility(View.VISIBLE);
+    }
+
+    // ---------------- SINDHI PAGE 1 ----------------
+
+    // Part 1 واري showPage1() کي هن طريقي سان تبديل ڪريو.
+
+    private void showSindhiPage1() {
+
+        page1.setVisibility(View.VISIBLE);
+        page2.setVisibility(View.GONE);
+
+        hideExtraPages();
+    }
+
+    // ---------------- SINDHI PAGE 2 ----------------
+
+    private void showSindhiPage2() {
+
+        page1.setVisibility(View.GONE);
+        page2.setVisibility(View.VISIBLE);
+
+        hideExtraPages();
+    }
+
+    // ---------------- ENGLISH PAGE ----------------
+
+    private void showEnglishPage() {
+
+        showOnly(englishPage);
+    }
+
+    // ---------------- ENGLISH SYMBOLS ----------------
+
+    private void showEnglishSymbolsPage() {
+
+        showOnly(englishSymbolsPage);
+    }
+
+    // ---------------- URDU PAGE ----------------
+
+    private void showUrduPage() {
+
+        showOnly(urduPage);
+    }
+
+    // ---------------- URDU PAGE 2 ----------------
+
+    private void showUrduPage2() {
+
+        showOnly(urduPage2);
+    }
+
+    // ---------------- EMOJI PAGE ----------------
+
+    private void showEmojiPage() {
+
+        showOnly(emojiPage);
+    }
+
+    // ---------------- LANGUAGE SWITCH ----------------
+
+    private void switchToSindhi() {
+
+        showSindhiPage1();
+    }
+
+    // ---------------- INPUT CONNECTION ----------------
+
+    @Override
+    public void onStartInput(EditorInfo attribute, boolean restarting) {
+
+        super.onStartInput(attribute, restarting);
+
+        shiftOn = false;
+        englishShift = false;
+        urduSecondPage = false;
+    }
+
+    // ---------------- CLEANUP ----------------
+
+    @Override
+    public void onDestroy() {
+
+        if (handler != null) {
+            handler.removeCallbacksAndMessages(null);
+        }
+
+        super.onDestroy();
+    }
+}
