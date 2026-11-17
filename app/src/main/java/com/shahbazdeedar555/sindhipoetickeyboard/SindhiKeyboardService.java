@@ -275,88 +275,174 @@ public class SindhiKeyboardService extends InputMethodService {
 
 
     
-    private void setupPage1() {
+private void setupPage1() {
 
-        page1.setOrientation(LinearLayout.VERTICAL);
+    // ROW 1
+    setKey(R.id.key_ch, "چ");
+    setKey(R.id.key_chh, "ڇ");
+    setKey(R.id.key_pay, "پ");
+    setKey(R.id.key_waw, "و");
+    setKey(R.id.key_ghain, "ڳ");
+    setKey(R.id.key_ain, "ع");
+    setKey(R.id.key_th, "ٿ");
+    setKey(R.id.key_ta1, "ت");
+    setKey(R.id.key_ray, "ر");
+    setKey(R.id.key_yay, "ي");
+    setKey(R.id.key_sad, "ص");
+    setKey(R.id.key_qaf, "ق");
 
-        String[][] rows = {
-                {"آ", "ا", "ب", "ٻ", "پ", "ت", "ٿ"},
-                {"ٽ", "ث", "ج", "ڄ", "چ", "ڇ", "ح"},
-                {"خ", "د", "ڌ", "ڏ", "ڊ", "ڍ", "ذ"},
-                {"ر", "ڙ", "ز", "س", "ش", "ص", "ض"}
-        };
+    // ROW 2
+    setKey(R.id.key_ddal, "ڍ");
+    setKey(R.id.key_ng, "ڱ");
+    setKey(R.id.key_khay, "ک");
+    setKey(R.id.key_lam, "ل");
+    setKey(R.id.key_kaf, "ڪ");
+    setKey(R.id.key_jeem, "ج");
+    setKey(R.id.key_hay, "ه");
+    setKey(R.id.key_gaf, "گ");
+    setKey(R.id.key_fay, "ف");
+    setKey(R.id.key_dal, "د");
+    setKey(R.id.key_seen, "س");
+    setKey(R.id.key_alif, "ا");
 
-        for (String[] letters : rows) {
+    // ROW 3
+    setKey(R.id.key_hamza_y, "ئ");
+    setKey(R.id.key_meem, "م");
+    setKey(R.id.key_noon, "ن");
+    setKey(R.id.key_bay, "ب");
+    setKey(R.id.key_bh, "ڀ");
+    setKey(R.id.key_ta2, "ط");
+    setKey(R.id.key_kha, "خ");
+    setKey(R.id.key_za, "ز");
 
-            LinearLayout row = createRow(page1);
+    // ROW 4 : PUNCTUATION
+    setKey(R.id.key_dot, ".");
+    setKey(R.id.key_comma, "،");
+    setKey(R.id.key_question, "؟");
+    setKey(R.id.key_exclamation, "!");
+    setKey(R.id.key_colon, ":");
+    setKey(R.id.key_semicolon, "؛");
+    setKey(R.id.key_quotes, "\"");
 
-            for (String letter : letters) {
+    setArrow();
 
-                Button button = createButton(
-                        letter, row, white, black);
+    // ROW 5 : SPECIALS
+    setKey(R.id.key_tatweel, "ـ");
+    setKey(R.id.key_baha, "بہ");
+    setKey(R.id.key_taha, "تہ");
+    setKey(R.id.key_noha, "نہ");
+    setKey(R.id.key_yeh_alt, "ى");
+    setKey(R.id.key_heh_alt, "ہ");
+    setKey(R.id.key_waw_hamza, "ؤ");
+    setKey(R.id.key_teh_marbuta, "ة");
 
-                button.setOnClickListener(v ->
-                        commit(letter));
-            }
-        }
+    // ROW 6 : DIACRITICS
+    setKey(R.id.key_zabar1, "َ");
+    setKey(R.id.key_zer1, "ِ");
+    setKey(R.id.key_pesh1, "ُ");
+    setKey(R.id.key_shadd1, "ّ");
+    setKey(R.id.key_jazm1, "ْ");
+    setKey(R.id.key_alif_khanjari1, "ٰ");
+    setKey(R.id.key_alif_khanjari2, "_");
+    setKey(R.id.key_alif_khanjari3, "ٗ");
 
-        LinearLayout bottom = createRow(page1);
+    // ROW 7 : CONTROLS
+    keyboard.findViewById(R.id.key_shift_bottom)
+            .setOnClickListener(v -> {
+                shiftOn = !shiftOn;
+            });
 
-        createButton("؟", bottom, green, white)
-                .setOnClickListener(v -> commit("؟"));
+    keyboard.findViewById(R.id.key_delete_bottom)
+            .setOnClickListener(v -> deleteOne());
 
-        createButton("،", bottom, green, white)
-                .setOnClickListener(v -> commit("،"));
+    keyboard.findViewById(R.id.key_space_bottom)
+            .setOnClickListener(v -> setSpace());
 
-        createButton("صفحو 2", bottom, green, white)
-                .setOnClickListener(v -> showPage2());
+    keyboard.findViewById(R.id.key_enter_bottom)
+            .setOnClickListener(v -> setEnter());
+}
 
-        createButton("Space", bottom, green, white)
-                .setOnClickListener(v -> commit(" "));
+    
 
-        createButton("⌫", bottom, green, white)
-                .setOnClickListener(v -> deleteOne());
-    }
+private void setupPage2() {
 
-    private void setupPage2() {
+    // EXTRA SINDHI LETTERS
+    setKey(R.id.s1, "ڄ");
+    setKey(R.id.s2, "ڃ");
+    setKey(R.id.s16, "ڦ");
+    setKey(R.id.s4, "ھ");
+    setKey(R.id.s5, "غ");
+    setKey(R.id.s6, "ث");
+    setKey(R.id.s7, "ٽ");
+    setKey(R.id.s8, "ڙ");
+    setKey(R.id.s9, "ض");
+    setKey(R.id.s10, "ٺ");
+    setKey(R.id.s11, "ڌ");
+    setKey(R.id.s12, "ڏ");
 
-        page2.setOrientation(LinearLayout.VERTICAL);
+    setKey(R.id.s13, "۽");
+    setKey(R.id.s14, "ح");
+    setKey(R.id.s15, "گھ");
+    setKey(R.id.s17, "ڊ");
+    setKey(R.id.s24, "ش");
+    setKey(R.id.s25, "آ");
 
-        String[][] rows = {
-                {"ط", "ظ", "ع", "غ", "ف", "ڦ", "ق"},
-                {"ڪ", "ک", "گ", "ڳ", "ڱ", "ل", "م"},
-                {"ن", "ڻ", "و", "ه", "ء", "ي", "ئ"},
-                {"ڀ", "ڃ", "ڄ", "ڊ", "ڙ", "ھ", "ؤ"}
-        };
+    setKey(R.id.s18, "۾");
+    setKey(R.id.s19, "ڻ");
+    setKey(R.id.s20, "ٻ");
+    setKey(R.id.s21, "ء");
+    setKey(R.id.s22, "ظ");
+    setKey(R.id.s23, "ذ");
 
-        for (String[] letters : rows) {
+    // NUMBERS
+    setNumber(R.id.key_num0, "0");
+    setNumber(R.id.key_num1, "1");
+    setNumber(R.id.key_num2, "2");
+    setNumber(R.id.key_num3, "3");
+    setNumber(R.id.key_num4, "4");
+    setNumber(R.id.key_num5, "5");
+    setNumber(R.id.key_num6, "6");
+    setNumber(R.id.key_num7, "7");
+    setNumber(R.id.key_num8, "8");
+    setNumber(R.id.key_num9, "9");
 
-            LinearLayout row = createRow(page2);
+    // SPECIALS
+    setKey(R.id.key_tatweel2, "ـ");
+    setKey(R.id.key_baha2, "بہ");
+    setKey(R.id.key_taha2, "تہ");
+    setKey(R.id.key_noha2, "نہ");
+    setKey(R.id.key_yeh_alt2, "ى");
+    setKey(R.id.key_heh_alt2, "ہ");
+    setKey(R.id.key_waw_hamza2, "ؤ");
+    setKey(R.id.key_teh_marbuta2, "ة");
 
-            for (String letter : letters) {
+    // DIACRITICS
+    setKey(R.id.key_zabar2, "َ");
+    setKey(R.id.key_zer2, "ِ");
+    setKey(R.id.key_pesh2, "ُ");
+    setKey(R.id.key_shadd2, "ّ");
+    setKey(R.id.key_jazm2, "ْ");
+    setKey(R.id.key_alif_khanjari2b, "ٰ");
+    setKey(R.id.key_alif_khanjari2c, "ٖ");
+    setKey(R.id.key_alif_khanjari2d, "ٗ");
 
-                Button button = createButton(
-                        letter, row, white, black);
+    // CONTROLS
+    keyboard.findViewById(R.id.key_shift_bottom2)
+            .setOnClickListener(v -> {
+                shiftOn = !shiftOn;
+            });
 
-                button.setOnClickListener(v ->
-                        commit(letter));
-            }
-        }
+    keyboard.findViewById(R.id.key_delete_bottom2)
+            .setOnClickListener(v -> deleteOne());
 
-        LinearLayout bottom = createRow(page2);
+    keyboard.findViewById(R.id.key_space_bottom2)
+            .setOnClickListener(v -> setSpace());
 
-        createButton("صفحو 1", bottom, green, white)
-                .setOnClickListener(v -> showPage1());
+    keyboard.findViewById(R.id.key_enter_bottom2)
+            .setOnClickListener(v -> setEnter());
+}
 
-        createButton("Space", bottom, green, white)
-                .setOnClickListener(v -> commit(" "));
-
-        createButton("⌫", bottom, green, white)
-                .setOnClickListener(v -> deleteOne());
-
-        createButton("Enter", bottom, green, white)
-                .setOnClickListener(v -> commit("\n"));
-    }
+    
 
     
 private void setupNumbers() {
