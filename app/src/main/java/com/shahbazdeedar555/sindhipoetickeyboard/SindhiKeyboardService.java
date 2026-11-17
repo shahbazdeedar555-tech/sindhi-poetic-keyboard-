@@ -522,8 +522,6 @@ private void setNumber(int id, String text) {
     Button button = keyboard.findViewById(id);
 
     if (button == null) return;
-
-    
 private void setArrow() {
     Button button = keyboard.findViewById(R.id.key_arrow);
 
