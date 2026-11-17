@@ -518,14 +518,11 @@ private void setupNumbers() {
     button.setOnClickListener(v -> commit(text));
 }
 
-private void setNumber(int id) {
+private void setNumber(int id, String text) {
     Button button = keyboard.findViewById(id);
 
     if (button == null) return;
 
-    button.setOnClickListener(v ->
-            commit(button.getText().toString()));
-}
     
 private void setArrow() {
     Button button = keyboard.findViewById(R.id.key_arrow);
