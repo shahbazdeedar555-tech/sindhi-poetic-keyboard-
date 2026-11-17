@@ -1449,7 +1449,9 @@ private void saveCustomPhrase(String phrase) {
             "custom_phrases", "[]");
 
     try {
-        JSONArray array = new JSONArray(saved);
+
+             
+           JSONArray array = new JSONArray(saved);
 
         for (int i = 0; i < array.length(); i++) {
             if (phrase.equals(array.getString(i))) {
@@ -1488,7 +1490,6 @@ private void loadCustomPhrases() {
         e.printStackTrace();
     }
 }
-   
     // URDU PAGE 1
 
     private void createUrduPage() {
