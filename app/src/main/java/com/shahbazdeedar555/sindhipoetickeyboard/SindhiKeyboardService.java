@@ -1043,7 +1043,21 @@ addPhraseButton(content, "توهان جي تخليق بي مثال آهي!");
 addPhraseButton(content, "تمام گهڻي خوبصورت ڪوتا!");
 addPhraseButton(content, "قلم کي سلام، ڇا ته لکيو اٿوَ!");
 
-             
+             addPhraseButton(content, "ڇا تہ نظم آهي!!!");
+
+addPhraseButton(content, "من موهيندڙ نظم");
+
+addPhraseButton(content, "صفا سُندر سليس وائي، خوبصورت اسلوب!");
+
+addPhraseButton(content, "تمام خوبصورت ڀلوڙ بيت");
+
+addPhraseButton(content, "وااااه! واااااه! انمول سگهارو نثري گُلدستو");
+
+addPhraseButton(content, "خوبصورت هائيڪو!");
+
+addPhraseButton(content, "وااااه! جاندار شاندار چوسٽو!");
+
+addPhraseButton(content, "ڀلوڙ ڏيڍ سٽو، وااااه!");
              
 
 addPhraseHeading(content, "💐 شڪرگذاري جا جملا");
