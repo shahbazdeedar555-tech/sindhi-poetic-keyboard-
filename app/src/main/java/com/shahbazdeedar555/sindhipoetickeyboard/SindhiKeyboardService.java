@@ -532,11 +532,5 @@ private void setArrow() {
     button.setOnClickListener(v -> showPage2());
 }
 
-private void setBackArrow() {
-    Button button = keyboard.findViewById(R.id.key_arrow2);
 
-    if (button == null) return;
-
-    button.setOnClickListener(v -> showPage1());
-}
     
