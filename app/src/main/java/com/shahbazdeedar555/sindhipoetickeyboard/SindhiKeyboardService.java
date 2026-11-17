@@ -1001,203 +1001,7 @@ private void refreshEnglishLabels() { if (englishPage != null) { refreshEnglishV
         englishSymbolsPage.addView(row);
     }
 
-         
 
-    // EMOJI AND GREETINGS PAGE
-
-    private void createEmojiPage() {
-        emojiPage = new LinearLayout(this);
-        emojiPage.setOrientation(LinearLayout.VERTICAL);
-        emojiPage.setBackgroundColor(green);
-        emojiPage.setVisibility(View.GONE);
-        emojiPage.setPadding(dp(3), dp(3), dp(3), dp(3));
-
-        root.addView(emojiPage,
-                new LinearLayout.LayoutParams(
-                        ViewGroup.LayoutParams.MATCH_PARENT,
-                        ViewGroup.LayoutParams.WRAP_CONTENT));
-
-        ScrollView scrollView = new ScrollView(this);
-        scrollView.setFillViewport(true);
-
-        emojiPage.addView(scrollView,
-                new LinearLayout.LayoutParams(
-                        ViewGroup.LayoutParams.MATCH_PARENT,
-                        dp(250)));
-
-        LinearLayout content = new LinearLayout(this);
-        content.setOrientation(LinearLayout.VERTICAL);
-        scrollView.addView(content);
-         
-
-        addEmojiRow(content, "❤️", "😍", "🥰", "😊", "😂", "🙏");
-        addEmojiRow(content, "🌹", "🌷", "💐", "🌺", "🌸", "🌻");
-        addEmojiRow(content, "👍", "👏", "🤲", "💚", "💖", "✨");
-        addEmojiRow(content, "😀", "😁", "😎", "😭", "😢", "😇");
-        addEmojiRow(content, "🎉", "🎂", "🌙", "☀️", "⭐", "🔥");
-        addEmojiRow(content, "🤲", "❤️", "🌹", "😊", "🙏", "💚");
-
-        addGreetingRow(content,
-                "السلام عليڪم", "وعليڪم السلام");
-
-        addGreetingRow(content,
-                "يا علي مدد", "يا علي مدد!");
-
-        addGreetingRow(content,
-                "Good Morning", "Good Evening");
-
-        addGreetingRow(content,
-                "Good Night", "Thank You");
-             
-             addPhraseHeading(content, "🌹 ادبي داد");
-             addPhraseButton(content, "وااااهه! وااااه! ڇا ته غزل آهي!");
-addPhraseButton(content, "تمام خوبصورت ۽ دل کي ڇهندڙ شاعري!");
-addPhraseButton(content, "واه! لفظن جي چونڊ لاجواب آهي!");
-addPhraseButton(content, "توهان جي تخليق بي مثال آهي!");
-addPhraseButton(content, "تمام گهڻي خوبصورت ڪوتا!");
-addPhraseButton(content, "قلم کي سلام، ڇا ته لکيو اٿوَ!");
-
-             addPhraseButton(content, "ڇا تہ نظم آهي!!!");
-
-addPhraseButton(content, "من موهيندڙ نظم");
-
-addPhraseButton(content, "صفا سُندر سليس وائي، خوبصورت اسلوب!");
-
-addPhraseButton(content, "تمام خوبصورت ڀلوڙ بيت");
-
-addPhraseButton(content, "وااااه! واااااه! انمول سگهارو نثري گُلدستو");
-
-addPhraseButton(content, "خوبصورت هائيڪو!");
-
-addPhraseButton(content, "وااااه! جاندار شاندار چوسٽو!");
-
-addPhraseButton(content, "ڀلوڙ ڏيڍ سٽو، وااااه!");
-             
-
-addPhraseHeading(content, "💐 شڪرگذاري جا جملا");
-
-addPhraseButton(content, "اوهان جي محبت ۽ همٿ افزائيءَ جا لک لک ٿورا!");
-addPhraseButton(content, "مهرباني سائين، اوهان جي لفظن منهنجي همت وڌائي ڇڏي.");
-addPhraseButton(content, "اوهان جي محبت منهنجي لاءِ وڏو اعزاز آهي.");
-addPhraseButton(content, "لک قرب سائين، اوهان جي نظرن جي مهرباني.");
-addPhraseButton(content, "اوهان جي حوصلا افزائيءَ لاءِ دل جي گهراين سان ٿورائتو آهيان.");
-addPhraseButton(content, "مهرباني، اوهان جهڙن ادب دوستن جي محبت ئي سرمايو آهي.");
-addPhraseButton(content, "اوهان جي داد منهنجي لاءِ ڪنهن ايوارڊ کان گهٽ ناهي.");
-addPhraseButton(content, "نوازش سائين، سدائين خوش ۽ آباد هجو.");
-addPhraseButton(content, "اوهان جي محبتن جو قرضدار رهندس.");
-addPhraseButton(content, "تمام گهڻيون مهربانيون، اوهان جي محبت سلامت رهي!");
-
-// سريها جملا
-addPhraseHeading(content, "💐 سريها جملا");
-
-addPhraseButton(content, "واااااه! پيارا!");
-addPhraseButton(content, "واااااه! سهڻا!");
-addPhraseButton(content, "دلبر سائين اوهانجون نوازشون.");
-addPhraseButton(content, "مِٺا ماڻهون لک ٿورا.");
-addPhraseButton(content, "اڻميا احسان اوهان جا محبوب سائين!");
-addPhraseButton(content, "شال! ڪارونجهر جي ڄمار ماڻيو.");
-addPhraseButton(content, "شال سدائين شاد ۽ آباد رهو!");
-
-
-// 🎉 مبارڪون ۽ نيڪ تمنائون
-addPhraseHeading(content, "🎉 مبارڪون ۽ نيڪ تمنائون");
-
-addPhraseButton(content, "خوبصورت تصوير پيارا!");
-
-addPhraseButton(content, "جنم ڏينهن مبارڪ پيارا! جُڳ جُڳ جيئو");
-
-addPhraseButton(content, "کوڙ ساريون مبارڪون پيارا!");
-
-addPhraseButton(content, "عيد مبارڪون پيارا!");
-
-addPhraseButton(content, "سڀني دوستن کي رمضان جو بابرڪت مهينو مبارڪ");
-
-addPhraseButton(content, "عيد جو چنڊ مبارڪ!");
-
-addPhraseButton(content, "شادي مبارڪ پيارا!");
-
-addPhraseButton(content,
-        "جنم ڏينهَن تي مُبارڪ يار منهنجا،\nسدائين خوش رهين دلدار منهنجا.");
-
-        
-// ADD NEW LITERARY PHRASE BUTTON
-private void createAddPhraseButton() {
-
-    Button addButton = makeButton("➕ نئون ادبي جملو شامل ڪريو");
-    addButton.setTextSize(16);
-    addButton.setMinHeight(dp(50));
-
-    customPhraseSection.addView(addButton);
-
-    addButton.setOnClickListener(v -> showAddPhraseDialog());
-}
-
-
-// SHOW ADD PHRASE DIALOG
-private void showAddPhraseDialog() {
-
-    EditText input = new EditText(this);
-    input.setHint("پنهنجو نئون ادبي جملو لکو");
-    input.setTextSize(17);
-    input.setMinLines(2);
-    input.setGravity(Gravity.TOP);
-
-    new AlertDialog.Builder(this)
-            .setTitle("🌹 نئون ادبي جملو")
-            .setView(input)
-            .setPositiveButton("Save", (dialog, which) -> {
-
-                String phrase = input.getText().toString().trim();
-
-                if (!phrase.isEmpty()) {
-                    saveCustomPhrase(phrase);
-                }
-            })
-            .setNegativeButton("Cancel", null)
-            .show();
-}
-
-
-// SAVE CUSTOM PHRASE
-private void saveCustomPhrase(String phrase) {
-
-    if (phrasePreferences == null) {
-        phrasePreferences = getSharedPreferences(
-                "literary_phrases", MODE_PRIVATE);
-    }
-
-    String saved = phrasePreferences.getString(
-            "custom_phrases", "[]");
-
-    try {
-        JSONArray array = new JSONArray(saved);
-
-        // Prevent duplicate phrases
-        for (int i = 0; i < array.length(); i++) {
-
-            if (phrase.equals(array.getString(i))) {
-
-                new AlertDialog.Builder(this)
-                        .setMessage("هي جملو اڳ ۾ محفوظ ٿيل آهي.")
-                        .setPositiveButton("OK", null)
-                        .show();
-
-                return;
-            }
-        }
-
-        array.put(phrase);
-
-        phrasePreferences.edit()
-                .putString("custom_phrases", array.toString())
-                .apply();
-
-        addCustomPhraseButton(phrase);
-
-    } catch (Exception e) {
-        e.printStackTrace();
-    }
-}
 
 
 // DISPLAY CUSTOM PHRASE WITH DELETE BUTTON
@@ -1279,52 +1083,6 @@ private void deleteCustomPhrase(String phrase) {
             }
         }
 
-        phrasePreferences.edit()
-                .putString("custom_phrases", newArray.toString())
-                .apply();
-
-        // Refresh only custom phrases
-        customPhraseContainer.removeAllViews();
-
-        loadCustomPhrases();
-
-    } catch (Exception e) {
-        e.printStackTrace();
-    }
-}
-
-
-// LOAD SAVED CUSTOM PHRASES
-private void loadCustomPhrases() {
-
-    String saved = phrasePreferences.getString(
-            "custom_phrases", "[]");
-
-    try {
-
-        JSONArray array = new JSONArray(saved);
-
-        for (int i = 0; i < array.length(); i++) {
-
-            addCustomPhraseButton(array.getString(i));
-        }
-
-    } catch (Exception e) {
-        e.printStackTrace();
-    }
-}
-
-        LinearLayout bottom = new LinearLayout(this);
-        bottom.setOrientation(LinearLayout.HORIZONTAL);
-
-        addSpecialButton(bottom, "🌐 ٻولي",
-                this::openLanguageMenu);
-
-        addSpecialButton(bottom, "ABC",
-                this::showEnglishPage);
-
-        emojiPage.addView(bottom);
-    }
 
     private void addEmojiRow(
             LinearLayout parent, String... emojis) {
@@ -1435,61 +1193,161 @@ private void showAddPhraseDialog() {
                 }
             })
             .setNegativeButton("Cancel", null)
-            .show();
-}
 
-// SAVE CUSTOM PHRASE
-private void saveCustomPhrase(String phrase) {
-    if (phrasePreferences == null) {
-        phrasePreferences = getSharedPreferences(
-                "literary_phrases", MODE_PRIVATE);
-    }
+             
+// DELETE CUSTOM PHRASE
+private void deleteCustomPhrase(String phrase) {
 
     String saved = phrasePreferences.getString(
             "custom_phrases", "[]");
 
     try {
+        JSONArray oldArray = new JSONArray(saved);
+        JSONArray newArray = new JSONArray();
 
-             
-           JSONArray array = new JSONArray(saved);
+        for (int i = 0; i < oldArray.length(); i++) {
+            String existing = oldArray.getString(i);
 
-        for (int i = 0; i < array.length(); i++) {
-            if (phrase.equals(array.getString(i))) {
-                return;
+            if (!existing.equals(phrase)) {
+                newArray.put(existing);
             }
         }
 
-        array.put(phrase);
-
         phrasePreferences.edit()
-                .putString("custom_phrases", array.toString())
+                .putString("custom_phrases", newArray.toString())
                 .apply();
 
-        addPhraseButton(customPhraseContainer, phrase);
-
-    } catch (Exception e) {
-        e.printStackTrace();
-    }
-}
-
-// LOAD SAVED PHRASES
-private void loadCustomPhrases() {
-    String saved = phrasePreferences.getString(
-            "custom_phrases", "[]");
-
-    try {
-        JSONArray array = new JSONArray(saved);
-
-        for (int i = 0; i < array.length(); i++) {
-            addPhraseButton(
-                    customPhraseContainer,
-                    array.getString(i));
+        if (customPhraseContainer != null) {
+            customPhraseContainer.removeAllViews();
+            createAddPhraseButton();
+            loadCustomPhrases();
         }
 
     } catch (Exception e) {
         e.printStackTrace();
     }
 }
+
+
+// EMOJI PAGE
+private void createEmojiPage() {
+
+    emojiPage = new LinearLayout(this);
+    emojiPage.setOrientation(LinearLayout.VERTICAL);
+    emojiPage.setBackgroundColor(green);
+    emojiPage.setVisibility(View.GONE);
+
+    ScrollView scrollView = new ScrollView(this);
+
+    LinearLayout content = new LinearLayout(this);
+    content.setOrientation(LinearLayout.VERTICAL);
+    content.setPadding(dp(3), dp(3), dp(3), dp(3));
+
+    scrollView.addView(content);
+
+    emojiPage.addView(scrollView,
+            new LinearLayout.LayoutParams(
+                    ViewGroup.LayoutParams.MATCH_PARENT,
+                    0, 1));
+
+    root.addView(emojiPage,
+            new LinearLayout.LayoutParams(
+                    ViewGroup.LayoutParams.MATCH_PARENT,
+                    ViewGroup.LayoutParams.WRAP_CONTENT));
+
+    addPhraseHeading(content, "😀 چهرا ۽ جذبات");
+    addEmojiRow(content,
+            "😀", "😃", "😄", "😁", "😆",
+            "😅", "😂", "🤣", "😊", "😍");
+
+    addEmojiRow(content,
+            "🥰", "😘", "😎", "🤗", "🤔",
+            "😢", "😭", "😡", "😴", "🥳");
+
+    addPhraseHeading(content, "❤️ محبت ۽ احساس");
+    addEmojiRow(content,
+            "❤️", "🧡", "💛", "💚", "💙",
+            "💜", "🖤", "🤍", "💔", "💕");
+
+    addEmojiRow(content,
+            "💖", "💗", "💓", "💞", "💘",
+            "💝", "💐", "🌹", "🌷", "🌺");
+
+    addPhraseHeading(content, "👏 داد ۽ خوشي");
+    addEmojiRow(content,
+            "👏", "🙌", "👍", "👌", "🤝",
+            "🙏", "💯", "⭐", "🌟", "✨");
+
+    addPhraseHeading(content, "🌙 فطرت ۽ موسم");
+    addEmojiRow(content,
+            "🌞", "🌙", "⭐", "☀️", "🌈",
+            "🌧️", "❄️", "🔥", "🌳", "🌸");
+
+    addPhraseHeading(content, "🎉 ٻيا ايموجي");
+    addEmojiRow(content,
+            "🎉", "🎊", "🎁", "🎂", "🎈",
+            "📚", "✍️", "🖊️", "📖", "🏆");
+
+    LinearLayout bottom = new LinearLayout(this);
+    bottom.setOrientation(LinearLayout.HORIZONTAL);
+
+    addSpecialButton(bottom, "🌐", this::openLanguageMenu);
+    addSpecialButton(bottom, "⌫", this::deleteOne);
+    addSpecialButton(bottom, "SPACE", () -> commit(" "));
+    addSpecialButton(bottom, "ENTER", this::pressEnter);
+
+    emojiPage.addView(bottom);
+}
+
+
+// ADD EMOJI ROW
+private void addEmojiRow(
+        LinearLayout parent, String... emojis) {
+
+    LinearLayout row = new LinearLayout(this);
+    row.setOrientation(LinearLayout.HORIZONTAL);
+
+    for (String emoji : emojis) {
+
+        Button button = makeButton(emoji);
+        button.setTextSize(23);
+
+        row.addView(button,
+                new LinearLayout.LayoutParams(
+                        0, dp(44), 1));
+
+        button.setOnClickListener(v -> commit(emoji));
+    }
+
+    parent.addView(row);
+}
+
+
+// GREETING ROW
+private void addGreetingRow(
+        LinearLayout parent, String... phrases) {
+
+    LinearLayout row = new LinearLayout(this);
+    row.setOrientation(LinearLayout.HORIZONTAL);
+
+    for (String phrase : phrases) {
+
+        Button button = makeButton(phrase);
+        button.setTextSize(13);
+
+        row.addView(button,
+                new LinearLayout.LayoutParams(
+                        0, dp(44), 1));
+
+        button.setOnClickListener(v -> {
+            commit(phrase);
+            commit(" ");
+        });
+    }
+
+    parent.addView(row);
+}
+
     // URDU PAGE 1
 
     private void createUrduPage() {
