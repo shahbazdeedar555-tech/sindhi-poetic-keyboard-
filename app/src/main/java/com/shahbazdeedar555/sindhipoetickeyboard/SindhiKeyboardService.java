@@ -16,10 +16,15 @@ public class SindhiKeyboardService extends InputMethodService
     private LinearLayout emojiPage;         
     private LinearLayout suggestionBar;
          
-    private String currentCheckedWord = "";
-    private Button languageButton;
-    private PersonalDictionary personalDictionary;          
+            
+private String currentCheckedWord = "";
+private Button languageButton;
 
+private PersonalDictionary personalDictionary;
+
+// Custom Literary Phrases
+private android.content.SharedPreferences phrasePreferences;
+private LinearLayout customPhraseContainer;
     private boolean shiftOn = false;
     private boolean englishShift = false;
     private boolean urduSecondPage = false;
