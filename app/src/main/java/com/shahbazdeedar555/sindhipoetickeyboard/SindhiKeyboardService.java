@@ -333,14 +333,12 @@ private void setupPage1() {
     setKey(R.id.key_alif_khanjari3, "ٗ");
 
     // ROW 7 : CONTROLS
-    keyboard.findViewById(R.id.key_shift_bottom)
-            .setOnClickListener(v -> {
-                shiftOn = !shiftOn;
-            });
 
-    keyboard.findViewById(R.id.key_delete_bottom)
-            .setOnClickListener(v -> deleteOne());
+    
+Button delete1 = keyboard.findViewById(
+        R.id.key_delete_bottom);
 
+setRepeatDelete(delete1);
     keyboard.findViewById(R.id.key_space_bottom)
             .setOnClickListener(v -> setSpace());
 
