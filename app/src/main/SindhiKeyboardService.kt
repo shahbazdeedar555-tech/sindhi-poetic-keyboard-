@@ -5,7 +5,7 @@ import android.graphics.Color
 import android.view.Gravity
 import android.widget.TextView
 
-class SindhiKeyboardService : InputMethodService() {
+class SindhiKeyboardServiceTest : InputMethodService() {
 
     override fun onCreateInputView(): android.view.View {
 
