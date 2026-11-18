@@ -1145,7 +1145,55 @@ private boolean isSentenceStart(
             "(?s).*([.!?][\"'”’)]*)$");
 }
 
-    
+    // =====================================================
+// REPEAT DELETE
+// =====================================================
+
+private void setRepeatDelete(Button button) {
+
+    if (button == null) return;
+
+    button.setOnTouchListener((v, event) -> {
+
+        switch (event.getAction()) {
+
+            case MotionEvent.ACTION_DOWN:
+
+                deleteHolding = true;
+
+                deleteOne();
+
+                deleteRunnable = new Runnable() {
+                    @Override
+                    public void run() {
+
+                        if (deleteHolding) {
+                            deleteOne();
+                            deleteHandler.postDelayed(this, 45);
+                        }
+                    }
+                };
+
+                deleteHandler.postDelayed(deleteRunnable, 250);
+
+                return true;
+
+            case MotionEvent.ACTION_UP:
+            case MotionEvent.ACTION_CANCEL:
+
+                deleteHolding = false;
+
+                if (deleteRunnable != null) {
+                    deleteHandler.removeCallbacks(deleteRunnable);
+                    deleteRunnable = null;
+                }
+
+                return true;
+        }
+
+        return false;
+    });
+}
 // DELETE ONE CHARACTER
 private void deleteOne() {
 
