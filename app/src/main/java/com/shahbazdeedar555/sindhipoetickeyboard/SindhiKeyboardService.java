@@ -178,108 +178,87 @@ private TextView createLabel(
 }
 
 
-    private void showPage1() {
+    
 
-        page1.setVisibility(View.VISIBLE);
-        page2.setVisibility(View.GONE);
+private void showPage1() {
 
-        if (englishPage != null)
-            englishPage.setVisibility(View.GONE);
+    page1.setVisibility(View.VISIBLE);
+    page2.setVisibility(View.GONE);
 
-        if (englishSymbolsPage != null)
-            englishSymbolsPage.setVisibility(View.GONE);
+    hideOtherPages();
+}
 
-        if (urduPage != null)
-            urduPage.setVisibility(View.GONE);
+private void showPage2() {
 
-        if (urduPage2 != null)
-            urduPage2.setVisibility(View.GONE);
+    page1.setVisibility(View.GONE);
+    page2.setVisibility(View.VISIBLE);
 
-        if (emojiPage != null)
-            emojiPage.setVisibility(View.GONE);
-    }
+    hideOtherPages();
+}
 
-    private void showPage2() {
+private void hideSindhiPages() {
 
-        page1.setVisibility(View.GONE);
-        page2.setVisibility(View.VISIBLE);
+    page1.setVisibility(View.GONE);
+    page2.setVisibility(View.GONE);
+}
 
-        if (englishPage != null)
-            englishPage.setVisibility(View.GONE);
+private void hideOtherPages() {
 
-        if (englishSymbolsPage != null)
-            englishSymbolsPage.setVisibility(View.GONE);
-
-        if (urduPage != null)
-            urduPage.setVisibility(View.GONE);
-
-        if (urduPage2 != null)
-            urduPage2.setVisibility(View.GONE);
-
-        if (emojiPage != null)
-            emojiPage.setVisibility(View.GONE);
-    }
-
-    private void hideSindhiPages() {
-
-        page1.setVisibility(View.GONE);
-        page2.setVisibility(View.GONE);
-    }
-
-    private void showEnglishPage() {
-
-        hideSindhiPages();
-
-        englishPage.setVisibility(View.VISIBLE);
-        englishSymbolsPage.setVisibility(View.GONE);
-        urduPage.setVisibility(View.GONE);
-        urduPage2.setVisibility(View.GONE);
-        emojiPage.setVisibility(View.GONE);
-    }
-
-    private void showEnglishSymbolsPage() {
-
-        hideSindhiPages();
-
+    if (englishPage != null)
         englishPage.setVisibility(View.GONE);
-        englishSymbolsPage.setVisibility(View.VISIBLE);
-        urduPage.setVisibility(View.GONE);
-        urduPage2.setVisibility(View.GONE);
-        emojiPage.setVisibility(View.GONE);
-    }
 
-    private void showUrduPage() {
-
-        hideSindhiPages();
-
-        englishPage.setVisibility(View.GONE);
+    if (englishSymbolsPage != null)
         englishSymbolsPage.setVisibility(View.GONE);
-        urduPage.setVisibility(View.VISIBLE);
-        urduPage2.setVisibility(View.GONE);
-        emojiPage.setVisibility(View.GONE);
-    }
 
-    private void showUrduPage2() {
-
-        hideSindhiPages();
-
-        englishPage.setVisibility(View.GONE);
-        englishSymbolsPage.setVisibility(View.GONE);
+    if (urduPage != null)
         urduPage.setVisibility(View.GONE);
-        urduPage2.setVisibility(View.VISIBLE);
-        emojiPage.setVisibility(View.GONE);
-    }
 
-    private void showEmojiPage() {
-
-        hideSindhiPages();
-
-        englishPage.setVisibility(View.GONE);
-        englishSymbolsPage.setVisibility(View.GONE);
-        urduPage.setVisibility(View.GONE);
+    if (urduPage2 != null)
         urduPage2.setVisibility(View.GONE);
-        emojiPage.setVisibility(View.VISIBLE);
-    }
+
+    if (emojiPage != null)
+        emojiPage.setVisibility(View.GONE);
+}
+
+private void showEnglishPage() {
+
+    hideSindhiPages();
+    hideOtherPages();
+
+    englishPage.setVisibility(View.VISIBLE);
+}
+
+private void showEnglishSymbolsPage() {
+
+    hideSindhiPages();
+    hideOtherPages();
+
+    englishSymbolsPage.setVisibility(View.VISIBLE);
+}
+
+private void showUrduPage() {
+
+    hideSindhiPages();
+    hideOtherPages();
+
+    urduPage.setVisibility(View.VISIBLE);
+}
+
+private void showUrduPage2() {
+
+    hideSindhiPages();
+    hideOtherPages();
+
+    urduPage2.setVisibility(View.VISIBLE);
+}
+
+private void showEmojiPage() {
+
+    hideSindhiPages();
+    hideOtherPages();
+
+    emojiPage.setVisibility(View.VISIBLE);
+}
 
 
     
@@ -518,7 +497,9 @@ private void setupNumbers() {
         });
     }
 
-    private void setKey(int id, String text) {
+    
+private void setKey(int id, String text) {
+
     Button button = keyboard.findViewById(id);
 
     if (button == null) return;
@@ -527,6 +508,7 @@ private void setupNumbers() {
 }
 
 private void setNumber(int id, String text) {
+
     Button button = keyboard.findViewById(id);
 
     if (button == null) return;
@@ -535,11 +517,21 @@ private void setNumber(int id, String text) {
 }
 
 private void setArrow() {
+
     Button button = keyboard.findViewById(R.id.key_arrow);
 
     if (button == null) return;
 
     button.setOnClickListener(v -> showPage2());
 }
+
+private void setBackArrow() {
+
+    Button button = keyboard.findViewById(R.id.key_back_arrow);
+
+    if (button == null) return;
+
+    button.setOnClickListener(v -> showPage1());
 }
+} 
     
