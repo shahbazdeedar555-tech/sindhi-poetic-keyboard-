@@ -410,29 +410,38 @@ private void setupPage2() {
     setKey(R.id.key_alif_khanjari2c, "ٖ");
     setKey(R.id.key_alif_khanjari2d, "ٗ");
 
+    
     // CONTROLS
-    keyboard.findViewById(R.id.key_shift_bottom2)
-            .setOnClickListener(v -> {
-                shiftOn = !shiftOn;
-            });
 
-    keyboard.findViewById(R.id.key_delete_bottom2)
-            .setOnClickListener(v -> deleteOne());
+    // SHIFT
+    Button shift2 = keyboard.findViewById(
+            R.id.key_shift_bottom2);
 
+    if (shift2 != null) {
+        shift2.setOnClickListener(v -> {
+            shiftOn = !shiftOn;
+            shift2.setAlpha(shiftOn ? 0.6f : 1.0f);
+        });
+    }
+
+    // DELETE
+    Button delete2 = keyboard.findViewById(
+            R.id.key_delete_bottom2);
+
+    setRepeatDelete(delete2);
+
+    // SPACE
     keyboard.findViewById(R.id.key_space_bottom2)
             .setOnClickListener(v -> setSpace());
 
+    // ENTER
     keyboard.findViewById(R.id.key_enter_bottom2)
             .setOnClickListener(v -> setEnter());
-}
-}  
+
 private void setupNumbers() {
     // Numbers are already connected in setupPage2().
 }
-    
-
-    
-    
+  
 
     private void createLanguageButton() {
 
