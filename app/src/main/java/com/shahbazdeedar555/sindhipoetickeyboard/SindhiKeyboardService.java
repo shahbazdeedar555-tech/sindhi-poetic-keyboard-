@@ -2,6 +2,7 @@
 
 package com.shahbaz555.sindhipoetickeyboard;
 import com.shahbazdeedar555.sindhipoetickeyboard.R;
+import com.shahbazdeedar555.sindhipoetickeyboard.PersonalDictionary;
 import android.inputmethodservice.InputMethodService;
 import android.os.Handler;
 import android.os.Looper;
