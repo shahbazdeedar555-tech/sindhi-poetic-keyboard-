@@ -522,7 +522,251 @@ private void setArrow() {
 
     if (button == null) return;
 
-    button.setOnClickListener(v -> showPage2());
+    button.setOnClickListener(v -> showPage2());} 
+
+// =====================================================
+// PART 5: ENGLISH QWERTY KEYBOARD
+// =====================================================
+
+private void createEnglishPage() {
+
+    englishPage = new LinearLayout(this);
+    englishPage.setOrientation(LinearLayout.VERTICAL);
+    englishPage.setLayoutDirection(View.LAYOUT_DIRECTION_LTR);
+    englishPage.setBackgroundColor(Color.parseColor("#173F35"));
+    englishPage.setVisibility(View.GONE);
+
+    addEnglishRow(englishPage, "q", "w", "e", "r", "t", "y", "u", "i", "o", "p");
+    addEnglishRow(englishPage, "a", "s", "d", "f", "g", "h", "j", "k", "l");
+    addEnglishRow(englishPage, "SHIFT", "z", "x", "c", "v", "b", "n", "m", "DELETE");
+
+    LinearLayout controls = new LinearLayout(this);
+    controls.setOrientation(LinearLayout.HORIZONTAL);
+    controls.setLayoutDirection(View.LAYOUT_DIRECTION_LTR);
+
+    addEnglishControl(controls, "?123", 1, v -> showEnglishSymbols());
+    addEnglishControl(controls, ",", 1, v -> commit(","));
+    addEnglishControl(controls, "SPACE", 4, v -> commit(" "));
+    addEnglishControl(controls, ".", 1, v -> commit("."));
+    addEnglishControl(controls, "ENTER", 2, v -> setEnter());
+
+    englishPage.addView(controls);
+    root.addView(englishPage);
+}
+
+
+// =====================================================
+// ENGLISH SYMBOLS PAGE
+// =====================================================
+
+private void createEnglishSymbolsPage() {
+
+    englishSymbolsPage = new LinearLayout(this);
+    englishSymbolsPage.setOrientation(LinearLayout.VERTICAL);
+    englishSymbolsPage.setLayoutDirection(View.LAYOUT_DIRECTION_LTR);
+    englishSymbolsPage.setBackgroundColor(Color.parseColor("#173F35"));
+    englishSymbolsPage.setVisibility(View.GONE);
+
+    addEnglishRow(englishSymbolsPage, "1", "2", "3", "4", "5", "6", "7", "8", "9", "0");
+    addEnglishRow(englishSymbolsPage, "@", "#", "$", "%", "&", "-", "+", "(", ")");
+    addEnglishRow(englishSymbolsPage, "*", "\"", "'", ":", ";", "!", "?", "DELETE");
+
+    LinearLayout controls = new LinearLayout(this);
+    controls.setOrientation(LinearLayout.HORIZONTAL);
+    controls.setLayoutDirection(View.LAYOUT_DIRECTION_LTR);
+
+    addEnglishControl(controls, "ABC", 2, v -> displayEnglishPage());
+    addEnglishControl(controls, ",", 1, v -> commit(","));
+    addEnglishControl(controls, "SPACE", 4, v -> commit(" "));
+    addEnglishControl(controls, ".", 1, v -> commit("."));
+    addEnglishControl(controls, "ENTER", 2, v -> setEnter());
+
+    englishSymbolsPage.addView(controls);
+    root.addView(englishSymbolsPage);
+}
+
+
+// =====================================================
+// ENGLISH KEY ROW
+// =====================================================
+
+private void addEnglishRow(LinearLayout parent, String... keys) {
+
+    LinearLayout row = new LinearLayout(this);
+    row.setOrientation(LinearLayout.HORIZONTAL);
+    row.setLayoutDirection(View.LAYOUT_DIRECTION_LTR);
+
+    for (String key : keys) {
+
+        Button button = createEnglishButton(key);
+
+        LinearLayout.LayoutParams params =
+                new LinearLayout.LayoutParams(
+                        0,
+                        dpEnglish(46),
+                        key.equals("SHIFT") || key.equals("DELETE") ? 1.5f : 1f
+                );
+
+        params.setMargins(dpEnglish(1), dpEnglish(2),
+                dpEnglish(1), dpEnglish(2));
+
+        row.addView(button, params);
+    }
+
+    parent.addView(row);
+}
+
+
+// =====================================================
+// CREATE ENGLISH BUTTON
+// =====================================================
+
+private Button createEnglishButton(String key) {
+
+    Button button = new Button(this);
+    button.setText(key);
+    button.setTextSize(17);
+    button.setTextColor(Color.WHITE);
+    button.setAllCaps(false);
+    button.setPadding(0, 0, 0, 0);
+    button.setTag(key);
+
+    button.setBackgroundColor(Color.rgb(35, 85, 70));
+
+    button.setOnClickListener(v -> {
+
+        String value = (String) button.getTag();
+
+        if ("SHIFT".equals(value)) {
+
+            englishShift = !englishShift;
+            updateEnglishShift(englishPage);
+            return;
+        }
+
+        if ("DELETE".equals(value)) {
+            deleteOne();
+            return;
+        }
+
+        if (value != null) {
+            commit(englishShift ? value.toUpperCase() : value);
+        }
+    });
+
+    return button;
+}
+
+
+// =====================================================
+// ENGLISH CONTROL BUTTON
+// =====================================================
+
+private void addEnglishControl(
+        LinearLayout parent,
+        String text,
+        float weight,
+        View.OnClickListener listener) {
+
+    Button button = new Button(this);
+    button.setText(text);
+    button.setTextSize(13);
+    button.setTextColor(Color.WHITE);
+    button.setAllCaps(false);
+    button.setPadding(0, 0, 0, 0);
+    button.setBackgroundColor(Color.rgb(25, 65, 52));
+    button.setOnClickListener(listener);
+
+    LinearLayout.LayoutParams params =
+            new LinearLayout.LayoutParams(
+                    0,
+                    dpEnglish(46),
+                    weight
+            );
+
+    params.setMargins(dpEnglish(1), dpEnglish(2),
+            dpEnglish(1), dpEnglish(2));
+
+    parent.addView(button, params);
+}
+
+
+// =====================================================
+// SHIFT LETTERS
+// =====================================================
+
+private void updateEnglishShift(LinearLayout layout) {
+
+    if (layout == null) return;
+
+    for (int i = 0; i < layout.getChildCount(); i++) {
+
+        View child = layout.getChildAt(i);
+
+        if (child instanceof Button) {
+
+            Button button = (Button) child;
+            Object tag = button.getTag();
+
+            if (tag instanceof String) {
+
+                String key = (String) tag;
+
+                if (key.length() == 1 &&
+                        key.matches("[a-zA-Z]")) {
+
+                    button.setText(
+                            englishShift
+                                    ? key.toUpperCase()
+                                    : key.toLowerCase()
+                    );
+                }
+            }
+        }
+
+        if (child instanceof LinearLayout) {
+            updateEnglishShift((LinearLayout) child);
+        }
+    }
+}
+
+
+// =====================================================
+// SHOW ENGLISH PAGES
+// =====================================================
+
+private void displayEnglishPage() {
+
+    hideSindhiPages();
+    hideOtherPages();
+
+    if (englishPage != null) {
+        englishPage.setVisibility(View.VISIBLE);
+    }
+}
+
+private void showEnglishSymbols() {
+
+    hideSindhiPages();
+    hideOtherPages();
+
+    if (englishSymbolsPage != null) {
+        englishSymbolsPage.setVisibility(View.VISIBLE);
+    }
+}
+
+
+// =====================================================
+// DP CONVERSION
+// =====================================================
+
+private int dpEnglish(int value) {
+
+    return (int) (value *
+            getResources().getDisplayMetrics().density + 0.5f);
+}
+
+    
 }
 
 
