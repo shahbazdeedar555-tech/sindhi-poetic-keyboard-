@@ -331,7 +331,16 @@ private void setupPage1() {
     setKey(R.id.key_alif_khanjari1, "ٰ");
     setKey(R.id.key_alif_khanjari2, "_");
     setKey(R.id.key_alif_khanjari3, "ٗ");
+    
+// SHIFT: PAGE 1 TO PAGE 2
+Button shift1 = keyboard.findViewById(
+        R.id.key_shift_bottom);
 
+if (shift1 != null) {
+    shift1.setOnClickListener(v -> {
+        showPage2();
+    });
+}
     // ROW 7 : CONTROLS
 
     
@@ -413,16 +422,15 @@ private void setupPage2() {
     
     // CONTROLS
 
-    // SHIFT
-    Button shift2 = keyboard.findViewById(
-            R.id.key_shift_bottom2);
+    // SHIFT: PAGE 2 TO PAGE 1
+Button shift2 = keyboard.findViewById(
+        R.id.key_shift_bottom2);
 
-    if (shift2 != null) {
-        shift2.setOnClickListener(v -> {
-            shiftOn = !shiftOn;
-            shift2.setAlpha(shiftOn ? 0.6f : 1.0f);
-        });
-    }
+if (shift2 != null) {
+    shift2.setOnClickListener(v -> {
+        showPage1();
+    });
+}
 
     // DELETE
     Button delete2 = keyboard.findViewById(
@@ -525,14 +533,37 @@ private void setNumber(int id, String text) {
     button.setOnClickListener(v -> commit(text));
 }
 
+
 private void setArrow() {
 
-    Button button = keyboard.findViewById(R.id.key_arrow);
+    Button button = keyboard.findViewById(
+            R.id.key_arrow);
 
     if (button == null) return;
 
-    button.setOnClickListener(v -> showPage2());} 
+    button.setOnClickListener(v -> {
 
+        InputConnection connection =
+                getCurrentInputConnection();
+
+        if (connection != null) {
+
+            connection.sendKeyEvent(
+                    new KeyEvent(
+                            KeyEvent.ACTION_DOWN,
+                            KeyEvent.KEYCODE_DPAD_LEFT
+                    )
+            );
+
+            connection.sendKeyEvent(
+                    new KeyEvent(
+                            KeyEvent.ACTION_UP,
+                            KeyEvent.KEYCODE_DPAD_LEFT
+                    )
+            );
+        }
+    });
+}
 // =====================================================
 // PART 5: ENGLISH QWERTY KEYBOARD
 // =====================================================
