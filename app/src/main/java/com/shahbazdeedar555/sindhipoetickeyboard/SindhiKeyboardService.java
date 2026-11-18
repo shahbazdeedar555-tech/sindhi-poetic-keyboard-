@@ -1239,12 +1239,12 @@ private void setRepeatDelete(Button button) {
 
                         if (deleteHolding) {
                             deleteOne();
-                            deleteHandler.postDelayed(this, 45);
+                            deleteHandler.postDelayed(this,30 );
                         }
                     }
                 };
 
-                deleteHandler.postDelayed(deleteRunnable, 250);
+                deleteHandler.postDelayed(deleteRunnable, 150);
 
                 return true;
 
