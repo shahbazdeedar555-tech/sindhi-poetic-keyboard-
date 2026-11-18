@@ -100,9 +100,11 @@ public View onCreateInputView() {
     return keyboard;
 }
 
+
+
 private int dp(int value) {
     return (int) (value *
-            getResources().getDisplayMetrics().density);
+            getResources().getDisplayMetrics().density + 0.5f);
 }
 
 private GradientDrawable makeBackground(
@@ -176,7 +178,6 @@ private TextView createLabel(
 
     return label;
 }
-
 
     
 
