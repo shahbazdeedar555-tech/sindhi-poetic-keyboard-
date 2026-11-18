@@ -708,6 +708,12 @@ private Button createEnglishButton(String key) {
 
     button.setBackgroundColor(Color.rgb(35, 85, 70));
 
+    if ("DELETE".equals(key)) {
+
+    setRepeatDelete(button);
+
+} else {
+
     button.setOnClickListener(v -> {
 
         String value = (String) button.getTag();
@@ -719,15 +725,13 @@ private Button createEnglishButton(String key) {
             return;
         }
 
-        if ("DELETE".equals(value)) {
-            deleteOne();
-            return;
-        }
-
         if (value != null) {
-            commit(englishShift ? value.toUpperCase() : value);
+            commit(englishShift
+                    ? value.toUpperCase(Locale.ROOT)
+                    : value);
         }
     });
+}
 
     return button;
 }
