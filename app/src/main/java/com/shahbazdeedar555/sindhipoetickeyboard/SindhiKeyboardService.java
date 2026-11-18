@@ -66,109 +66,117 @@ public class SindhiKeyboardService extends InputMethodService {
     private final int black = Color.BLACK;
     private final int white = Color.WHITE;
 
-    @Override
-    public View onCreateInputView() {
-
-        if (personalDictionary == null) {
-            personalDictionary = new PersonalDictionary(this);
-        }
-
-        phrasePreferences = getSharedPreferences(
-                "literary_phrases", MODE_PRIVATE);
-
-        keyboard = getLayoutInflater().inflate(
-                R.layout.keyboard_view, null);
-
-        root = keyboard.findViewById(R.id.keyboard_root);
-        page1 = keyboard.findViewById(R.id.keyboard_page1);
-        page2 = keyboard.findViewById(R.id.keyboard_page2);
-
-        setupPage1();
-        setupPage2();
-        setupNumbers();
-
-        createLanguageButton();
-        createEnglishPage();
-        createEnglishSymbolsPage();
-        createUrduPage();
-        createUrduPage2();
-        createEmojiPage();
-
-        showPage1();
-
-        return keyboard;
-    }
-
-    private int dp(int value) {
-        return (int) (value *
-                getResources().getDisplayMetrics().density);
-    }
-
     
-    private GradientDrawable makeBackground(
-            int color, int radius) {
+@Override
+public View onCreateInputView() {
 
-        GradientDrawable drawable = new GradientDrawable();
-        drawable.setColor(color);
-        drawable.setCornerRadius(dp(radius));
-        drawable.setStroke(dp(1), Color.LTGRAY);
-
-        return drawable;
+    if (personalDictionary == null) {
+        personalDictionary = new PersonalDictionary(this);
     }
 
-    private Button createButton(
-            String text, LinearLayout parent,
-            int backgroundColor, int textColor) {
+    phrasePreferences = getSharedPreferences(
+            "literary_phrases", MODE_PRIVATE);
 
-        Button button = new Button(this);
-        button.setText(text);
-        button.setTextColor(textColor);
-        button.setTextSize(18);
-        button.setAllCaps(false);
-        button.setTypeface(Typeface.DEFAULT, Typeface.BOLD);
-        button.setBackground(
-                makeBackground(backgroundColor, 6));
+    keyboard = getLayoutInflater().inflate(
+            R.layout.keyboard_view, null);
 
-        LinearLayout.LayoutParams params =
-                new LinearLayout.LayoutParams(
-                        0, dp(48), 1);
+    root = keyboard.findViewById(R.id.keyboard_root);
+    page1 = keyboard.findViewById(R.id.keyboard_page1);
+    page2 = keyboard.findViewById(R.id.keyboard_page2);
 
-        params.setMargins(dp(2), dp(2), dp(2), dp(2));
+    setupPage1();
+    setupPage2();
+    setupNumbers();
 
-        parent.addView(button, params);
+    createLanguageButton();
+    createEnglishPage();
+    createEnglishSymbolsPage();
+    createUrduPage();
+    createUrduPage2();
+    createEmojiPage();
 
-        return button;
-    }
+    showPage1();
 
-    private LinearLayout createRow(LinearLayout parent) {
+    return keyboard;
+}
 
-        LinearLayout row = new LinearLayout(this);
-        row.setOrientation(LinearLayout.HORIZONTAL);
-        row.setGravity(Gravity.CENTER);
+private int dp(int value) {
+    return (int) (value *
+            getResources().getDisplayMetrics().density);
+}
 
-        parent.addView(row,
-                new LinearLayout.LayoutParams(
-                        ViewGroup.LayoutParams.MATCH_PARENT,
-                        ViewGroup.LayoutParams.WRAP_CONTENT));
+private GradientDrawable makeBackground(
+        int color, int radius) {
 
-        return row;
-    }
+    GradientDrawable drawable = new GradientDrawable();
+    drawable.setColor(color);
+    drawable.setCornerRadius(dp(radius));
+    drawable.setStroke(dp(1), Color.LTGRAY);
 
-    private TextView createLabel(
-            String text, LinearLayout parent) {
+    return drawable;
+}
 
-        TextView label = new TextView(this);
-        label.setText(text);
-        label.setTextSize(18);
-        label.setTextColor(black);
-        label.setTypeface(Typeface.DEFAULT, Typeface.BOLD);
-        label.setGravity(Gravity.CENTER);
-        label.setPadding(dp(5), dp(8), dp(5), dp(8));
+private Button createButton(
+        String text,
+        LinearLayout parent,
+        int backgroundColor,
+        int textColor) {
 
-        parent.addView(label);
+    Button button = new Button(this);
 
-        return label;
-    }
+    button.setText(text);
+    button.setTextColor(textColor);
+    button.setTextSize(18);
+    button.setAllCaps(false);
+    button.setTypeface(Typeface.DEFAULT, Typeface.BOLD);
+
+    button.setBackground(
+            makeBackground(backgroundColor, 6));
+
+    LinearLayout.LayoutParams params =
+            new LinearLayout.LayoutParams(
+                    0, dp(48), 1);
+
+    params.setMargins(dp(2), dp(2), dp(2), dp(2));
+
+    parent.addView(button, params);
+
+    return button;
+}
+
+private LinearLayout createRow(LinearLayout parent) {
+
+    LinearLayout row = new LinearLayout(this);
+
+    row.setOrientation(LinearLayout.HORIZONTAL);
+    row.setGravity(Gravity.CENTER);
+
+    parent.addView(row,
+            new LinearLayout.LayoutParams(
+                    ViewGroup.LayoutParams.MATCH_PARENT,
+                    ViewGroup.LayoutParams.WRAP_CONTENT));
+
+    return row;
+}
+
+private TextView createLabel(
+        String text, LinearLayout parent) {
+
+    TextView label = new TextView(this);
+
+    label.setText(text);
+    label.setTextSize(18);
+    label.setTextColor(black);
+    label.setTypeface(Typeface.DEFAULT, Typeface.BOLD);
+    label.setGravity(Gravity.CENTER);
+
+    label.setPadding(dp(5), dp(8), dp(5), dp(8));
+
+    parent.addView(label);
+
+    return label;
+}
+
 
     private void showPage1() {
 
