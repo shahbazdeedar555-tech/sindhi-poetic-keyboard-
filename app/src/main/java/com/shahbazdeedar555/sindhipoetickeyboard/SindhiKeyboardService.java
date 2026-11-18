@@ -86,7 +86,7 @@ public View onCreateInputView() {
     setupPage2();
     setupNumbers();
 
-    createLanguageButton();
+    
     createEnglishPage();
     createEnglishSymbolsPage();
     createUrduPage();
@@ -102,7 +102,7 @@ public View onCreateInputView() {
 
 private int dp(int value) {
     return (int) (value *
-            getResources().getDisplayMetrics().density + 0.5f);
+    getResources().getDisplayMetrics().density + 0.5f);
 }
 
 private GradientDrawable makeBackground(
@@ -427,8 +427,7 @@ private void setupPage2() {
     keyboard.findViewById(R.id.key_enter_bottom2)
             .setOnClickListener(v -> setEnter());
 }
-
-    
+}  
 private void setupNumbers() {
     // Numbers are already connected in setupPage2().
 }
