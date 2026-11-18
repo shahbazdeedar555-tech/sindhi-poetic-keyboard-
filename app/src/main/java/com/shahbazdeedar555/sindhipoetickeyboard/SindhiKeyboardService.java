@@ -900,7 +900,7 @@ private void createUrduPage() {
 
     Button deleteButton = createButton(
             "⌫", controls, Color.RED, white);
-
+deleteButton.setTranslationY(-5f);
     setRepeatDelete(deleteButton);
 
     Button enterButton = createButton(
