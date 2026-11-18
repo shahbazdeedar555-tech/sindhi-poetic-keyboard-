@@ -901,8 +901,7 @@ private void createUrduPage() {
     Button deleteButton = createButton(
             "⌫", controls, Color.RED, white);
 
-    deleteButton.setOnClickListener(v ->
-            deleteOne());
+    setRepeatDelete(deleteButton);
 
     Button enterButton = createButton(
             "↵", controls, Color.DKGRAY, white);
@@ -970,8 +969,7 @@ private void createUrduPage2() {
     Button deleteButton = createButton(
             "⌫", controls, Color.RED, white);
 
-    deleteButton.setOnClickListener(v ->
-            deleteOne());
+    setRepeatDelete(deleteButton);
 
     Button enterButton = createButton(
             "↵", controls, Color.DKGRAY, white);
