@@ -87,13 +87,16 @@ public View onCreateInputView() {
     setupNumbers();
 
     
-    createEnglishPage();
-    createEnglishSymbolsPage();
-    createUrduPage();
-    createUrduPage2();
-    createEmojiPage();
+   createEnglishPage();
+createEnglishSymbolsPage();
+createUrduPage();
+createUrduPage2();
+createEmojiPage();
 
-    showPage1();
+// LANGUAGE BUTTON
+createLanguageButton();
+
+showPage1();
 
     return keyboard;
 }
