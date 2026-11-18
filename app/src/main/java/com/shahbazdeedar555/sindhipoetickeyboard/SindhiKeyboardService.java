@@ -767,6 +767,385 @@ private int dpEnglish(int value) {
             getResources().getDisplayMetrics().density + 0.5f);
 }
 
+// =====================================================
+// PART 3: URDU KEYBOARD - PAGE 1
+// =====================================================
+
+private void createUrduPage() {
+
+    urduPage = new LinearLayout(this);
+    urduPage.setOrientation(LinearLayout.VERTICAL);
+    urduPage.setLayoutDirection(View.LAYOUT_DIRECTION_RTL);
+    urduPage.setBackgroundColor(green);
+    urduPage.setVisibility(View.GONE);
+
+    // ROW 1
+    addUrduRow(urduPage,
+            "ق", "و", "ع", "ر", "ت",
+            "ے", "ء", "ی", "ہ", "پ");
+
+    // ROW 2
+    addUrduRow(urduPage,
+            "ا", "س", "د", "ف", "گ",
+            "ح", "ج", "ک", "ل");
+
+    // ROW 3
+    addUrduRow(urduPage,
+            "ز", "ش", "چ", "ط", "ب",
+            "ن", "م", "ں", "خ");
+
+    // ROW 4
+    addUrduRow(urduPage,
+            "ث", "ص", "ض", "ذ", "ڈ",
+            "ڑ", "ٹ", "غ");
+
+    // ROW 5: CONTROLS
+    LinearLayout controls = createRow(urduPage);
+
+    Button pageButton = createButton(
+            "123", controls, Color.DKGRAY, white);
+
+    pageButton.setOnClickListener(v ->
+            showUrduPage2());
+
+    Button commaButton = createButton(
+            "،", controls, green, white);
+
+    commaButton.setOnClickListener(v ->
+            commit("،"));
+
+    Button spaceButton = createButton(
+            "Space", controls, green, white);
+
+    spaceButton.setOnClickListener(v ->
+            commit(" "));
+
+    Button deleteButton = createButton(
+            "⌫", controls, Color.RED, white);
+
+    deleteButton.setOnClickListener(v ->
+            deleteOne());
+
+    Button enterButton = createButton(
+            "↵", controls, Color.DKGRAY, white);
+
+    enterButton.setOnClickListener(v ->
+            setEnter());
+
+    root.addView(urduPage);
+}
+
+
+// =====================================================
+// URDU KEYBOARD - PAGE 2
+// =====================================================
+
+private void createUrduPage2() {
+
+    urduPage2 = new LinearLayout(this);
+    urduPage2.setOrientation(LinearLayout.VERTICAL);
+    urduPage2.setLayoutDirection(View.LAYOUT_DIRECTION_RTL);
+    urduPage2.setBackgroundColor(green);
+    urduPage2.setVisibility(View.GONE);
+
+    // ROW 1: NUMBERS
+    addUrduRow(urduPage2,
+            "۱", "۲", "۳", "۴", "۵",
+            "۶", "۷", "۸", "۹", "۰");
+
+    // ROW 2: SYMBOLS
+    addUrduRow(urduPage2,
+            "@", "#", "$", "%", "&",
+            "-", "+", "(", ")");
+
+    // ROW 3: PUNCTUATION
+    addUrduRow(urduPage2,
+            ".", "،", "؟", "!", "؛",
+            ":", "\"", "'");
+
+    // ROW 4: ADDITIONAL SYMBOLS
+    addUrduRow(urduPage2,
+            "*", "/", "=", "_", "ـ",
+            "٪", "۔", "ء");
+
+    // ROW 5: CONTROLS
+    LinearLayout controls = createRow(urduPage2);
+
+    Button abcButton = createButton(
+            "ABC", controls, Color.DKGRAY, white);
+
+    abcButton.setOnClickListener(v ->
+            showUrduPage());
+
+    Button commaButton = createButton(
+            "،", controls, green, white);
+
+    commaButton.setOnClickListener(v ->
+            commit("،"));
+
+    Button spaceButton = createButton(
+            "Space", controls, green, white);
+
+    spaceButton.setOnClickListener(v ->
+            commit(" "));
+
+    Button deleteButton = createButton(
+            "⌫", controls, Color.RED, white);
+
+    deleteButton.setOnClickListener(v ->
+            deleteOne());
+
+    Button enterButton = createButton(
+            "↵", controls, Color.DKGRAY, white);
+
+    enterButton.setOnClickListener(v ->
+            setEnter());
+
+    root.addView(urduPage2);
+}
+
+
+// =====================================================
+// URDU KEY ROW
+// =====================================================
+
+private void addUrduRow(
+        LinearLayout parent, String... keys) {
+
+    LinearLayout row = new LinearLayout(this);
+
+    row.setOrientation(LinearLayout.HORIZONTAL);
+    row.setLayoutDirection(View.LAYOUT_DIRECTION_RTL);
+    row.setGravity(Gravity.CENTER);
+
+    for (String key : keys) {
+
+        Button button = createButton(
+                key, row, Color.rgb(35, 85, 70), white);
+
+        button.setTextSize(19);
+
+        button.setOnClickListener(v ->
+                commit(key));
+    }
+
+    parent.addView(row);
+}
+
+    
+// =====================================================
+// PART 4: EMOJI KEYBOARD
+// =====================================================
+
+private void createEmojiPage() {
+
+    emojiPage = new LinearLayout(this);
+    emojiPage.setOrientation(LinearLayout.VERTICAL);
+    emojiPage.setLayoutDirection(View.LAYOUT_DIRECTION_LTR);
+    emojiPage.setBackgroundColor(green);
+    emojiPage.setVisibility(View.GONE);
+
+    // EMOJI CATEGORY TITLE
+    TextView title = createLabel(
+            "😀  EMOJI KEYBOARD", emojiPage);
+
+    title.setTextColor(white);
+
+    // FACES
+    addEmojiRow(emojiPage,
+            "😀", "😃", "😄", "😁", "😆",
+            "😅", "😂", "🤣", "😊", "😇");
+
+    addEmojiRow(emojiPage,
+            "🙂", "🙃", "😉", "😍", "🥰",
+            "😘", "😗", "😙", "😚", "😋");
+
+    addEmojiRow(emojiPage,
+            "😜", "🤪", "😎", "🥳", "😭",
+            "😢", "😡", "😱", "🤔", "🤗");
+
+    // HANDS AND PEOPLE
+    addEmojiRow(emojiPage,
+            "👍", "👎", "👏", "🙏", "🤝",
+            "👌", "✌️", "🤞", "🤟", "👋");
+
+    addEmojiRow(emojiPage,
+            "💪", "🫶", "❤️", "🧡", "💛",
+            "💚", "💙", "💜", "🖤", "🤍");
+
+    // NATURE AND ANIMALS
+    addEmojiRow(emojiPage,
+            "🐱", "🐶", "🐭", "🐼", "🦁",
+            "🐯", "🐸", "🐵", "🐦", "🦋");
+
+    // FOOD
+    addEmojiRow(emojiPage,
+            "🍎", "🍌", "🍇", "🍉", "🍓",
+            "🍒", "🥭", "🍍", "🍕", "🍔");
+
+    // OBJECTS AND SYMBOLS
+    addEmojiRow(emojiPage,
+            "⚽", "🏏", "🏆", "🎁", "🎂",
+            "📚", "✏️", "📱", "💡", "⭐");
+
+    // CONTROLS
+    LinearLayout controls = createRow(emojiPage);
+
+    Button sindhiButton = createButton(
+            "سنڌي", controls, Color.DKGRAY, white);
+
+    sindhiButton.setOnClickListener(v -> {
+        languageButton.setText("سنڌي ▼");
+        showPage1();
+    });
+
+    Button englishButton = createButton(
+            "English", controls, Color.DKGRAY, white);
+
+    englishButton.setOnClickListener(v -> {
+        languageButton.setText("English ▼");
+        showEnglishPage();
+    });
+
+    Button deleteButton = createButton(
+            "⌫", controls, Color.RED, white);
+
+    deleteButton.setOnClickListener(v ->
+            deleteOne());
+
+    Button spaceButton = createButton(
+            "Space", controls, green, white);
+
+    spaceButton.setOnClickListener(v ->
+            commit(" "));
+
+    Button enterButton = createButton(
+            "↵", controls, Color.DKGRAY, white);
+
+    enterButton.setOnClickListener(v ->
+            setEnter());
+
+    root.addView(emojiPage);
+}
+
+
+// =====================================================
+// ADD EMOJI ROW
+// =====================================================
+
+private void addEmojiRow(
+        LinearLayout parent, String... emojis) {
+
+    LinearLayout row = new LinearLayout(this);
+
+    row.setOrientation(LinearLayout.HORIZONTAL);
+    row.setGravity(Gravity.CENTER);
+    row.setLayoutDirection(View.LAYOUT_DIRECTION_LTR);
+
+    for (String emoji : emojis) {
+
+        Button button = createButton(
+                emoji, row, Color.rgb(35, 85, 70), white);
+
+        button.setTextSize(22);
+
+        button.setOnClickListener(v ->
+                commit(emoji));
+    }
+
+    parent.addView(row);
+}
+
+// =====================================================
+// PART 5: BASIC KEY ACTIONS
+// =====================================================
+
+// INSERT TEXT
+private void commit(String text) {
+
+    InputConnection connection =
+            getCurrentInputConnection();
+
+    if (connection == null || text == null) {
+        return;
+    }
+
+    connection.commitText(text, 1);
+}
+
+
+// DELETE ONE CHARACTER
+private void deleteOne() {
+
+    InputConnection connection =
+            getCurrentInputConnection();
+
+    if (connection == null) {
+        return;
+    }
+
+    CharSequence before =
+            connection.getTextBeforeCursor(2, 0);
+
+    if (before == null || before.length() == 0) {
+        return;
+    }
+
+    int length = before.length();
+
+    // Handle UTF-16 surrogate pairs
+    if (length >= 2) {
+
+        char last = before.charAt(length - 1);
+        char previous = before.charAt(length - 2);
+
+        if (Character.isLowSurrogate(last) &&
+                Character.isHighSurrogate(previous)) {
+
+            connection.deleteSurroundingText(2, 0);
+            return;
+        }
+    }
+
+    connection.deleteSurroundingText(1, 0);
+}
+
+
+// SPACE
+private void setSpace() {
+    commit(" ");
+}
+
+
+// ENTER
+private void setEnter() {
+
+    InputConnection connection =
+            getCurrentInputConnection();
+
+    if (connection == null) {
+        return;
+    }
+
+    EditorInfo info = getCurrentInputEditorInfo();
+
+    if (info != null) {
+
+        int action = info.imeOptions &
+                EditorInfo.IME_MASK_ACTION;
+
+        if (action != EditorInfo.IME_ACTION_NONE &&
+                action != EditorInfo.IME_ACTION_UNSPECIFIED) {
+
+            if (connection.performEditorAction(action)) {
+                return;
+            }
+        }
+    }
+
+    connection.commitText("\n", 1);
+}
+
     
 }
 
