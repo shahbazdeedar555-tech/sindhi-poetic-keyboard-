@@ -1056,11 +1056,12 @@ private void addEmojiRow(
     parent.addView(row);
 }
 
-// =====================================================
-// PART 5: BASIC KEY ACTIONS
+
+ // =====================================================
+// PART 5 & 6: BASIC KEY ACTIONS
 // =====================================================
 
-// INSERT TEXT
+// INSERT TEXT WITH ENGLISH AUTO CAPITALIZATION
 private void commit(String text) {
 
     InputConnection connection =
@@ -1070,10 +1071,73 @@ private void commit(String text) {
         return;
     }
 
+    // Apply English rules only on English pages
+    boolean englishMode =
+            (englishPage != null &&
+             englishPage.getVisibility() == View.VISIBLE) ||
+            (englishSymbolsPage != null &&
+             englishSymbolsPage.getVisibility() == View.VISIBLE);
+
+    if (englishMode) {
+
+        // Convert standalone i into I
+        if (text.equals(" ") ||
+                text.matches("[.,!?;:]")) {
+
+            CharSequence before =
+                    connection.getTextBeforeCursor(20, 0);
+
+            if (before != null) {
+
+                String previous = before.toString();
+
+                if (previous.matches("(?s).*\\bi$")) {
+
+                    connection.deleteSurroundingText(1, 0);
+                    connection.commitText("I", 1);
+                }
+            }
+
+            connection.commitText(text, 1);
+            return;
+        }
+
+        // Capitalize first letter of a sentence
+        if (text.length() == 1 &&
+                text.matches("[a-z]")) {
+
+            if (isSentenceStart(connection)) {
+                text = text.toUpperCase(Locale.ROOT);
+            }
+        }
+    }
+
     connection.commitText(text, 1);
 }
 
 
+// CHECK WHETHER THE CURSOR IS AT SENTENCE START
+private boolean isSentenceStart(
+        InputConnection connection) {
+
+    CharSequence before =
+            connection.getTextBeforeCursor(50, 0);
+
+    if (before == null || before.length() == 0) {
+        return true;
+    }
+
+    String previous = before.toString().trim();
+
+    if (previous.isEmpty()) {
+        return true;
+    }
+
+    return previous.matches(
+            "(?s).*([.!?][\"'”’)]*)$");
+}
+
+    
 // DELETE ONE CHARACTER
 private void deleteOne() {
 
