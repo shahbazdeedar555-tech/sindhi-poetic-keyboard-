@@ -1,6 +1,7 @@
 package com.shahbazdeedar555.sindhipoetickeyboard;
 
 import android.inputmethodservice.InputMethodService;
+import android.widget.PopupMenu;
 import android.os.Handler;
 import android.os.Looper;
 import android.graphics.Color;
@@ -458,64 +459,95 @@ private void setupNumbers() {
 }
 
 
-    private void createLanguageButton() {
+    
 
-        languageButton = new Button(this);
-        languageButton.setText("سنڌي ▼");
-        languageButton.setTextColor(white);
-        languageButton.setTextSize(16);
-        languageButton.setAllCaps(false);
-        languageButton.setBackground(
-                makeBackground(green, 8));
+private void createLanguageButton() {
 
-        LinearLayout.LayoutParams params =
-                new LinearLayout.LayoutParams(
-                        ViewGroup.LayoutParams.MATCH_PARENT,
-                        dp(42));
+    languageButton = new Button(this);
 
-        params.setMargins(dp(3), dp(3), dp(3), dp(3));
+    languageButton.setText("🌐  ٻولي / Language");
+    languageButton.setTextColor(white);
+    languageButton.setTextSize(15);
+    languageButton.setAllCaps(false);
+    languageButton.setTypeface(
+            Typeface.DEFAULT,
+            Typeface.BOLD
+    );
 
-        root.addView(languageButton, 0, params);
+    languageButton.setBackground(
+            makeBackground(green, 8)
+    );
 
-        languageButton.setOnClickListener(v -> {
+    languageButton.setGravity(Gravity.CENTER);
 
-            String[] languages = {
-                    "سنڌي",
-                    "English",
-                    "اردو",
-                    "Emoji"
-            };
+    LinearLayout.LayoutParams params =
+            new LinearLayout.LayoutParams(
+                    ViewGroup.LayoutParams.MATCH_PARENT,
+                    dp(42)
+            );
 
-            new AlertDialog.Builder(this)
-                    .setTitle("Select Language")
-                    .setItems(languages, (dialog, which) -> {
+    params.setMargins(
+            dp(3), dp(3), dp(3), dp(3)
+    );
 
-                        switch (which) {
+    root.addView(languageButton, 0, params);
 
-                            case 0:
-                                languageButton.setText("سنڌي ▼");
-                                showPage1();
-                                break;
+    languageButton.setOnClickListener(v ->
+            openLanguageMenu()
+    );
+}
 
-                            case 1:
-                                languageButton.setText("English ▼");
-                                showEnglishPage();
-                                break;
 
-                            case 2:
-                                languageButton.setText("اردو ▼");
-                                showUrduPage();
-                                break;
+// LANGUAGE POPUP MENU
 
-                            case 3:
-                                languageButton.setText("Emoji ▼");
-                                showEmojiPage();
-                                break;
-                        }
-                    })
-                    .show();
-        });
-    }
+private void openLanguageMenu() {
+
+    if (languageButton == null) return;
+
+    PopupMenu menu = new PopupMenu(
+            this,
+            languageButton
+    );
+
+    menu.getMenu().add("🌐  سنڌي");
+    menu.getMenu().add("🇬🇧  English");
+    menu.getMenu().add("🇵🇰  اردو");
+    menu.getMenu().add("😀  Emoji");
+
+    menu.setOnMenuItemClickListener(item -> {
+
+        String selected = item.getTitle().toString();
+
+        if (selected.contains("سنڌي")) {
+
+            showPage1();
+            return true;
+        }
+
+        if (selected.contains("English")) {
+
+            showEnglishPage();
+            return true;
+        }
+
+        if (selected.contains("اردو")) {
+
+            showUrduPage();
+            return true;
+        }
+
+        if (selected.contains("Emoji")) {
+
+            showEmojiPage();
+            return true;
+        }
+
+        return false;
+    });
+
+    menu.show();
+}
+
 
     
 private void setKey(int id, String text) {
