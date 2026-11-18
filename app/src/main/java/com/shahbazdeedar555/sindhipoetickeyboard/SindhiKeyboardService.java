@@ -434,14 +434,18 @@ private void setupPage2() {
     keyboard.findViewById(R.id.key_space_bottom2)
             .setOnClickListener(v -> setSpace());
 
+    
     // ENTER
     keyboard.findViewById(R.id.key_enter_bottom2)
             .setOnClickListener(v -> setEnter());
+}
 
+
+// SETUP NUMBERS
 private void setupNumbers() {
     // Numbers are already connected in setupPage2().
 }
-  
+
 
     private void createLanguageButton() {
 
