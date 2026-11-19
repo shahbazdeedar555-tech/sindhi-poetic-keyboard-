@@ -918,6 +918,7 @@ deleteButton.setTranslationY(-5f);
 }
 
 
+
 // =====================================================
 // URDU KEYBOARD - PAGE 2
 // =====================================================
@@ -950,7 +951,11 @@ private void createUrduPage2() {
             "*", "/", "=", "_", "ـ",
             "٪", "۔", "ء");
 
-    // ROW 5: CONTROLS
+    // ROW 5: ADDITIONAL URDU LETTERS
+    addUrduRow(urduPage2,
+            "ئ", "ؤ", "ٰ");
+
+    // ROW 6: CONTROLS
     LinearLayout controls = createRow(urduPage2);
 
     Button abcButton = createButton(
