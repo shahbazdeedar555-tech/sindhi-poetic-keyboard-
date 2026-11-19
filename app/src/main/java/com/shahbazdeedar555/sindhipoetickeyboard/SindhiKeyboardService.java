@@ -1534,5 +1534,30 @@ private void setEnter() {
 
     updatePredictionBar();
 }
+
+    private void createPhrasePage() {
+
+    phrasePage = new LinearLayout(this);
+    phrasePage.setOrientation(LinearLayout.VERTICAL);
+    phrasePage.setBackgroundColor(green);
+    phrasePage.setVisibility(View.GONE);
+
+    TextView title = createLabel(
+            "📝  منهنجا جملا", phrasePage);
+
+    title.setTextColor(white);
+
+    root.addView(phrasePage);
+}
+private void showPhrasePage() {
+
+    hideSindhiPages();
+    hideOtherPages();
+
+    if (phrasePage != null) {
+        phrasePage.setVisibility(View.VISIBLE);
+    }
+}
+    
 } 
     
