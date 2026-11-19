@@ -225,6 +225,12 @@ private void hideOtherPages() {
 
     if (emojiPage != null)
         emojiPage.setVisibility(View.GONE);
+
+    // Hide old English predictions
+    if (suggestionBar != null) {
+        suggestionBar.removeAllViews();
+        suggestionBar.setVisibility(View.GONE);
+    }
 }
 
 private void showEnglishPage() {
