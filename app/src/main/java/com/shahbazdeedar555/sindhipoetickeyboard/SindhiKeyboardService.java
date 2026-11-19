@@ -710,6 +710,8 @@ private Button createEnglishButton(String key) {
 
     if ("DELETE".equals(key)) {
 
+    button.setTranslationY(-dpEnglish(5));
+
     setRepeatDelete(button);
 
 } else {
