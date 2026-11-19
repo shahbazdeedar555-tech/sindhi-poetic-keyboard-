@@ -188,7 +188,6 @@ private TextView createLabel(
 }
 
     
-
 private void showPage1() {
 
     page1.setVisibility(View.VISIBLE);
@@ -553,9 +552,7 @@ private void openLanguageMenu() {
             showUrduPage();
             return true;
         }
-
         if (selected.contains("Emoji")) {
-
             showEmojiPage();
             return true;
         }
