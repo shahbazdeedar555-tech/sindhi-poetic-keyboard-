@@ -233,6 +233,8 @@ private void showEnglishPage() {
     hideOtherPages();
 
     englishPage.setVisibility(View.VISIBLE);
+
+    updatePredictionBar();
 }
 
 private void showEnglishSymbolsPage() {
