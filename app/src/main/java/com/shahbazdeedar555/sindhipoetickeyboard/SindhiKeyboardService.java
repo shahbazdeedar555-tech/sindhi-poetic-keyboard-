@@ -877,10 +877,10 @@ private void createUrduPage() {
             "ز", "ش", "چ", "ط", "ب",
             "ن", "م", "ں", "خ");
 
-    // ROW 4
-    addUrduRow(urduPage,
-            "ث", "ص", "ض", "ذ", "ڈ",
-            "ڑ", "ٹ", "غ");
+    // ROW 4: ADDITIONAL URDU LETTERS
+addUrduRow(urduPage,
+        "ث", "ص", "ض", "ذ", "ڈ",
+        "ڑ", "ٹ", "غ", "آ", "ھ");
 
     // ROW 5: CONTROLS
     LinearLayout controls = createRow(urduPage);
