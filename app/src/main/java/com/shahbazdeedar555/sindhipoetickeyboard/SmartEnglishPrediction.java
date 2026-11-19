@@ -24,17 +24,14 @@ public final class SmartEnglishPrediction {
                         text.charAt(text.length() - 1));
 
         String cleaned = text.trim();
-
         String[] words = cleaned.split("\\s+");
 
-        String lastWord =
-                words[words.length - 1];
+        String lastWord = words[words.length - 1];
 
         String previousWord = "";
 
         if (words.length > 1) {
-            previousWord =
-                    words[words.length - 2];
+            previousWord = words[words.length - 2];
         }
 
         String current =
@@ -49,79 +46,77 @@ public final class SmartEnglishPrediction {
 
         if (!hasTrailingSpace) {
 
-            if (current.equals("i")) {
-                add(suggestions,
-                        "I am",
-                        "I have",
-                        "I can");
-            }
+            switch (current) {
 
-            else if (current.equals("you")) {
-                add(suggestions,
-                        "you are",
-                        "you have",
-                        "you can");
-            }
+                case "i":
+                    add(suggestions, "I am", "I have", "I can");
+                    break;
 
-            else if (current.equals("we")) {
-                add(suggestions,
-                        "we are",
-                        "we have",
-                        "we can");
-            }
+                case "you":
+                    add(suggestions, "you are", "you have", "you can");
+                    break;
 
-            else if (current.equals("they")) {
-                add(suggestions,
-                        "they are",
-                        "they have",
-                        "they can");
-            }
+                case "we":
+                    add(suggestions, "we are", "we have", "we can");
+                    break;
 
-            else if (current.equals("he")) {
-                add(suggestions,
-                        "he is",
-                        "he has",
-                        "he can");
-            }
+                case "they":
+                    add(suggestions, "they are", "they have", "they can");
+                    break;
 
-            else if (current.equals("she")) {
-                add(suggestions,
-                        "she is",
-                        "she has",
-                        "she can");
-            }
+                case "he":
+                    add(suggestions, "he is", "he has", "he can");
+                    break;
 
-            else if (current.equals("it")) {
-                add(suggestions,
-                        "it is",
-                        "it has",
-                        "it can");
-            }
+                case "she":
+                    add(suggestions, "she is", "she has", "she can");
+                    break;
 
-            // Contextual helping verbs
-            else if (previous.equals("i")
-                    && current.startsWith("a")) {
-                add(suggestions, "am");
-            }
+                case "it":
+                    add(suggestions, "it is", "it has", "it can");
+                    break;
 
-            else if ((previous.equals("you")
-                    || previous.equals("we")
-                    || previous.equals("they"))
-                    && current.startsWith("a")) {
-                add(suggestions, "are");
-            }
+                default:
 
-            else if ((previous.equals("he")
-                    || previous.equals("she")
-                    || previous.equals("it"))
-                    && current.startsWith("i")) {
-                add(suggestions, "is");
-            }
+                    // --------------------------------
+                    // CONTRACTION PREDICTIONS
+                    // --------------------------------
 
-            // General word completion
-            else {
-                addWordCompletions(
-                        suggestions, current);
+                    addContractionSuggestions(
+                            suggestions, current);
+
+                    // --------------------------------
+                    // CONTEXTUAL HELPING VERBS
+                    // --------------------------------
+
+                    if (suggestions.isEmpty()) {
+
+                        if (previous.equals("i")
+                                && current.startsWith("a")) {
+                            add(suggestions, "am");
+                        }
+
+                        else if ((previous.equals("you")
+                                || previous.equals("we")
+                                || previous.equals("they"))
+                                && current.startsWith("a")) {
+                            add(suggestions, "are");
+                        }
+
+                        else if ((previous.equals("he")
+                                || previous.equals("she")
+                                || previous.equals("it"))
+                                && current.startsWith("i")) {
+                            add(suggestions, "is");
+                        }
+                    }
+
+                    if (suggestions.isEmpty()) {
+                        addWordCompletions(
+                                suggestions, current);
+                    }
+
+                    break;
             }
         }
 
@@ -134,77 +129,125 @@ public final class SmartEnglishPrediction {
             switch (current) {
 
                 case "i":
-                    add(suggestions,
-                            "am", "have", "can");
+                    add(suggestions, "am", "have", "can");
                     break;
 
                 case "you":
                 case "we":
                 case "they":
-                    add(suggestions,
-                            "are", "have", "can");
+                    add(suggestions, "are", "have", "can");
                     break;
 
                 case "he":
                 case "she":
                 case "it":
-                    add(suggestions,
-                            "is", "has", "can");
+                    add(suggestions, "is", "has", "can");
                     break;
 
                 case "am":
-                    add(suggestions,
-                            "happy", "fine", "ready");
+                    add(suggestions, "happy", "fine", "ready");
                     break;
 
                 case "is":
-                    add(suggestions,
-                            "good", "beautiful", "ready");
+                    add(suggestions, "good", "beautiful", "ready");
                     break;
 
                 case "are":
-                    add(suggestions,
-                            "you", "we", "they");
+                    add(suggestions, "you", "we", "they");
                     break;
 
                 case "have":
-                    add(suggestions,
-                            "a", "to", "been");
+                    add(suggestions, "a", "to", "been");
                     break;
 
                 case "has":
-                    add(suggestions,
-                            "a", "been", "to");
+                    add(suggestions, "a", "been", "to");
                     break;
 
                 case "can":
-                    add(suggestions,
-                            "do", "go", "help");
+                    add(suggestions, "do", "go", "help");
                     break;
 
                 case "will":
-                    add(suggestions,
-                            "be", "go", "do");
+                    add(suggestions, "be", "go", "do");
                     break;
 
                 case "do":
-                    add(suggestions,
-                            "you", "not", "it");
+                    add(suggestions, "you", "not", "it");
                     break;
 
                 case "the":
-                    add(suggestions,
-                            "book", "boy", "girl");
+                    add(suggestions, "book", "boy", "girl");
                     break;
 
                 case "my":
-                    add(suggestions,
-                            "name", "book", "friend");
+                    add(suggestions, "name", "book", "friend");
                     break;
 
                 case "good":
-                    add(suggestions,
-                            "morning", "boy", "girl");
+                    add(suggestions, "morning", "boy", "girl");
+                    break;
+
+                // Contraction next-word predictions
+
+                case "i'm":
+                    add(suggestions, "happy", "fine", "ready");
+                    break;
+
+                case "you're":
+                    add(suggestions, "right", "good", "welcome");
+                    break;
+
+                case "we're":
+                case "they're":
+                    add(suggestions, "ready", "happy", "going");
+                    break;
+
+                case "he's":
+                case "she's":
+                case "it's":
+                    add(suggestions, "good", "nice", "beautiful");
+                    break;
+
+                case "isn't":
+                    add(suggestions, "it", "that", "he");
+                    break;
+
+                case "aren't":
+                    add(suggestions, "you", "they", "we");
+                    break;
+
+                case "don't":
+                    add(suggestions, "know", "worry", "go");
+                    break;
+
+                case "doesn't":
+                    add(suggestions, "know", "work", "matter");
+                    break;
+
+                case "didn't":
+                    add(suggestions, "know", "go", "see");
+                    break;
+
+                case "can't":
+                    add(suggestions, "do", "go", "help");
+                    break;
+
+                case "won't":
+                    add(suggestions, "go", "come", "do");
+                    break;
+
+                case "i've":
+                case "we've":
+                case "they've":
+                    add(suggestions, "been", "got", "seen");
+                    break;
+
+                case "i'll":
+                case "you'll":
+                case "we'll":
+                case "they'll":
+                    add(suggestions, "be", "go", "help");
                     break;
 
                 default:
@@ -213,6 +256,94 @@ public final class SmartEnglishPrediction {
         }
 
         return suggestions;
+    }
+
+    // --------------------------------
+    // CONTRACTION COMPLETIONS
+    // --------------------------------
+
+    private static void addContractionSuggestions(
+            List<String> suggestions,
+            String prefix) {
+
+        String[] contractions = {
+
+                "I'm",
+                "I've",
+                "I'll",
+                "I'd",
+
+                "you're",
+                "you've",
+                "you'll",
+                "you'd",
+
+                "we're",
+                "we've",
+                "we'll",
+                "we'd",
+
+                "they're",
+                "they've",
+                "they'll",
+                "they'd",
+
+                "he's",
+                "he'll",
+                "he'd",
+
+                "she's",
+                "she'll",
+                "she'd",
+
+                "it's",
+                "it'll",
+
+                "isn't",
+                "aren't",
+                "wasn't",
+                "weren't",
+
+                "haven't",
+                "hasn't",
+                "hadn't",
+
+                "don't",
+                "doesn't",
+                "didn't",
+
+                "can't",
+                "couldn't",
+                "won't",
+                "wouldn't",
+                "shouldn't",
+                "mustn't",
+
+                "that's",
+                "there's",
+                "what's",
+                "who's",
+                "where's",
+                "when's",
+                "how's",
+
+                "whoever's",
+                "whichever's"
+        };
+
+        for (String contraction : contractions) {
+
+            if (contraction.toLowerCase(Locale.ROOT)
+                    .startsWith(prefix)
+                    && !contraction.equalsIgnoreCase(prefix)) {
+
+                add(suggestions, contraction);
+            }
+
+            if (suggestions.size() >= 3) {
+                return;
+            }
+        }
     }
 
     // --------------------------------
@@ -227,6 +358,7 @@ public final class SmartEnglishPrediction {
 
             if (!list.contains(value)
                     && list.size() < 3) {
+
                 list.add(value);
             }
         }
@@ -241,6 +373,7 @@ public final class SmartEnglishPrediction {
             String prefix) {
 
         String[] commonWords = {
+
                 "hello",
                 "help",
                 "happy",
@@ -288,11 +421,11 @@ public final class SmartEnglishPrediction {
             if (word.startsWith(prefix)
                     && !word.equals(prefix)) {
 
-                suggestions.add(word);
+                add(suggestions, word);
+            }
 
-                if (suggestions.size() >= 3) {
-                    break;
-                }
+            if (suggestions.size() >= 3) {
+                break;
             }
         }
     }
