@@ -1350,8 +1350,6 @@ private void commit(String text) {
 
     updatePredictionBar();
 }
-```
-
 
 // CHECK WHETHER THE CURSOR IS AT SENTENCE START
 private boolean isSentenceStart(
