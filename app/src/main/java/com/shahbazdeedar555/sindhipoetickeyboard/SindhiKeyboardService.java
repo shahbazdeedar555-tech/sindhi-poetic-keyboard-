@@ -1352,11 +1352,6 @@ private void commit(String text) {
 }
 ```
 
-<badge color="success">Only one method replaced</badge>
-
-This preserves your existing auto-capitalization and standalone `I` correction while refreshing predictions.
-
-Tell me when completed.
 
 // CHECK WHETHER THE CURSOR IS AT SENTENCE START
 private boolean isSentenceStart(
