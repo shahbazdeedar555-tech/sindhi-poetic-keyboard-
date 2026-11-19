@@ -1462,7 +1462,20 @@ private void deleteOne() {
 }
 
 
+// SPACE - SUPPORT ALL KEYBOARD LANGUAGES
+private void setSpace() {
 
+    InputConnection connection =
+            getCurrentInputConnection();
+
+    if (connection == null) {
+        return;
+    }
+
+    connection.commitText(" ", 1);
+
+    updatePredictionBar();
+}
 // ENTER - SUPPORT WHATSAPP AND OTHER APPS
 private void setEnter() {
 
