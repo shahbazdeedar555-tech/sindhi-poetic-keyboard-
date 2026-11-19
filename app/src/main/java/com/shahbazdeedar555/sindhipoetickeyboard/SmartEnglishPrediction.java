@@ -1,122 +1,299 @@
 
-private void createSuggestionBar() {
+package com.shahbazdeedar555.sindhipoetickeyboard;
 
-    suggestionBar = new LinearLayout(this);
-    suggestionBar.setOrientation(LinearLayout.HORIZONTAL);
-    suggestionBar.setGravity(Gravity.CENTER);
-    suggestionBar.setLayoutDirection(
-            View.LAYOUT_DIRECTION_LTR);
+import java.util.ArrayList;
+import java.util.List;
+import java.util.Locale;
 
-    suggestionBar.setBackgroundColor(
-            Color.rgb(245, 241, 232));
+public final class SmartEnglishPrediction {
 
-    LinearLayout.LayoutParams params =
-            new LinearLayout.LayoutParams(
-                    ViewGroup.LayoutParams.MATCH_PARENT,
-                    dp(38));
-
-    root.addView(suggestionBar, 1, params);
-    suggestionBar.setVisibility(View.GONE);
-}
-
-private void updatePredictionBar() {
-
-    if (suggestionBar == null) return;
-
-    suggestionBar.removeAllViews();
-
-    boolean englishMode =
-            englishPage != null &&
-            englishPage.getVisibility() == View.VISIBLE;
-
-    if (!englishMode) {
-        suggestionBar.setVisibility(View.GONE);
-        return;
+    private SmartEnglishPrediction() {
+        // Utility class
     }
 
-    InputConnection connection =
-            getCurrentInputConnection();
+    public static List<String> getSuggestions(String text) {
 
-    if (connection == null) return;
+        List<String> suggestions = new ArrayList<>();
 
-    CharSequence before =
-            connection.getTextBeforeCursor(100, 0);
-
-    if (before == null) return;
-
-    ArrayList<String> predictions =
-            new ArrayList<>(
-                    SmartEnglishPrediction.getSuggestions(
-                            before.toString()));
-
-    int count = Math.min(3, predictions.size());
-
-    for (int i = 0; i < count; i++) {
-
-        final String prediction = predictions.get(i);
-
-        Button button = new Button(this);
-        button.setText(prediction.trim());
-        button.setTextSize(14);
-        button.setTextColor(green);
-        button.setAllCaps(false);
-        button.setPadding(dp(3), 0, dp(3), 0);
-        button.setBackgroundColor(
-                Color.rgb(245, 241, 232));
-
-        LinearLayout.LayoutParams buttonParams =
-                new LinearLayout.LayoutParams(0,
-                        dp(36), 1);
-
-        suggestionBar.addView(button, buttonParams);
-
-        button.setOnClickListener(v ->
-                applyPrediction(prediction));
-    }
-
-    suggestionBar.setVisibility(
-            count > 0 ? View.VISIBLE : View.GONE);
-}
-
-private void applyPrediction(String prediction) {
-
-    InputConnection connection =
-            getCurrentInputConnection();
-
-    if (connection == null) return;
-
-    CharSequence before =
-            connection.getTextBeforeCursor(100, 0);
-
-    if (before == null) return;
-
-    String text = before.toString();
-
-    if (prediction.startsWith(" ")) {
-
-        connection.commitText(
-                prediction.trim() + " ", 1);
-
-    } else {
-
-        if (!text.isEmpty() &&
-                !Character.isWhitespace(
-                        text.charAt(text.length() - 1))) {
-
-            int start = text.length();
-
-            while (start > 0 &&
-                    !Character.isWhitespace(
-                            text.charAt(start - 1))) {
-                start--;
-            }
-
-            connection.deleteSurroundingText(
-                    text.length() - start, 0);
+        if (text == null || text.trim().isEmpty()) {
+            return suggestions;
         }
 
-        connection.commitText(prediction + " ", 1);
+        boolean hasTrailingSpace =
+                Character.isWhitespace(
+                        text.charAt(text.length() - 1));
+
+        String cleaned = text.trim();
+
+        String[] words = cleaned.split("\\s+");
+
+        String lastWord =
+                words[words.length - 1];
+
+        String previousWord = "";
+
+        if (words.length > 1) {
+            previousWord =
+                    words[words.length - 2];
+        }
+
+        String current =
+                lastWord.toLowerCase(Locale.ROOT);
+
+        String previous =
+                previousWord.toLowerCase(Locale.ROOT);
+
+        // --------------------------------
+        // SUBJECT PREDICTIONS
+        // --------------------------------
+
+        if (!hasTrailingSpace) {
+
+            if (current.equals("i")) {
+                add(suggestions,
+                        "I am",
+                        "I have",
+                        "I can");
+            }
+
+            else if (current.equals("you")) {
+                add(suggestions,
+                        "you are",
+                        "you have",
+                        "you can");
+            }
+
+            else if (current.equals("we")) {
+                add(suggestions,
+                        "we are",
+                        "we have",
+                        "we can");
+            }
+
+            else if (current.equals("they")) {
+                add(suggestions,
+                        "they are",
+                        "they have",
+                        "they can");
+            }
+
+            else if (current.equals("he")) {
+                add(suggestions,
+                        "he is",
+                        "he has",
+                        "he can");
+            }
+
+            else if (current.equals("she")) {
+                add(suggestions,
+                        "she is",
+                        "she has",
+                        "she can");
+            }
+
+            else if (current.equals("it")) {
+                add(suggestions,
+                        "it is",
+                        "it has",
+                        "it can");
+            }
+
+            // Contextual helping verbs
+            else if (previous.equals("i")
+                    && current.startsWith("a")) {
+                add(suggestions, "am");
+            }
+
+            else if ((previous.equals("you")
+                    || previous.equals("we")
+                    || previous.equals("they"))
+                    && current.startsWith("a")) {
+                add(suggestions, "are");
+            }
+
+            else if ((previous.equals("he")
+                    || previous.equals("she")
+                    || previous.equals("it"))
+                    && current.startsWith("i")) {
+                add(suggestions, "is");
+            }
+
+            // General word completion
+            else {
+                addWordCompletions(
+                        suggestions, current);
+            }
+        }
+
+        // --------------------------------
+        // NEXT WORD PREDICTIONS
+        // --------------------------------
+
+        else {
+
+            switch (current) {
+
+                case "i":
+                    add(suggestions,
+                            "am", "have", "can");
+                    break;
+
+                case "you":
+                case "we":
+                case "they":
+                    add(suggestions,
+                            "are", "have", "can");
+                    break;
+
+                case "he":
+                case "she":
+                case "it":
+                    add(suggestions,
+                            "is", "has", "can");
+                    break;
+
+                case "am":
+                    add(suggestions,
+                            "happy", "fine", "ready");
+                    break;
+
+                case "is":
+                    add(suggestions,
+                            "good", "beautiful", "ready");
+                    break;
+
+                case "are":
+                    add(suggestions,
+                            "you", "we", "they");
+                    break;
+
+                case "have":
+                    add(suggestions,
+                            "a", "to", "been");
+                    break;
+
+                case "has":
+                    add(suggestions,
+                            "a", "been", "to");
+                    break;
+
+                case "can":
+                    add(suggestions,
+                            "do", "go", "help");
+                    break;
+
+                case "will":
+                    add(suggestions,
+                            "be", "go", "do");
+                    break;
+
+                case "do":
+                    add(suggestions,
+                            "you", "not", "it");
+                    break;
+
+                case "the":
+                    add(suggestions,
+                            "book", "boy", "girl");
+                    break;
+
+                case "my":
+                    add(suggestions,
+                            "name", "book", "friend");
+                    break;
+
+                case "good":
+                    add(suggestions,
+                            "morning", "boy", "girl");
+                    break;
+
+                default:
+                    break;
+            }
+        }
+
+        return suggestions;
     }
 
-    updatePredictionBar();
+    // --------------------------------
+    // ADD SUGGESTIONS
+    // --------------------------------
+
+    private static void add(
+            List<String> list,
+            String... values) {
+
+        for (String value : values) {
+
+            if (!list.contains(value)
+                    && list.size() < 3) {
+                list.add(value);
+            }
+        }
+    }
+
+    // --------------------------------
+    // BASIC WORD COMPLETIONS
+    // --------------------------------
+
+    private static void addWordCompletions(
+            List<String> suggestions,
+            String prefix) {
+
+        String[] commonWords = {
+                "hello",
+                "help",
+                "happy",
+                "have",
+                "here",
+                "home",
+                "good",
+                "great",
+                "going",
+                "get",
+                "give",
+                "know",
+                "like",
+                "love",
+                "learn",
+                "look",
+                "make",
+                "morning",
+                "name",
+                "nice",
+                "please",
+                "people",
+                "school",
+                "student",
+                "teacher",
+                "thank",
+                "thanks",
+                "this",
+                "that",
+                "there",
+                "what",
+                "when",
+                "where",
+                "which",
+                "who",
+                "why",
+                "yes",
+                "your"
+        };
+
+        if (prefix.isEmpty()) return;
+
+        for (String word : commonWords) {
+
+            if (word.startsWith(prefix)
+                    && !word.equals(prefix)) {
+
+                suggestions.add(word);
+
+                if (suggestions.size() >= 3) {
+                    break;
+                }
+            }
+        }
+    }
 }
