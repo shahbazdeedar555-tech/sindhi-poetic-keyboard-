@@ -47,6 +47,8 @@ public class SindhiKeyboardService extends InputMethodService {
     private SharedPreferences phrasePreferences;
     private LinearLayout customPhraseContainer;
     private LinearLayout customPhraseSection;
+    private LinearLayout phrasePage;
+private String currentPhraseCategory = "greetings";
 
     private boolean shiftOn = false;
     private boolean englishShift = false;
@@ -93,7 +95,7 @@ createEnglishSymbolsPage();
 createUrduPage();
 createUrduPage2();
 createEmojiPage();
-
+createPhrasePage();
 
 // LANGUAGE BUTTON
 createLanguageButton();
@@ -230,6 +232,7 @@ private void hideOtherPages() {
     if (suggestionBar != null) {
         suggestionBar.removeAllViews();
         suggestionBar.setVisibility(View.GONE);
+        if (phrasePage != null) phrasePage.setVisibility(View.GONE);
     }
 }
 
@@ -528,7 +531,7 @@ private void openLanguageMenu() {
     menu.getMenu().add("🇬🇧  English");
     menu.getMenu().add("🇵🇰  اردو");
     menu.getMenu().add("😀  Emoji");
-
+    menu.getMenu().add("📝  Phrases");
     menu.setOnMenuItemClickListener(item -> {
 
         String selected = item.getTitle().toString();
