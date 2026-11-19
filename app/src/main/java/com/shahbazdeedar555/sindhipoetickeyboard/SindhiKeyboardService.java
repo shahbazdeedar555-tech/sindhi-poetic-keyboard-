@@ -1540,6 +1540,13 @@ private void setEnter() {
     currentPhraseCategory = category;
 
     phrasePage.removeAllViews();
+        
+ScrollView scrollView = new ScrollView(this);
+
+LinearLayout phraseList = new LinearLayout(this);
+phraseList.setOrientation(LinearLayout.VERTICAL);
+
+scrollView.addView(phraseList);
 
     String title = "سلام دعا";
 
@@ -1553,13 +1560,20 @@ private void setEnter() {
             title, phrasePage);
 
     heading.setTextColor(white);
-
+        
+phrasePage.addView(scrollView);
     Button backButton = new Button(this);
     backButton.setText("⬅ واپس");
     backButton.setAllCaps(false);
-
     phrasePage.addView(backButton);
+  
+Button addButton = new Button(this);
+addButton.setText("➕ نئون جملو شامل ڪريو");
+addButton.setAllCaps(false);
+addButton.setTextSize(16);
 
+phrasePage.addView(addButton);
+     addButton.setOnClickListener(v -> showAddPhraseDialog());
     backButton.setOnClickListener(v -> {
     phrasePage.removeAllViews();
 
