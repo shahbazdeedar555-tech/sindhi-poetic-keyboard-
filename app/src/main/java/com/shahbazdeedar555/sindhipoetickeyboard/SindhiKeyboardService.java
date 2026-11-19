@@ -1499,7 +1499,8 @@ private void setEnter() {
         }
     }
 
-    // Send a real ENTER key event
+    
+// Send a real ENTER key event
     connection.sendKeyEvent(
             new KeyEvent(
                     KeyEvent.ACTION_DOWN,
@@ -1516,8 +1517,5 @@ private void setEnter() {
 
     updatePredictionBar();
 }
-
-    
-
-
+} 
     
