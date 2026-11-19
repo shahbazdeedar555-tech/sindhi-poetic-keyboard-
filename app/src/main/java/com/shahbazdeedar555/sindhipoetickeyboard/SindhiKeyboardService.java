@@ -1535,6 +1535,44 @@ private void setEnter() {
     updatePredictionBar();
 }
 
+    private void showPhraseCategory(String category) {
+
+    currentPhraseCategory = category;
+
+    phrasePage.removeAllViews();
+
+    String title = "سلام دعا";
+
+    if (category.equals("literary")) {
+        title = "ادبي داد";
+    } else if (category.equals("thanks")) {
+        title = "احسان مڃڻ";
+    }
+
+    TextView heading = createLabel(
+            title, phrasePage);
+
+    heading.setTextColor(white);
+
+    Button backButton = new Button(this);
+    backButton.setText("⬅ واپس");
+    backButton.setAllCaps(false);
+
+    phrasePage.addView(backButton);
+
+    backButton.setOnClickListener(v -> {
+    phrasePage.removeAllViews();
+
+    TextView mainTitle = createLabel(
+            "📝  منهنجا جملا", phrasePage);
+
+    mainTitle.setTextColor(white);
+
+    addPhraseCategoryButton("👋  سلام دعا", "greetings");
+    addPhraseCategoryButton("🌹  ادبي داد", "literary");
+    addPhraseCategoryButton("🙏  احسان مڃڻ", "thanks");
+});
+   }   
     private void addPhraseCategoryButton(
         String title, String category) {
 
