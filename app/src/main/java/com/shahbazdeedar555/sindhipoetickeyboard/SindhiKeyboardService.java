@@ -1535,6 +1535,30 @@ private void setEnter() {
     updatePredictionBar();
 }
 
+    private void addPhraseCategoryButton(
+        String title, String category) {
+
+    Button button = new Button(this);
+
+    button.setText(title);
+    button.setTextSize(17);
+    button.setTextColor(white);
+    button.setAllCaps(false);
+    button.setBackground(
+            makeBackground(green, 8));
+
+    LinearLayout.LayoutParams params =
+            new LinearLayout.LayoutParams(
+                    ViewGroup.LayoutParams.MATCH_PARENT,
+                    dp(48));
+
+    params.setMargins(dp(4), dp(3), dp(4), dp(3));
+
+    phrasePage.addView(button, params);
+
+    button.setOnClickListener(v ->
+            showPhraseCategory(category));
+}
     private void createPhrasePage() {
 
     phrasePage = new LinearLayout(this);
@@ -1546,7 +1570,9 @@ private void setEnter() {
             "📝  منهنجا جملا", phrasePage);
 
     title.setTextColor(white);
-
+addPhraseCategoryButton("👋  سلام دعا", "greetings");
+addPhraseCategoryButton("🌹  ادبي داد", "literary");
+addPhraseCategoryButton("🙏  احسان مڃڻ", "thanks");
     root.addView(phrasePage);
 }
 private void showPhrasePage() {
