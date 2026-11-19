@@ -1175,7 +1175,8 @@ private void createSuggestionBar() {
     suggestionBar.setVisibility(View.GONE);
 }
 
-private void updatePredictionBar() {
+
+    private void updatePredictionBar() {
 
     if (suggestionBar == null) return;
 
@@ -1193,12 +1194,18 @@ private void updatePredictionBar() {
     InputConnection connection =
             getCurrentInputConnection();
 
-    if (connection == null) return;
+    if (connection == null) {
+        suggestionBar.setVisibility(View.GONE);
+        return;
+    }
 
     CharSequence before =
             connection.getTextBeforeCursor(100, 0);
 
-    if (before == null) return;
+    if (before == null) {
+        suggestionBar.setVisibility(View.GONE);
+        return;
+    }
 
     ArrayList<String> predictions =
             new ArrayList<>(
@@ -1279,6 +1286,8 @@ private void applyPrediction(String prediction) {
 
     
 // INSERT TEXT WITH ENGLISH AUTO CAPITALIZATION
+
+
 private void commit(String text) {
 
     InputConnection connection =
@@ -1288,7 +1297,6 @@ private void commit(String text) {
         return;
     }
 
-    // Apply English rules only on English pages
     boolean englishMode =
             (englishPage != null &&
              englishPage.getVisibility() == View.VISIBLE) ||
@@ -1316,10 +1324,11 @@ private void commit(String text) {
             }
 
             connection.commitText(text, 1);
+            updatePredictionBar();
             return;
         }
 
-        // Capitalize first letter of a sentence
+        // Sentence auto-capitalization
         if (text.length() == 1 &&
                 text.matches("[a-z]")) {
 
@@ -1330,8 +1339,16 @@ private void commit(String text) {
     }
 
     connection.commitText(text, 1);
-}
 
+    updatePredictionBar();
+}
+```
+
+<badge color="success">Only one method replaced</badge>
+
+This preserves your existing auto-capitalization and standalone `I` correction while refreshing predictions.
+
+Tell me when completed.
 
 // CHECK WHETHER THE CURSOR IS AT SENTENCE START
 private boolean isSentenceStart(
@@ -1403,6 +1420,7 @@ private void setRepeatDelete(Button button) {
         return false;
     });
 }
+
 // DELETE ONE CHARACTER
 private void deleteOne() {
 
@@ -1432,13 +1450,15 @@ private void deleteOne() {
                 Character.isHighSurrogate(previous)) {
 
             connection.deleteSurroundingText(2, 0);
+            updatePredictionBar();
             return;
         }
     }
 
     connection.deleteSurroundingText(1, 0);
-}
 
+    updatePredictionBar();
+}
 
 // SPACE
 private void setSpace() {
