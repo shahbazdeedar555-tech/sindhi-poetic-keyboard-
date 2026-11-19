@@ -1461,13 +1461,9 @@ private void deleteOne() {
     updatePredictionBar();
 }
 
-// SPACE
-private void setSpace() {
-    commit(" ");
-}
 
 
-// ENTER
+// ENTER - SUPPORT WHATSAPP AND OTHER APPS
 private void setEnter() {
 
     InputConnection connection =
@@ -1484,20 +1480,44 @@ private void setEnter() {
         int action = info.imeOptions &
                 EditorInfo.IME_MASK_ACTION;
 
-        if (action != EditorInfo.IME_ACTION_NONE &&
+        boolean noEnterAction =
+                (info.imeOptions &
+                EditorInfo.IME_FLAG_NO_ENTER_ACTION) != 0;
+
+        boolean multiLine =
+                (info.inputType &
+                android.text.InputType.TYPE_TEXT_FLAG_MULTI_LINE) != 0;
+
+        if (!noEnterAction && !multiLine &&
+                action != EditorInfo.IME_ACTION_NONE &&
                 action != EditorInfo.IME_ACTION_UNSPECIFIED) {
 
             if (connection.performEditorAction(action)) {
+                updatePredictionBar();
                 return;
             }
         }
     }
 
-    connection.commitText("\n", 1);
+    // Send a real ENTER key event
+    connection.sendKeyEvent(
+            new KeyEvent(
+                    KeyEvent.ACTION_DOWN,
+                    KeyEvent.KEYCODE_ENTER
+            )
+    );
+
+    connection.sendKeyEvent(
+            new KeyEvent(
+                    KeyEvent.ACTION_UP,
+                    KeyEvent.KEYCODE_ENTER
+            )
+    );
+
+    updatePredictionBar();
 }
 
     
-}
 
 
     
