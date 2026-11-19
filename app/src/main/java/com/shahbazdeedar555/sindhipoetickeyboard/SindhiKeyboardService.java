@@ -1562,6 +1562,42 @@ scrollView.addView(phraseList);
     heading.setTextColor(white);
         
 phrasePage.addView(scrollView);
+JSONArray phrases = new JSONArray();
+
+try {
+    String saved = phrasePreferences.getString(
+            currentPhraseCategory, "[]");
+
+    phrases = new JSONArray(saved);
+
+} catch (Exception e) {
+    phrases = new JSONArray();
+}
+
+for (int i = 0; i < phrases.length(); i++) {
+
+    final String phrase = phrases.optString(i);
+
+    Button phraseButton = new Button(this);
+    phraseButton.setText(phrase);
+    phraseButton.setAllCaps(false);
+    phraseButton.setTextSize(16);
+
+    phraseList.addView(phraseButton);
+
+    phraseButton.setOnClickListener(v -> {
+        getCurrentInputConnection().commitText(
+                phrase + " ", 1);
+    });
+    final int phraseIndex = i;
+
+    phraseButton.setOnLongClickListener(v -> {
+        showPhraseOptions(phrase, phraseIndex);
+        return true;
+    });
+}
+
+        
     Button backButton = new Button(this);
     backButton.setText("⬅ واپس");
     backButton.setAllCaps(false);
@@ -1587,6 +1623,48 @@ phrasePage.addView(addButton);
     addPhraseCategoryButton("🙏  احسان مڃڻ", "thanks");
 });
    }   
+
+    private void showAddPhraseDialog() {
+
+    EditText input = new EditText(this);
+    input.setHint("نئون جملو لکو");
+
+    new AlertDialog.Builder(this)
+            .setTitle("نئون جملو شامل ڪريو")
+            .setView(input)
+            .setPositiveButton("محفوظ ڪريو", (dialog, which) -> {
+
+                String phrase = input.getText().toString().trim();
+
+                if (!phrase.isEmpty()) {
+                    saveNewPhrase(phrase);
+                }
+            })
+            .setNegativeButton("منسوخ", null)
+            .show();
+}
+private void saveNewPhrase(String phrase) {
+
+    String saved = phrasePreferences.getString(
+            currentPhraseCategory, "[]");
+
+    JSONArray phrases;
+
+    try {
+        phrases = new JSONArray(saved);
+    } catch (Exception e) {
+        phrases = new JSONArray();
+    }
+
+    phrases.put(phrase);
+
+    phrasePreferences.edit()
+            .putString(currentPhraseCategory, phrases.toString())
+            .apply();
+
+    showPhraseCategory(currentPhraseCategory);
+}
+    
     private void addPhraseCategoryButton(
         String title, String category) {
 
