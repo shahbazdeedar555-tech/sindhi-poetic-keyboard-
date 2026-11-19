@@ -559,7 +559,11 @@ private void openLanguageMenu() {
             showEmojiPage();
             return true;
         }
+if (selected.contains("Phrases")) {
 
+    showPhrasePage();
+    return true;
+}
         return false;
     });
 
