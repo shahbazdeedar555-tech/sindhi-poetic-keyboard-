@@ -1687,6 +1687,29 @@ phrasePage.addView(addButton);
             .setNegativeButton("منسوخ", null)
             .show();
 }
+private void showAddPhraseDialog() {
+
+    EditText input = new EditText(this);
+    input.setHint("نئون جملو لکو");
+    input.setMinLines(2);
+    input.setGravity(Gravity.TOP);
+
+    new AlertDialog.Builder(this)
+            .setTitle("نئون دعا سلام شامل ڪريو")
+            .setView(input)
+            .setPositiveButton("محفوظ ڪريو", (dialog, which) -> {
+
+                String newPhrase =
+                        input.getText().toString().trim();
+
+                if (!newPhrase.isEmpty()) {
+                    addPhrase(newPhrase);
+                }
+            })
+            .setNegativeButton("منسوخ", null)
+            .show();
+}
+    
 private void saveNewPhrase(String phrase) {
 
     String saved = phrasePreferences.getString(
