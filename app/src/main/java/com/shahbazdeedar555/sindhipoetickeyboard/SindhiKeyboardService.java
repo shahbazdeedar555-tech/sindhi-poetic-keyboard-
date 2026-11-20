@@ -1535,50 +1535,13 @@ private void setEnter() {
     updatePredictionBar();
 }
 
-    private void showPhraseCategory(String category) {
+    
+private void showPhraseCategory(String category) {
 
     currentPhraseCategory = category;
 
     phrasePage.removeAllViews();
-        
-ScrollView scrollView = new ScrollView(this);
 
-LinearLayout phraseList = new LinearLayout(this);
-phraseList.setOrientation(LinearLayout.VERTICAL);
-
-scrollView.addView(phraseList);
-
-        JSONArray phrases = new JSONArray();
-
-try {
-    String saved = phrasePreferences.getString(
-            currentPhraseCategory, "[]");
-    phrases = new JSONArray(saved);
-} catch (Exception e) {
-    phrases = new JSONArray();
-}
-
-for (int i = 0; i < phrases.length(); i++) {
-    final String phrase = phrases.optString(i);
-
-    Button phraseButton = new Button(this);
-    phraseButton.setText(phrase);
-    phraseButton.setAllCaps(false);
-    phraseButton.setTextSize(16);
-
-    phraseList.addView(phraseButton);
-
-    phraseButton.setOnClickListener(v -> {
-        commit(phrase + " ");
-    });
-
-    final int phraseIndex = i;
-
-    phraseButton.setOnLongClickListener(v -> {
-        showPhraseOptions(phrase, phraseIndex);
-        return true;
-    });
-}
     String title = "سلام دعا";
 
     if (category.equals("literary")) {
@@ -1586,6 +1549,90 @@ for (int i = 0; i < phrases.length(); i++) {
     } else if (category.equals("thanks")) {
         title = "احسان مڃڻ";
     }
+
+    TextView heading = createLabel(title, phrasePage);
+    heading.setTextColor(white);
+
+    ScrollView scrollView = new ScrollView(this);
+
+    LinearLayout phraseList = new LinearLayout(this);
+    phraseList.setOrientation(LinearLayout.VERTICAL);
+
+    scrollView.addView(phraseList);
+
+    String saved = phrasePreferences.getString(
+            currentPhraseCategory, "[]");
+
+    JSONArray phrases;
+
+    try {
+        phrases = new JSONArray(saved);
+    } catch (Exception e) {
+        phrases = new JSONArray();
+    }
+
+    for (int i = 0; i < phrases.length(); i++) {
+
+        final String phrase = phrases.optString(i);
+        final int phraseIndex = i;
+
+        Button phraseButton = new Button(this);
+        phraseButton.setText(phrase);
+        phraseButton.setAllCaps(false);
+        phraseButton.setTextSize(16);
+
+        phraseList.addView(phraseButton);
+
+        phraseButton.setOnClickListener(v ->
+                commit(phrase + " "));
+
+        phraseButton.setOnLongClickListener(v -> {
+            showPhraseOptions(phrase, phraseIndex);
+            return true;
+        });
+    }
+
+    phrasePage.addView(scrollView,
+            new LinearLayout.LayoutParams(
+                    ViewGroup.LayoutParams.MATCH_PARENT,
+                    0, 1));
+
+    Button addButton = new Button(this);
+    addButton.setText("➕ نئون جملو شامل ڪريو");
+    addButton.setAllCaps(false);
+    addButton.setTextSize(16);
+
+    phrasePage.addView(addButton);
+
+    addButton.setOnClickListener(v ->
+            showAddPhraseDialog());
+
+    Button backButton = new Button(this);
+    backButton.setText("⬅ واپس");
+    backButton.setAllCaps(false);
+
+    phrasePage.addView(backButton);
+
+    backButton.setOnClickListener(v -> {
+
+        phrasePage.removeAllViews();
+
+        TextView mainTitle = createLabel(
+                "📝 منهنجا جملا", phrasePage);
+
+        mainTitle.setTextColor(white);
+
+        addPhraseCategoryButton(
+                "👋 سلام دعا", "greetings");
+
+        addPhraseCategoryButton(
+                "🌹 ادبي داد", "literary");
+
+        addPhraseCategoryButton(
+                "🙏 احسان مڃڻ", "thanks");
+    });
+}
+
 
     TextView heading = createLabel(
             title, phrasePage);
