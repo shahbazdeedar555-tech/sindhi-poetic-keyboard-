@@ -1736,7 +1736,30 @@ private void updatePhrase(int index, String newPhrase) {
         e.printStackTrace();
     }
 }
+
+    private void deletePhrase(int index) {
+        
+    String saved = phrasePreferences.getString(currentPhraseCategory, "[]");
+
+    try {
+        JSONArray phrases = new JSONArray(saved);
+
+        if (index >= 0 && index < phrases.length()) {
+            phrases.remove(index);
+
+            phrasePreferences.edit()
+                    .putString(currentPhraseCategory, phrases.toString())
+                    .apply();
+
+            showPhraseCategory(currentPhraseCategory);
+        }
+
+    } catch (Exception e) {
+        e.printStackTrace();
+    }
+}
     private void addPhraseCategoryButton(
+        
         String title, String category) {
     Button button = new Button(this);
 
