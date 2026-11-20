@@ -1623,26 +1623,6 @@ phrasePage.addView(addButton);
 });
    }   
 
-    private void showAddPhraseDialog() {
-
-    EditText input = new EditText(this);
-    input.setHint("نئون جملو لکو");
-
-    new AlertDialog.Builder(this)
-            .setTitle("نئون جملو شامل ڪريو")
-            .setView(input)
-            .setPositiveButton("محفوظ ڪريو", (dialog, which) -> {
-
-                String phrase = input.getText().toString().trim();
-
-                if (!phrase.isEmpty()) {
-                    saveNewPhrase(phrase);
-                }
-            })
-            .setNegativeButton("منسوخ", null)
-            .show();
-}
-
     private void showPhraseOptions(
         String phrase, int index) {
 
@@ -1703,7 +1683,7 @@ private void showAddPhraseDialog() {
                         input.getText().toString().trim();
 
                 if (!newPhrase.isEmpty()) {
-                    addPhrase(newPhrase);
+                    saveNewPhrase(newPhrase);
                 }
             })
             .setNegativeButton("منسوخ", null)
