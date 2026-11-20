@@ -1656,29 +1656,62 @@ phrasePage.addView(addButton);
             .setNegativeButton("منسوخ", null)
             .show();
 }
+
+    
 private void showAddPhraseDialog() {
 
+    phrasePage.removeAllViews();
+
+    TextView heading = createLabel(
+            "✍️ نئون جملو لکو", phrasePage);
+
+    heading.setTextColor(white);
+
     EditText input = new EditText(this);
-    input.setHint("نئون جملو لکو");
-    input.setMinLines(2);
+    input.setHint("هتي پنهنجو نئون جملو لکو...");
+    input.setTextSize(18);
+    input.setMinLines(4);
     input.setGravity(Gravity.TOP);
+    input.setPadding(dp(12), dp(12), dp(12), dp(12));
+    input.setBackground(makeBackground(white, 8));
 
-    new AlertDialog.Builder(this)
-            .setTitle("نئون دعا سلام شامل ڪريو")
-            .setView(input)
-            .setPositiveButton("محفوظ ڪريو", (dialog, which) -> {
+    LinearLayout.LayoutParams inputParams =
+            new LinearLayout.LayoutParams(
+                    ViewGroup.LayoutParams.MATCH_PARENT,
+                    dp(140));
 
-                String newPhrase =
-                        input.getText().toString().trim();
+    inputParams.setMargins(dp(8), dp(12), dp(8), dp(12));
 
-                if (!newPhrase.isEmpty()) {
-                    saveNewPhrase(newPhrase);
-                }
-            })
-            .setNegativeButton("منسوخ", null)
-            .show();
+    phrasePage.addView(input, inputParams);
+
+    Button saveButton = new Button(this);
+    saveButton.setText("💾 محفوظ ڪريو");
+    saveButton.setAllCaps(false);
+    saveButton.setTextSize(17);
+
+    phrasePage.addView(saveButton);
+
+    saveButton.setOnClickListener(v -> {
+
+        String newPhrase = input.getText().toString().trim();
+
+        if (!newPhrase.isEmpty()) {
+            saveNewPhrase(newPhrase);
+        } else {
+            input.setError("مهرباني ڪري جملو لکو");
+        }
+    });
+
+    Button backButton = new Button(this);
+    backButton.setText("⬅ واپس");
+    backButton.setAllCaps(false);
+
+    phrasePage.addView(backButton);
+
+    backButton.setOnClickListener(v ->
+            showPhraseCategory(currentPhraseCategory));
 }
-    
+
 private void saveNewPhrase(String phrase) {
 
     String saved = phrasePreferences.getString(
