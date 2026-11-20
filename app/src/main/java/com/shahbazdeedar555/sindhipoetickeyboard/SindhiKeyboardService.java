@@ -1643,6 +1643,51 @@ phrasePage.addView(addButton);
             .setNegativeButton("منسوخ", null)
             .show();
 }
+
+    private void showPhraseOptions(
+        String phrase, int index) {
+
+    String[] options = {
+            "✏️ جملو تبديل ڪريو",
+            "🗑️ جملو ختم ڪريو"
+    };
+
+    new AlertDialog.Builder(this)
+            .setTitle(phrase)
+            .setItems(options, (dialog, which) -> {
+
+                if (which == 0) {
+                    showEditPhraseDialog(phrase, index);
+                } else if (which == 1) {
+                    deletePhrase(index);
+                }
+
+            })
+            .setNegativeButton("واپس", null)
+            .show();
+}
+    private void showEditPhraseDialog(
+        String oldPhrase, int index) {
+
+    EditText input = new EditText(this);
+    input.setText(oldPhrase);
+    input.setSelection(input.getText().length());
+
+    new AlertDialog.Builder(this)
+            .setTitle("جملو تبديل ڪريو")
+            .setView(input)
+            .setPositiveButton("محفوظ ڪريو", (dialog, which) -> {
+
+                String newPhrase =
+                        input.getText().toString().trim();
+
+                if (!newPhrase.isEmpty()) {
+                    updatePhrase(index, newPhrase);
+                }
+            })
+            .setNegativeButton("منسوخ", null)
+            .show();
+}
 private void saveNewPhrase(String phrase) {
 
     String saved = phrasePreferences.getString(
@@ -1664,10 +1709,35 @@ private void saveNewPhrase(String phrase) {
 
     showPhraseCategory(currentPhraseCategory);
 }
-    
+
+
+private void updatePhrase(int index, String newPhrase) {
+
+    String saved = phrasePreferences.getString(
+            currentPhraseCategory, "[]");
+
+    try {
+        JSONArray phrases = new JSONArray(saved);
+
+        if (index >= 0 && index < phrases.length()) {
+
+            phrases.put(index, newPhrase);
+
+            phrasePreferences.edit()
+                    .putString(
+                            currentPhraseCategory,
+                            phrases.toString())
+                    .apply();
+
+            showPhraseCategory(currentPhraseCategory);
+        }
+
+    } catch (Exception e) {
+        e.printStackTrace();
+    }
+}
     private void addPhraseCategoryButton(
         String title, String category) {
-
     Button button = new Button(this);
 
     button.setText(title);
