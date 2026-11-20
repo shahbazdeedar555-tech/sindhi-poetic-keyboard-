@@ -1608,7 +1608,13 @@ addButton.setAllCaps(false);
 addButton.setTextSize(16);
 
 phrasePage.addView(addButton);
-     addButton.setOnClickListener(v -> showAddPhraseDialog());
+     addButton.setOnClickListener(v -> {
+    new AlertDialog.Builder(this)
+            .setTitle("Test")
+            .setMessage("Add button is working!")
+            .setPositiveButton("OK", null)
+            .show();
+});
     backButton.setOnClickListener(v -> {
     phrasePage.removeAllViews();
 
