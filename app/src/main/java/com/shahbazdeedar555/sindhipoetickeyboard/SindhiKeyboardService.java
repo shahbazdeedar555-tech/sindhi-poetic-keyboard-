@@ -1548,6 +1548,37 @@ phraseList.setOrientation(LinearLayout.VERTICAL);
 
 scrollView.addView(phraseList);
 
+        JSONArray phrases = new JSONArray();
+
+try {
+    String saved = phrasePreferences.getString(
+            currentPhraseCategory, "[]");
+    phrases = new JSONArray(saved);
+} catch (Exception e) {
+    phrases = new JSONArray();
+}
+
+for (int i = 0; i < phrases.length(); i++) {
+    final String phrase = phrases.optString(i);
+
+    Button phraseButton = new Button(this);
+    phraseButton.setText(phrase);
+    phraseButton.setAllCaps(false);
+    phraseButton.setTextSize(16);
+
+    phraseList.addView(phraseButton);
+
+    phraseButton.setOnClickListener(v -> {
+        commit(phrase + " ");
+    });
+
+    final int phraseIndex = i;
+
+    phraseButton.setOnLongClickListener(v -> {
+        showPhraseOptions(phrase, phraseIndex);
+        return true;
+    });
+}
     String title = "سلام دعا";
 
     if (category.equals("literary")) {
