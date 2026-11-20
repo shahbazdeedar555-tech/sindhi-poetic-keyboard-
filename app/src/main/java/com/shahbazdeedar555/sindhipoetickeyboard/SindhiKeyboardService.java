@@ -1586,9 +1586,8 @@ for (int i = 0; i < phrases.length(); i++) {
     phraseList.addView(phraseButton);
 
     phraseButton.setOnClickListener(v -> {
-        getCurrentInputConnection().commitText(
-                phrase + " ", 1);
-    });
+    commit(phrase + " ");
+});
     final int phraseIndex = i;
 
     phraseButton.setOnLongClickListener(v -> {
