@@ -1323,11 +1323,17 @@ private void commit(String text) {
         return;
     }
 
-    InputConnection connection =
-            getCurrentInputConnection();
+InputConnection connection =
+        getCurrentInputConnection();
 
-    if (connection == null) return;
-
+if (connection == null) {
+    android.widget.Toast.makeText(
+            this,
+            "InputConnection is NULL!",
+            android.widget.Toast.LENGTH_LONG
+    ).show();
+    return;
+}
     boolean englishMode =
             (englishPage != null &&
              englishPage.getVisibility() == View.VISIBLE) ||
