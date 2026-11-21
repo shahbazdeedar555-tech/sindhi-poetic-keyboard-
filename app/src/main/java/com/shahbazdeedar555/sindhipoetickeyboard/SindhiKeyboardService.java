@@ -1438,34 +1438,47 @@ private void setRepeatDelete(Button button) {
     });
 }
 
-// DELETE ONE CHARACTER
+
 private void deleteOne() {
+
+    if (activePhraseInput != null) {
+
+        EditText input = activePhraseInput;
+
+        int start = input.getSelectionStart();
+        int end = input.getSelectionEnd();
+
+        if (start < 0 || end < 0) return;
+
+        if (start != end) {
+            input.getText().delete(
+                    Math.min(start, end),
+                    Math.max(start, end));
+        } else if (start > 0) {
+            input.getText().delete(start - 1, start);
+        }
+
+        return;
+    }
 
     InputConnection connection =
             getCurrentInputConnection();
 
-    if (connection == null) {
-        return;
-    }
+    if (connection == null) return;
 
     CharSequence before =
             connection.getTextBeforeCursor(2, 0);
 
-    if (before == null || before.length() == 0) {
-        return;
-    }
+    if (before == null || before.length() == 0) return;
 
     int length = before.length();
 
-    // Handle UTF-16 surrogate pairs
     if (length >= 2) {
-
         char last = before.charAt(length - 1);
         char previous = before.charAt(length - 2);
 
         if (Character.isLowSurrogate(last) &&
                 Character.isHighSurrogate(previous)) {
-
             connection.deleteSurroundingText(2, 0);
             updatePredictionBar();
             return;
@@ -1473,7 +1486,6 @@ private void deleteOne() {
     }
 
     connection.deleteSurroundingText(1, 0);
-
     updatePredictionBar();
 }
 
