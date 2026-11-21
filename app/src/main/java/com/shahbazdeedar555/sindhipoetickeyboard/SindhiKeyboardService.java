@@ -1772,17 +1772,16 @@ deleteButton.setOnClickListener(v -> {
             .show();
 }
 
-
-
 private void showAddPhraseDialog() {
 
     phrasePage.removeAllViews();
 
     TextView heading = createLabel(
             "✍️ نئون جملو لکو", phrasePage);
-
     heading.setTextColor(white);
 
+    // Keep the phrase input active without taking
+    // the keyboard window's initial focus.
     EditText input = new EditText(this);
     activePhraseInput = input;
 
@@ -1791,24 +1790,33 @@ private void showAddPhraseDialog() {
     input.setMinLines(4);
     input.setGravity(Gravity.TOP);
     input.setSingleLine(false);
+
     input.setInputType(
             android.text.InputType.TYPE_CLASS_TEXT |
             android.text.InputType.TYPE_TEXT_FLAG_MULTI_LINE |
             android.text.InputType.TYPE_TEXT_FLAG_CAP_SENTENCES
     );
 
+    input.setFocusable(true);
     input.setFocusableInTouchMode(true);
     input.setShowSoftInputOnFocus(false);
     input.setCursorVisible(true);
     input.setPadding(dp(12), dp(12), dp(12), dp(12));
     input.setBackground(makeBackground(white, 8));
 
+    input.setOnFocusChangeListener((v, hasFocus) -> {
+        if (hasFocus) {
+            activePhraseInput = input;
+        }
+    });
+
     LinearLayout.LayoutParams inputParams =
             new LinearLayout.LayoutParams(
                     ViewGroup.LayoutParams.MATCH_PARENT,
                     dp(140));
 
-    inputParams.setMargins(dp(8), dp(12), dp(8), dp(12));
+    inputParams.setMargins(
+            dp(8), dp(12), dp(8), dp(12));
 
     phrasePage.addView(input, inputParams);
 
@@ -1821,14 +1829,14 @@ private void showAddPhraseDialog() {
 
     saveButton.setOnClickListener(v -> {
 
-        String newPhrase = input.getText().toString().trim();
+        String newPhrase =
+                input.getText().toString().trim();
 
         if (!newPhrase.isEmpty()) {
-            saveNewPhrase(newPhrase);
             activePhraseInput = null;
+            saveNewPhrase(newPhrase);
         } else {
             input.setError("مهرباني ڪري جملو لکو");
-            input.requestFocus();
         }
     });
 
@@ -1843,18 +1851,10 @@ private void showAddPhraseDialog() {
         showPhraseCategory(currentPhraseCategory);
     });
 
-    input.setFocusable(true);
-input.setFocusableInTouchMode(true);
-input.setCursorVisible(true);
-
-input.post(() -> {
-    input.requestFocus();
-    input.setSelection(input.length());
-
-    activePhraseInput = input;
-});
-
-} // showAddPhraseDialog ختم
+    // Give initial focus to the page, not its EditText.
+    phrasePage.setFocusableInTouchMode(true);
+    phrasePage.requestFocus();
+}
 
 private void saveNewPhrase(String phrase) {
     String saved = phrasePreferences.getString(
