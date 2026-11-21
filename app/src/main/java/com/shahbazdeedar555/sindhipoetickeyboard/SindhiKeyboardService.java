@@ -1536,6 +1536,7 @@ private void setEnter() {
 }
 
     
+
 private void showPhraseCategory(String category) {
 
     currentPhraseCategory = category;
@@ -1585,8 +1586,11 @@ private void showPhraseCategory(String category) {
         final String phrase = phrases.optString(i);
         final int phraseIndex = i;
 
-        Button phraseButton = new Button(this);
+        LinearLayout row = new LinearLayout(this);
+        row.setOrientation(LinearLayout.HORIZONTAL);
+        row.setGravity(Gravity.CENTER_VERTICAL);
 
+        Button phraseButton = new Button(this);
         phraseButton.setText(phrase);
         phraseButton.setAllCaps(false);
         phraseButton.setTextSize(16);
@@ -1594,18 +1598,46 @@ private void showPhraseCategory(String category) {
         phraseButton.setBackground(
                 makeBackground(Color.rgb(35, 85, 70), 8));
 
-        phraseList.addView(phraseButton,
+        LinearLayout.LayoutParams phraseParams =
                 new LinearLayout.LayoutParams(
-                        ViewGroup.LayoutParams.MATCH_PARENT,
-                        ViewGroup.LayoutParams.WRAP_CONTENT));
+                        0,
+                        ViewGroup.LayoutParams.WRAP_CONTENT,
+                        1);
+
+        phraseParams.setMargins(dp(2), dp(2), dp(2), dp(2));
+
+        row.addView(phraseButton, phraseParams);
 
         phraseButton.setOnClickListener(v ->
                 commit(phrase + " "));
 
-        phraseButton.setOnLongClickListener(v -> {
-            showPhraseOptions(phrase, phraseIndex);
-            return true;
-        });
+        Button deleteButton = new Button(this);
+        deleteButton.setText("🗑️");
+        deleteButton.setTextSize(18);
+        deleteButton.setAllCaps(false);
+        deleteButton.setBackground(
+                makeBackground(Color.RED, 8));
+
+        LinearLayout.LayoutParams deleteParams =
+                new LinearLayout.LayoutParams(
+                        dp(48),
+                        dp(48));
+
+        deleteParams.setMargins(dp(2), dp(2), dp(2), dp(2));
+
+        row.addView(deleteButton, deleteParams);
+
+        deleteButton.setOnClickListener(v ->
+                new AlertDialog.Builder(this)
+                        .setTitle("جملو ختم ڪريو؟")
+                        .setMessage(phrase)
+                        .setPositiveButton("ها، ختم ڪريو",
+                                (dialog, which) ->
+                                        deletePhrase(phraseIndex))
+                        .setNegativeButton("نه", null)
+                        .show());
+
+        phraseList.addView(row);
     }
 
     Button addButton = new Button(this);
@@ -1627,6 +1659,7 @@ private void showPhraseCategory(String category) {
     backButton.setOnClickListener(v ->
             showPhrasePage());
 }
+
 
     private void showPhraseOptions(
         String phrase, int index) {
