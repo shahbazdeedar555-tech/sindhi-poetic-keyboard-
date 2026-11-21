@@ -1454,7 +1454,8 @@ private void deleteOne() {
         int start = input.getSelectionStart();
         int end = input.getSelectionEnd();
 
-        if (start < 0 || end < 0) return;
+        if (start < 0) start = input.length();
+if (end < 0) end = start;
 
         if (start != end) {
             input.getText().delete(
@@ -1797,6 +1798,8 @@ private void showAddPhraseDialog() {
     );
 
     input.setFocusableInTouchMode(true);
+    input.setShowSoftInputOnFocus(false);
+    input.setCursorVisible(true);
     input.setPadding(dp(12), dp(12), dp(12), dp(12));
     input.setBackground(makeBackground(white, 8));
 
@@ -1842,19 +1845,11 @@ private void showAddPhraseDialog() {
 
     input.requestFocus();
 
-    input.post(() -> {
-        input.requestFocus();
-        android.view.inputmethod.InputMethodManager imm =
-                (android.view.inputmethod.InputMethodManager)
-                getSystemService(INPUT_METHOD_SERVICE);
-
-        if (imm != null) {
-            imm.showSoftInput(input,
-                    android.view.inputmethod.InputMethodManager.SHOW_IMPLICIT);
-        }
-    });
-}
-
+    
+input.post(() -> {
+    input.requestFocus();
+    input.setSelection(input.length());
+});
 
 private void saveNewPhrase(String phrase) {
 
