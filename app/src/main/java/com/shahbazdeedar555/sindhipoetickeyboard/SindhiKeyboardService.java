@@ -1843,11 +1843,15 @@ private void showAddPhraseDialog() {
         showPhraseCategory(currentPhraseCategory);
     });
 
-    input.requestFocus();
+    input.setFocusable(true);
+input.setFocusableInTouchMode(true);
+input.setCursorVisible(true);
 
 input.post(() -> {
     input.requestFocus();
     input.setSelection(input.length());
+
+    activePhraseInput = input;
 });
 
 } // showAddPhraseDialog ختم
