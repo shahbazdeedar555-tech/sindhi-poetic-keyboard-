@@ -1493,6 +1493,26 @@ private void deleteOne() {
 // SPACE - SUPPORT ALL KEYBOARD LANGUAGES
 private void setSpace() {
 
+    // Space inside Add Phrase TextBox
+    if (activePhraseInput != null) {
+
+        EditText input = activePhraseInput;
+
+        int start = input.getSelectionStart();
+        int end = input.getSelectionEnd();
+
+        if (start < 0) start = input.length();
+        if (end < 0) end = start;
+
+        input.getText().replace(
+                Math.min(start, end),
+                Math.max(start, end),
+                " "
+        );
+
+        return;
+    }
+
     InputConnection connection =
             getCurrentInputConnection();
 
