@@ -1852,8 +1852,9 @@ private void showAddPhraseDialog() {
     });
 
     // Give initial focus to the page, not its EditText.
-    phrasePage.setFocusableInTouchMode(true);
-    phrasePage.requestFocus();
+    input.requestFocus();
+activePhraseInput = input;
+input.setSelection(input.getText().length());
 }
 
 private void saveNewPhrase(String phrase) {
@@ -1913,29 +1914,33 @@ private void updatePhrase(int index, String newPhrase) {
             category, "[]");
 
     try {
-        JSONArray phrases = new JSONArray(saved);
+        JSONArray oldArray = new JSONArray(saved);
+        JSONArray newArray = new JSONArray();
 
-        if (index >= 0 && index < phrases.length()) {
+        if (index < 0 || index >= oldArray.length()) {
+            return;
+        }
 
-            // Check the correct phrase
-            if (!phrases.optString(index).equals(phrase)) {
-                return;
+        if (!oldArray.optString(index).equals(phrase)) {
+            return;
+        }
+
+        for (int i = 0; i < oldArray.length(); i++) {
+            if (i != index) {
+                newArray.put(oldArray.optString(i));
             }
+        }
 
-            // Delete only selected phrase
-            phrases.remove(index);
+        boolean success = phrasePreferences.edit()
+                .putString(category, newArray.toString())
+                .commit();
 
-            // Save updated list permanently
-            phrasePreferences.edit()
-                    .putString(category, phrases.toString())
-                    .apply();
-
-            // Refresh current category
+        if (success) {
             showPhraseCategory(category);
 
             android.widget.Toast.makeText(
                     this,
-                    "جملو ختم ٿي ويو",
+                    "جملو ڪاميابيءَ سان ختم ٿيو",
                     android.widget.Toast.LENGTH_SHORT
             ).show();
         }
