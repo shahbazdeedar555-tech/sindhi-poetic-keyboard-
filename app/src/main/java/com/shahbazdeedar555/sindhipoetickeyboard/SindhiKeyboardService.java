@@ -1676,25 +1676,26 @@ private void showPhraseCategory(String category) {
         row.addView(deleteButton, deleteParams);
 
         
+
 deleteButton.setOnClickListener(v -> {
 
-    new AlertDialog.Builder(
-            SindhiKeyboardService.this)
-
+    new AlertDialog.Builder(SindhiKeyboardService.this)
             .setTitle("جملو ختم ڪريو؟")
             .setMessage("ڇا توهان هي جملو ختم ڪرڻ چاهيو ٿا؟\n\n" + phrase)
 
             .setPositiveButton("ها، ختم ڪريو",
                     (dialog, which) -> {
-                        deletePhrase(phraseIndex);
+
+                        deletePhrase(
+                                currentPhraseCategory,
+                                phraseIndex,
+                                phrase
+                        );
                     })
 
             .setNegativeButton("نه", null)
-
-            .create()
             .show();
 });
-
 
         phraseList.addView(row);
     }
@@ -1899,21 +1900,40 @@ private void updatePhrase(int index, String newPhrase) {
     }
 }
 
-    private void deletePhrase(int index) {
-        
-    String saved = phrasePreferences.getString(currentPhraseCategory, "[]");
+    private void deletePhrase(
+        String category,
+        int index,
+        String phrase) {
+
+    String saved = phrasePreferences.getString(
+            category, "[]");
 
     try {
         JSONArray phrases = new JSONArray(saved);
 
         if (index >= 0 && index < phrases.length()) {
+
+            // Check the correct phrase
+            if (!phrases.optString(index).equals(phrase)) {
+                return;
+            }
+
+            // Delete only selected phrase
             phrases.remove(index);
 
+            // Save updated list permanently
             phrasePreferences.edit()
-                    .putString(currentPhraseCategory, phrases.toString())
+                    .putString(category, phrases.toString())
                     .apply();
 
-            showPhraseCategory(currentPhraseCategory);
+            // Refresh current category
+            showPhraseCategory(category);
+
+            android.widget.Toast.makeText(
+                    this,
+                    "جملو ختم ٿي ويو",
+                    android.widget.Toast.LENGTH_SHORT
+            ).show();
         }
 
     } catch (Exception e) {
