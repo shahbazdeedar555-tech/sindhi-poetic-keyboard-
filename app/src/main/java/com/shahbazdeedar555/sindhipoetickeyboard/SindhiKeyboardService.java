@@ -1730,18 +1730,23 @@ deleteButton.setOnClickListener(v -> {
     };
 
     new AlertDialog.Builder(this)
-            .setTitle(phrase)
-            .setItems(options, (dialog, which) -> {
+        .setTitle(phrase)
+        .setItems(options, (dialog, which) -> {
 
-                if (which == 0) {
-                    showEditPhraseDialog(phrase, index);
-                } else if (which == 1) {
-                    deletePhrase(index);
-                }
+            if (which == 0) {
+                showEditPhraseDialog(phrase, index);
 
-            })
-            .setNegativeButton("واپس", null)
-            .show();
+            } else if (which == 1) {
+                deletePhrase(
+                        currentPhraseCategory,
+                        index,
+                        phrase
+                );
+            }
+
+        })
+        .setNegativeButton("واپس", null)
+        .show();
 }
     private void showEditPhraseDialog(
         String oldPhrase, int index) {
