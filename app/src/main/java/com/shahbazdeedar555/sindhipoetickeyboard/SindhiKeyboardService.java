@@ -1845,12 +1845,14 @@ private void showAddPhraseDialog() {
 
     input.requestFocus();
 
-    
 input.post(() -> {
     input.requestFocus();
     input.setSelection(input.length());
 });
 
+} // showAddPhraseDialog ختم
+
+private void saveNewPhrase(String phrase) {
 private void saveNewPhrase(String phrase) {
 
     String saved = phrasePreferences.getString(
