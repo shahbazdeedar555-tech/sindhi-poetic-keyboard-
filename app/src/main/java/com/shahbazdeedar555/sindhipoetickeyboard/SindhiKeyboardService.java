@@ -49,7 +49,7 @@ public class SindhiKeyboardService extends InputMethodService {
     private LinearLayout customPhraseSection;
     private LinearLayout phrasePage;
 private String currentPhraseCategory = "greetings";
-
+private EditText activePhraseInput;
     private boolean shiftOn = false;
     private boolean englishShift = false;
     private boolean urduSecondPage = false;
@@ -1300,14 +1300,33 @@ private void applyPrediction(String prediction) {
 // INSERT TEXT WITH ENGLISH AUTO CAPITALIZATION
 
 
+
 private void commit(String text) {
+
+    if (text == null) return;
+
+    // Write directly inside Add Phrase TextBox
+    if (activePhraseInput != null) {
+
+        int start = activePhraseInput.getSelectionStart();
+        int end = activePhraseInput.getSelectionEnd();
+
+        if (start < 0) start = activePhraseInput.length();
+        if (end < 0) end = start;
+
+        activePhraseInput.getText().replace(
+                Math.min(start, end),
+                Math.max(start, end),
+                text
+        );
+
+        return;
+    }
 
     InputConnection connection =
             getCurrentInputConnection();
 
-    if (connection == null || text == null) {
-        return;
-    }
+    if (connection == null) return;
 
     boolean englishMode =
             (englishPage != null &&
@@ -1317,22 +1336,17 @@ private void commit(String text) {
 
     if (englishMode) {
 
-        // Convert standalone i into I
         if (text.equals(" ") ||
                 text.matches("[.,!?;:]")) {
 
             CharSequence before =
                     connection.getTextBeforeCursor(20, 0);
 
-            if (before != null) {
+            if (before != null &&
+                    before.toString().matches("(?s).*\\bi$")) {
 
-                String previous = before.toString();
-
-                if (previous.matches("(?s).*\\bi$")) {
-
-                    connection.deleteSurroundingText(1, 0);
-                    connection.commitText("I", 1);
-                }
+                connection.deleteSurroundingText(1, 0);
+                connection.commitText("I", 1);
             }
 
             connection.commitText(text, 1);
@@ -1340,20 +1354,18 @@ private void commit(String text) {
             return;
         }
 
-        // Sentence auto-capitalization
         if (text.length() == 1 &&
-                text.matches("[a-z]")) {
+                text.matches("[a-z]") &&
+                isSentenceStart(connection)) {
 
-            if (isSentenceStart(connection)) {
-                text = text.toUpperCase(Locale.ROOT);
-            }
+            text = text.toUpperCase(Locale.ROOT);
         }
     }
 
     connection.commitText(text, 1);
-
     updatePredictionBar();
 }
+
 
 // CHECK WHETHER THE CURSOR IS AT SENTENCE START
 private boolean isSentenceStart(
@@ -1718,6 +1730,7 @@ deleteButton.setOnClickListener(v -> {
 }
 
 
+
 private void showAddPhraseDialog() {
 
     phrasePage.removeAllViews();
@@ -1728,10 +1741,20 @@ private void showAddPhraseDialog() {
     heading.setTextColor(white);
 
     EditText input = new EditText(this);
+    activePhraseInput = input;
+
     input.setHint("هتي پنهنجو نئون جملو لکو...");
     input.setTextSize(18);
     input.setMinLines(4);
     input.setGravity(Gravity.TOP);
+    input.setSingleLine(false);
+    input.setInputType(
+            android.text.InputType.TYPE_CLASS_TEXT |
+            android.text.InputType.TYPE_TEXT_FLAG_MULTI_LINE |
+            android.text.InputType.TYPE_TEXT_FLAG_CAP_SENTENCES
+    );
+
+    input.setFocusableInTouchMode(true);
     input.setPadding(dp(12), dp(12), dp(12), dp(12));
     input.setBackground(makeBackground(white, 8));
 
@@ -1757,8 +1780,10 @@ private void showAddPhraseDialog() {
 
         if (!newPhrase.isEmpty()) {
             saveNewPhrase(newPhrase);
+            activePhraseInput = null;
         } else {
             input.setError("مهرباني ڪري جملو لکو");
+            input.requestFocus();
         }
     });
 
@@ -1768,9 +1793,26 @@ private void showAddPhraseDialog() {
 
     phrasePage.addView(backButton);
 
-    backButton.setOnClickListener(v ->
-            showPhraseCategory(currentPhraseCategory));
+    backButton.setOnClickListener(v -> {
+        activePhraseInput = null;
+        showPhraseCategory(currentPhraseCategory);
+    });
+
+    input.requestFocus();
+
+    input.post(() -> {
+        input.requestFocus();
+        android.view.inputmethod.InputMethodManager imm =
+                (android.view.inputmethod.InputMethodManager)
+                getSystemService(INPUT_METHOD_SERVICE);
+
+        if (imm != null) {
+            imm.showSoftInput(input,
+                    android.view.inputmethod.InputMethodManager.SHOW_IMPLICIT);
+        }
+    });
 }
+
 
 private void saveNewPhrase(String phrase) {
 
