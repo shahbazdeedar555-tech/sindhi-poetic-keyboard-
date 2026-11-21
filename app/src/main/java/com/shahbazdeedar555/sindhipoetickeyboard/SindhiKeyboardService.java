@@ -1536,81 +1536,97 @@ private void setEnter() {
 }
 
     
+private void showPhraseCategory(String category) {
 
+    currentPhraseCategory = category;
+    phrasePage.removeAllViews();
 
+    String title;
 
-    TextView heading = createLabel(
-            title, phrasePage);
+    if (category.equals("greetings")) {
+        title = "👋 سلام دعا";
+    } else if (category.equals("literary")) {
+        title = "🌹 ادبي داد";
+    } else {
+        title = "🙏 احسان مڃڻ";
+    }
 
+    TextView heading = createLabel(title, phrasePage);
     heading.setTextColor(white);
-        
-phrasePage.addView(scrollView);
-JSONArray phrases = new JSONArray();
 
-try {
+    ScrollView scrollView = new ScrollView(this);
+
+    LinearLayout phraseList = new LinearLayout(this);
+    phraseList.setOrientation(LinearLayout.VERTICAL);
+    phraseList.setPadding(dp(5), dp(5), dp(5), dp(5));
+
+    scrollView.addView(phraseList);
+
+    LinearLayout.LayoutParams scrollParams =
+            new LinearLayout.LayoutParams(
+                    ViewGroup.LayoutParams.MATCH_PARENT,
+                    0, 1);
+
+    phrasePage.addView(scrollView, scrollParams);
+
     String saved = phrasePreferences.getString(
             currentPhraseCategory, "[]");
 
-    phrases = new JSONArray(saved);
+    JSONArray phrases;
 
-} catch (Exception e) {
-    phrases = new JSONArray();
-}
+    try {
+        phrases = new JSONArray(saved);
+    } catch (Exception e) {
+        phrases = new JSONArray();
+    }
 
-for (int i = 0; i < phrases.length(); i++) {
+    for (int i = 0; i < phrases.length(); i++) {
 
-    final String phrase = phrases.optString(i);
+        final String phrase = phrases.optString(i);
+        final int phraseIndex = i;
 
-    Button phraseButton = new Button(this);
-    phraseButton.setText(phrase);
-    phraseButton.setAllCaps(false);
-    phraseButton.setTextSize(16);
+        Button phraseButton = new Button(this);
 
-    phraseList.addView(phraseButton);
+        phraseButton.setText(phrase);
+        phraseButton.setAllCaps(false);
+        phraseButton.setTextSize(16);
+        phraseButton.setTextColor(white);
+        phraseButton.setBackground(
+                makeBackground(Color.rgb(35, 85, 70), 8));
 
-    phraseButton.setOnClickListener(v -> {
-    commit(phrase + " ");
-});
-    final int phraseIndex = i;
+        phraseList.addView(phraseButton,
+                new LinearLayout.LayoutParams(
+                        ViewGroup.LayoutParams.MATCH_PARENT,
+                        ViewGroup.LayoutParams.WRAP_CONTENT));
 
-    phraseButton.setOnLongClickListener(v -> {
-        showPhraseOptions(phrase, phraseIndex);
-        return true;
-    });
-}
+        phraseButton.setOnClickListener(v ->
+                commit(phrase + " "));
 
-        
+        phraseButton.setOnLongClickListener(v -> {
+            showPhraseOptions(phrase, phraseIndex);
+            return true;
+        });
+    }
+
+    Button addButton = new Button(this);
+    addButton.setText("➕ نئون جملو شامل ڪريو");
+    addButton.setAllCaps(false);
+    addButton.setTextSize(16);
+
+    phrasePage.addView(addButton);
+
+    addButton.setOnClickListener(v ->
+            showAddPhraseDialog());
+
     Button backButton = new Button(this);
     backButton.setText("⬅ واپس");
     backButton.setAllCaps(false);
+
     phrasePage.addView(backButton);
-  
-Button addButton = new Button(this);
-addButton.setText("➕ نئون جملو شامل ڪريو");
-addButton.setAllCaps(false);
-addButton.setTextSize(16);
 
-phrasePage.addView(addButton);
-     addButton.setOnClickListener(v -> {
-    new AlertDialog.Builder(this)
-            .setTitle("Test")
-            .setMessage("Add button is working!")
-            .setPositiveButton("OK", null)
-            .show();
-});
-    backButton.setOnClickListener(v -> {
-    phrasePage.removeAllViews();
-
-    TextView mainTitle = createLabel(
-            "📝  منهنجا جملا", phrasePage);
-
-    mainTitle.setTextColor(white);
-
-    addPhraseCategoryButton("👋  سلام دعا", "greetings");
-    addPhraseCategoryButton("🌹  ادبي داد", "literary");
-    addPhraseCategoryButton("🙏  احسان مڃڻ", "thanks");
-});
-   }   
+    backButton.setOnClickListener(v ->
+            showPhrasePage());
+}
 
     private void showPhraseOptions(
         String phrase, int index) {
@@ -1657,7 +1673,7 @@ phrasePage.addView(addButton);
             .show();
 }
 
-    
+
 private void showAddPhraseDialog() {
 
     phrasePage.removeAllViews();
