@@ -1853,8 +1853,6 @@ input.post(() -> {
 } // showAddPhraseDialog ختم
 
 private void saveNewPhrase(String phrase) {
-private void saveNewPhrase(String phrase) {
-
     String saved = phrasePreferences.getString(
             currentPhraseCategory, "[]");
 
