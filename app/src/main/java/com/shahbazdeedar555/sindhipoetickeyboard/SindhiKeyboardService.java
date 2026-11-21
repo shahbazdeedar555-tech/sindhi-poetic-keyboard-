@@ -1627,15 +1627,26 @@ private void showPhraseCategory(String category) {
 
         row.addView(deleteButton, deleteParams);
 
-        deleteButton.setOnClickListener(v ->
-                new AlertDialog.Builder(this)
-                        .setTitle("جملو ختم ڪريو؟")
-                        .setMessage(phrase)
-                        .setPositiveButton("ها، ختم ڪريو",
-                                (dialog, which) ->
-                                        deletePhrase(phraseIndex))
-                        .setNegativeButton("نه", null)
-                        .show());
+        
+deleteButton.setOnClickListener(v -> {
+
+    new AlertDialog.Builder(
+            SindhiKeyboardService.this)
+
+            .setTitle("جملو ختم ڪريو؟")
+            .setMessage("ڇا توهان هي جملو ختم ڪرڻ چاهيو ٿا؟\n\n" + phrase)
+
+            .setPositiveButton("ها، ختم ڪريو",
+                    (dialog, which) -> {
+                        deletePhrase(phraseIndex);
+                    })
+
+            .setNegativeButton("نه", null)
+
+            .create()
+            .show();
+});
+
 
         phraseList.addView(row);
     }
