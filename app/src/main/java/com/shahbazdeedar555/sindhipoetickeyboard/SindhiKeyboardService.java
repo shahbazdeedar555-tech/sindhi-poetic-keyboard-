@@ -1225,8 +1225,9 @@ private void createSuggestionBar() {
 
     ArrayList<String> predictions =
             new ArrayList<>(
-                    SmartEnglishPrediction.getSuggestions(
-                            before.toString()));
+        SmartEnglishPrediction.getSuggestions(
+        before.toString(),
+        personalDictionary)  
 
     int count = Math.min(3, predictions.size());
 
