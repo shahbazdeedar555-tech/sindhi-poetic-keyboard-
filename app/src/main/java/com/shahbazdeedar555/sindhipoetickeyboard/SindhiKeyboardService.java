@@ -1444,7 +1444,7 @@ private void deleteOne() {
     connection.deleteSurroundingText(1, 0);
     updatePredictionBar();
 }
-
+}
 // ENTER - SUPPORT ALL KEYBOARD LANGUAGES
 private void setEnter() {
 
@@ -1477,7 +1477,5 @@ private void setEnter() {
 
     updatePredictionBar();
 }
-
-
-
+}
     
