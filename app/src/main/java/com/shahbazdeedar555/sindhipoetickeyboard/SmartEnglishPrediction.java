@@ -427,6 +427,53 @@ public final class SmartEnglishPrediction {
             if (suggestions.size() >= 3) {
                 break;
             }
+       
         }
+        public static List<String> getSuggestions(
+        String text,
+        PersonalDictionary dictionary) {
+
+    List<String> results = new ArrayList<>();
+
+    // Old Smart Predictions first
+    results.addAll(getSuggestions(text));
+
+    // New Personal Dictionary predictions later
+    if (text != null && !text.isEmpty()
+            && !Character.isWhitespace(
+                    text.charAt(text.length() - 1))
+            && dictionary != null) {
+
+        String trimmed = text.trim();
+        int lastSpace = trimmed.lastIndexOf(' ');
+        String prefix = trimmed.substring(lastSpace + 1);
+
+        if (!prefix.isEmpty()) {
+            List<String> learned =
+                    dictionary.getSuggestions(
+                            prefix,
+                            PersonalDictionary.ENGLISH,
+                            3);
+
+            for (String word : learned) {
+                boolean exists = false;
+
+                for (String item : results) {
+                    if (item.equalsIgnoreCase(word)) {
+                        exists = true;
+                        break;
+                    }
+                }
+
+                if (!exists) {
+                    results.add(word);
+                }
+            }
+        }
+    }
+
+    return new ArrayList<>(
+            results.subList(0, Math.min(3, results.size())));
+}
     }
 }
