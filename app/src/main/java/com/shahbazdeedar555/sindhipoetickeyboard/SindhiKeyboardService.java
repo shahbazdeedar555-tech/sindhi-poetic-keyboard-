@@ -35,6 +35,7 @@ public class SindhiKeyboardService extends InputMethodService {
     private LinearLayout englishPage, englishSymbolsPage;
     private LinearLayout urduPage, urduPage2;
     private LinearLayout emojiPage;
+    private LinearLayout phrasePage;
     private LinearLayout suggestionBar;
 
     private String currentCheckedWord = "";
@@ -92,6 +93,7 @@ createEnglishSymbolsPage();
 createUrduPage();
 createUrduPage2();
 createEmojiPage();
+ createPhrasePage();
 
 
 // LANGUAGE BUTTON
@@ -1038,7 +1040,6 @@ private void addUrduRow(
 // =====================================================
 
 private void createEmojiPage() {
-
     emojiPage = new LinearLayout(this);
     emojiPage.setOrientation(LinearLayout.VERTICAL);
     emojiPage.setLayoutDirection(View.LAYOUT_DIRECTION_LTR);
@@ -1481,5 +1482,101 @@ private void setEnter() {
 
     updatePredictionBar();
 }
+
+// ==========================================
+// LITERARY PHRASES PAGE
+// ==========================================
+
+private void createPhrasePage() {
+
+    phrasePage = new LinearLayout(this);
+    phrasePage.setOrientation(LinearLayout.VERTICAL);
+    phrasePage.setLayoutDirection(View.LAYOUT_DIRECTION_RTL);
+    phrasePage.setBackgroundColor(green);
+    phrasePage.setVisibility(View.GONE);
+
+    // THREE TABS
+    LinearLayout tabs = new LinearLayout(this);
+    tabs.setOrientation(LinearLayout.HORIZONTAL);
+    tabs.setLayoutDirection(View.LAYOUT_DIRECTION_RTL);
+
+    Button duaButton = createButton(
+            "دعا سلام", tabs, green, white);
+
+    Button adabButton = createButton(
+            "ادبي داد", tabs, green, white);
+
+    Button thanksButton = createButton(
+            "ٿورا مڃڻ", tabs, green, white);
+
+    // PHRASE LIST
+    ScrollView scrollView = new ScrollView(this);
+
+    customPhraseContainer = new LinearLayout(this);
+    customPhraseContainer.setOrientation(
+            LinearLayout.VERTICAL);
+    customPhraseContainer.setPadding(
+            dp(4), dp(4), dp(4), dp(4));
+
+    scrollView.addView(customPhraseContainer);
+
+    phrasePage.addView(tabs);
+
+    phrasePage.addView(scrollView,
+            new LinearLayout.LayoutParams(
+                    ViewGroup.LayoutParams.MATCH_PARENT,
+                    0, 1));
+
+    // TAB ACTIONS
+    duaButton.setOnClickListener(v ->
+            showPhraseList(DuaSalam.PHRASES));
+
+    adabButton.setOnClickListener(v ->
+            showPhraseList(AdabiDad.PHRASES));
+
+    thanksButton.setOnClickListener(v ->
+            showPhraseList(Shukriya.PHRASES));
+
+    root.addView(phrasePage);
+
+    showPhraseList(DuaSalam.PHRASES);
+}
+
+
+// DISPLAY PHRASES
+private void showPhraseList(String[] phrases) {
+
+    customPhraseContainer.removeAllViews();
+
+    for (String phrase : phrases) {
+
+        Button button = new Button(this);
+
+        button.setText(phrase);
+        button.setTextSize(17);
+        button.setTextColor(white);
+        button.setAllCaps(false);
+        button.setTypeface(
+                Typeface.DEFAULT, Typeface.BOLD);
+
+        button.setBackground(
+                makeBackground(green, 8));
+
+        LinearLayout.LayoutParams params =
+                new LinearLayout.LayoutParams(
+                        ViewGroup.LayoutParams.MATCH_PARENT,
+                        dp(48));
+
+        params.setMargins(
+                dp(3), dp(3), dp(3), dp(3));
+
+        customPhraseContainer.addView(button, params);
+
+        button.setOnClickListener(v ->
+                commit(phrase));
+    }
+}
+
+    
 }
     
