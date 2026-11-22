@@ -1851,8 +1851,6 @@ private void showAddPhraseDialog() {
         showPhraseCategory(currentPhraseCategory);
     });
 
-    // Give initial focus to the page, not its EditText.
-    input.requestFocus();
 activePhraseInput = input;
 input.setSelection(input.getText().length());
 }
