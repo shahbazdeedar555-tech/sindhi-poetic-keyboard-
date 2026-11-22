@@ -225,7 +225,9 @@ private void hideOtherPages() {
 
     if (emojiPage != null)
         emojiPage.setVisibility(View.GONE);
-
+    
+    if (phrasePage != null)
+    phrasePage.setVisibility(View.GONE);
     // Hide English predictions
 if (suggestionBar != null) {
     suggestionBar.removeAllViews();
@@ -280,8 +282,13 @@ private void showEmojiPage() {
     emojiPage.setVisibility(View.VISIBLE);
 }
 
+    private void showPhrasePage() {
 
-    
+    hideSindhiPages();
+    hideOtherPages();
+
+    phrasePage.setVisibility(View.VISIBLE);
+}
 private void setupPage1() {
 
     // ROW 1
@@ -531,6 +538,7 @@ private void openLanguageMenu() {
     menu.getMenu().add("🇬🇧  English");
     menu.getMenu().add("🇵🇰  اردو");
     menu.getMenu().add("😀  Emoji");
+    menu.getMenu().add("✍️  ادبي جملا");
     menu.setOnMenuItemClickListener(item -> {
 
         String selected = item.getTitle().toString();
@@ -557,6 +565,10 @@ private void openLanguageMenu() {
             return true;
         }
 
+        if (selected.contains("ادبي جملا")) {
+    showPhrasePage();
+    return true;
+}
         return false;
     });
 
