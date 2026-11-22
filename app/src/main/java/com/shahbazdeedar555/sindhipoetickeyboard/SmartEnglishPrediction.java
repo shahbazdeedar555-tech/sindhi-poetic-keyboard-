@@ -425,11 +425,13 @@ public final class SmartEnglishPrediction {
             }
 
             if (suggestions.size() >= 3) {
-                break;
-            }
-       
-        }
-        public static List<String> getSuggestions(
+    break;
+}
+
+}
+}
+
+public static List<String> getSuggestions(
         String text,
         PersonalDictionary dictionary) {
 
