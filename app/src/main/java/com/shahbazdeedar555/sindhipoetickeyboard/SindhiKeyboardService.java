@@ -44,29 +44,29 @@ public class SindhiKeyboardService extends InputMethodService {
     private PersonalDictionary personalDictionary;
 
     // Custom Literary Phrases
-    private SharedPreferences phrasePreferences;
-    private LinearLayout customPhraseContainer;
-    private LinearLayout customPhraseSection;
-    private LinearLayout phrasePage;
+private SharedPreferences phrasePreferences;
+private LinearLayout customPhraseContainer;
+private LinearLayout customPhraseSection;
+private LinearLayout phrasePage;
 private String currentPhraseCategory = "greetings";
 private EditText activePhraseInput;
-    private boolean shiftOn = false;
-    private boolean englishShift = false;
-    private boolean urduSecondPage = false;
 
-    private final Handler deleteHandler =
-            new Handler(Looper.getMainLooper());
+private boolean shiftOn = false;
+private boolean englishShift = false;
+private boolean urduSecondPage = false;
 
-    private Runnable deleteRunnable;
-    private boolean deleteHolding = false;
+private final Handler deleteHandler =
+        new Handler(Looper.getMainLooper());
 
-    private Runnable languageDeleteRunnable;
-    private boolean languageDeleteHolding = false;
+private Runnable deleteRunnable;
+private boolean deleteHolding = false;
 
-    private final int green = Color.rgb(23, 63, 53);
-    private final int black = Color.BLACK;
-    private final int white = Color.WHITE;
+private Runnable languageDeleteRunnable;
+private boolean languageDeleteHolding = false;
 
+private final int green = Color.rgb(23, 63, 53);
+private final int black = Color.BLACK;
+private final int white = Color.WHITE;
     
 @Override
 public View onCreateInputView() {
@@ -95,7 +95,7 @@ createEnglishSymbolsPage();
 createUrduPage();
 createUrduPage2();
 createEmojiPage();
-createPhrasePage();
+
 
 // LANGUAGE BUTTON
 createLanguageButton();
@@ -233,11 +233,7 @@ if (suggestionBar != null) {
     suggestionBar.setVisibility(View.GONE);
 }
 
-// Hide Phrase page
-if (phrasePage != null) {
-    phrasePage.setVisibility(View.GONE);
-}
-}
+
 
 private void showEnglishPage() {
 
@@ -531,7 +527,6 @@ private void openLanguageMenu() {
     menu.getMenu().add("🇬🇧  English");
     menu.getMenu().add("🇵🇰  اردو");
     menu.getMenu().add("😀  Emoji");
-    menu.getMenu().add("📝  Phrases");
     menu.setOnMenuItemClickListener(item -> {
 
         String selected = item.getTitle().toString();
@@ -557,11 +552,7 @@ private void openLanguageMenu() {
             showEmojiPage();
             return true;
         }
-if (selected.contains("Phrases")) {
 
-    showPhrasePage();
-    return true;
-}
         return false;
     });
 
@@ -1446,28 +1437,8 @@ private void setRepeatDelete(Button button) {
 }
 
 
+
 private void deleteOne() {
-
-    if (activePhraseInput != null) {
-
-        EditText input = activePhraseInput;
-
-        int start = input.getSelectionStart();
-        int end = input.getSelectionEnd();
-
-        if (start < 0) start = input.length();
-if (end < 0) end = start;
-
-        if (start != end) {
-            input.getText().delete(
-                    Math.min(start, end),
-                    Math.max(start, end));
-        } else if (start > 0) {
-            input.getText().delete(start - 1, start);
-        }
-
-        return;
-    }
 
     InputConnection connection =
             getCurrentInputConnection();
@@ -1497,65 +1468,8 @@ if (end < 0) end = start;
     updatePredictionBar();
 }
 
-
-// SPACE - SUPPORT ALL KEYBOARD LANGUAGES
-private void setSpace() {
-
-    // Space inside Add Phrase TextBox
-    if (activePhraseInput != null) {
-
-        EditText input = activePhraseInput;
-
-        int start = input.getSelectionStart();
-        int end = input.getSelectionEnd();
-
-        if (start < 0) start = input.length();
-        if (end < 0) end = start;
-
-        input.getText().replace(
-                Math.min(start, end),
-                Math.max(start, end),
-                " "
-        );
-
-        return;
-    }
-
-    InputConnection connection =
-            getCurrentInputConnection();
-
-    if (connection == null) {
-        return;
-    }
-
-    connection.commitText(" ", 1);
-
-    updatePredictionBar();
-}
-    
-
-    // ENTER - SUPPORT ALL KEYBOARD LANGUAGES
+// ENTER - SUPPORT ALL KEYBOARD LANGUAGES
 private void setEnter() {
-
-    // New line inside Add Phrase TextBox
-    if (activePhraseInput != null) {
-
-        EditText input = activePhraseInput;
-
-        int start = input.getSelectionStart();
-        int end = input.getSelectionEnd();
-
-        if (start < 0) start = input.length();
-        if (end < 0) end = start;
-
-        input.getText().replace(
-                Math.min(start, end),
-                Math.max(start, end),
-                "\n"
-        );
-
-        return;
-    }
 
     InputConnection connection =
             getCurrentInputConnection();
@@ -1587,424 +1501,6 @@ private void setEnter() {
     updatePredictionBar();
 }
 
-private void showPhraseCategory(String category) {
 
-    currentPhraseCategory = category;
-    phrasePage.removeAllViews();
 
-    String title;
-
-    if (category.equals("greetings")) {
-        title = "👋 سلام دعا";
-    } else if (category.equals("literary")) {
-        title = "🌹 ادبي داد";
-    } else {
-        title = "🙏 احسان مڃڻ";
-    }
-
-    TextView heading = createLabel(title, phrasePage);
-    heading.setTextColor(white);
-
-    ScrollView scrollView = new ScrollView(this);
-
-    LinearLayout phraseList = new LinearLayout(this);
-    phraseList.setOrientation(LinearLayout.VERTICAL);
-    phraseList.setPadding(dp(5), dp(5), dp(5), dp(5));
-
-    scrollView.addView(phraseList);
-
-    LinearLayout.LayoutParams scrollParams =
-            new LinearLayout.LayoutParams(
-                    ViewGroup.LayoutParams.MATCH_PARENT,
-                    0, 1);
-
-    phrasePage.addView(scrollView, scrollParams);
-
-    String saved = phrasePreferences.getString(
-            currentPhraseCategory, "[]");
-
-    JSONArray phrases;
-
-    try {
-        phrases = new JSONArray(saved);
-    } catch (Exception e) {
-        phrases = new JSONArray();
-    }
-
-    for (int i = 0; i < phrases.length(); i++) {
-
-        final String phrase = phrases.optString(i);
-        final int phraseIndex = i;
-
-        LinearLayout row = new LinearLayout(this);
-        row.setOrientation(LinearLayout.HORIZONTAL);
-        row.setGravity(Gravity.CENTER_VERTICAL);
-
-        Button phraseButton = new Button(this);
-        phraseButton.setText(phrase);
-        phraseButton.setAllCaps(false);
-        phraseButton.setTextSize(16);
-        phraseButton.setTextColor(white);
-        phraseButton.setBackground(
-                makeBackground(Color.rgb(35, 85, 70), 8));
-
-        LinearLayout.LayoutParams phraseParams =
-                new LinearLayout.LayoutParams(
-                        0,
-                        ViewGroup.LayoutParams.WRAP_CONTENT,
-                        1);
-
-        phraseParams.setMargins(dp(2), dp(2), dp(2), dp(2));
-
-        row.addView(phraseButton, phraseParams);
-
-        phraseButton.setOnClickListener(v ->
-                commit(phrase + " "));
-
-        Button deleteButton = new Button(this);
-        deleteButton.setText("🗑️");
-        deleteButton.setTextSize(18);
-        deleteButton.setAllCaps(false);
-        deleteButton.setBackground(
-                makeBackground(Color.RED, 8));
-
-        LinearLayout.LayoutParams deleteParams =
-                new LinearLayout.LayoutParams(
-                        dp(48),
-                        dp(48));
-
-        deleteParams.setMargins(dp(2), dp(2), dp(2), dp(2));
-
-        row.addView(deleteButton, deleteParams);
-
-        
-
-deleteButton.setOnClickListener(v -> {
-
-    new AlertDialog.Builder(SindhiKeyboardService.this)
-            .setTitle("جملو ختم ڪريو؟")
-            .setMessage("ڇا توهان هي جملو ختم ڪرڻ چاهيو ٿا؟\n\n" + phrase)
-
-            .setPositiveButton("ها، ختم ڪريو",
-                    (dialog, which) -> {
-
-                        deletePhrase(
-                                currentPhraseCategory,
-                                phraseIndex,
-                                phrase
-                        );
-                    })
-
-            .setNegativeButton("نه", null)
-            .show();
-});
-
-        phraseList.addView(row);
-    }
-
-    Button addButton = new Button(this);
-    addButton.setText("➕ نئون جملو شامل ڪريو");
-    addButton.setAllCaps(false);
-    addButton.setTextSize(16);
-
-    phrasePage.addView(addButton);
-
-    addButton.setOnClickListener(v ->
-            showAddPhraseDialog());
-
-    Button backButton = new Button(this);
-    backButton.setText("⬅ واپس");
-    backButton.setAllCaps(false);
-
-    phrasePage.addView(backButton);
-
-    backButton.setOnClickListener(v ->
-            showPhrasePage());
-}
-
-
-    private void showPhraseOptions(
-        String phrase, int index) {
-
-    String[] options = {
-            "✏️ جملو تبديل ڪريو",
-            "🗑️ جملو ختم ڪريو"
-    };
-
-    new AlertDialog.Builder(this)
-        .setTitle(phrase)
-        .setItems(options, (dialog, which) -> {
-
-            if (which == 0) {
-                showEditPhraseDialog(phrase, index);
-
-            } else if (which == 1) {
-                deletePhrase(
-                        currentPhraseCategory,
-                        index,
-                        phrase
-                );
-            }
-
-        })
-        .setNegativeButton("واپس", null)
-        .show();
-}
-    private void showEditPhraseDialog(
-        String oldPhrase, int index) {
-
-    EditText input = new EditText(this);
-    input.setText(oldPhrase);
-    input.setSelection(input.getText().length());
-
-    new AlertDialog.Builder(this)
-            .setTitle("جملو تبديل ڪريو")
-            .setView(input)
-            .setPositiveButton("محفوظ ڪريو", (dialog, which) -> {
-
-                String newPhrase =
-                        input.getText().toString().trim();
-
-                if (!newPhrase.isEmpty()) {
-                    updatePhrase(index, newPhrase);
-                }
-            })
-            .setNegativeButton("منسوخ", null)
-            .show();
-}
-
-private void showAddPhraseDialog() {
-
-    phrasePage.removeAllViews();
-
-    TextView heading = createLabel(
-            "✍️ نئون جملو لکو", phrasePage);
-    heading.setTextColor(white);
-
-    // Keep the phrase input active without taking
-    // the keyboard window's initial focus.
-    EditText input = new EditText(this);
-    activePhraseInput = input;
-
-    input.setHint("هتي پنهنجو نئون جملو لکو...");
-    input.setTextSize(18);
-    input.setMinLines(4);
-    input.setGravity(Gravity.TOP);
-    input.setSingleLine(false);
-
-    input.setInputType(
-            android.text.InputType.TYPE_CLASS_TEXT |
-            android.text.InputType.TYPE_TEXT_FLAG_MULTI_LINE |
-            android.text.InputType.TYPE_TEXT_FLAG_CAP_SENTENCES
-    );
-
-    input.setFocusable(true);
-    input.setFocusableInTouchMode(true);
-    input.setShowSoftInputOnFocus(false);
-    input.setCursorVisible(true);
-    input.setPadding(dp(12), dp(12), dp(12), dp(12));
-    input.setBackground(makeBackground(white, 8));
-
-    input.setOnFocusChangeListener((v, hasFocus) -> {
-        if (hasFocus) {
-            activePhraseInput = input;
-        }
-    });
-
-    LinearLayout.LayoutParams inputParams =
-            new LinearLayout.LayoutParams(
-                    ViewGroup.LayoutParams.MATCH_PARENT,
-                    dp(140));
-
-    inputParams.setMargins(
-            dp(8), dp(12), dp(8), dp(12));
-
-    phrasePage.addView(input, inputParams);
-
-    Button saveButton = new Button(this);
-    saveButton.setText("💾 محفوظ ڪريو");
-    saveButton.setAllCaps(false);
-    saveButton.setTextSize(17);
-
-    phrasePage.addView(saveButton);
-
-    saveButton.setOnClickListener(v -> {
-
-        String newPhrase =
-                input.getText().toString().trim();
-
-        if (!newPhrase.isEmpty()) {
-            activePhraseInput = null;
-            saveNewPhrase(newPhrase);
-        } else {
-            input.setError("مهرباني ڪري جملو لکو");
-        }
-    });
-
-    Button backButton = new Button(this);
-    backButton.setText("⬅ واپس");
-    backButton.setAllCaps(false);
-
-    phrasePage.addView(backButton);
-
-    backButton.setOnClickListener(v -> {
-        activePhraseInput = null;
-        showPhraseCategory(currentPhraseCategory);
-    });
-
-activePhraseInput = input;
-input.setSelection(input.getText().length());
-}
-
-private void saveNewPhrase(String phrase) {
-    String saved = phrasePreferences.getString(
-            currentPhraseCategory, "[]");
-
-    JSONArray phrases;
-
-    try {
-        phrases = new JSONArray(saved);
-    } catch (Exception e) {
-        phrases = new JSONArray();
-    }
-
-    phrases.put(phrase);
-
-    phrasePreferences.edit()
-            .putString(currentPhraseCategory, phrases.toString())
-            .apply();
-
-    showPhraseCategory(currentPhraseCategory);
-}
-
-
-private void updatePhrase(int index, String newPhrase) {
-
-    String saved = phrasePreferences.getString(
-            currentPhraseCategory, "[]");
-
-    try {
-        JSONArray phrases = new JSONArray(saved);
-
-        if (index >= 0 && index < phrases.length()) {
-
-            phrases.put(index, newPhrase);
-
-            phrasePreferences.edit()
-                    .putString(
-                            currentPhraseCategory,
-                            phrases.toString())
-                    .apply();
-
-            showPhraseCategory(currentPhraseCategory);
-        }
-
-    } catch (Exception e) {
-        e.printStackTrace();
-    }
-}
-
-    private void deletePhrase(
-        String category,
-        int index,
-        String phrase) {
-
-    String saved = phrasePreferences.getString(
-            category, "[]");
-
-    try {
-        JSONArray oldArray = new JSONArray(saved);
-        JSONArray newArray = new JSONArray();
-
-        if (index < 0 || index >= oldArray.length()) {
-            return;
-        }
-
-        if (!oldArray.optString(index).equals(phrase)) {
-            return;
-        }
-
-        for (int i = 0; i < oldArray.length(); i++) {
-            if (i != index) {
-                newArray.put(oldArray.optString(i));
-            }
-        }
-
-        boolean success = phrasePreferences.edit()
-                .putString(category, newArray.toString())
-                .commit();
-
-        if (success) {
-            showPhraseCategory(category);
-
-            android.widget.Toast.makeText(
-                    this,
-                    "جملو ڪاميابيءَ سان ختم ٿيو",
-                    android.widget.Toast.LENGTH_SHORT
-            ).show();
-        }
-
-    } catch (Exception e) {
-        e.printStackTrace();
-    }
-}
-    private void addPhraseCategoryButton(
-        
-        String title, String category) {
-    Button button = new Button(this);
-
-    button.setText(title);
-    button.setTextSize(17);
-    button.setTextColor(white);
-    button.setAllCaps(false);
-    button.setBackground(
-            makeBackground(green, 8));
-
-    LinearLayout.LayoutParams params =
-            new LinearLayout.LayoutParams(
-                    ViewGroup.LayoutParams.MATCH_PARENT,
-                    dp(48));
-
-    params.setMargins(dp(4), dp(3), dp(4), dp(3));
-
-    phrasePage.addView(button, params);
-
-    button.setOnClickListener(v ->
-            showPhraseCategory(category));
-}
-    private void createPhrasePage() {
-
-    phrasePage = new LinearLayout(this);
-    phrasePage.setOrientation(LinearLayout.VERTICAL);
-    phrasePage.setBackgroundColor(green);
-    phrasePage.setVisibility(View.GONE);
-        
-    phrasePage.setLayoutParams(new LinearLayout.LayoutParams(
-        ViewGroup.LayoutParams.MATCH_PARENT,
-        ViewGroup.LayoutParams.MATCH_PARENT
-));
-    TextView title = createLabel(
-            "📝  منهنجا جملا", phrasePage);
-
-    title.setTextColor(white);
-addPhraseCategoryButton("👋  سلام دعا", "greetings");
-addPhraseCategoryButton("🌹  ادبي داد", "literary");
-addPhraseCategoryButton("🙏  احسان مڃڻ", "thanks");
-    root.addView(phrasePage, new LinearLayout.LayoutParams(
-        LinearLayout.LayoutParams.MATCH_PARENT,
-        LinearLayout.LayoutParams.WRAP_CONTENT
-));
-}
-     private void showPhrasePage() {
-
-    if (phrasePage != null) {
-        phrasePage.setVisibility(View.VISIBLE);
-    }
-
-    if (keyboard != null) {
-        keyboard.requestLayout();
-        keyboard.invalidate();
-    }
-}
- }    
-
+    
