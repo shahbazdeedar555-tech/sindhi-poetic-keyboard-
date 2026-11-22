@@ -227,12 +227,16 @@ private void hideOtherPages() {
     if (emojiPage != null)
         emojiPage.setVisibility(View.GONE);
 
-    // Hide old English predictions
-    if (suggestionBar != null) {
-        suggestionBar.removeAllViews();
-        suggestionBar.setVisibility(View.GONE);
-        if (phrasePage != null) phrasePage.setVisibility(View.GONE);
-    }
+    // Hide English predictions
+if (suggestionBar != null) {
+    suggestionBar.removeAllViews();
+    suggestionBar.setVisibility(View.GONE);
+}
+
+// Hide Phrase page
+if (phrasePage != null) {
+    phrasePage.setVisibility(View.GONE);
+}
 }
 
 private void showEnglishPage() {
@@ -474,9 +478,6 @@ if (shift2 != null) {
 private void setupNumbers() {
     // Numbers are already connected in setupPage2().
 }
-
-
-    
 
 private void createLanguageButton() {
 
@@ -1987,7 +1988,8 @@ addPhraseCategoryButton("🌹  ادبي داد", "literary");
 addPhraseCategoryButton("🙏  احسان مڃڻ", "thanks");
     root.addView(phrasePage);
 }
-private void showPhrasePage() {
+
+    private void showPhrasePage() {
 
     hideSindhiPages();
     hideOtherPages();
@@ -1995,7 +1997,11 @@ private void showPhrasePage() {
     if (phrasePage != null) {
         phrasePage.setVisibility(View.VISIBLE);
     }
+
+    if (keyboard != null) {
+        keyboard.requestLayout();
+        keyboard.invalidate();
+    }
 }
     
-} 
-    
+
