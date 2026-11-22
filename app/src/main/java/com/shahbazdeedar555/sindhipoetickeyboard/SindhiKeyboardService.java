@@ -473,6 +473,10 @@ private void setupNumbers() {
     // Numbers are already connected in setupPage2().
 }
 
+    // SPACE KEY - SUPPORT ALL LANGUAGES
+private void setSpace() {
+    commit(" ");
+}
 private void createLanguageButton() {
 
     languageButton = new Button(this);
