@@ -1223,12 +1223,14 @@ private void createSuggestionBar() {
         return;
     }
 
-    ArrayList<String> predictions =
-            new ArrayList<>(
-        SmartEnglishPrediction.getSuggestions(
-        before.toString(),
-        personalDictionary)  
-
+    
+ArrayList<String> predictions =
+        new ArrayList<>(
+                SmartEnglishPrediction.getSuggestions(
+                        before.toString(),
+                        personalDictionary
+                )
+        );
     int count = Math.min(3, predictions.size());
 
     for (int i = 0; i < count; i++) {
