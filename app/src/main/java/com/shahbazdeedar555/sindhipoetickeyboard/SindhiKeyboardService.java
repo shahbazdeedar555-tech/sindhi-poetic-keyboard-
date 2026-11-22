@@ -1997,9 +1997,6 @@ addPhraseCategoryButton("🙏  احسان مڃڻ", "thanks");
 }
      private void showPhrasePage() {
 
-    hideSindhiPages();
-    hideOtherPages();
-
     if (phrasePage != null) {
         phrasePage.setVisibility(View.VISIBLE);
     }
