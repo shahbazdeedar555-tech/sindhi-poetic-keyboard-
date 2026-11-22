@@ -1978,7 +1978,11 @@ private void updatePhrase(int index, String newPhrase) {
     phrasePage.setOrientation(LinearLayout.VERTICAL);
     phrasePage.setBackgroundColor(green);
     phrasePage.setVisibility(View.GONE);
-
+        
+    phrasePage.setLayoutParams(new LinearLayout.LayoutParams(
+        ViewGroup.LayoutParams.MATCH_PARENT,
+        ViewGroup.LayoutParams.MATCH_PARENT
+));
     TextView title = createLabel(
             "📝  منهنجا جملا", phrasePage);
 
@@ -1986,10 +1990,12 @@ private void updatePhrase(int index, String newPhrase) {
 addPhraseCategoryButton("👋  سلام دعا", "greetings");
 addPhraseCategoryButton("🌹  ادبي داد", "literary");
 addPhraseCategoryButton("🙏  احسان مڃڻ", "thanks");
-    root.addView(phrasePage);
+    root.addView(phrasePage, new LinearLayout.LayoutParams(
+        LinearLayout.LayoutParams.MATCH_PARENT,
+        LinearLayout.LayoutParams.WRAP_CONTENT
+));
 }
-
-    private void showPhrasePage() {
+     private void showPhrasePage() {
 
     hideSindhiPages();
     hideOtherPages();
