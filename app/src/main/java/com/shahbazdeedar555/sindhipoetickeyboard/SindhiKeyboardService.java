@@ -1548,8 +1548,14 @@ private void createPhrasePage() {
     thanksButton.setOnClickListener(v ->
             showPhraseList(Shukriya.PHRASES));
 
-    root.addView(phrasePage);
+    
+LinearLayout.LayoutParams phraseParams =
+        new LinearLayout.LayoutParams(
+                ViewGroup.LayoutParams.MATCH_PARENT,
+                dp(300)
+        );
 
+root.addView(phrasePage, phraseParams);
     showPhraseList(DuaSalam.PHRASES);
 }
 
