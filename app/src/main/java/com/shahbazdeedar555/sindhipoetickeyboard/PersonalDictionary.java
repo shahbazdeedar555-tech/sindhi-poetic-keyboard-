@@ -125,6 +125,31 @@ public final class PersonalDictionary extends SQLiteOpenHelper {
     /**
      * Finds learned words beginning with the supplied prefix.
      */
+
+    /**
+ * Learns individual words from a completed sentence.
+ */
+public synchronized void learnSentence(
+        String sentence, String language) {
+
+    if (sentence == null || language == null
+            || !isValidLanguage(language)) {
+        return;
+    }
+
+    String[] words = sentence.trim().split("\\s+");
+
+    for (String word : words) {
+
+        String cleaned = word.replaceAll(
+                "^[^\\p{L}\\p{N}]+|[^\\p{L}\\p{N}]+$",
+                "");
+
+        if (!cleaned.isEmpty()) {
+            learnWord(cleaned, language);
+        }
+    }
+}
     public synchronized List<String> getSuggestions(
             String prefix, String language, int limit) {
 
