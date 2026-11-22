@@ -49,8 +49,6 @@ private LinearLayout customPhraseContainer;
 private LinearLayout customPhraseSection;
 private LinearLayout phrasePage;
 private String currentPhraseCategory = "greetings";
-private EditText activePhraseInput;
-
 private boolean shiftOn = false;
 private boolean englishShift = false;
 private boolean urduSecondPage = false;
@@ -74,9 +72,6 @@ public View onCreateInputView() {
     if (personalDictionary == null) {
         personalDictionary = new PersonalDictionary(this);
     }
-
-    phrasePreferences = getSharedPreferences(
-            "literary_phrases", MODE_PRIVATE);
 
     keyboard = getLayoutInflater().inflate(
             R.layout.keyboard_view, null);
@@ -232,6 +227,7 @@ if (suggestionBar != null) {
     suggestionBar.removeAllViews();
     suggestionBar.setVisibility(View.GONE);
 }
+  }  
 
 
 
@@ -1291,29 +1287,9 @@ private void applyPrediction(String prediction) {
     
 // INSERT TEXT WITH ENGLISH AUTO CAPITALIZATION
 
-
-
 private void commit(String text) {
 
     if (text == null) return;
-
-    // Write directly inside Add Phrase TextBox
-    if (activePhraseInput != null) {
-
-        int start = activePhraseInput.getSelectionStart();
-        int end = activePhraseInput.getSelectionEnd();
-
-        if (start < 0) start = activePhraseInput.length();
-        if (end < 0) end = start;
-
-        activePhraseInput.getText().replace(
-                Math.min(start, end),
-                Math.max(start, end),
-                text
-        );
-
-        return;
-    }
 
 InputConnection connection =
         getCurrentInputConnection();
@@ -1435,8 +1411,6 @@ private void setRepeatDelete(Button button) {
         return false;
     });
 }
-
-
 
 private void deleteOne() {
 
