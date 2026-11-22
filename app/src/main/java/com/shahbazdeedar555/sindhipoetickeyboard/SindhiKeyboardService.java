@@ -21,12 +21,10 @@ import android.widget.TextView;
 import android.widget.EditText;
 import android.app.AlertDialog;
 import android.content.SharedPreferences;
-
 import org.json.JSONArray;
-
 import java.util.ArrayList;
 import java.util.Locale;
-
+import android.text.InputType;
 public class SindhiKeyboardService extends InputMethodService {
 
     private View keyboard, page1, page2;
@@ -1330,7 +1328,7 @@ if (connection == null) {
 
         if (text.equals(" ") ||
                 text.matches("[.,!?;:]")) {
-
+learnEnglishBeforeBoundary(connection, text);
             CharSequence before =
                     connection.getTextBeforeCursor(20, 0);
 
@@ -1359,6 +1357,107 @@ if (connection == null) {
 }
 
 
+
+// ==========================================
+// AUTOMATIC ENGLISH LEARNING - SAFETY
+// ==========================================
+
+private boolean isEnglishLearningAllowed() {
+
+    EditorInfo info = getCurrentInputEditorInfo();
+
+    if (info == null) return false;
+
+    int inputType = info.inputType;
+
+    int inputClass = inputType & InputType.TYPE_MASK_CLASS;
+    int variation = inputType & InputType.TYPE_MASK_VARIATION;
+
+    // Never learn from password fields
+    if (inputClass == InputType.TYPE_CLASS_TEXT) {
+
+        if (variation == InputType.TYPE_TEXT_VARIATION_PASSWORD ||
+                variation == InputType.TYPE_TEXT_VARIATION_VISIBLE_PASSWORD ||
+                variation == InputType.TYPE_TEXT_VARIATION_WEB_PASSWORD) {
+            return false;
+        }
+    }
+
+    if (inputClass == InputType.TYPE_CLASS_NUMBER &&
+            variation == InputType.TYPE_NUMBER_VARIATION_PASSWORD) {
+        return false;
+    }
+
+    return true;
+}
+
+
+// ==========================================
+// LEARN COMPLETED ENGLISH WORD AND SENTENCE
+// ==========================================
+
+private void learnEnglishBeforeBoundary(
+        InputConnection connection,
+        String boundary) {
+
+    if (connection == null || personalDictionary == null) return;
+
+    boolean englishMode =
+            (englishPage != null &&
+             englishPage.getVisibility() == View.VISIBLE) ||
+            (englishSymbolsPage != null &&
+             englishSymbolsPage.getVisibility() == View.VISIBLE);
+
+    if (!englishMode || !isEnglishLearningAllowed()) return;
+
+    CharSequence before =
+            connection.getTextBeforeCursor(500, 0);
+
+    if (before == null || before.length() == 0) return;
+
+    String text = before.toString();
+
+    // Save the completed word
+    java.util.regex.Matcher matcher =
+            java.util.regex.Pattern.compile(
+                    "([A-Za-z]+(?:['’][A-Za-z]+)*)\\s*$"
+            ).matcher(text);
+
+    if (matcher.find()) {
+
+        String word = matcher.group(1);
+
+        personalDictionary.learnWord(word, "en");
+    }
+
+    // Save a complete sentence at punctuation or Enter
+    if (boundary.equals(".") ||
+            boundary.equals("!") ||
+            boundary.equals("?") ||
+            boundary.equals("\n")) {
+
+        int lastBoundary = Math.max(
+                text.lastIndexOf('.'),
+                Math.max(
+                        text.lastIndexOf('!'),
+                        text.lastIndexOf('?')
+                )
+        );
+
+        String sentence =
+                text.substring(lastBoundary + 1).trim();
+
+        if (!sentence.isEmpty()) {
+
+            if (!boundary.equals("\n")) {
+                sentence += boundary;
+            }
+
+            personalDictionary.learnSentence(
+                    sentence, "en");
+        }
+    }
+}
 
 // CHECK WHETHER THE CURSOR IS AT SENTENCE START
 private boolean isSentenceStart(
@@ -1468,7 +1567,7 @@ private void setEnter() {
             getCurrentInputConnection();
 
     if (connection == null) return;
-
+learnEnglishBeforeBoundary(connection, "\n");
     EditorInfo info = getCurrentInputEditorInfo();
 
     if (info != null) {
