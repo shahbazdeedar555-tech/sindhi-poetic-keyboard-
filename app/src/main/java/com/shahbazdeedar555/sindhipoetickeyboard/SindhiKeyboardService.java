@@ -1341,7 +1341,7 @@ if (connection == null) {
     connection.commitText(text, 1);
     updatePredictionBar();
 }
-} 
+
 
 
 // CHECK WHETHER THE CURSOR IS AT SENTENCE START
