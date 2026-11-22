@@ -2009,5 +2009,5 @@ addPhraseCategoryButton("🙏  احسان مڃڻ", "thanks");
         keyboard.invalidate();
     }
 }
-    
+ }    
 
