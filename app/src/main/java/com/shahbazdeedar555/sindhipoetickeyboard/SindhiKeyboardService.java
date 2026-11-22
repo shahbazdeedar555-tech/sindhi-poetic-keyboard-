@@ -71,6 +71,10 @@ public View onCreateInputView() {
         personalDictionary = new PersonalDictionary(this);
     }
 
+    phrasePreferences = getSharedPreferences(
+        "custom_literary_phrases",
+        MODE_PRIVATE
+);
     keyboard = getLayoutInflater().inflate(
             R.layout.keyboard_view, null);
 
