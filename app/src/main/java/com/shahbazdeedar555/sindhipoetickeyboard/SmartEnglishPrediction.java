@@ -478,4 +478,4 @@ public static List<String> getSuggestions(
             results.subList(0, Math.min(3, results.size())));
 }
     }
-}
+
