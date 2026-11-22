@@ -46,9 +46,7 @@ public class SindhiKeyboardService extends InputMethodService {
     // Custom Literary Phrases
 private SharedPreferences phrasePreferences;
 private LinearLayout customPhraseContainer;
-private LinearLayout customPhraseSection;
 private LinearLayout phrasePage;
-private String currentPhraseCategory = "greetings";
 private boolean shiftOn = false;
 private boolean englishShift = false;
 private boolean urduSecondPage = false;
