@@ -1563,30 +1563,45 @@ private void deleteOne() {
     updatePredictionBar();
 }
 
-// ENTER - SUPPORT ALL KEYBOARD LANGUAGES
+
+// ENTER - SMART SUPPORT FOR ALL APPS
 private void setEnter() {
 
     InputConnection connection =
             getCurrentInputConnection();
 
     if (connection == null) return;
-learnEnglishBeforeBoundary(connection, "\n");
+
+    learnEnglishBeforeBoundary(connection, "\n");
+
     EditorInfo info = getCurrentInputEditorInfo();
 
-    if (info != null) {
+    if (info == null) {
+        connection.commitText("\n", 1);
+        updatePredictionBar();
+        return;
+    }
 
-        int action = info.imeOptions &
-                EditorInfo.IME_MASK_ACTION;
+    int inputType = info.inputType;
+    int inputClass = inputType & InputType.TYPE_MASK_CLASS;
+    int inputVariation =
+            inputType & InputType.TYPE_MASK_VARIATION;
 
-        if (action != EditorInfo.IME_ACTION_NONE &&
-                action != EditorInfo.IME_ACTION_UNSPECIFIED) {
+    int action = info.imeOptions &
+            EditorInfo.IME_MASK_ACTION;
 
-            connection.performEditorAction(action);
+    // Multi-line text fields should insert a new line
+    boolean isMultiLine =
+            (inputType & InputType.TYPE_TEXT_FLAG_MULTI_LINE) != 0;
 
-        } else {
+    if (isMultiLine) {
 
-            connection.commitText("\n", 1);
-        }
+        connection.commitText("\n", 1);
+
+    } else if (action != EditorInfo.IME_ACTION_NONE &&
+               action != EditorInfo.IME_ACTION_UNSPECIFIED) {
+
+        connection.performEditorAction(action);
 
     } else {
 
@@ -1595,6 +1610,7 @@ learnEnglishBeforeBoundary(connection, "\n");
 
     updatePredictionBar();
 }
+
 
 // ==========================================
 // LITERARY PHRASES PAGE
