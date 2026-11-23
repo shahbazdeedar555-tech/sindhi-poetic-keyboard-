@@ -108,9 +108,6 @@ public final class PersonalDictionary extends SQLiteOpenHelper {
                 SQLiteDatabase.CONFLICT_IGNORE);
 
         if (inserted == -1) {
-            ContentValues update = new ContentValues();
-            update.put(COL_COUNT, COL_COUNT + " + 1");
-            update.put(COL_LAST_USED, now);
 
             db.execSQL(
                     "UPDATE " + TABLE_WORDS +
