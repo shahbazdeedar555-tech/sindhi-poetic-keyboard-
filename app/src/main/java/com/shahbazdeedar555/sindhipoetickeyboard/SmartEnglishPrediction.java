@@ -8,8 +8,11 @@ import java.util.Locale;
 public final class SmartEnglishPrediction {
 
     private SmartEnglishPrediction() {
-        // Utility class
     }
+
+    // =====================================
+    // MAIN PREDICTION SYSTEM
+    // =====================================
 
     public static List<String> getSuggestions(String text) {
 
@@ -20,29 +23,22 @@ public final class SmartEnglishPrediction {
         }
 
         boolean hasTrailingSpace =
-                Character.isWhitespace(
-                        text.charAt(text.length() - 1));
+                Character.isWhitespace(text.charAt(text.length() - 1));
 
         String cleaned = text.trim();
         String[] words = cleaned.split("\\s+");
 
-        String lastWord = words[words.length - 1];
+        String current =
+                words[words.length - 1].toLowerCase(Locale.ROOT);
 
-        String previousWord = "";
+        String previous = "";
 
         if (words.length > 1) {
-            previousWord = words[words.length - 2];
+            previous = words[words.length - 2]
+                    .toLowerCase(Locale.ROOT);
         }
 
-        String current =
-                lastWord.toLowerCase(Locale.ROOT);
-
-        String previous =
-                previousWord.toLowerCase(Locale.ROOT);
-
-        // --------------------------------
         // SUBJECT PREDICTIONS
-        // --------------------------------
 
         if (!hasTrailingSpace) {
 
@@ -78,16 +74,7 @@ public final class SmartEnglishPrediction {
 
                 default:
 
-                    // --------------------------------
-                    // CONTRACTION PREDICTIONS
-                    // --------------------------------
-
-                    addContractionSuggestions(
-                            suggestions, current);
-
-                    // --------------------------------
-                    // CONTEXTUAL HELPING VERBS
-                    // --------------------------------
+                    addContractionSuggestions(suggestions, current);
 
                     if (suggestions.isEmpty()) {
 
@@ -112,17 +99,14 @@ public final class SmartEnglishPrediction {
                     }
 
                     if (suggestions.isEmpty()) {
-                        addWordCompletions(
-                                suggestions, current);
+                        addWordCompletions(suggestions, current);
                     }
 
                     break;
             }
         }
 
-        // --------------------------------
         // NEXT WORD PREDICTIONS
-        // --------------------------------
 
         else {
 
@@ -187,8 +171,6 @@ public final class SmartEnglishPrediction {
                 case "good":
                     add(suggestions, "morning", "boy", "girl");
                     break;
-
-                // Contraction next-word predictions
 
                 case "i'm":
                     add(suggestions, "happy", "fine", "ready");
@@ -258,9 +240,9 @@ public final class SmartEnglishPrediction {
         return suggestions;
     }
 
-    // --------------------------------
-    // CONTRACTION COMPLETIONS
-    // --------------------------------
+    // =====================================
+    // CONTRACTION PREDICTIONS
+    // =====================================
 
     private static void addContractionSuggestions(
             List<String> suggestions,
@@ -268,67 +250,33 @@ public final class SmartEnglishPrediction {
 
         String[] contractions = {
 
-                "I'm",
-                "I've",
-                "I'll",
-                "I'd",
+                "I'm", "I've", "I'll", "I'd",
 
-                "you're",
-                "you've",
-                "you'll",
-                "you'd",
+                "you're", "you've", "you'll", "you'd",
 
-                "we're",
-                "we've",
-                "we'll",
-                "we'd",
+                "we're", "we've", "we'll", "we'd",
 
-                "they're",
-                "they've",
-                "they'll",
-                "they'd",
+                "they're", "they've", "they'll", "they'd",
 
-                "he's",
-                "he'll",
-                "he'd",
+                "he's", "he'll", "he'd",
 
-                "she's",
-                "she'll",
-                "she'd",
+                "she's", "she'll", "she'd",
 
-                "it's",
-                "it'll",
+                "it's", "it'll",
 
-                "isn't",
-                "aren't",
-                "wasn't",
-                "weren't",
+                "isn't", "aren't", "wasn't", "weren't",
 
-                "haven't",
-                "hasn't",
-                "hadn't",
+                "haven't", "hasn't", "hadn't",
 
-                "don't",
-                "doesn't",
-                "didn't",
+                "don't", "doesn't", "didn't",
 
-                "can't",
-                "couldn't",
-                "won't",
-                "wouldn't",
-                "shouldn't",
-                "mustn't",
+                "can't", "couldn't", "won't",
+                "wouldn't", "shouldn't", "mustn't",
 
-                "that's",
-                "there's",
-                "what's",
-                "who's",
-                "where's",
-                "when's",
-                "how's",
+                "that's", "there's", "what's",
+                "who's", "where's", "when's", "how's",
 
-                "whoever's",
-                "whichever's"
+                "whoever's", "whichever's"
         };
 
         for (String contraction : contractions) {
@@ -346,9 +294,9 @@ public final class SmartEnglishPrediction {
         }
     }
 
-    // --------------------------------
+    // =====================================
     // ADD SUGGESTIONS
-    // --------------------------------
+    // =====================================
 
     private static void add(
             List<String> list,
@@ -356,7 +304,7 @@ public final class SmartEnglishPrediction {
 
         for (String value : values) {
 
-            if (!list.contains(value)
+            if (!containsIgnoreCase(list, value)
                     && list.size() < 3) {
 
                 list.add(value);
@@ -364,118 +312,285 @@ public final class SmartEnglishPrediction {
         }
     }
 
-    // --------------------------------
-    // BASIC WORD COMPLETIONS
-    // --------------------------------
+    private static boolean containsIgnoreCase(
+            List<String> list,
+            String value) {
+
+        for (String item : list) {
+            if (item.equalsIgnoreCase(value)) {
+                return true;
+            }
+        }
+
+        return false;
+    }
+
+    // =====================================
+    // ENGLISH WORD DATABASE
+    // =====================================
+
+    private static final String[] COMMON_WORDS = {
+
+        "about", "above", "after", "again", "against",
+        "all", "always", "also", "am", "among",
+        "an", "and", "another", "any", "are",
+        "around", "as", "ask", "at", "away",
+
+        "back", "bad", "beautiful", "beauty",
+        "because", "become", "been", "before",
+        "begin", "best", "better", "between",
+        "big", "book", "boy", "bring", "brother",
+        "but", "buy", "by",
+
+        "call", "came", "can", "cannot", "care",
+        "carry", "change", "child", "children",
+        "class", "clean", "come", "common",
+        "could", "country", "correct",
+
+        "day", "did", "different", "do", "does",
+        "doing", "done", "down", "during",
+
+        "each", "early", "easy", "eat", "education",
+        "end", "enough", "every", "example",
+        "excellent", "experience",
+
+        "face", "family", "far", "fast", "father",
+        "feel", "few", "find", "fine", "first",
+        "follow", "for", "friend", "friends",
+        "from", "full",
+
+        "game", "gave", "get", "girl", "give",
+        "go", "going", "good", "great", "green",
+        "group", "grow",
+
+        "happy", "hard", "has", "have", "he",
+        "head", "hear", "help", "her", "here",
+        "high", "him", "his", "home", "hope",
+        "house", "how",
+
+        "i", "if", "important", "in", "into",
+        "is", "it", "its",
+
+        "just", "keep", "kind", "know",
+
+        "large", "last", "learn", "leave", "left",
+        "let", "life", "like", "little", "live",
+        "long", "look", "love",
+
+        "made", "make", "man", "many", "may",
+        "me", "mean", "meet", "might", "more",
+        "morning", "most", "mother", "much",
+        "must", "my",
+
+        "name", "near", "need", "never", "new",
+        "next", "nice", "night", "not", "now",
+
+        "of", "off", "often", "old", "on",
+        "once", "one", "only", "open", "or",
+        "other", "our", "out", "over",
+
+        "people", "place", "play", "please",
+        "point", "put",
+
+        "question", "quick", "quite",
+
+        "read", "really", "right", "run",
+
+        "said", "same", "school", "see", "seem",
+        "sentence", "she", "should", "show",
+        "small", "so", "some", "something",
+        "sometimes", "speak", "start", "still",
+        "student", "study", "such",
+
+        "take", "talk", "teacher", "tell", "than",
+        "thank", "thanks", "that", "the", "their",
+        "them", "then", "there", "these", "they",
+        "thing", "think", "this", "those", "three",
+        "through", "time", "to", "today", "together",
+        "too", "try",
+
+        "under", "understand", "until", "up", "us",
+        "use",
+
+        "very", "visit",
+
+        "want", "was", "watch", "way", "we",
+        "well", "were", "what", "when", "where",
+        "which", "while", "who", "why", "will",
+        "with", "without", "word", "work", "world",
+        "write",
+
+        "yes", "yet", "you", "young", "your"
+    };
+
+    // =====================================
+    // WORD COMPLETION + SPELLING CORRECTION
+    // =====================================
 
     private static void addWordCompletions(
             List<String> suggestions,
             String prefix) {
 
-        String[] commonWords = {
+        if (prefix.isEmpty()) {
+            return;
+        }
 
-                "hello",
-                "help",
-                "happy",
-                "have",
-                "here",
-                "home",
-                "good",
-                "great",
-                "going",
-                "get",
-                "give",
-                "know",
-                "like",
-                "love",
-                "learn",
-                "look",
-                "make",
-                "morning",
-                "name",
-                "nice",
-                "please",
-                "people",
-                "school",
-                "student",
-                "teacher",
-                "thank",
-                "thanks",
-                "this",
-                "that",
-                "there",
-                "what",
-                "when",
-                "where",
-                "which",
-                "who",
-                "why",
-                "yes",
-                "your"
-        };
+        // FIRST: NORMAL WORD COMPLETION
 
-        if (prefix.isEmpty()) return;
-
-        for (String word : commonWords) {
+        for (String word : COMMON_WORDS) {
 
             if (word.startsWith(prefix)
-                    && !word.equals(prefix)) {
+                    && !word.equalsIgnoreCase(prefix)) {
 
                 add(suggestions, word);
             }
 
             if (suggestions.size() >= 3) {
-    break;
-}
-
-}
-}
-
-public static List<String> getSuggestions(
-        String text,
-        PersonalDictionary dictionary) {
-
-    List<String> results = new ArrayList<>();
-
-    // Old Smart Predictions first
-    results.addAll(getSuggestions(text));
-
-    // New Personal Dictionary predictions later
-    if (text != null && !text.isEmpty()
-            && !Character.isWhitespace(
-                    text.charAt(text.length() - 1))
-            && dictionary != null) {
-
-        String trimmed = text.trim();
-        int lastSpace = trimmed.lastIndexOf(' ');
-        String prefix = trimmed.substring(lastSpace + 1);
-
-        if (!prefix.isEmpty()) {
-            List<String> learned =
-                    dictionary.getSuggestions(
-                            prefix,
-                            PersonalDictionary.ENGLISH,
-                            3);
-
-            for (String word : learned) {
-                boolean exists = false;
-
-                for (String item : results) {
-                    if (item.equalsIgnoreCase(word)) {
-                        exists = true;
-                        break;
-                    }
-                }
-
-                if (!exists) {
-                    results.add(word);
-                }
+                return;
             }
+        }
+
+        // SECOND: SPELLING CORRECTION
+
+        if (suggestions.isEmpty() && prefix.length() >= 3) {
+
+            addSpellingCorrections(suggestions, prefix);
         }
     }
 
-    return new ArrayList<>(
-            results.subList(0, Math.min(3, results.size())));
-}
+    // =====================================
+    // SPELLING CORRECTION ENGINE
+    // =====================================
+
+    private static void addSpellingCorrections(
+            List<String> suggestions,
+            String typedWord) {
+
+        List<String> candidates = new ArrayList<>();
+        List<Integer> distances = new ArrayList<>();
+
+        for (String word : COMMON_WORDS) {
+
+            if (word.equalsIgnoreCase(typedWord)) {
+                continue;
+            }
+
+            // Ignore words with very different lengths
+
+            if (Math.abs(word.length() - typedWord.length()) > 2) {
+                continue;
+            }
+
+            int distance = editDistance(typedWord, word);
+
+            // Accept only close spelling matches
+
+            if (distance <= 2) {
+
+                int position = 0;
+
+                while (position < distances.size()
+                        && distances.get(position) <= distance) {
+                    position++;
+                }
+
+                candidates.add(position, word);
+                distances.add(position, distance);
+
+                if (candidates.size() > 3) {
+                    candidates.remove(3);
+                    distances.remove(3);
+                }
+            }
+        }
+
+        for (String candidate : candidates) {
+            add(suggestions, candidate);
+        }
     }
 
+    // =====================================
+    // LEVENSHTEIN EDIT DISTANCE
+    // =====================================
+
+    private static int editDistance(
+            String first,
+            String second) {
+
+        int m = first.length();
+        int n = second.length();
+
+        int[][] dp = new int[m + 1][n + 1];
+
+        for (int i = 0; i <= m; i++) {
+            dp[i][0] = i;
+        }
+
+        for (int j = 0; j <= n; j++) {
+            dp[0][j] = j;
+        }
+
+        for (int i = 1; i <= m; i++) {
+
+            for (int j = 1; j <= n; j++) {
+
+                int cost = first.charAt(i - 1)
+                        == second.charAt(j - 1) ? 0 : 1;
+
+                int deletion = dp[i - 1][j] + 1;
+                int insertion = dp[i][j - 1] + 1;
+                int substitution = dp[i - 1][j - 1] + cost;
+
+                dp[i][j] = Math.min(
+                        Math.min(deletion, insertion),
+                        substitution);
+            }
+        }
+
+        return dp[m][n];
+    }
+
+    // =====================================
+    // PERSONAL DICTIONARY INTEGRATION
+    // =====================================
+
+    public static List<String> getSuggestions(
+            String text,
+            PersonalDictionary dictionary) {
+
+        List<String> results = new ArrayList<>();
+
+        results.addAll(getSuggestions(text));
+
+        if (text != null && !text.isEmpty()
+                && !Character.isWhitespace(
+                        text.charAt(text.length() - 1))
+                && dictionary != null) {
+
+            String trimmed = text.trim();
+            int lastSpace = trimmed.lastIndexOf(' ');
+
+            String prefix = trimmed.substring(lastSpace + 1);
+
+            if (!prefix.isEmpty()) {
+
+                List<String> learned =
+                        dictionary.getSuggestions(
+                                prefix,
+                                PersonalDictionary.ENGLISH,
+                                3);
+
+                for (String word : learned) {
+
+                    if (!containsIgnoreCase(results, word)
+                            && results.size() < 3) {
+
+                        results.add(word);
+                    }
+                }
+            }
+        }
+
+        return results;
+    }
+}
