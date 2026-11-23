@@ -689,6 +689,7 @@ private void createEnglishSymbolsPage() {
 // ENGLISH KEY ROW
 // =====================================================
 
+
 private void addEnglishRow(LinearLayout parent, String... keys) {
 
     LinearLayout row = new LinearLayout(this);
@@ -714,7 +715,6 @@ private void addEnglishRow(LinearLayout parent, String... keys) {
 
     parent.addView(row);
 }
-
 
 // =====================================================
 // CREATE ENGLISH BUTTON
