@@ -1311,6 +1311,78 @@ private void applyPrediction(String prediction) {
     updatePredictionBar();
 }
 
+private void learnSindhiBeforeBoundary(
+        InputConnection connection,
+        String boundary) {
+
+    if (connection == null || personalDictionary == null) return;
+
+    // Only learn when Sindhi keyboard is active
+    boolean sindhiMode =
+            (page1 != null && page1.getVisibility() == View.VISIBLE) ||
+            (page2 != null && page2.getVisibility() == View.VISIBLE);
+
+    if (!sindhiMode) return;
+
+    CharSequence before =
+            connection.getTextBeforeCursor(500, 0);
+
+    if (before == null || before.length() == 0) return;
+
+    String text = before.toString();
+
+    // Learn the completed Sindhi word
+    java.util.regex.Matcher matcher =
+            java.util.regex.Pattern.compile(
+                    "([\\p{L}\\p{M}]+)\\s*$"
+            ).matcher(text);
+
+    if (matcher.find()) {
+        String word = matcher.group(1);
+        personalDictionary.learnWord(
+                word, PersonalDictionary.SINDHI);
+    }
+
+    // Learn complete sentence
+    if (boundary.equals(".") ||
+            boundary.equals("!") ||
+            boundary.equals("؟") ||
+            boundary.equals("?") ||
+            boundary.equals("،") ||
+            boundary.equals("۔") ||
+            boundary.equals("\n")) {
+
+        int lastBoundary = Math.max(
+                text.lastIndexOf('۔'),
+                Math.max(
+                        text.lastIndexOf('؟'),
+                        Math.max(
+                                text.lastIndexOf('.'),
+                                Math.max(
+                                        text.lastIndexOf('!'),
+                                        text.lastIndexOf('?')
+                                )
+                        )
+                )
+        );
+
+        String sentence =
+                text.substring(lastBoundary + 1).trim();
+
+        if (!sentence.isEmpty()) {
+
+            if (!boundary.equals("\n") &&
+                    !boundary.equals(" ")) {
+                sentence += boundary;
+            }
+
+            personalDictionary.learnSentence(
+                    sentence,
+                    PersonalDictionary.SINDHI);
+        }
+    }
+}
+
     
 // INSERT TEXT WITH ENGLISH AUTO CAPITALIZATION
 
