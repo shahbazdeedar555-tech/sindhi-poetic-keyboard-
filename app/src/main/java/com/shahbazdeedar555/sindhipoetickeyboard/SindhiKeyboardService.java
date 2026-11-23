@@ -689,7 +689,6 @@ private void createEnglishSymbolsPage() {
 // ENGLISH KEY ROW
 // =====================================================
 
-
 private void addEnglishRow(LinearLayout parent, String... keys) {
 
     LinearLayout row = new LinearLayout(this);
@@ -707,14 +706,23 @@ private void addEnglishRow(LinearLayout parent, String... keys) {
                         key.equals("SHIFT") || key.equals("DELETE") ? 1.5f : 1f
                 );
 
-        params.setMargins(dpEnglish(0), dpEnglish(2),
-        dpEnglish(0), dpEnglish(2));
+        params.setMargins(
+                dpEnglish(0),
+                dpEnglish(2),
+                dpEnglish(0),
+                dpEnglish(2)
+        );
+
+        if (key.equals("DELETE")) {
+            params.topMargin = dpEnglish(5);
+        }
 
         row.addView(button, params);
     }
 
     parent.addView(row);
 }
+
 
 // =====================================================
 // CREATE ENGLISH BUTTON
