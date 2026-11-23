@@ -1199,18 +1199,25 @@ private void createSuggestionBar() {
     suggestionBar.setVisibility(View.GONE);
 }
 
-
-    private void updatePredictionBar() {
+private void updatePredictionBar() {
 
     if (suggestionBar == null) return;
 
     suggestionBar.removeAllViews();
 
     boolean englishMode =
-            englishPage != null &&
-            englishPage.getVisibility() == View.VISIBLE;
+            (englishPage != null &&
+             englishPage.getVisibility() == View.VISIBLE) ||
+            (englishSymbolsPage != null &&
+             englishSymbolsPage.getVisibility() == View.VISIBLE);
 
-    if (!englishMode) {
+    boolean sindhiMode =
+            (page1 != null &&
+             page1.getVisibility() == View.VISIBLE) ||
+            (page2 != null &&
+             page2.getVisibility() == View.VISIBLE);
+
+    if (!englishMode && !sindhiMode) {
         suggestionBar.setVisibility(View.GONE);
         return;
     }
@@ -1218,7 +1225,7 @@ private void createSuggestionBar() {
     InputConnection connection =
             getCurrentInputConnection();
 
-    if (connection == null) {
+    if (connection == null || personalDictionary == null) {
         suggestionBar.setVisibility(View.GONE);
         return;
     }
@@ -1226,19 +1233,49 @@ private void createSuggestionBar() {
     CharSequence before =
             connection.getTextBeforeCursor(100, 0);
 
-    if (before == null) {
+    if (before == null || before.length() == 0) {
         suggestionBar.setVisibility(View.GONE);
         return;
     }
 
-    
-ArrayList<String> predictions =
-        new ArrayList<>(
+    ArrayList<String> predictions;
+
+    if (sindhiMode) {
+
+        String text = before.toString();
+
+        int start = text.length();
+
+        while (start > 0 &&
+                !Character.isWhitespace(text.charAt(start - 1))) {
+            start--;
+        }
+
+        String prefix = text.substring(start);
+
+        if (prefix.isEmpty()) {
+            suggestionBar.setVisibility(View.GONE);
+            return;
+        }
+
+        predictions = new ArrayList<>(
+                personalDictionary.getSuggestions(
+                        prefix,
+                        PersonalDictionary.SINDHI,
+                        3
+                )
+        );
+
+    } else {
+
+        predictions = new ArrayList<>(
                 SmartEnglishPrediction.getSuggestions(
                         before.toString(),
                         personalDictionary
                 )
         );
+    }
+
     int count = Math.min(3, predictions.size());
 
     for (int i = 0; i < count; i++) {
