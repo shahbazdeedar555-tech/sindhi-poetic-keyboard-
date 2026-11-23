@@ -707,8 +707,8 @@ private void addEnglishRow(LinearLayout parent, String... keys) {
                         key.equals("SHIFT") || key.equals("DELETE") ? 1.5f : 1f
                 );
 
-        params.setMargins(dpEnglish(1), dpEnglish(2),
-                dpEnglish(1), dpEnglish(2));
+        params.setMargins(dpEnglish(0), dpEnglish(2),
+        dpEnglish(0), dpEnglish(2));
 
         row.addView(button, params);
     }
