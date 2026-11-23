@@ -1401,6 +1401,18 @@ if (connection == null) {
     ).show();
     return;
 }
+        boolean sindhiMode =
+            (page1 != null &&
+             page1.getVisibility() == View.VISIBLE) ||
+            (page2 != null &&
+             page2.getVisibility() == View.VISIBLE);
+
+    if (sindhiMode &&
+            (text.equals(" ") ||
+             text.matches("[.,!?؛،؟۔:]+"))) {
+
+        learnSindhiBeforeBoundary(connection, text);
+    }
     boolean englishMode =
             (englishPage != null &&
              englishPage.getVisibility() == View.VISIBLE) ||
