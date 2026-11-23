@@ -184,12 +184,15 @@ private TextView createLabel(
 }
 
     
+
 private void showPage1() {
 
     page1.setVisibility(View.VISIBLE);
     page2.setVisibility(View.GONE);
 
     hideOtherPages();
+
+    updatePredictionBar();
 }
 
 private void showPage2() {
@@ -198,7 +201,10 @@ private void showPage2() {
     page2.setVisibility(View.VISIBLE);
 
     hideOtherPages();
+
+    updatePredictionBar();
 }
+
 
 private void hideSindhiPages() {
 
