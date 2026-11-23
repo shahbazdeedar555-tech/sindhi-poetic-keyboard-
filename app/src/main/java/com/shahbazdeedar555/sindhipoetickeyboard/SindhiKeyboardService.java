@@ -1374,7 +1374,17 @@ if (!isEnglishLearningAllowed()) return;
 
     String text = before.toString();
 
-    // Learn the completed Sindhi word
+    // Learn individual word only when sentence is not ending
+boolean sentenceEnding =
+        boundary.equals(".") ||
+        boundary.equals("!") ||
+        boundary.equals("؟") ||
+        boundary.equals("?") ||
+        boundary.equals("۔") ||
+        boundary.equals("\n");
+         boundary.equals("،") ||
+if (!sentenceEnding) {
+
     java.util.regex.Matcher matcher =
             java.util.regex.Pattern.compile(
                     "([\\p{L}\\p{M}]+)\\s*$"
@@ -1382,9 +1392,11 @@ if (!isEnglishLearningAllowed()) return;
 
     if (matcher.find()) {
         String word = matcher.group(1);
+
         personalDictionary.learnWord(
                 word, PersonalDictionary.SINDHI);
     }
+}
 
     // Learn complete sentence
     if (boundary.equals(".") ||
@@ -1414,15 +1426,15 @@ if (!isEnglishLearningAllowed()) return;
 
         if (!sentence.isEmpty()) {
 
-            if (!boundary.equals("\n") &&
-                    !boundary.equals(" ")) {
-                sentence += boundary;
-            }
+    if (!boundary.equals("\n") &&
+            !boundary.equals(" ")) {
+        sentence += boundary;
+    }
 
-            personalDictionary.learnSentence(
-                    sentence,
-                    PersonalDictionary.SINDHI);
-        }
+    personalDictionary.learnSentence(
+            sentence,
+            PersonalDictionary.SINDHI);
+}
     }
 }
 
