@@ -1380,9 +1380,10 @@ boolean sentenceEnding =
         boundary.equals("!") ||
         boundary.equals("؟") ||
         boundary.equals("?") ||
+        boundary.equals("،") ||
         boundary.equals("۔") ||
         boundary.equals("\n");
-         boundary.equals("،") ||
+
 if (!sentenceEnding) {
 
     java.util.regex.Matcher matcher =
@@ -1397,7 +1398,6 @@ if (!sentenceEnding) {
                 word, PersonalDictionary.SINDHI);
     }
 }
-
     // Learn complete sentence
     if (boundary.equals(".") ||
             boundary.equals("!") ||
