@@ -1323,7 +1323,7 @@ private void learnSindhiBeforeBoundary(
             (page2 != null && page2.getVisibility() == View.VISIBLE);
 
     if (!sindhiMode) return;
-
+if (!isEnglishLearningAllowed()) return;
     CharSequence before =
             connection.getTextBeforeCursor(500, 0);
 
