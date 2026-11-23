@@ -1665,6 +1665,7 @@ private void setEnter() {
     if (connection == null) return;
 
     learnEnglishBeforeBoundary(connection, "\n");
+    learnSindhiBeforeBoundary(connection, "\n");
 
     EditorInfo info = getCurrentInputEditorInfo();
 
