@@ -284,8 +284,7 @@
 
         </LinearLayout>
 
-        
-<!-- ROW 7 : SHORT BACK ARROW -->
+<!-- ROW 7 : BACK ARROW + SPACE -->
 
 <LinearLayout
     android:layout_width="match_parent"
@@ -301,9 +300,15 @@
         android:text="←"
         style="@style/KeyboardButton"/>
 
+    <Button
+        android:id="@+id/key_space2"
+        android:layout_width="0dp"
+        android:layout_height="36dp"
+        android:layout_weight="1"
+        android:text="SPACE"
+        style="@style/KeyboardButton"/>
+
+</LinearLayout>
+</LinearLayout>
 </LinearLayout>
 
-     </LinearLayout>
-
-</LinearLayout>
-   
