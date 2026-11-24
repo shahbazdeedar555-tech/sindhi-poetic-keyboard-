@@ -124,25 +124,6 @@
 
         </LinearLayout>
 
-        <!-- ROW 6 : DIACRITICS -->
-
-        <LinearLayout
-            android:layout_width="match_parent"
-            android:layout_height="48dp"
-            android:orientation="horizontal"
-            android:layoutDirection="rtl">
-
-            <Button android:id="@+id/key_zabar1" android:text="َ" style="@style/KeyboardButton"/>
-            <Button android:id="@+id/key_zer1" android:text="ِ" style="@style/KeyboardButton"/>
-            <Button android:id="@+id/key_pesh1" android:text="ُ" style="@style/KeyboardButton"/>
-            <Button android:id="@+id/key_shadd1" android:text="ّ" style="@style/KeyboardButton"/>
-            <Button android:id="@+id/key_jazm1" android:text="ْ" style="@style/KeyboardButton"/>
-            <Button android:id="@+id/key_alif_khanjari1" android:text="ٰ" style="@style/KeyboardButton"/>
-            <Button android:id="@+id/key_alif_khanjari2" android:text="_" style="@style/KeyboardButton"/>
-            <Button android:id="@+id/key_alif_khanjari3" android:text="ٗ" style="@style/KeyboardButton"/>
-
-        </LinearLayout>
-
         <!-- ROW 7 : CONTROLS -->
 
         <LinearLayout
