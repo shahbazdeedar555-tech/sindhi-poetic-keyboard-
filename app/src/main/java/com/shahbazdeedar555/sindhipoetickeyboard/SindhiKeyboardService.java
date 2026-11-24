@@ -353,15 +353,6 @@ private void setupPage1() {
     setKey(R.id.key_waw_hamza, "ؤ");
     setKey(R.id.key_teh_marbuta, "ة");
 
-    // ROW 6 : DIACRITICS
-    setKey(R.id.key_zabar1, "َ");
-    setKey(R.id.key_zer1, "ِ");
-    setKey(R.id.key_pesh1, "ُ");
-    setKey(R.id.key_shadd1, "ّ");
-    setKey(R.id.key_jazm1, "ْ");
-    setKey(R.id.key_alif_khanjari1, "ٰ");
-    setKey(R.id.key_alif_khanjari2, "_");
-    setKey(R.id.key_alif_khanjari3, "ٗ");
     
 // SHIFT: PAGE 1 TO PAGE 2
 Button shift1 = keyboard.findViewById(
