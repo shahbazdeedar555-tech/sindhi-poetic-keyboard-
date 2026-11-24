@@ -442,32 +442,17 @@ private void setupPage2() {
     setKey(R.id.key_alif_khanjari2d, "ٗ");
 
     
-    // CONTROLS
+    // BACK ARROW: PAGE 2 TO PAGE 1
 
-    // SHIFT: PAGE 2 TO PAGE 1
-Button shift2 = keyboard.findViewById(
-        R.id.key_shift_bottom2);
+    Button backPage1 = keyboard.findViewById(
+            R.id.key_back_page1);
 
-if (shift2 != null) {
-    shift2.setOnClickListener(v -> {
-        showPage1();
-    });
-}
+    if (backPage1 != null) {
+        backPage1.setOnClickListener(v -> {
+            showPage1();
+        });
+    }
 
-    // DELETE
-    Button delete2 = keyboard.findViewById(
-            R.id.key_delete_bottom2);
-
-    setRepeatDelete(delete2);
-
-    // SPACE
-    keyboard.findViewById(R.id.key_space_bottom2)
-            .setOnClickListener(v -> setSpace());
-
-    
-    // ENTER
-    keyboard.findViewById(R.id.key_enter_bottom2)
-            .setOnClickListener(v -> setEnter());
 }
 
 
