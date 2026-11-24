@@ -441,7 +441,7 @@ private void setupPage2() {
     setKey(R.id.key_alif_khanjari2c, "ٖ");
     setKey(R.id.key_alif_khanjari2d, "ٗ");
 
-    
+ 
     // BACK ARROW: PAGE 2 TO PAGE 1
 
     Button backPage1 = keyboard.findViewById(
@@ -453,8 +453,16 @@ private void setupPage2() {
         });
     }
 
-}
+    // SPACE BUTTON: PAGE 2
 
+    Button space2 = keyboard.findViewById(
+            R.id.key_space2);
+
+    if (space2 != null) {
+        space2.setOnClickListener(v -> setSpace());
+    }
+
+}
 
 // SETUP NUMBERS
 private void setupNumbers() {
