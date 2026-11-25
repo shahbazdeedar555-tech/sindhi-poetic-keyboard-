@@ -65,14 +65,16 @@
     </style>
 
      
-    
-<!-- PAGE 2 : NARROW KEY -->
+    <!-- PAGE 2 : EXTRA NARROW KEY -->
 
 <style name="KeyboardButtonNarrow"
     parent="KeyboardButton">
 
     <item name="android:layout_width">0dp</item>
-    <item name="android:layout_weight">0.60</item>
+    <item name="android:layout_weight">0.45</item>
+    <item name="android:minWidth">0dp</item>
+    <item name="android:paddingLeft">0dp</item>
+    <item name="android:paddingRight">0dp</item>
 
 </style>
 
