@@ -191,7 +191,8 @@
 
         </LinearLayout>
 
-        <!-- ROW 2 -->
+        
+<!-- ROW 2 -->
 
 <LinearLayout
     android:layout_width="match_parent"
@@ -199,16 +200,30 @@
     android:orientation="horizontal"
     android:layoutDirection="rtl">
 
-    <Button android:id="@+id/s13" android:text="۽" style="@style/KeyboardButtonNarrow"/>
-    <Button android:id="@+id/s14" android:text="ح" style="@style/KeyboardButtonNarrow"/>
-    <Button android:id="@+id/s15" android:text="گھ" style="@style/KeyboardButtonNarrow"/>
-    <Button android:id="@+id/s17" android:text="ڊ" style="@style/KeyboardButtonNarrow"/>
-    <Button android:id="@+id/s24" android:text="ش" style="@style/KeyboardButtonNarrow"/>
-    <Button android:id="@+id/s25" android:text="آ" style="@style/KeyboardButtonNarrow"/>
+    <LinearLayout
+        android:layout_width="0dp"
+        android:layout_height="match_parent"
+        android:layout_weight="1"
+        android:orientation="horizontal"
+        android:layoutDirection="rtl">
+
+        <Button android:id="@+id/s13" android:text="۽" style="@style/KeyboardButton"/>
+        <Button android:id="@+id/s14" android:text="ح" style="@style/KeyboardButton"/>
+        <Button android:id="@+id/s15" android:text="گھ" style="@style/KeyboardButton"/>
+        <Button android:id="@+id/s17" android:text="ڊ" style="@style/KeyboardButton"/>
+        <Button android:id="@+id/s24" android:text="ش" style="@style/KeyboardButton"/>
+        <Button android:id="@+id/s25" android:text="آ" style="@style/KeyboardButton"/>
+
+    </LinearLayout>
+
+    <View
+        android:layout_width="0dp"
+        android:layout_height="1dp"
+        android:layout_weight="1"/>
 
 </LinearLayout>
 
-        
+
 <!-- ROW 3 : EXTRA LETTERS -->
 
 <LinearLayout
@@ -217,14 +232,31 @@
     android:orientation="horizontal"
     android:layoutDirection="rtl">
 
-    <Button android:id="@+id/s18" android:text="۾" style="@style/KeyboardButtonNarrow"/>
-    <Button android:id="@+id/s19" android:text="ڻ" style="@style/KeyboardButtonNarrow"/>
-    <Button android:id="@+id/s20" android:text="ٻ" style="@style/KeyboardButtonNarrow"/>
-    <Button android:id="@+id/s21" android:text="ء" style="@style/KeyboardButtonNarrow"/>
-    <Button android:id="@+id/s22" android:text="ظ" style="@style/KeyboardButtonNarrow"/>
-    <Button android:id="@+id/s23" android:text="ذ" style="@style/KeyboardButtonNarrow"/>
+    <LinearLayout
+        android:layout_width="0dp"
+        android:layout_height="match_parent"
+        android:layout_weight="1"
+        android:orientation="horizontal"
+        android:layoutDirection="rtl">
+
+        <Button android:id="@+id/s18" android:text="۾" style="@style/KeyboardButton"/>
+        <Button android:id="@+id/s19" android:text="ڻ" style="@style/KeyboardButton"/>
+        <Button android:id="@+id/s20" android:text="ٻ" style="@style/KeyboardButton"/>
+        <Button android:id="@+id/s21" android:text="ء" style="@style/KeyboardButton"/>
+        <Button android:id="@+id/s22" android:text="ظ" style="@style/KeyboardButton"/>
+        <Button android:id="@+id/s23" android:text="ذ" style="@style/KeyboardButton"/>
+
+    </LinearLayout>
+
+    <View
+        android:layout_width="0dp"
+        android:layout_height="1dp"
+        android:layout_weight="1"/>
 
 </LinearLayout>
+
+
+    
         <!-- ROW 4 : NUMBERS 0-9 -->
 
         <LinearLayout
