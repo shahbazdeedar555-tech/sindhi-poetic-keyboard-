@@ -48,7 +48,7 @@
 
         <LinearLayout
             android:layout_width="match_parent"
-            android:layout_height="48dp"
+            android:layout_height="36dp"
             android:orientation="horizontal"
             android:layoutDirection="rtl">
 
@@ -63,9 +63,9 @@
             <Button android:id="@+id/key_fay" android:text="ف" style="@style/KeyboardButton"/>
             <Button android:id="@+id/key_dal" android:text="د" style="@style/KeyboardButton"/>
             <Button android:id="@+id/key_seen" android:text="س" style="@style/KeyboardButton"/>
-            <Button android:id="@+id/key_alif" android:text="ا" style="@style/KeyboardButton"/>
+            </LinearLayout>
 
-        </LinearLayout>
+        <Button android:id="@+id/key_alif" android:text="ا" style="@style/KeyboardButtonRow2"/>
 
         <!-- ROW 3 -->
 
