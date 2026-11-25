@@ -65,19 +65,35 @@
     </style>
 
      
+    
     <!-- PAGE 2 : EXTRA NARROW KEY -->
 
-<style name="KeyboardButtonNarrow"
-    parent="KeyboardButton">
+    <style name="KeyboardButtonNarrow"
+        parent="KeyboardButton">
 
-    <item name="android:layout_width">0dp</item>
-    <item name="android:layout_weight">0.45</item>
-    <item name="android:minWidth">0dp</item>
-    <item name="android:paddingLeft">0dp</item>
-    <item name="android:paddingRight">0dp</item>
+        <item name="android:layout_width">0dp</item>
+        <item name="android:layout_weight">0.45</item>
+        <item name="android:minWidth">0dp</item>
+        <item name="android:paddingLeft">0dp</item>
+        <item name="android:paddingRight">0dp</item>
 
-</style>
+    </style>
 
 
-    <!-- CONTROL KEY -->
-            </resources>
+    <!-- PAGE 1 : ROW 2 KEY -->
+
+    <style name="KeyboardButtonRow2"
+        parent="KeyboardButton">
+
+        <item name="android:layout_width">0dp</item>
+        <item name="android:layout_height">match_parent</item>
+        <item name="android:layout_weight">1</item>
+        <item name="android:textSize">22sp</item>
+        <item name="android:gravity">center</item>
+        <item name="android:paddingTop">0dp</item>
+        <item name="android:paddingBottom">0dp</item>
+
+    </style>
+
+</resources>
+
