@@ -62,10 +62,10 @@
             <Button android:id="@+id/key_gaf" android:text="گ" style="@style/KeyboardButton"/>
             <Button android:id="@+id/key_fay" android:text="ف" style="@style/KeyboardButton"/>
             <Button android:id="@+id/key_dal" android:text="د" style="@style/KeyboardButton"/>
-            <Button android:id="@+id/key_seen" android:text="س" style="@style/KeyboardButton"/>
-            </LinearLayout>
+            <Button android:id="@+id/key_seen" android:text="س" style="@style/KeyboardButtonRow2"/>
+            <Button android:id="@+id/key_alif" android:text="ا" style="@style/KeyboardButtonRow2"/>
 
-        <Button android:id="@+id/key_alif" android:text="ا" style="@style/KeyboardButtonRow2"/>
+</LinearLayout>
 
         <!-- ROW 3 -->
 
