@@ -191,7 +191,10 @@
 
         </LinearLayout>
 
-        <!-- ROW 2 + ROW 3 : COMBINED -->
+        
+
+
+<!-- ROW 2 + ROW 3 : COMBINED -->
 
 <LinearLayout
     android:layout_width="match_parent"
@@ -199,31 +202,103 @@
     android:orientation="horizontal"
     android:layoutDirection="rtl">
 
-    <View
+    <Button
+        android:id="@+id/s13"
         android:layout_width="0dp"
-        android:layout_height="1dp"
-        android:layout_weight="3"/>
+        android:layout_height="match_parent"
+        android:layout_weight="1"
+        android:text="۽"
+        style="@style/KeyboardButton"/>
 
-    <Button android:id="@+id/s13" android:text="۽" style="@style/KeyboardButton"/>
-    <Button android:id="@+id/s14" android:text="ح" style="@style/KeyboardButton"/>
-    <Button android:id="@+id/s15" android:text="گھ" style="@style/KeyboardButton"/>
-    <Button android:id="@+id/s17" android:text="ڊ" style="@style/KeyboardButton"/>
-    <Button android:id="@+id/s24" android:text="ش" style="@style/KeyboardButton"/>
-    <Button android:id="@+id/s25" android:text="آ" style="@style/KeyboardButton"/>
-    <Button android:id="@+id/s18" android:text="۾" style="@style/KeyboardButton"/>
-    <Button android:id="@+id/s19" android:text="ڻ" style="@style/KeyboardButton"/>
-    <Button android:id="@+id/s20" android:text="ٻ" style="@style/KeyboardButton"/>
-    <Button android:id="@+id/s21" android:text="ء" style="@style/KeyboardButton"/>
-    <Button android:id="@+id/s22" android:text="ظ" style="@style/KeyboardButton"/>
-    <Button android:id="@+id/s23" android:text="ذ" style="@style/KeyboardButton"/>
-
-    <View
+    <Button
+        android:id="@+id/s14"
         android:layout_width="0dp"
-        android:layout_height="1dp"
-        android:layout_weight="3"/>
+        android:layout_height="match_parent"
+        android:layout_weight="1"
+        android:text="ح"
+        style="@style/KeyboardButton"/>
+
+    <Button
+        android:id="@+id/s15"
+        android:layout_width="0dp"
+        android:layout_height="match_parent"
+        android:layout_weight="1"
+        android:text="گھ"
+        style="@style/KeyboardButton"/>
+
+    <Button
+        android:id="@+id/s17"
+        android:layout_width="0dp"
+        android:layout_height="match_parent"
+        android:layout_weight="1"
+        android:text="ڊ"
+        style="@style/KeyboardButton"/>
+
+    <Button
+        android:id="@+id/s24"
+        android:layout_width="0dp"
+        android:layout_height="match_parent"
+        android:layout_weight="1"
+        android:text="ش"
+        style="@style/KeyboardButton"/>
+
+    <Button
+        android:id="@+id/s25"
+        android:layout_width="0dp"
+        android:layout_height="match_parent"
+        android:layout_weight="1"
+        android:text="آ"
+        style="@style/KeyboardButton"/>
+
+    <Button
+        android:id="@+id/s18"
+        android:layout_width="0dp"
+        android:layout_height="match_parent"
+        android:layout_weight="1"
+        android:text="۾"
+        style="@style/KeyboardButton"/>
+
+    <Button
+        android:id="@+id/s19"
+        android:layout_width="0dp"
+        android:layout_height="match_parent"
+        android:layout_weight="1"
+        android:text="ڻ"
+        style="@style/KeyboardButton"/>
+
+    <Button
+        android:id="@+id/s20"
+        android:layout_width="0dp"
+        android:layout_height="match_parent"
+        android:layout_weight="1"
+        android:text="ٻ"
+        style="@style/KeyboardButton"/>
+
+    <Button
+        android:id="@+id/s21"
+        android:layout_width="0dp"
+        android:layout_height="match_parent"
+        android:layout_weight="1"
+        android:text="ء"
+        style="@style/KeyboardButton"/>
+
+    <Button
+        android:id="@+id/s22"
+        android:layout_width="0dp"
+        android:layout_height="match_parent"
+        android:layout_weight="1"
+        android:text="ظ"
+        style="@style/KeyboardButton"/>
+
+    <Button
+        android:id="@+id/s23"
+        android:layout_width="0dp"
+        android:layout_height="match_parent"
+        android:layout_weight="1"
+        android:text="ذ"
+        style="@style/KeyboardButton"/>
 
 </LinearLayout>
-
 
 
 
